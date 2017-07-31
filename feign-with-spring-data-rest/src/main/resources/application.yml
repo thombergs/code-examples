@@ -1,0 +1,17 @@
+server.port: 8081
+
+logging.level.com.example.demo.CustomerClient: DEBUG
+logging.level.com.example.demo.AddressClient: DEBUG
+logging.level.org.hibernate.SQL: DEBUG
+
+customers:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:8080
+
+addresses:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:8080

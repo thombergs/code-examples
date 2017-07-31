@@ -1,1 +1,3 @@
 include 'spring-data-rest-associations'
+include 'feign-with-spring-data-rest'
+
