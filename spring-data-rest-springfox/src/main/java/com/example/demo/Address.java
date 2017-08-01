@@ -1,19 +1,26 @@
-package com.example.demo.manytoone;
+package com.example.demo;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
+@ApiModel("an address")
 @Entity
-public class ManyToOneAddress {
+public class Address {
 
 	@GeneratedValue
 	@Id
+	@ApiModelProperty(hidden = true)
 	private Long id;
 
 	@Column
 	private String street;
 
 	@ManyToOne
-	private ManyToOneCustomer customer;
+	@ApiModelProperty(hidden = true)
+	private Customer customer;
 
 	public Long getId() {
 		return id;
@@ -31,11 +38,11 @@ public class ManyToOneAddress {
 		this.street = street;
 	}
 
-	public ManyToOneCustomer getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(ManyToOneCustomer customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 }
