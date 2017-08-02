@@ -20,15 +20,16 @@ sourceCompatibility = 1.8
 repositories {
 	mavenLocal()
 	mavenCentral()
+	maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 }
 
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
-	compile('io.springfox:springfox-data-rest:2.7.0')
-	compile('io.springfox:springfox-swagger2:2.7.0')
-	compile('io.springfox:springfox-swagger-ui:2.7.0')
+	compile('io.springfox:springfox-data-rest:2.7.1-SNAPSHOT')
+	compile('io.springfox:springfox-swagger2:2.7.1-SNAPSHOT')
+	compile('io.springfox:springfox-swagger-ui:2.7.1-SNAPSHOT')
 	compile('com.h2database:h2:1.4.196')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
