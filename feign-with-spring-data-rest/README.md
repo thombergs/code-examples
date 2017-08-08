@@ -3,6 +3,8 @@
 This repo contains some example code that creates a REST client using Feign
 that accesses a REST API exposed by Spring Data REST.
 
+## Companion Blog Post
+
 The companion blog post with more details can be found [here](https://reflectoring.io/accessing-spring-data-rest-with-feign/).
 
 ## Running the application

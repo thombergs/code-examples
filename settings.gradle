@@ -2,3 +2,7 @@ include 'spring-data-rest-associations'
 include 'feign-with-spring-data-rest'
 include 'spring-data-rest-springfox'
 
+// pact-feign-consumer must run before pact-spring-data-rest-provider because it creates a shared pact file
+include 'pact-feign-consumer'
+include 'pact-spring-data-rest-provider'
+
