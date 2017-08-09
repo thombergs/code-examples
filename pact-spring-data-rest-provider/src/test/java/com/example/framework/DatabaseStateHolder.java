@@ -2,6 +2,10 @@ package com.example.framework;
 
 /**
  * Holds the current database state.
+ * <p/>
+ * TODO: replace the static state variable with a thread-safe alternative. Potentially use a special HTTP header
+ * that is intercepted by a Bean defined in {@link PactDatabaseStatesAutoConfiguration} and sets the database
+ * state in a {@link ThreadLocal} variable.
  */
 public class DatabaseStateHolder {
 
