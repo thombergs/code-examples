@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = {
-        // overriding producer address
+        // overriding provider address
         "addresses.ribbon.listOfServers: localhost:8888"
 })
 public class ConsumerPactVerificationTest {
@@ -30,10 +30,10 @@ public class ConsumerPactVerificationTest {
   @Autowired
   private AddressClient addressClient;
 
-  @Pact(state = "address-collection", provider = "customerServiceProvider", consumer = "addressClient")
+  @Pact(state = "a collection of 2 addresses", provider = "customerServiceProvider", consumer = "addressClient")
   public RequestResponsePact createAddressCollectionResourcePact(PactDslWithProvider builder) {
     return builder
-            .given("address-collection")
+            .given("a collection of 2 addresses")
             .uponReceiving("a request to the address collection resource")
             .path("/addresses/")
             .method("GET")
@@ -94,10 +94,10 @@ public class ConsumerPactVerificationTest {
             .toPact();
   }
 
-  @Pact(state = "single-address", provider = "customerServiceProvider", consumer = "addressClient")
+  @Pact(state = "a single address", provider = "customerServiceProvider", consumer = "addressClient")
   public RequestResponsePact createAddressResourcePact(PactDslWithProvider builder) {
     return builder
-            .given("single-address")
+            .given("a single address")
             .uponReceiving("a request to the address resource")
             .path("/addresses/1")
             .method("GET")
@@ -122,14 +122,14 @@ public class ConsumerPactVerificationTest {
 
   @Test
   @PactVerification(fragment = "createAddressCollectionResourcePact")
-  public void addressCollectionResourcePact() {
+  public void verifyAddressCollectionPact() {
     Resources<Address> addresses = addressClient.getAddresses();
     assertThat(addresses).hasSize(2);
   }
 
   @Test
   @PactVerification(fragment = "createAddressResourcePact")
-  public void addressResourcePact() {
+  public void verifyAddressPact() {
     Resource<Address> address = addressClient.getAddress(1L);
     assertThat(address).isNotNull();
   }
