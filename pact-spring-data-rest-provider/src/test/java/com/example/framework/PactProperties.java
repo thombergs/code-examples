@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Loads the properties "pact.databaseStates.&lt;NAME&gt;" into the Spring environment.
+ */
 @ConfigurationProperties("pact")
 public class PactProperties {
 
@@ -24,7 +27,7 @@ public class PactProperties {
       // keys and moves the actual key into the value, separated by a comma. Thus, we have all entries duplicated
       // and have to remove the entries with numeric keys.
 
-      if(!stateName.matches("^[0-9]+$")) {
+      if (!stateName.matches("^[0-9]+$")) {
         String sqlScriptsString = entry.getValue();
         String[] sqlScripts = sqlScriptsString.split(",");
         databaseStatesList.add(new DatabaseState(stateName, sqlScripts));

@@ -12,6 +12,22 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <p>
+ * {@link org.springframework.boot.autoconfigure.EnableAutoConfiguration AutoConfiguration} that is activated when
+ * the pact-jvm-provider-junit module is in the classpath.
+ * </p>
+ * <p>
+ * This configuration provides a {@link DataSource} which allows to switch between multiple database states.
+ * Each database state is defined by a name and a set of SQL scripts which set the database into the desired state.
+ * The database states are configured via properties:
+ * <pre>
+ *   pact.databaseStates.&lt;NAME&gt;=/path/to/script1.sql,/path/to/script2.sql,...
+ * </pre>
+ * The NAME of the databaseState can be used with {@link DatabaseStateHolder#setCurrentDatabaseState(String)}
+ * to set the {@link DataSource} into that state.
+ * </p>
+ */
 @Configuration
 @ConditionalOnClass(PactRunner.class)
 @EnableConfigurationProperties(PactProperties.class)
