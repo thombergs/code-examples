@@ -8,8 +8,7 @@ The contract is created and verified with [Pact](https://docs.pact.io/).
 
 ## Companion Blog Post
 
-The Companion Blog Post on [https://reflectoring.io](https://reflectoring.io) will be 
-published shortly.
+The Companion Blog Post to this project can be found [here](https://reflectoring.io/consumer-driven-contracts-with-pact-feign-spring-data-rest/).
 
 ## Running the application
 
