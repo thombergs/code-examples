@@ -5,6 +5,6 @@ include 'spring-data-rest-springfox'
 // pact-feign-consumer must run before pact-spring-data-rest-provider because it creates a shared pact file
 include 'pact-feign-consumer'
 include 'pact-spring-data-rest-provider'
-include 'sleuth-primary-service'
-include 'sleuth-secondary-service'
+include 'sleuth-downstream-service'
+include 'sleuth-upstream-service'
 
