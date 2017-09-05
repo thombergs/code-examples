@@ -1,8 +1,6 @@
 server.port: 8080
 
-logging.level.com.example.demo.CustomerClient: DEBUG
-logging.level.com.example.demo.AddressClient: DEBUG
-logging.level.org.hibernate.SQL: DEBUG
+spring.zipkin.baseUrl: http://localhost:9411/
 
 customers:
   ribbon:

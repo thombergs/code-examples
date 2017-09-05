@@ -24,7 +24,7 @@ public class Controller {
 
   @GetMapping(path = "customers-with-address/{id}")
   public CustomerAndAddress getCustomerWithAddress(@PathVariable("id") long customerId){
-    logger.info("COLLECTING CUSTOMER AND ADDRESS WITH ID {} FROM SECONDARY SERVICE", customerId);
+    logger.info("COLLECTING CUSTOMER AND ADDRESS WITH ID {} FROM UPSTREAM SERVICE", customerId);
     Customer customer = customerClient.getCustomer(customerId);
     Address address = addressClient.getAddressForCustomerId(customerId);
     return new CustomerAndAddress(customer, address);
