@@ -17,7 +17,7 @@ This application implements an Event mechanism usable in Microservice environmen
 * a subscriber subscribes to events of a specific topic from 
   a queue specific to its (micro-)service 
   
-![Event scenario](event.png)
+![Event scenario](eventing_amqp.png)
 
 ## Usage
 
