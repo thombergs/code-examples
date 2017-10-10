@@ -1,0 +1,120 @@
+{
+    "provider": {
+        "name": "customerServiceProvider"
+    },
+    "consumer": {
+        "name": "addressClient"
+    },
+    "interactions": [
+        {
+            "description": "a request to the address collection resource",
+            "request": {
+                "method": "GET",
+                "path": "/addresses/"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/hal+json"
+                },
+                "body": {
+                    "_embedded": {
+                        "addresses": [
+                            {
+                                "street": "Elm Street",
+                                "_links": {
+                                    "self": {
+                                        "href": "http://localhost:8080/addresses/1"
+                                    },
+                                    "address": {
+                                        "href": "http://localhost:8080/addresses/1"
+                                    },
+                                    "customer": {
+                                        "href": "http://localhost:8080/addresses/1/customer"
+                                    }
+                                }
+                            },
+                            {
+                                "street": "High Street",
+                                "_links": {
+                                    "self": {
+                                        "href": "http://localhost:8080/addresses/2"
+                                    },
+                                    "address": {
+                                        "href": "http://localhost:8080/addresses/2"
+                                    },
+                                    "customer": {
+                                        "href": "http://localhost:8080/addresses/2/customer"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "_links": {
+                        "self": {
+                            "href": "http://localhost:8080/addresses{?page,size,sort}",
+                            "templated": true
+                        },
+                        "profile": {
+                            "href": "http://localhost:8080/profile/addresses"
+                        },
+                        "search": {
+                            "href": "http://localhost:8080/addresses/search"
+                        }
+                    },
+                    "page": {
+                        "size": 20,
+                        "totalElements": 2,
+                        "totalPages": 1,
+                        "number": 0
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "a collection of 2 addresses"
+                }
+            ]
+        },
+        {
+            "description": "a request to the address resource",
+            "request": {
+                "method": "GET",
+                "path": "/addresses/1"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/hal+json"
+                },
+                "body": {
+                    "street": "Elm Street",
+                    "_links": {
+                        "self": {
+                            "href": "http://localhost:8080/addresses/1"
+                        },
+                        "address": {
+                            "href": "http://localhost:8080/addresses/1"
+                        },
+                        "customer": {
+                            "href": "http://localhost:8080/addresses/1/customer"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "a single address"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.2"
+        }
+    }
+}

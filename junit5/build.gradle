@@ -1,0 +1,25 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
+apply plugin: 'java'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+ext {
+	springCloudVersion = 'Dalston.SR2'
+}
+
+dependencies {
+	testCompile 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+	testCompile 'junit:junit:4.12'
+}
+

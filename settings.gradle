@@ -8,4 +8,5 @@ include 'pact-spring-data-rest-provider'
 include 'sleuth-downstream-service'
 include 'sleuth-upstream-service'
 include 'rabbitmq-event-brokering'
+include 'junit5'
 
