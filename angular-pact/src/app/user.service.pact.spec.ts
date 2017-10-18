@@ -14,7 +14,7 @@ describe('UserService', () => {
       provider: 'userservice',
       web: true,
       port: 1234,
-      host: 'http://127.0.0.1',
+      host: '127.0.0.1',
       logLevel: 'DEBUG'
     });
 
@@ -61,7 +61,7 @@ describe('UserService', () => {
     beforeAll((done) => {
       provider.addInteraction({
         state: `provider accepts a new person`,
-        uponReceiving: 'a request to POST person 42',
+        uponReceiving: 'a request to POST a person',
         withRequest: {
           method: 'POST',
           path: '/user-service/users',
@@ -72,7 +72,9 @@ describe('UserService', () => {
         },
         willRespondWith: {
           status: 201,
-          body: {id: createdUserId},
+          body: Pact.Matchers.somethingLike({
+              id: createdUserId
+          }),
           headers: {
             'Content-Type': 'application/json'
           }
@@ -80,7 +82,7 @@ describe('UserService', () => {
       }).then(done, error => done.fail(error));
     });
 
-    it('should create a Branch', (done) => {
+    it('should create a Person', (done) => {
       const userService: UserService = TestBed.get(UserService);
       userService.create(expectedUser).subscribe(response => {
         expect(response).toEqual(createdUserId);

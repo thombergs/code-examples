@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "cross-env LOGLEVEL=DEBUG ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -46,7 +46,8 @@
     "tslint": "~5.7.0",
     "typescript": "~2.3.3",
     "@pact-foundation/pact-node": "~4.12",
-    "@pact-foundation/karma-pact": "~1.0",
-    "pact-web": "~3.0"
+    "@pact-foundation/karma-pact": "~2.1.0",
+    "pact-web": "~3.0",
+    "cross-env": "^5.0.5"
   }
 }
