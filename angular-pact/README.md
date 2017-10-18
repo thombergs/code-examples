@@ -1,27 +1,20 @@
-# AngularPact
+# Angular Pact example
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.4.
+This example project shows how to setup an Angular application to use [Pact](http://pact.io)
+in order to create Pact files from a consumer test and validate the
+a consumer against the Pact.
 
-## Development server
+## Key Files
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* [`user.service.ts`](src/app/user.service.ts): Angular service that calls a REST
+  backend to manage users
+* [`user.service.pact.spec.ts`](src/app/user.service.pact.spec.ts): Jasmine-based
+  consumer test of `user.service.ts`
+* [`karma.conf.js`](karma.conf.js): configuration of the Karma test runner including
+  configuration to setup Pact
 
-## Code scaffolding
+## How to Run
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `npm install` to load the needed javascript libraries and then `npm run test` to
+run the tests. After the tests have successfully run the created pact file will be
+created in the folder `pacts`. 
