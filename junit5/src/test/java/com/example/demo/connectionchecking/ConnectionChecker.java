@@ -9,7 +9,7 @@ public class ConnectionChecker {
   }
 
   public boolean connect() {
-    return true;
+    return false;
   }
 
 }
