@@ -45,7 +45,7 @@
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.3.3",
-    "@pact-foundation/pact-node": "~4.12",
+    "@pact-foundation/pact-node": "~5.1.2",
     "@pact-foundation/karma-pact": "~2.1.0",
     "pact-web": "~3.0",
     "cross-env": "^5.0.5"
