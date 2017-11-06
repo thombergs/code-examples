@@ -9,4 +9,5 @@ include 'sleuth-downstream-service'
 include 'sleuth-upstream-service'
 include 'rabbitmq-event-brokering'
 include 'junit5'
+include 'pact-spring-provider'
 
