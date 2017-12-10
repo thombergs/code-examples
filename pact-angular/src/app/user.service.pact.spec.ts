@@ -12,10 +12,8 @@ describe('UserService', () => {
     provider = Pact({
       consumer: 'ui',
       provider: 'userservice',
-      web: true,
       port: 1234,
       host: '127.0.0.1',
-      logLevel: 'DEBUG'
     });
 
     // required for slower CI environments

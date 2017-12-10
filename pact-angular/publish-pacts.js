@@ -1,15 +1,19 @@
 let projectFolder = __dirname;
 let pact = require('@pact-foundation/pact-node');
 let project = require('./package.json');
+let pactBrokerUrl = process.env.npm_package_config_brokerUrl;
+let pactBrokerUsername = process.env.npm_package_config_brokerUsername;
+let pactBrokerPassword = process.env.npm_package_config_brokerPassword;
 
 let options = {
-  pactUrls: [projectFolder + '/pacts'],
-  pactBroker: 'https://adesso.pact.dius.com.au/',
+  pactFilesOrDirs: [projectFolder + '/pacts'],
+  pactBroker: pactBrokerUrl,
   consumerVersion: project.version,
   tags: ['latest'],
-  pactBrokerUsername: 'Vm6YWrQURJ1T7mDIRiKwfexCAc4HbU',
-  pactBrokerPassword: 'aLerJwBhpEcN0Wm88Wgvs45AR9dXpc'
+  pactBrokerUsername: pactBrokerUsername,
+  pactBrokerPassword: pactBrokerPassword
 };
+
 
 pact.publishPacts(options).then(function () {
   console.log("Pacts successfully published!");
