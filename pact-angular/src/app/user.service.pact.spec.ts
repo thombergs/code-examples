@@ -92,4 +92,41 @@ describe('UserService', () => {
 
   });
 
+  describe('update()', () => {
+
+    const expectedUser: User = {
+      firstName: 'Zaphod',
+      lastName: 'Beeblebrox'
+    };
+
+    beforeAll((done) => {
+      provider.addInteraction({
+        state: `person 42 exists`,
+        uponReceiving: 'a request to PUT a person',
+        withRequest: {
+          method: 'PUT',
+          path: '/user-service/users/42',
+          body: Pact.Matchers.somethingLike(expectedUser),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        },
+        willRespondWith: {
+          status: 200,
+          body: Pact.Matchers.somethingLike(expectedUser)
+        }
+      }).then(done, error => done.fail(error));
+    });
+
+    it('should update a Person', (done) => {
+      const userService: UserService = TestBed.get(UserService);
+      userService.update(expectedUser, 42).subscribe(response => {
+        done();
+      }, error => {
+        done.fail(error);
+      });
+    });
+
+  });
+
 });

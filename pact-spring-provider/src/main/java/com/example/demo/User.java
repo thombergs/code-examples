@@ -44,4 +44,9 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+	public void updateFrom(User user){
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+	}
 }

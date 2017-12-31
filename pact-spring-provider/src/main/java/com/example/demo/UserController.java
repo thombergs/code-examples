@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,14 @@ public class UserController {
 		return ResponseEntity
 				.status(201)
 				.body(new IdObject(savedUser.getId()));
+	}
+
+	@PutMapping(path = "/user-service/users/{id}")
+	public ResponseEntity<User> updateUser(@RequestBody @Valid User user, @PathVariable long id) {
+		User userFromDb = userRepository.findOne(id);
+		userFromDb.updateFrom(user);
+		userFromDb = userRepository.save(userFromDb);
+		return ResponseEntity.ok(userFromDb);
 	}
 
 	@GetMapping(path = "/user-service/users/{id}")
