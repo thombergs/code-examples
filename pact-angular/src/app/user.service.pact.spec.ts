@@ -2,14 +2,14 @@ import {TestBed} from '@angular/core/testing';
 import {HttpClientModule} from '@angular/common/http';
 import {UserService} from './user.service';
 import {User} from './user';
-import * as Pact from 'pact-web';
+import {PactWeb, Matchers} from '@pact-foundation/pact-web';
 
 describe('UserService', () => {
 
   let provider;
 
   beforeAll(function (done) {
-    provider = Pact({
+    provider = new PactWeb({
       consumer: 'ui',
       provider: 'userservice',
       port: 1234,
@@ -70,7 +70,7 @@ describe('UserService', () => {
         },
         willRespondWith: {
           status: 201,
-          body: Pact.Matchers.somethingLike({
+          body: Matchers.somethingLike({
               id: createdUserId
           }),
           headers: {
@@ -106,14 +106,14 @@ describe('UserService', () => {
         withRequest: {
           method: 'PUT',
           path: '/user-service/users/42',
-          body: Pact.Matchers.somethingLike(expectedUser),
+          body: Matchers.somethingLike(expectedUser),
           headers: {
             'Content-Type': 'application/json'
           }
         },
         willRespondWith: {
           status: 200,
-          body: Pact.Matchers.somethingLike(expectedUser)
+          body: Matchers.somethingLike(expectedUser)
         }
       }).then(done, error => done.fail(error));
     });

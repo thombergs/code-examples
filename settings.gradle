@@ -10,4 +10,5 @@ include 'sleuth-upstream-service'
 include 'rabbitmq-event-brokering'
 include 'junit5'
 include 'pact-spring-provider'
+include 'spring-boot-tests'
 
