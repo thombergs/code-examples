@@ -2,6 +2,10 @@
  
 This project shows how to implement tracing in a network of Spring Boot applications.
 
+## Companion Blog Article
+The companion blog article to this repository can be found [here](https://reflectoring.io/tracing-with-spring-cloud-sleuth/).
+
+## Getting Started
 This application is a service facing the user (a "downstream" service), meaning that 
 it accesses other upstream services to provide its functionality.  
 

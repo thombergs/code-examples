@@ -2,6 +2,9 @@
  
 This application implements an Event mechanism usable in Microservice environments. 
 
+## Companion Blog Article
+The companion blog article to this repository can be found [here](https://reflectoring.io/event-messaging-with-spring-boot-and-rabbitmq/).
+
 ## Scenario
 
 * a publisher publishes events with one of these topics
