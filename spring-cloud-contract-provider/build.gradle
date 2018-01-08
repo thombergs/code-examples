@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+        maven { url "http://repo.spring.io/release" }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springboot_version}"
+        classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifier_version}"
+        classpath "org.springframework.cloud:spring-cloud-contract-spec-pact:${verifier_version}"
+        classpath 'au.com.dius:pact-jvm-model:2.4.18'
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'spring-cloud-contract'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+    maven { url "http://repo.spring.io/release" }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springboot_version}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springboot_version}")
+    compile('com.h2database:h2:1.4.196')
+    testCompile('org.codehaus.groovy:groovy-all:2.4.6')
+    testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier:${verifier_version}")
+    testCompile("org.springframework.cloud:spring-cloud-contract-spec:${verifier_version}")
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springboot_version}")
+}
+
+contracts {
+    baseClassMappings {
+        baseClassMapping(".*userservice.*", "io.reflectoring.UserServiceBase")
+    }
+}
