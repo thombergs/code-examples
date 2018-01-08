@@ -1,20 +1,19 @@
-include 'spring-data-rest-associations'
-include 'feign-with-spring-data-rest'
-include 'spring-data-rest-springfox'
+include 'spring-data:spring-data-rest-associations'
+include 'spring-data:spring-data-rest-springfox'
 
-// pact-feign-consumer must run before pact-spring-data-rest-provider because it creates a shared pact file
-include 'pact-feign-consumer'
-include 'pact-spring-data-rest-provider'
-include 'pact-spring-provider'
-include 'spring-cloud-contract-provider'
+include 'spring-cloud:feign-with-spring-data-rest'
+include 'spring-cloud:spring-cloud-contract-provider'
 
-include 'sleuth-downstream-service'
-include 'sleuth-upstream-service'
+include 'pact:pact-feign-consumer' // must run before pact-spring-data-rest-provider
+include 'pact:pact-spring-data-rest-provider'
+include 'pact:pact-spring-provider'
 
-include 'rabbitmq-event-brokering'
+include 'spring-cloud:sleuth-downstream-service'
+include 'spring-cloud:sleuth-upstream-service'
 
-include 'junit5'
+include 'spring-boot:rabbitmq-event-brokering'
 
-include 'spring-boot-tests'
+include 'junit:conditions'
+
 
 
