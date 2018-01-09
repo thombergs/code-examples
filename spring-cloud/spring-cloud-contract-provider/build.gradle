@@ -1,3 +1,5 @@
+apply plugin: 'spring-cloud-contract'
+
 buildscript {
     repositories {
         mavenCentral()
@@ -13,8 +15,6 @@ buildscript {
     }
 }
 
-apply plugin: 'groovy'
-apply plugin: 'spring-cloud-contract'
 
 repositories {
     mavenCentral()
