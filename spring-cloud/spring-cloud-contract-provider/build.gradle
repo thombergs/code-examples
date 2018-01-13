@@ -2,6 +2,7 @@ apply plugin: 'spring-cloud-contract'
 
 buildscript {
     repositories {
+        mavenLocal()
         mavenCentral()
         maven { url "http://repo.spring.io/snapshot" }
         maven { url "http://repo.spring.io/milestone" }
@@ -17,6 +18,7 @@ buildscript {
 
 
 repositories {
+    mavenLocal()
     mavenCentral()
     jcenter()
     maven { url "http://repo.spring.io/snapshot" }
