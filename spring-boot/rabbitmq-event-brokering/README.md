@@ -32,6 +32,6 @@ host than localhost then you need to change the connection properties in `applic
    * `./gradlew bootrun -Dspring.profiles.active=subscriber -Dsubscriber.queue=service3Queue -Dsubscriber.routingKey=*.*`
 1. start a single instance of the demo application in `publisher` mode:
    * `./gradlew bootrun -Dspring.profiles.active=publisher`
-1. check the log output of the publisher and the subscribes to see which events are produced and which events
+1. check the log output of the publisher and the subscribers to see which events are produced and which events
    are consumed by each subscriber
 
