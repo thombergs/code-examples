@@ -1,0 +1,23 @@
+{
+  "id" : "ca60467b-7665-4f28-b801-73d8af8125b1",
+  "request" : {
+    "url" : "/user-service/users/42",
+    "method" : "PUT",
+    "headers" : {
+      "Content-Type" : {
+        "equalTo" : "application/json"
+      }
+    },
+    "bodyPatterns" : [ {
+      "matchesJsonPath" : "$[?(@.['lastName'] == 'Beeblebrox')]"
+    }, {
+      "matchesJsonPath" : "$[?(@.['firstName'] == 'Zaphod')]"
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"firstName\":\"Zaphod\",\"lastName\":\"Beeblebrox\"}",
+    "transformers" : [ "response-template" ]
+  },
+  "uuid" : "ca60467b-7665-4f28-b801-73d8af8125b1"
+}

@@ -1,4 +1,9 @@
 apply plugin: 'spring-cloud-contract'
+apply plugin: 'maven-publish'
+
+group = 'io.reflectoring'
+version = '1.0.0'
+
 
 buildscript {
     repositories {

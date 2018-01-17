@@ -1,0 +1,9 @@
+userservice:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:9000
+
+stubrunner:
+  idsToServiceIds:
+    spring-cloud-contract-provider: userservice

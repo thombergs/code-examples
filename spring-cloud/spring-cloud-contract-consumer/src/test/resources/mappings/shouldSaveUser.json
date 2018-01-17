@@ -1,0 +1,26 @@
+{
+  "id" : "24699071-7724-459a-9e15-6d0340082230",
+  "request" : {
+    "url" : "/user-service/users",
+    "method" : "POST",
+    "headers" : {
+      "Content-Type" : {
+        "matches" : "application/json.*"
+      }
+    },
+    "bodyPatterns" : [ {
+      "matchesJsonPath" : "$[?(@.['lastName'] == 'Dent')]"
+    }, {
+      "matchesJsonPath" : "$[?(@.['firstName'] == 'Arthur')]"
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"id\":42}",
+    "headers" : {
+      "Content-Type" : "application/json"
+    },
+    "transformers" : [ "response-template" ]
+  },
+  "uuid" : "24699071-7724-459a-9e15-6d0340082230"
+}
