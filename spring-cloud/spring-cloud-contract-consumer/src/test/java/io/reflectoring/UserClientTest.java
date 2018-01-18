@@ -10,14 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureStubRunner(ids = "io.reflectoring:spring-cloud-contract-provider:+:stubs:6565", workOffline = true)
+@AutoConfigureStubRunner(ids = "io.reflectoring:user-service:+:stubs:6565", workOffline = true)
 public class UserClientTest {
 
   @Autowired
   private UserClient userClient;
 
   @Test
-  public void getUserReturnsAUser() {
+  public void createUserCompliesToContract() {
     User user = new User();
     user.setFirstName("Arthur");
     user.setLastName("Dent");
