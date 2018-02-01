@@ -13,6 +13,9 @@ include 'pact:pact-spring-provider'
 
 
 include 'spring-boot:rabbitmq-event-brokering'
+include 'spring-boot:modular:security-module'
+include 'spring-boot:modular:booking-module'
+include 'spring-boot:modular:application'
 
 include 'junit:conditions'
 

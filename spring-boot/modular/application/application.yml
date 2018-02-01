@@ -1,0 +1,4 @@
+io:
+  reflectoring:
+    security:
+      enabled: true
