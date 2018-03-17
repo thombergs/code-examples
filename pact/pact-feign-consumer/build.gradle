@@ -1,5 +1,3 @@
-apply plugin: 'org.springframework.boot'
-
 buildscript {
     repositories {
         mavenLocal()
@@ -10,6 +8,13 @@ buildscript {
     }
 }
 
+plugins {
+    id "au.com.dius.pact" version "3.5.13"
+}
+
+apply plugin: 'org.springframework.boot'
+
+version '1.0.0.SNAPSHOT'
 
 repositories {
     mavenLocal()
@@ -24,4 +29,13 @@ dependencies {
     testCompile('org.codehaus.groovy:groovy-all:2.4.6')
     testCompile("au.com.dius:pact-jvm-consumer-junit_2.11:3.5.2")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springboot_version}")
+}
+
+pact {
+    publish {
+        pactDirectory = 'target/pacts'
+        pactBrokerUrl = 'URL'
+        pactBrokerUsername = 'USERNAME'
+        pactBrokerPassword = 'PASSWORD'
+    }
 }

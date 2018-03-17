@@ -27,7 +27,7 @@ public class UserServiceConsumerTest {
   @Autowired
   private UserClient userClient;
 
-  @Pact(state = "provider accepts a new person", provider = "userservice", consumer = "userclient")
+  @Pact(provider = "userservice", consumer = "userclient")
   public RequestResponsePact createPersonPact(PactDslWithProvider builder) {
     return builder
             .given("provider accepts a new person")
@@ -42,19 +42,19 @@ public class UserServiceConsumerTest {
             .toPact();
   }
 
-  @Pact(state = "person 42 exists", provider = "userservice", consumer = "userclient")
+  @Pact(provider = "userservice", consumer = "userclient")
   public RequestResponsePact updatePersonPact(PactDslWithProvider builder) {
     return builder
             .given("person 42 exists")
             .uponReceiving("a request to PUT a person")
-            .path("/user-service/users/42")
-            .method("PUT")
+              .path("/user-service/users/42")
+              .method("PUT")
             .willRespondWith()
-            .status(200)
-            .matchHeader("Content-Type", "application/json")
-            .body(new PactDslJsonBody()
-                    .stringType("firstName", "Zaphod")
-                    .stringType("lastName", "Beeblebrox"))
+              .status(200)
+              .matchHeader("Content-Type", "application/json")
+              .body(new PactDslJsonBody()
+                      .stringType("firstName", "Zaphod")
+                      .stringType("lastName", "Beeblebrox"))
             .toPact();
   }
 
