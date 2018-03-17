@@ -1,0 +1,27 @@
+apply plugin: 'org.springframework.boot'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springboot_version}"
+    }
+}
+
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springboot_version}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springboot_version}")
+    compile("org.springframework.cloud:spring-cloud-starter-feign:1.4.1.RELEASE")
+    compile('com.h2database:h2:1.4.196')
+    testCompile('org.codehaus.groovy:groovy-all:2.4.6')
+    testCompile("au.com.dius:pact-jvm-consumer-junit_2.11:3.5.2")
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springboot_version}")
+}

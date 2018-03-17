@@ -1,3 +1,9 @@
+userservice:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:8080
+
 stubrunner:
   idsToServiceIds:
     user-service: userservice

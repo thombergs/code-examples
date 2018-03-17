@@ -10,6 +10,7 @@ include 'spring-cloud:spring-cloud-contract-consumer'
 include 'deprecated:pact-feign-consumer' // must run before pact-spring-data-rest-provider
 include 'deprecated:pact-spring-data-rest-provider'
 include 'pact:pact-spring-provider'
+include 'pact:pact-feign-consumer'
 
 
 include 'spring-boot:rabbitmq-event-brokering'
