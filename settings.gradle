@@ -7,8 +7,8 @@ include 'spring-cloud:sleuth-upstream-service'
 include 'spring-cloud:spring-cloud-contract-provider'
 include 'spring-cloud:spring-cloud-contract-consumer'
 
-include 'pact:pact-feign-consumer' // must run before pact-spring-data-rest-provider
-include 'pact:pact-spring-data-rest-provider'
+include 'deprecated:pact-feign-consumer' // must run before pact-spring-data-rest-provider
+include 'deprecated:pact-spring-data-rest-provider'
 include 'pact:pact-spring-provider'
 
 

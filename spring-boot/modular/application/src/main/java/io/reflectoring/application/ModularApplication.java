@@ -1,12 +1,11 @@
 package io.reflectoring.application;
 
-import io.reflectoring.booking.BookingModuleConfiguration;
+import io.reflectoring.booking.EnableBookingModule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import(BookingModuleConfiguration.class)
+@EnableBookingModule
 public class ModularApplication {
 
 	public static void main(String[] args) {
