@@ -1,4 +1,4 @@
-package com.example.demo;
+package io.reflectoring;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

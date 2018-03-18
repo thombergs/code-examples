@@ -1,4 +1,4 @@
-package com.example.demo;
+package io.reflectoring;
 
 public class IdObject {
 

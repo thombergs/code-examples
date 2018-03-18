@@ -1,4 +1,4 @@
-package com.example.demo;
+package io.reflectoring;
 
 import org.springframework.data.repository.CrudRepository;
 
