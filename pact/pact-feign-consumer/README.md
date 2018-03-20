@@ -5,9 +5,9 @@ Read the [companion blog article](https://reflectoring.io/consumer-driven-contra
 
 ## Getting Started
 
-* have a look at the [contract](/src/test/resources/contracts)
-* have a look at the [feign client](/src/main/java/io/reflectoring/UserClient.java)
-* have a look at the [consumer test](/src/test/java/io/reflectoring/UserClientTest.java)
+* have a look at the [contract](src/test/resources/contracts)
+* have a look at the [feign client](src/main/java/io/reflectoring/UserClient.java)
+* have a look at the [consumer test]/src/test/java/io/reflectoring/UserClientTest.java)
 * run `./gradlew publishToMavenLocal` in the [producer project](../spring-cloud-contract-provider) 
   to create a provider stubs
 * run `./gradlew build` in this project to verify the feign client against the stub 
