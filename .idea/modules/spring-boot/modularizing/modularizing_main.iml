@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":spring-boot:modularizing:main" external.linked.project.path="$MODULE_DIR$/../../../../spring-boot/modularizing" external.root.project.path="$MODULE_DIR$/../../../.." external.system.id="GRADLE" external.system.module.group="code-examples2.spring-boot" external.system.module.type="sourceSet" external.system.module.version="0.0.1-SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/../../../../spring-boot/modularizing/out/production/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../spring-boot/modularizing/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../spring-boot/modularizing/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../spring-boot/modularizing/src/main/resources" type="java-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
