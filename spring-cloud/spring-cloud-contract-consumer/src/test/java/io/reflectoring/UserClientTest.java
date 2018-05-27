@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureStubRunner(ids = "io.reflectoring:user-service:+:stubs:6565", workOffline = true)
-@Ignore("Cannot work on CI because workOffline is set to true.")
+//@Ignore("Cannot work on CI because workOffline is set to true.")
 public class UserClientTest {
 
   @Autowired

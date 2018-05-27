@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import io.reflectoring.booking.data.Booking;
 import io.reflectoring.booking.data.BookingRepository;
-import io.reflectoring.customer.Customer;
-import io.reflectoring.customer.CustomerRepository;
-import io.reflectoring.flight.Flight;
-import io.reflectoring.flight.FlightRepository;
+import io.reflectoring.customer.data.Customer;
+import io.reflectoring.customer.data.CustomerRepository;
+import io.reflectoring.flight.data.Flight;
+import io.reflectoring.flight.data.FlightService;
 
 public class BookingService {
 
@@ -15,35 +15,35 @@ public class BookingService {
 
   private CustomerRepository customerRepository;
 
-  private FlightRepository flightRepository;
+  FlightService flightService;
 
   public BookingService(
           BookingRepository bookingRepository,
           CustomerRepository customerRepository,
-          FlightRepository flightRepository) {
+          FlightService flightService) {
     this.bookingRepository = bookingRepository;
     this.customerRepository = customerRepository;
-    this.flightRepository = flightRepository;
+    this.flightService = flightService;
   }
 
   /**
    * Books the given flight for the given customer.
    */
-  public Booking bookFlight(Long customerId, Long flightId) {
+  public Booking bookFlight(Long customerId, String flightNumber) {
 
     Optional<Customer> customer = customerRepository.findById(customerId);
     if (!customer.isPresent()) {
       throw new CustomerDoesNotExistException(customerId);
     }
 
-    Optional<Flight> flight = flightRepository.findById(flightId);
+    Optional<Flight> flight = flightService.findFlight(flightNumber);
     if (!flight.isPresent()) {
-      throw new FlightDoesNotExistException(flightId);
+      throw new FlightDoesNotExistException(flightNumber);
     }
 
     Booking booking = Booking.builder()
             .customer(customer.get())
-            .flight(flight.get())
+            .flightNumber(flight.get().getFlightNumber())
             .build();
 
     return this.bookingRepository.save(booking);

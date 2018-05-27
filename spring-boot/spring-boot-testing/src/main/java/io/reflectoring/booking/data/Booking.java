@@ -1,12 +1,9 @@
 package io.reflectoring.booking.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
-import io.reflectoring.customer.Customer;
-import io.reflectoring.flight.Flight;
+import io.reflectoring.customer.data.Customer;
+import io.reflectoring.flight.data.Flight;
 import lombok.Builder;
 import lombok.Data;
 
@@ -22,7 +19,7 @@ public class Booking {
   @ManyToOne
   private Customer customer;
 
-  @ManyToOne
-  private Flight flight;
+  @Column
+  private String flightNumber;
 
 }

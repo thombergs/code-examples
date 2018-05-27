@@ -1,23 +1,21 @@
-package io.reflectoring.flight;
+package io.reflectoring.customer.data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Data
 @Builder
-public class Flight {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Customer {
 
   @Id
   @GeneratedValue
   private Long id;
 
-  private String flightNumber;
-
-  private String airline;
-
+  private String name;
 }

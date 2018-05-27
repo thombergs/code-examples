@@ -17,6 +17,7 @@ include 'spring-boot:rabbitmq-event-brokering'
 include 'spring-boot:modular:security-module'
 include 'spring-boot:modular:booking-module'
 include 'spring-boot:modular:application'
+include 'spring-boot:spring-boot-testing'
 
 include 'junit:conditions'
 
