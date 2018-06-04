@@ -3,3 +3,9 @@ userservice:
     eureka:
       enabled: false
     listOfServers: localhost:8080
+
+rootservice:
+  ribbon:
+    eureka:
+      enabled: false
+    listOfServers: localhost:8080
