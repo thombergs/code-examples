@@ -1,0 +1,20 @@
+apply plugin: 'java'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+}
+
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    compile("ch.qos.logback:logback-classic:1.2.3")
+    compile("io.reflectoring:descriptive-logger:1.0")
+    testCompile("org.junit.jupiter:junit-jupiter-engine:5.0.1")
+}

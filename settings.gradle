@@ -7,8 +7,6 @@ include 'spring-cloud:sleuth-upstream-service'
 include 'spring-cloud:spring-cloud-contract-provider'
 include 'spring-cloud:spring-cloud-contract-consumer'
 
-include 'deprecated:pact-feign-consumer' // must run before pact-spring-data-rest-provider
-include 'deprecated:pact-spring-data-rest-provider'
 include 'pact:pact-spring-provider'
 include 'pact:pact-feign-consumer'
 
@@ -18,6 +16,8 @@ include 'spring-boot:modular:security-module'
 include 'spring-boot:modular:booking-module'
 include 'spring-boot:modular:application'
 include 'spring-boot:spring-boot-testing'
+
+include 'logging'
 
 include 'junit:conditions'
 
