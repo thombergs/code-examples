@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <conversionRule conversionWord="truncatedThread"
+                    converterClass="io.reflectoring.logging.TruncatedThreadConverter" />
+
+    <conversionRule conversionWord="truncatedLogger"
+                    converterClass="io.reflectoring.logging.TruncatedLoggerConverter" />
+    ​
+    <!-- Appender to log to console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd} | %d{HH:mm:ss.SSS} | %truncatedThread{20} | %5p | %truncatedLogger{25} | %12(ID: %8mdc{id}) | %m%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
