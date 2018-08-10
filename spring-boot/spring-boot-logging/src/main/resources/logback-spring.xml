@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>
+                    %d{yyyy-MM-dd} | %d{HH:mm:ss.SSS} | %t | %5p | %logger{25} | %m%n
+                </pattern>
+                <charset>utf8</charset>
+            </encoder>
+        </appender>
+
+        <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+            <file>app.log</file>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <Pattern>
+                    %d{yyyy-MM-dd} | %d{HH:mm:ss.SSS} | %t | %5p | %logger{25} | %m%n
+                </Pattern>
+            </encoder>
+        </appender>
+
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="staging">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>
+                    %d{yyyy-MM-dd} | %d{HH:mm:ss.SSS} | %t | %5p | %logger{25} | %m%n
+                </pattern>
+                <charset>utf8</charset>
+            </encoder>
+        </appender>
+
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+</configuration>

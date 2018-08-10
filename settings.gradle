@@ -16,6 +16,7 @@ include 'spring-boot:modular:security-module'
 include 'spring-boot:modular:booking-module'
 include 'spring-boot:modular:application'
 include 'spring-boot:spring-boot-testing'
+include 'spring-boot:spring-boot-logging'
 
 include 'logging'
 
