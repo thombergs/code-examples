@@ -1,44 +1,54 @@
 package io.reflectoring;
 
+import java.util.Optional;
+
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.State;
 import au.com.dius.pact.provider.junit.loader.PactFolder;
-import au.com.dius.pact.provider.junit.target.HttpTarget;
-import au.com.dius.pact.provider.junit.target.Target;
-import au.com.dius.pact.provider.junit.target.TestTarget;
-import au.com.dius.pact.provider.spring.SpringRestPactRunner;
-import io.reflectoring.User;
-import io.reflectoring.UserRepository;
-import org.junit.runner.RunWith;
+import au.com.dius.pact.provider.junit5.HttpTestTarget;
+import au.com.dius.pact.provider.junit5.PactVerificationContext;
+import au.com.dius.pact.provider.junit5.PactVerificationInvocationContextProvider;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestTemplate;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
-@RunWith(SpringRestPactRunner.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {
+				"server.port=8080"
+})
 @Provider("userservice")
 @PactFolder("../pact-angular/pacts")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {
-        "server.port=8080"
-})
 public class UserControllerProviderTest {
 
-  @MockBean
-  private UserRepository userRepository;
+	@MockBean
+	private UserRepository userRepository;
 
-  @TestTarget
-  public final Target target = new HttpTarget(8080);
+	@BeforeEach
+	void setupTestTarget(PactVerificationContext context) {
+		context.setTarget(new HttpTestTarget("localhost", 8080, "/"));
+	}
 
-  @State({"provider accepts a new person",
-          "person 42 exists"})
-  public void toCreatePersonState() {
-    User user = new User();
-    user.setId(42L);
-    user.setFirstName("Arthur");
-    user.setLastName("Dent");
-    when(userRepository.findOne(eq(42L))).thenReturn(user);
-    when(userRepository.save(any(User.class))).thenReturn(user);
-  }
+	@TestTemplate
+	@ExtendWith(PactVerificationInvocationContextProvider.class)
+	void pactVerificationTestTemplate(PactVerificationContext context) {
+		context.verifyInteraction();
+	}
+
+	@State({"provider accepts a new person",
+					"person 42 exists"})
+	public void toCreatePersonState() {
+		User user = new User();
+		user.setId(42L);
+		user.setFirstName("Arthur");
+		user.setLastName("Dent");
+		when(userRepository.findById(eq(42L))).thenReturn(Optional.of(user));
+		when(userRepository.save(any(User.class))).thenReturn(user);
+	}
 
 }
