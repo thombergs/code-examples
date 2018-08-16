@@ -26,7 +26,7 @@ public class UserController {
 
 	@PutMapping(path = "/user-service/users/{id}")
 	public ResponseEntity<User> updateUser(@RequestBody @Valid User user, @PathVariable long id) {
-		User userFromDb = userRepository.findOne(id);
+		User userFromDb = userRepository.findById(id).get();
 		userFromDb.updateFrom(user);
 		userFromDb = userRepository.save(userFromDb);
 		return ResponseEntity.ok(userFromDb);
@@ -34,7 +34,7 @@ public class UserController {
 
 	@GetMapping(path = "/user-service/users/{id}")
 	public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
-		return ResponseEntity.ok(userRepository.findOne(id));
+		return ResponseEntity.ok(userRepository.findById(id).get());
 	}
 
 

@@ -1,5 +1,7 @@
 package io.reflectoring;
 
+import java.util.Optional;
+
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -35,7 +37,7 @@ public abstract class UserServiceBase {
     when(userRepository.save(any(User.class))).thenReturn(savedUser);
     RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
 
-    when(userRepository.findOne(eq(42L))).thenReturn(savedUser);
+    when(userRepository.findById(eq(42L))).thenReturn(Optional.of(savedUser));
   }
 
 }
