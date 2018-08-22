@@ -9,6 +9,7 @@ include 'spring-cloud:spring-cloud-contract-consumer'
 
 include 'pact:pact-spring-provider'
 include 'pact:pact-feign-consumer'
+include 'pact:pact-message-consumer'
 
 
 include 'spring-boot:rabbitmq-event-brokering'
