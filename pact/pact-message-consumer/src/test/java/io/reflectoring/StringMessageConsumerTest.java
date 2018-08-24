@@ -26,7 +26,7 @@ public class StringMessageConsumerTest {
 	@Autowired
 	private StringMessageConsumer stringMessageConsumer;
 
-	@Pact(state = "provider is up and running", provider = "userservice", consumer = "userclient")
+	@Pact(provider = "userservice", consumer = "userclient")
 	public MessagePact userCreatedMessagePact(MessagePactBuilder builder) {
 		PactDslJsonBody body = new PactDslJsonBody();
 		body.stringType("messageUuid");
