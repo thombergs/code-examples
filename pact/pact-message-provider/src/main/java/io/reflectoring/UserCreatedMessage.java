@@ -2,10 +2,12 @@ package io.reflectoring;
 
 import javax.validation.constraints.NotNull;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class UserCreatedMessage {
+@Builder
+class UserCreatedMessage {
 
 	@NotNull
 	private String messageUuid;

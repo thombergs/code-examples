@@ -13,13 +13,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class StringMessageConsumer {
+public class UserCreatedMessageConsumer {
 
-  private Logger logger = LoggerFactory.getLogger(StringMessageConsumer.class);
+  private Logger logger = LoggerFactory.getLogger(UserCreatedMessageConsumer.class);
 
   private ObjectMapper objectMapper;
 
-  public StringMessageConsumer(ObjectMapper objectMapper) {
+  public UserCreatedMessageConsumer(ObjectMapper objectMapper) {
     this.objectMapper = objectMapper;
   }
 
@@ -31,7 +31,7 @@ public class StringMessageConsumer {
     if(!violations.isEmpty()){
       throw new ConstraintViolationException(violations);
     }
-    // do something with the message
+    // pass message into business use case
   }
 
 }
