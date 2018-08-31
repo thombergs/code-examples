@@ -23,5 +23,7 @@ include 'logging'
 
 include 'junit:conditions'
 
+include 'patterns'
+
 
 

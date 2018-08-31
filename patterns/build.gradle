@@ -1,0 +1,22 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+}
+
+apply plugin: 'java'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok:1.18.2'
+	testCompile 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+	testCompile 'org.assertj:assertj-core:2.6.0'
+}
+
