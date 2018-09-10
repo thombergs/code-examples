@@ -17,16 +17,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class StringMessageConsumerTest {
+public class UserCreatedMessageConsumerTest {
 
 	@Rule
 	public MessagePactProviderRule mockProvider = new MessagePactProviderRule(this);
 	private byte[] currentMessage;
 
 	@Autowired
-	private StringMessageConsumer stringMessageConsumer;
+	private UserCreatedMessageConsumer userCreatedMessageConsumer;
 
-	@Pact(state = "provider is up and running", provider = "userservice", consumer = "userclient")
+	@Pact(provider = "userservice", consumer = "userclient")
 	public MessagePact userCreatedMessagePact(MessagePactBuilder builder) {
 		PactDslJsonBody body = new PactDslJsonBody();
 		body.stringType("messageUuid");
@@ -46,7 +46,7 @@ public class StringMessageConsumerTest {
 	@Test
 	@PactVerification("userCreatedMessagePact")
 	public void verifyCreatePersonPact() throws IOException {
-		stringMessageConsumer.consumeStringMessage(new String(this.currentMessage));
+		userCreatedMessageConsumer.consumeStringMessage(new String(this.currentMessage));
 	}
 
 	/**
