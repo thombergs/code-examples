@@ -10,6 +10,12 @@ import au.com.dius.pact.provider.ProviderVerifier;
 import au.com.dius.pact.provider.junit.target.AmqpTarget;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Custom implementation of {@link AmqpTarget} since with {@link AmqpTarget}
+ * I had classpath troubles (see https://github.com/DiUS/pact-jvm/issues/763).
+ * Use at own risk, since the implementation is not complete and may behave
+ * a little different that the original class.
+ */
 public class CustomAmqpTarget extends AmqpTarget {
 
 	public CustomAmqpTarget(List<String> packagesToScan) {

@@ -47,13 +47,13 @@ public class MessageConsumerConfiguration {
 	}
 
 	@Bean
-	public MessageListenerAdapter listenerAdapter(UserCreatedMessageConsumer userCreatedMessageConsumer) {
-		return new MessageListenerAdapter(userCreatedMessageConsumer, "consumeStringMessage");
+	public MessageListenerAdapter listenerAdapter(MessageConsumer messageConsumer) {
+		return new MessageListenerAdapter(messageConsumer, "consumeStringMessage");
 	}
 
 	@Bean
-	public UserCreatedMessageConsumer eventReceiver(ObjectMapper objectMapper) {
-		return new UserCreatedMessageConsumer(objectMapper);
+	public MessageConsumer eventReceiver(ObjectMapper objectMapper) {
+		return new MessageConsumer(objectMapper);
 	}
 
 }

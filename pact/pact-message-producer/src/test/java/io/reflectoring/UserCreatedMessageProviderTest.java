@@ -8,16 +8,12 @@ import au.com.dius.pact.provider.PactVerifyProvider;
 import au.com.dius.pact.provider.junit.PactRunner;
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.loader.PactFolder;
-import au.com.dius.pact.provider.junit.target.AmqpTarget;
 import au.com.dius.pact.provider.junit.target.Target;
 import au.com.dius.pact.provider.junit.target.TestTarget;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.mockito.Mockito.*;
 
 @RunWith(PactRunner.class)
@@ -28,9 +24,9 @@ public class UserCreatedMessageProviderTest {
 	@TestTarget
 	public final Target target = new CustomAmqpTarget(Collections.singletonList("io.reflectoring"));
 
-	private UserCreatedMessagePublisher publisher = Mockito.mock(UserCreatedMessagePublisher.class);
+	private MessagePublisher publisher = Mockito.mock(MessagePublisher.class);
 
-	private UserCreatedMessageProvider messageProvider = new UserCreatedMessageProvider(new ObjectMapper(), publisher);
+	private MessageProducer messageProducer = new MessageProducer(new ObjectMapper(), publisher);
 
 	@PactVerifyProvider("a user created message")
 	public String verifyUserCreatedMessage() throws IOException {
@@ -45,7 +41,7 @@ public class UserCreatedMessageProviderTest {
 										.name("Zaphod Beeblebrox")
 										.build())
 						.build();
-		messageProvider.sendUserCreatedMessage(message);
+		messageProducer.produceUserCreatedMessage(message);
 
 		// then
 		ArgumentCaptor<String> messageCapture = ArgumentCaptor.forClass(String.class);

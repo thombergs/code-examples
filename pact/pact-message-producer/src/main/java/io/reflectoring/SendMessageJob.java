@@ -10,10 +10,10 @@ class SendMessageJob {
 
 	private Random random = new Random();
 
-	private UserCreatedMessageProvider messageProvider;
+	private MessageProducer messageProducer;
 
-	SendMessageJob(UserCreatedMessageProvider messageProvider) {
-		this.messageProvider = messageProvider;
+	SendMessageJob(MessageProducer messageProducer) {
+		this.messageProducer = messageProducer;
 	}
 
 	/**
@@ -29,7 +29,7 @@ class SendMessageJob {
 											.name("Zaphpod Beeblebrox")
 											.build())
 							.build();
-			messageProvider.sendUserCreatedMessage(userCreatedMessage);
+			messageProducer.produceUserCreatedMessage(userCreatedMessage);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

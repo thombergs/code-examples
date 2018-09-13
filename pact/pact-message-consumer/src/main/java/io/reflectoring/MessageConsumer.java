@@ -13,13 +13,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserCreatedMessageConsumer {
+public class MessageConsumer {
 
-  private Logger logger = LoggerFactory.getLogger(UserCreatedMessageConsumer.class);
+  private Logger logger = LoggerFactory.getLogger(MessageConsumer.class);
 
   private ObjectMapper objectMapper;
 
-  public UserCreatedMessageConsumer(ObjectMapper objectMapper) {
+  public MessageConsumer(ObjectMapper objectMapper) {
     this.objectMapper = objectMapper;
   }
 

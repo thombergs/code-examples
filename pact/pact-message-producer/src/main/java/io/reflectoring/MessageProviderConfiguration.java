@@ -18,18 +18,18 @@ class MessageProviderConfiguration {
 
 
 	@Bean
-	UserCreatedMessageProvider messageProvider(ObjectMapper objectMapper, UserCreatedMessagePublisher publisher) {
-		return new UserCreatedMessageProvider(objectMapper, publisher);
+	MessageProducer messageProvider(ObjectMapper objectMapper, MessagePublisher publisher) {
+		return new MessageProducer(objectMapper, publisher);
 	}
 
 	@Bean
-	UserCreatedMessagePublisher messagePublisher(RabbitTemplate rabbitTemplate, TopicExchange topicExchange) {
-		return new UserCreatedMessagePublisher(rabbitTemplate, topicExchange);
+	MessagePublisher messagePublisher(RabbitTemplate rabbitTemplate, TopicExchange topicExchange) {
+		return new MessagePublisher(rabbitTemplate, topicExchange);
 	}
 
 	@Bean
-	SendMessageJob job(UserCreatedMessageProvider messageProvider) {
-		return new SendMessageJob(messageProvider);
+	SendMessageJob job(MessageProducer messageProducer) {
+		return new SendMessageJob(messageProducer);
 	}
 
 

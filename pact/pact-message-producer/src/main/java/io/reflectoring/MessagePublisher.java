@@ -6,13 +6,13 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 /**
  * Publishes a String message to RabbitMQ.
  */
-class UserCreatedMessagePublisher {
+class MessagePublisher {
 
 	private RabbitTemplate rabbitTemplate;
 
 	private TopicExchange topicExchange;
 
-	UserCreatedMessagePublisher(RabbitTemplate rabbitTemplate, TopicExchange topicExchange) {
+	MessagePublisher(RabbitTemplate rabbitTemplate, TopicExchange topicExchange) {
 		this.rabbitTemplate = rabbitTemplate;
 		this.topicExchange = topicExchange;
 	}
