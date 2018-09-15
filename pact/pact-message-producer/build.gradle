@@ -21,11 +21,10 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-amqp')
     compile('com.h2database:h2:1.4.196')
-    compileOnly('org.projectlombok:lombok')
+    compileOnly('org.projectlombok:lombok:1.18.2')
     testCompile("au.com.dius:pact-jvm-provider-junit_2.12:${pact_version}")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

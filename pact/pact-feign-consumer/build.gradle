@@ -38,13 +38,18 @@ dependencies {
     testCompile('org.codehaus.groovy:groovy-all:2.4.6')
     testCompile("au.com.dius:pact-jvm-consumer-junit5_2.12:${pact_version}")
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testRuntimeOnly( 'org.junit.jupiter:junit-jupiter-engine:5.1.0')
 }
 
 pact {
     publish {
         pactDirectory = 'target/pacts'
-        pactBrokerUrl = 'URL'
-        pactBrokerUsername = 'USERNAME'
-        pactBrokerPassword = 'PASSWORD'
+        pactBrokerUrl = 'TODO'
+        pactBrokerUsername = 'TODO'
+        pactBrokerPassword = 'TODO'
     }
+}
+
+test {
+    useJUnitPlatform()
 }

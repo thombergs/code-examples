@@ -26,8 +26,13 @@ dependencies {
     compile('com.h2database:h2:1.4.196')
     testCompile("au.com.dius:pact-jvm-provider-junit5_2.12:${pact_version}")
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testRuntimeOnly( 'org.junit.jupiter:junit-jupiter-engine:5.1.0')
 }
 
 bootRun {
     jvmArgs = ["-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"]
+}
+
+test {
+    useJUnitPlatform()
 }
