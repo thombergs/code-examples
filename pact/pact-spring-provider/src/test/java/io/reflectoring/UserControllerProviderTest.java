@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {
-				"server.port=8080"
+				"server.port=8888"
 })
 @Provider("userservice")
 @PactFolder("../pact-angular/pacts")
@@ -31,7 +31,7 @@ public class UserControllerProviderTest {
 
 	@BeforeEach
 	void setupTestTarget(PactVerificationContext context) {
-		context.setTarget(new HttpTestTarget("localhost", 8080, "/"));
+		context.setTarget(new HttpTestTarget("localhost", 8888, "/"));
 	}
 
 	@TestTemplate
