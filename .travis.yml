@@ -7,6 +7,10 @@ before_install:
      exit
    fi
 
+install: ./gradlew assemble
+
+script: ./gradlew clean build --info
+
 language: java
 
 jdk:
