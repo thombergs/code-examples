@@ -1,0 +1,76 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'jacoco'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+dependencies {
+  compileOnly 'org.projectlombok:lombok:1.18.2'
+  testCompile 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+  testCompile 'org.assertj:assertj-core:2.6.0'
+}
+
+jacoco {
+  toolVersion = "0.8.2"
+}
+
+//jacocoTestReport {
+//  afterEvaluate {
+//    classDirectories = files(classDirectories.files.collect {
+//      fileTree(dir: it, exclude: [
+//          'io/reflectoring/coverage/ignored/**',
+//          'io/reflectoring/coverage/part/**'
+//      ])
+//    })
+//  }
+//}
+build.finalizedBy jacocoTestReport
+
+jacocoTestCoverageVerification {
+  violationRules {
+    rule {
+      element = 'CLASS'
+      limit {
+        counter = 'LINE'
+        value = 'COVEREDRATIO'
+        minimum = 1.0
+      }
+      excludes = [
+          'io.reflectoring.coverage.part.PartlyCovered',
+          'io.reflectoring.coverage.ignored.*',
+          'io.reflectoring.coverage.part.NotCovered'
+      ]
+    }
+    rule {
+      element = 'CLASS'
+      includes = [
+          'io.reflectoring.coverage.part.PartlyCovered'
+      ]
+      limit {
+        counter = 'LINE'
+        value = 'COVEREDRATIO'
+        minimum = 0.8
+      }
+    }
+  }
+
+}
+
+check.dependsOn jacocoTestCoverageVerification
+
+
+test {
+  useJUnitPlatform()
+}
+
