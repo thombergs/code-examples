@@ -20,8 +20,3 @@ dependencies {
 	testCompile 'org.assertj:assertj-core:2.6.0'
 	compile files('lib/java-2.0.jar')
 }
-
-compileJava.options.fork = true
-compileJava.options.forkOptions.executable = 'C:\\Program Files\\Java\\jdk-11\\bin\\javac.exe'
-
-
