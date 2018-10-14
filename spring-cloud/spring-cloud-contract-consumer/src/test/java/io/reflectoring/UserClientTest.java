@@ -1,6 +1,5 @@
 package io.reflectoring;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureStubRunner(ids = "io.reflectoring:user-service:+:stubs:6565",
 				stubsMode = StubRunnerProperties.StubsMode.LOCAL)
-@Ignore("doesn't run on CI because the Stub cannot be resolved")
 public class UserClientTest {
 
 	@Autowired
