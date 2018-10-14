@@ -18,5 +18,10 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.2'
 	testCompile 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
 	testCompile 'org.assertj:assertj-core:2.6.0'
+	compile files('lib/java-2.0.jar')
 }
+
+compileJava.options.fork = true
+compileJava.options.forkOptions.executable = 'C:\\Program Files\\Java\\jdk-11\\bin\\javac.exe'
+
 

@@ -19,6 +19,7 @@ include 'spring-boot:modular:booking-module'
 include 'spring-boot:modular:application'
 include 'spring-boot:spring-boot-testing'
 include 'spring-boot:spring-boot-logging'
+include 'spring-boot:validation'
 
 include 'logging'
 
@@ -27,6 +28,8 @@ include 'junit:conditions'
 include 'patterns'
 
 include 'tools:jacoco'
+
+include 'java'
 
 
 

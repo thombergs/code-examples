@@ -39,30 +39,43 @@ build.finalizedBy jacocoTestReport
 
 jacocoTestCoverageVerification {
   violationRules {
-    rule {
-      element = 'CLASS'
-      limit {
-        counter = 'LINE'
-        value = 'COVEREDRATIO'
-        minimum = 1.0
+
+      rule {
+          element = 'METHOD'
+          limit {
+              counter = 'LINE'
+              value = 'COVEREDRATIO'
+              minimum = 1.0
+          }
+          excludes = [
+                  'io.reflectoring.coverage.part.PartlyCovered.partlyCovered(java.lang.String, boolean)',
+          ]
       }
-      excludes = [
-          'io.reflectoring.coverage.part.PartlyCovered',
-          'io.reflectoring.coverage.ignored.*',
-          'io.reflectoring.coverage.part.NotCovered'
-      ]
-    }
-    rule {
-      element = 'CLASS'
-      includes = [
-          'io.reflectoring.coverage.part.PartlyCovered'
-      ]
-      limit {
-        counter = 'LINE'
-        value = 'COVEREDRATIO'
-        minimum = 0.8
-      }
-    }
+
+//    rule {
+//      element = 'CLASS'
+//      limit {
+//        counter = 'LINE'
+//        value = 'COVEREDRATIO'
+//        minimum = 1.0
+//      }
+//      excludes = [
+//          'io.reflectoring.coverage.part.PartlyCovered',
+//          'io.reflectoring.coverage.ignored.*',
+//          'io.reflectoring.coverage.part.NotCovered'
+//      ]
+//    }
+//    rule {
+//      element = 'CLASS'
+//      includes = [
+//          'io.reflectoring.coverage.part.PartlyCovered'
+//      ]
+//      limit {
+//        counter = 'LINE'
+//        value = 'COVEREDRATIO'
+//        minimum = 0.8
+//      }
+//    }
   }
 
 }
