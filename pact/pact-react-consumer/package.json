@@ -1,0 +1,33 @@
+{
+  "name": "pact-react-consumer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-scripts": "2.0.5",
+    "axios": "0.18.0"
+  },
+  "devDependencies": {
+    "@pact-foundation/pact": "7.0.1",
+    "@pact-foundation/pact-node": "6.20.0",
+    "cross-env": "^5.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:pact": "cross-env CI=true react-scripts test --runInBand --setupFiles ./pact/setup.js --setupTestFrameworkScriptFile ./pact/jest-wrapper.js --testMatch \"**/*.test.pact.js\"",
+    "publish:pact": "node pact/publish.js",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
