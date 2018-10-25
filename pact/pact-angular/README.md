@@ -4,6 +4,9 @@ This example project shows how to setup an Angular application to use [Pact](htt
 in order to create Pact files from a consumer test and validate the
 a consumer against the Pact.
 
+## Relevant Blog Post
+[Creating a Consumer-Driven Contract with Angular and Pact](https://reflectoring.io/consumer-driven-contracts-with-angular-and-pact/)
+
 ## Key Files
 
 * [`user.service.ts`](src/app/user.service.ts): Angular service that calls a REST
