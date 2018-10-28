@@ -1,27 +1,27 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 router.route('/:hero_id')
     .get(function (req, res) {
-        var heroId = parseInt(req.params['hero_id']);
+        const heroId = parseInt(req.params['hero_id']);
+        res.status(200);
         res.json({
             id: heroId,
             superpower: 'flying',
             name: 'Superman',
             universe: 'DC'
         });
-        res.status(200);
     });
 
 router.route('/')
     .post(function (req, res) {
+        res.status(201);
         res.json({
             id: 42,
             superpower: 'flying',
             name: 'Superman',
             universe: 'DC'
         });
-        res.status(201);
     });
 
 module.exports = router;

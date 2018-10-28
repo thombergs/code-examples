@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www.js"
+    "start": "node ./bin/www.js",
+    "pact:providerTests": "node ./pact/provider_tests.js",
+    "test:pact": "start-server-and-test start http://localhost:3000/heroes/42 pact:providerTests"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -12,5 +14,9 @@
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "morgan": "~1.9.0"
+  },
+  "devDependencies": {
+    "@pact-foundation/pact": "7.0.1",
+    "start-server-and-test": "^1.7.5"
   }
 }

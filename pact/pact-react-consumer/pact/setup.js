@@ -10,7 +10,7 @@ global.provider = new Pact({
     dir: path.resolve(process.cwd(), 'pacts'),
     spec: 2,
     pactfileWriteMode: 'update',
-    consumer: 'react-consumer',
-    provider: 'node-provider',
+    consumer: 'hero-consumer',
+    provider: 'hero-provider',
     host: '127.0.0.1'
 });

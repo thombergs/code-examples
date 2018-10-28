@@ -6,6 +6,13 @@ describe('HeroService API', () => {
 
     const heroService = new HeroService('http://localhost', global.port);
 
+    // a matcher for the content type "application/json" in UTF8 charset
+    // that ignores the spaces between the ";2 and "charset"
+    const contentTypeJsonMatcher = Pact.Matchers.term({
+        matcher: "application\\/json; *charset=utf-8",
+        generate: "application/json; charset=utf-8"
+    });
+
     describe('getHero()', () => {
 
         beforeEach((done) => {
@@ -16,13 +23,13 @@ describe('HeroService API', () => {
                     method: 'GET',
                     path: '/heroes/42',
                     headers: {
-                        'Accept': 'application/json'
+                        'Accept': contentTypeJsonMatcher
                     }
                 },
                 willRespondWith: {
                     status: 200,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': contentTypeJsonMatcher
                     },
                     body: Pact.Matchers.somethingLike(new Hero('Superman', 'flying', 'DC', 42))
                 }
@@ -54,15 +61,18 @@ describe('HeroService API', () => {
                     method: 'POST',
                     path: '/heroes',
                     headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
+                        'Accept': contentTypeJsonMatcher,
+                        'Content-Type': contentTypeJsonMatcher
                     },
                     body: new Hero('Superman', 'flying', 'DC')
                 },
                 willRespondWith: {
                     status: 201,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': Pact.Matchers.term({
+                            matcher: "application\\/json; *charset=utf-8",
+                            generate: "application/json; charset=utf-8"
+                        })
                     },
                     body: Pact.Matchers.somethingLike(
                         new Hero('Superman', 'flying', 'DC', 42))

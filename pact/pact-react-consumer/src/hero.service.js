@@ -1,6 +1,7 @@
 import Hero from "./hero";
 
 const axios = require('axios');
+import adapter from 'axios/lib/adapters/http';
 
 class HeroService {
 
@@ -18,9 +19,9 @@ class HeroService {
             url: `/heroes/${heroId}`,
             baseURL: `${this.baseUrl}:${this.port}`,
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json; charset=utf-8'
             }
-        }).then((response) => {
+        }, adapter).then((response) => {
             const hero = response.data;
             return new Promise((resolve, reject) => {
                 try {
@@ -40,11 +41,11 @@ class HeroService {
             url: `/heroes`,
             baseURL: `${this.baseUrl}:${this.port}`,
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json; charset=utf-8'
             },
             data: hero
-        }).then((response) => {
+        }, adapter).then((response) => {
             const hero = response.data;
             return new Promise((resolve, reject) => {
                 try {
