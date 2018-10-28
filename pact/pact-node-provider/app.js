@@ -1,36 +1,27 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 const heroesRouter = require('./routes/heroes');
-const providerStateRouter = require('./routes/provider_state');
+const providerStateRouter = require ('./routes/provider_state');
+
 const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 app.use('/heroes', heroesRouter);
 
-registerPactEndpoint();
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    next(createError(404));
-});
+if (process.env.PACT_MODE === 'true') {
+    app.use('/provider-state', providerStateRouter);
+}
 
 module.exports = app;
-
-/**
- * Registers a special endpoint for pact provider tests that allows to
- * set the server into a certain "provider state".
- *
- * This endpoint is only registered if the environment variable "PACT_MODE"
- * is set to "true".
- */
-function registerPactEndpoint() {
-    const pactMode = (process.env.PACT_MODE === 'true');
-    if (pactMode) {
-        app.use('/provider-state', providerStateRouter);
-    }
-}

@@ -1,18 +1,16 @@
 {
-  "name": "pact-node-provider",
+  "name": "test",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www.js",
+    "start": "node ./bin/www",
     "pact:providerTests": "node ./pact/provider_tests.js",
-    "test:pact": "start-server-and-test start http://localhost:3000/heroes/42 pact:providerTests"
+    "test:pact": "start-server-and-test start http://localhost:3000 pact:providerTests"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "jade": "~1.11.0",
     "morgan": "~1.9.0"
   },
   "devDependencies": {
