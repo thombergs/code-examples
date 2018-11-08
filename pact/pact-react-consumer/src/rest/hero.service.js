@@ -1,7 +1,6 @@
-import Hero from "./hero";
-
-const axios = require('axios');
+import Hero from "../hero";
 import adapter from 'axios/lib/adapters/http';
+const axios = require('axios');
 
 class HeroService {
 

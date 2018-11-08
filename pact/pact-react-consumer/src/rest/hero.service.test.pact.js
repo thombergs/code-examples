@@ -1,6 +1,6 @@
 import HeroService from './hero.service';
 import * as Pact from '@pact-foundation/pact';
-import Hero from './hero';
+import Hero from '../hero';
 
 describe('HeroService API', () => {
 
