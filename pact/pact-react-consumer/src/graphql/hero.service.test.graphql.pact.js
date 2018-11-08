@@ -17,7 +17,7 @@ describe('HeroService GraphQL API', () => {
         beforeEach((done) => {
 
             global.provider.addInteraction(new Pact.GraphQLInteraction()
-                .uponReceiving('a GET Hero Query')
+                .uponReceiving('a GetHero Query')
                 .withRequest({
                     path: '/graphql',
                     method: 'POST',
