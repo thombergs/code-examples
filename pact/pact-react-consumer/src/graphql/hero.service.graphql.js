@@ -23,7 +23,7 @@ class GraphQLHeroService {
         }
         return this.client.query({
             query: gql`
-              query GetHero($heroId: Int) {
+              query GetHero($heroId: Int!) {
                 hero(id: $heroId) {
                   name
                   superpower

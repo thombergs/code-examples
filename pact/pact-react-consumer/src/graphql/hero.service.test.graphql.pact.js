@@ -24,7 +24,7 @@ describe('HeroService GraphQL API', () => {
                 })
                 .withOperation("GetHero")
                 .withQuery(`
-                    query GetHero($heroId: Int) {
+                    query GetHero($heroId: Int!) {
                       hero(id: $heroId) {
                           name
                           superpower
