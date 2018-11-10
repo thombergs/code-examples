@@ -2,12 +2,11 @@ import {ApolloClient} from "apollo-client"
 import {InMemoryCache} from "apollo-cache-inmemory"
 import {HttpLink} from "apollo-link-http"
 import gql from "graphql-tag"
-import fetch from "node-fetch"
 import Hero from "../hero";
 
 class GraphQLHeroService {
 
-    constructor(baseUrl, port) {
+    constructor(baseUrl, port, fetch) {
         this.client = new ApolloClient({
             link: new HttpLink({
                 uri: `${baseUrl}:${port}/graphql`,

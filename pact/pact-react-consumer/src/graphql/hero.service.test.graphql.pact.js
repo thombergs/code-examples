@@ -1,9 +1,10 @@
 import GraphQLHeroService from './hero.service.graphql';
 import * as Pact from '@pact-foundation/pact';
+import fetch from 'node-fetch';
 
 describe('HeroService GraphQL API', () => {
 
-    const heroService = new GraphQLHeroService('http://localhost', global.port);
+    const heroService = new GraphQLHeroService('http://localhost', global.port, fetch);
 
     // a matcher for the content type "application/json" in UTF8 charset
     // that ignores the spaces between the ";2 and "charset"
