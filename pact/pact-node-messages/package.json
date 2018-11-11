@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha consumer/*.spec.js",
-    "pact-message": "pact-message update {}"
+    "test:consumer": "mocha consumer/*.spec.js",
   },
   "author": "Tom Hombergs",
   "license": "MIT",
