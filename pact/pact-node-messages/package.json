@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:consumer": "mocha consumer/*.spec.js",
+    "test:consumer": "mocha consumer/*.spec.js"
   },
   "author": "Tom Hombergs",
   "license": "MIT",
