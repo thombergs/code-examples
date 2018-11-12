@@ -11,9 +11,12 @@ describe("message producer", () => {
         log: path.resolve(process.cwd(), "logs"),
         logLevel: "debug",
         provider: "node-message-provider",
-        pactBrokerUrl: "https://adesso.pact.dius.com.au",
-        pactBrokerUsername: process.env.PACT_USERNAME,
-        pactBrokerPassword: process.env.PACT_PASSWORD,
+
+        pactUrls: [path.resolve(process.cwd(), "pacts", "node-message-consumer-node-message-provider.json")],
+
+        // pactBrokerUrl: "https://adesso.pact.dius.com.au",
+        // pactBrokerUsername: process.env.PACT_USERNAME,
+        // pactBrokerPassword: process.env.PACT_PASSWORD,
         publishVerificationResult: true,
         providerVersion: '1.0.0',
         tags: ['latest']
