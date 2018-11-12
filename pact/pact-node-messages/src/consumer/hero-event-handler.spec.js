@@ -14,9 +14,9 @@ describe("message consumer", () => {
 
     describe("'hero created' message Handler", () => {
 
-        it("should accept a valid 'hero created' message", (done) => {
-            return messagePact
-                .expectsToReceive("a 'hero created' message")
+        it("should accept a valid hero created message", (done) => {
+            messagePact
+                .expectsToReceive("a hero created message")
                 .withContent({
                     id: Matchers.like(42),
                     name: Matchers.like("Superman"),
@@ -27,7 +27,7 @@ describe("message consumer", () => {
                     "content-type": "application/json",
                 })
                 .verify(synchronousBodyHandler(handleHeroCreatedEvent))
-                .then(done());
+                .then(done, (error) => done(error));
         });
 
     });

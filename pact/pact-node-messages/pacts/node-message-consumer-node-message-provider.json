@@ -1,0 +1,63 @@
+{
+  "consumer": {
+    "name": "node-message-consumer"
+  },
+  "provider": {
+    "name": "node-message-provider"
+  },
+  "messages": [
+    {
+      "description": "a hero created message",
+      "providerStates": [
+
+      ],
+      "contents": {
+        "id": 42,
+        "name": "Superman",
+        "superpower": "flying",
+        "universe": "DC"
+      },
+      "matchingRules": {
+        "body": {
+          "$.id": {
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ]
+          },
+          "$.name": {
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ]
+          },
+          "$.superpower": {
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ]
+          },
+          "$.universe": {
+            "matchers": [
+              {
+                "match": "regex",
+                "regex": "^(DC|Marvel)$"
+              }
+            ]
+          }
+        }
+      },
+      "metaData": {
+        "content-type": "application/json"
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  }
+}

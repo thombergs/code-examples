@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:consumer": "mocha consumer/*.spec.js"
+    "test:consumer": "mocha src/consumer/*.spec.js",
+    "test:provider": "mocha src/provider/*.spec.js",
+    "publish:pact": "node pact/publish.js"
   },
   "author": "Tom Hombergs",
   "license": "MIT",
   "devDependencies": {
     "@pact-foundation/pact": "^7.0.3",
-    "chai": "^4.2.0",
     "mocha": "^5.2.0"
   }
 }
