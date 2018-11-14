@@ -1,8 +1,8 @@
 const HeroCreatedMessage = require('../common/hero-created-message');
 
-function produceHeroCreatedEvent(id) {
+function produceHeroCreatedEvent() {
     return new Promise((resolve, reject) => {
-        resolve({foo: "this is an invalid message that does not match the contract!"});
+        resolve(new HeroCreatedMessage("Superman", "Flying", "DC", 42));
     });
 }
 

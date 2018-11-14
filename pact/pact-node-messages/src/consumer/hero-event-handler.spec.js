@@ -27,8 +27,8 @@ describe("message consumer", () => {
                     "content-type": "application/json",
                 })
                 .verify(synchronousBodyHandler(handleHeroCreatedEvent))
-                .then(done, (error) => done(error));
-        });
+                .then(() => done(), (error) => done(error));
+        }).timeout(5000);
 
     });
 

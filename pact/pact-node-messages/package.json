@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:consumer": "mocha src/consumer/*.spec.js",
-    "test:provider": "mocha src/provider/*.spec.js",
+    "test:pact:consumer": "mocha src/consumer/*.spec.js --exit",
+    "test:pact:provider": "mocha src/provider/*.spec.js --exit",
     "publish:pact": "node pact/publish.js"
   },
   "author": "Tom Hombergs",
