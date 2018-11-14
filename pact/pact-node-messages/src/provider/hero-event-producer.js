@@ -1,9 +1,9 @@
-const HeroCreatedMessage = require('../common/hero-created-message');
+const HeroCreatedEvent = require('../common/hero-created-event');
 
-function produceHeroCreatedEvent() {
-    return new Promise((resolve, reject) => {
-        resolve(new HeroCreatedMessage("Superman", "Flying", "DC", 42));
-    });
-}
-
-module.exports = produceHeroCreatedEvent;
+exports.CreateHeroEventProducer = {
+    produceHeroCreatedEvent: () => {
+        return new Promise((resolve, reject) => {
+            resolve(new HeroCreatedEvent("Superman", "Flying", "DC", 42));
+        });
+    }
+};

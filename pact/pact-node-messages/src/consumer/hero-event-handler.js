@@ -1,15 +1,15 @@
-const HeroCreatedMessage = require('../common/hero-created-message');
+const HeroCreatedEvent = require('../common/hero-created-event');
 
-function handleHeroCreatedEvent(message) {
+exports.HeroEventHandler = {
+    handleHeroCreatedEvent: (message) => {
 
-    HeroCreatedMessage.validateId(message);
-    HeroCreatedMessage.validateName(message);
-    HeroCreatedMessage.validateSuperpower(message);
-    HeroCreatedMessage.validateUniverse(message);
+        HeroCreatedEvent.validateId(message);
+        HeroCreatedEvent.validateName(message);
+        HeroCreatedEvent.validateSuperpower(message);
+        HeroCreatedEvent.validateUniverse(message);
 
-    // pass message into business logic
-    // note that the business logic should be mocked away for the contract test
+        // pass message into business logic
+        // note that the business logic should be mocked away for the contract test
 
-}
-
-module.exports =  handleHeroCreatedEvent;
+    }
+};

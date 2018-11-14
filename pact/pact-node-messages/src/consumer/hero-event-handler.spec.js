@@ -1,5 +1,5 @@
 const {MessageConsumerPact, Matchers, synchronousBodyHandler} = require('@pact-foundation/pact');
-const handleHeroCreatedEvent = require('./hero-event-handler');
+const {HeroEventHandler} = require('./hero-event-handler');
 const path = require('path');
 
 describe("message consumer", () => {
@@ -26,7 +26,7 @@ describe("message consumer", () => {
                 .withMetadata({
                     "content-type": "application/json",
                 })
-                .verify(synchronousBodyHandler(handleHeroCreatedEvent))
+                .verify(synchronousBodyHandler(HeroEventHandler.handleHeroCreatedEvent))
                 .then(() => done(), (error) => done(error));
         }).timeout(5000);
 

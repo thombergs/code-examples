@@ -1,12 +1,12 @@
 const {MessageProviderPact} = require('@pact-foundation/pact');
-const produceHeroCreatedEvent = require('./hero-event-producer');
+const {CreateHeroEventProducer} = require('./hero-event-producer');
 const path = require('path');
 
 describe("message producer", () => {
 
     const messagePact = new MessageProviderPact({
         messageProviders: {
-            "a hero created message": () => produceHeroCreatedEvent(),
+            "a hero created message": () => CreateHeroEventProducer.produceHeroCreatedEvent(),
         },
         log: path.resolve(process.cwd(), "logs", "pact.log"),
         logLevel: "info",
@@ -23,7 +23,6 @@ describe("message producer", () => {
         // providerVersion: '1.0.0',
         tags: ['latest']
     });
-
 
     describe("'hero created' message producer", () => {
 
