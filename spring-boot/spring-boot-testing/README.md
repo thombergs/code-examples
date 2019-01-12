@@ -1,4 +1,5 @@
-# Structuring a Spring Boot App into Modules and Layers
- 
-## Companion Blog Article
-The companion blog article to this repository can be found [here](https://reflectoring.io/testing-verticals-and-layers-spring-boot/).
+# Spring Boot Testing
+
+## Blog Posts 
+* [Structuring and Testing Modules and Layers with Spring Boot](https://reflectoring.io/testing-verticals-and-layers-spring-boot/)
+* [All You Need To Know About Unit Testing with Spring Boot](https://reflectoring.io/unit-testing-spring-boot/)
