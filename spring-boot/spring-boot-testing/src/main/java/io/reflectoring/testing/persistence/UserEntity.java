@@ -1,4 +1,4 @@
-package io.reflectoring.testing;
+package io.reflectoring.testing.persistence;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 @Data
 @AllArgsConstructor
-public class User {
+public class UserEntity {
 
   @Id
   private Long id;
@@ -19,7 +19,7 @@ public class User {
   private String email;
   private LocalDateTime registrationDate;
 
-  public User(String name, String email) {
+  public UserEntity(String name, String email) {
     this.name = name;
     this.email = email;
   }

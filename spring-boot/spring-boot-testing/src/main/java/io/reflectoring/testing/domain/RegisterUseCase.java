@@ -1,4 +1,4 @@
-package io.reflectoring.testing;
+package io.reflectoring.testing.domain;
 
 import java.time.LocalDateTime;
 
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RegisterUseCase {
 
-  private final UserRepository userRepository;
+  private final SaveUserPort saveUserPort;
 
-  public User registerUser(User user) {
+  public Long registerUser(User user, boolean sendWelcomeMail) {
     user.setRegistrationDate(LocalDateTime.now());
-    return userRepository.save(user);
+    return saveUserPort.saveUser(user);
   }
 
 }

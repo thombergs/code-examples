@@ -1,5 +1,6 @@
 package io.reflectoring.testing;
 
+import io.reflectoring.testing.domain.User;
 import org.assertj.core.api.AbstractAssert;
 
 public class UserAssert extends AbstractAssert<UserAssert, User> {
