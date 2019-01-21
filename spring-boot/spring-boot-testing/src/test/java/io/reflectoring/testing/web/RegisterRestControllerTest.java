@@ -32,6 +32,17 @@ class RegisterRestControllerTest {
   private RegisterUseCase registerUseCase;
 
   @Test
+  void whenValidUrlAndMethodAndContentType_thenReturns200() throws Exception {
+
+    UserResource user = new UserResource("Zaphod", "zaphod@galaxy.net");
+
+    mockMvc.perform(post("/forums/42/register")
+            .contentType("application/json"))
+            .andExpect(status().isOk());
+
+  }
+
+  @Test
   void whenValidInput_thenReturns200() throws Exception {
 
     UserResource user = new UserResource("Zaphod", "zaphod@galaxy.net");
@@ -107,10 +118,10 @@ class RegisterRestControllerTest {
             .andExpect(status().isOk())
             .andReturn();
 
-    UserResource expectedResponseBody = user;
+    UserResource expected = user;
     UserResource actualResponseBody = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), UserResource.class);
-    assertThat(expectedResponseBody.getName()).isEqualTo(actualResponseBody.getName());
-    assertThat(expectedResponseBody.getEmail()).isEqualTo(actualResponseBody.getEmail());
+    assertThat(expected.getName()).isEqualTo(actualResponseBody.getName());
+    assertThat(expected.getEmail()).isEqualTo(actualResponseBody.getEmail());
 
   }
 
@@ -154,7 +165,7 @@ class RegisterRestControllerTest {
             .param("sendWelcomeMail", "true")
             .content(objectMapper.writeValueAsString(user)))
             .andExpect(status().isBadRequest())
-            .andExpect(responseBody().containsErrorMessageForField("name", "must not be null"));
+            .andExpect(responseBody().containsError("name", "must not be null"));
   }
 
 }

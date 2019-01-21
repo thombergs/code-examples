@@ -20,7 +20,7 @@ public class ResponseBodyMatchers {
     };
   }
 
-  public ResultMatcher containsErrorMessageForField(String expectedFieldName, String expectedMessage) {
+  public ResultMatcher containsError(String expectedFieldName, String expectedMessage) {
     return mvcResult -> {
       String json = mvcResult.getResponse().getContentAsString();
       ErrorResult errorResult = objectMapper.readValue(json, ErrorResult.class);
