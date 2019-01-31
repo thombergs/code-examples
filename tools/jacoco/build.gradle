@@ -35,22 +35,22 @@ jacoco {
 //    })
 //  }
 //}
-build.finalizedBy jacocoTestReport
+
 
 jacocoTestCoverageVerification {
   violationRules {
 
-//      rule {
-//          element = 'METHOD'
-//          limit {
-//              counter = 'LINE'
-//              value = 'COVEREDRATIO'
-//              minimum = 1.0
-//          }
-//          excludes = [
-//                  'io.reflectoring.coverage.part.PartlyCovered.partlyCovered(java.lang.String, boolean)',
-//          ]
-//      }
+      rule {
+          element = 'METHOD'
+          limit {
+              counter = 'LINE'
+              value = 'COVEREDRATIO'
+              minimum = 1.0
+          }
+          excludes = [
+                  'io.reflectoring.coverage.part.PartlyCovered.partlyCovered(java.lang.String, boolean)',
+          ]
+      }
 
     rule {
       element = 'CLASS'
@@ -80,6 +80,7 @@ jacocoTestCoverageVerification {
 
 }
 
+test.finalizedBy jacocoTestReport
 check.dependsOn jacocoTestCoverageVerification
 
 
