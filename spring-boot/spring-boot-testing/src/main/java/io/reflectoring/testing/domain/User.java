@@ -1,19 +1,14 @@
 package io.reflectoring.testing.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Entity
 @Data
 @AllArgsConstructor
 public class User {
 
-  @Id
   private Long id;
   private String name;
   private String email;

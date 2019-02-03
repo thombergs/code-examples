@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PersistenceAdapter implements SaveUserPort {
 
-  private final UserEntityRepository userEntityRepository;
+  private final UserRepository userRepository;
 
   @Override
   public Long saveUser(User user) {
     UserEntity userEntity = new UserEntity(
             user.getName(),
             user.getEmail());
-    UserEntity savedUserEntity = userEntityRepository.save(userEntity);
+    UserEntity savedUserEntity = userRepository.save(userEntity);
     return savedUserEntity.getId();
   }
 }
