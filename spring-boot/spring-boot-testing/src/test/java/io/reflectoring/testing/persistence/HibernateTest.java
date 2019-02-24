@@ -12,7 +12,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @TestPropertySource(properties = {
         "spring.jpa.hibernate.ddl-auto=create-drop",

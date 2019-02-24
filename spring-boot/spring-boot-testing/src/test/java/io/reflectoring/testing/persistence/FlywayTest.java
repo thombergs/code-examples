@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @TestPropertySource(properties = {
         "spring.jpa.hibernate.ddl-auto=validate",

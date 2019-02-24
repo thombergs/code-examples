@@ -9,7 +9,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Java6Assertions.*;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @TestPropertySource(properties = {
         "spring.jpa.hibernate.ddl-auto=create-drop",

@@ -12,7 +12,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 class CustomerRepositoryTest {
 

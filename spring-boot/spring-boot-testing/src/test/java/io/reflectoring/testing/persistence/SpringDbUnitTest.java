@@ -15,7 +15,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import static org.assertj.core.api.Java6Assertions.*;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @TestPropertySource(properties = {
         "spring.jpa.hibernate.ddl-auto=create-drop",

@@ -18,7 +18,6 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = RegisterRestController.class)
 class RegisterRestControllerTest {
 
@@ -37,6 +36,8 @@ class RegisterRestControllerTest {
     UserResource user = new UserResource("Zaphod", "zaphod@galaxy.net");
 
     mockMvc.perform(post("/forums/42/register")
+            .param("sendWelcomeMail", "true")
+            .content(objectMapper.writeValueAsString(user))
             .contentType("application/json"))
             .andExpect(status().isOk());
 

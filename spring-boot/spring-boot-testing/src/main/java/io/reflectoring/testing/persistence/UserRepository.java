@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-interface UserRepository extends CrudRepository<UserEntity, Long> {
+public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
   UserEntity findByName(String name);
 
