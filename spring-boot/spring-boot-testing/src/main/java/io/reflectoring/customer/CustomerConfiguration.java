@@ -1,14 +1,17 @@
 package io.reflectoring.customer;
 
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import io.reflectoring.customer.business.CustomerService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootConfiguration
-@EnableAutoConfiguration
+@Configuration
 @ComponentScan
 public class CustomerConfiguration {
+
+  @Bean
+  public CustomerService customerService(){
+    return new CustomerService();
+  }
 
 }
