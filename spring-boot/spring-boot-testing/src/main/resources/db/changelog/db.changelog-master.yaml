@@ -1,0 +1,103 @@
+databaseChangeLog:
+- preConditions:
+  - runningAs:
+      username: sa
+
+- changeSet:
+    id: 1
+    author: hombergs
+    changes:
+    - createTable:
+        tableName: booking
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: customer_id
+            type: bigint
+        - column:
+            name: flight_number
+            type: varchar(50)
+            constraints:
+              nullable: false
+
+- changeSet:
+    id: 2
+    author: hombergs
+    changes:
+    - createTable:
+        tableName: customer
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: name
+            type: varchar(50)
+            constraints:
+              nullable: false
+
+- changeSet:
+    id: 3
+    author: hombergs
+    changes:
+    - createTable:
+        tableName: flight
+        columns:
+        - column:
+            name: flight_number
+            type: varchar(50)
+            constraints:
+              nullable: false
+        - column:
+            name: airline
+            type: varchar(50)
+            constraints:
+              nullable: false
+
+
+- changeSet:
+    id: 4
+    author: hombergs
+    changes:
+    - createTable:
+        tableName: user
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: name
+            type: varchar(50)
+            constraints:
+              nullable: false
+        - column:
+            name: email
+            type: varchar(50)
+            constraints:
+              nullable: false
+        - column:
+            name: registration_date
+            type: timestamp
+            constraints:
+              nullable: false
+
+- changeSet:
+    id: 5
+    author: hombergs
+    changes:
+    - createSequence:
+        sequenceName: hibernate_sequence
