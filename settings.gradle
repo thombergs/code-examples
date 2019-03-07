@@ -20,6 +20,7 @@ include 'spring-boot:modular:application'
 include 'spring-boot:spring-boot-testing'
 include 'spring-boot:spring-boot-logging'
 include 'spring-boot:validation'
+include 'spring-boot:conditionals'
 
 include 'logging'
 
