@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.web.client.RestTemplate;
+
 import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(PactConsumerTestExt.class)
@@ -25,8 +27,13 @@ class UserServiceConsumerTest {
 	@Autowired
 	private UserClient userClient;
 
+	@Autowired
+	private RestTemplate restTemplate;
+
 	@Pact(state = "provider accepts a new person", provider = "userservice", consumer = "userclient")
 	RequestResponsePact createPersonPact(PactDslWithProvider builder) {
+
+		restTemplate.postForEntity("http://...", );
 		// @formatter:off
 		return builder
 						.given("provider accepts a new person")

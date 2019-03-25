@@ -3,3 +3,4 @@ spring.jpa.hibernate.ddl-auto: create-drop
 spring.liquibase.enabled: false
 spring.flyway.enabled: false
 io.reflectoring.scheduling.enabled: false
+logging.level.org.hibernate.SQL: DEBUG

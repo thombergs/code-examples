@@ -1,5 +1,6 @@
 include 'spring-data:spring-data-rest-associations'
 include 'spring-data:spring-data-rest-springfox'
+include 'spring-data:spring-data-jdbc'
 
 include 'spring-cloud:feign-with-spring-data-rest'
 include 'spring-cloud:sleuth-downstream-service'

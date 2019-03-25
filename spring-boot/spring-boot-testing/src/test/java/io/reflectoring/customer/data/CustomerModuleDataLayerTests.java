@@ -21,4 +21,11 @@ class CustomerModuleDataLayerTests {
     assertThat(bookingRepository).isNull();
   }
 
+  @Test
+  void versionTest(){
+    Customer hans = new Customer();
+    hans.setName("Hans");
+    customerRepository.save(hans);
+  }
+
 }
