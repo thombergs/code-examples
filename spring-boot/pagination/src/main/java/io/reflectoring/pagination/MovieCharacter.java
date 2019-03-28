@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-class Character {
+class MovieCharacter {
 
   @Id
   @GeneratedValue

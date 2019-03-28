@@ -22,7 +22,7 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation('org.junit.jupiter:junit-jupiter:5.4.0')
 	testImplementation('org.springframework.boot:spring-boot-starter-test'){
-		exclude group: 'org.junit', module: 'junit'
+		exclude group: 'junit', module: 'junit'
 	}
 }
 
