@@ -36,7 +36,7 @@ class PaginatedControllerTest {
 		mockMvc.perform(get("/characters/page")
 				.param("page", "5")
 				.param("size", "10")
-				.param("sort", "id, desc") // <-- no space after comma!!!
+				.param("sort", "id,desc") // <-- no space after comma!!!
 				.param("sort", "name,asc")) // <-- no space after comma!!!
 				.andExpect(status().isOk());
 
@@ -48,6 +48,56 @@ class PaginatedControllerTest {
 		assertThat(pageable).hasPageSize(10);
 		assertThat(pageable).hasSort("name", Sort.Direction.ASC);
 		assertThat(pageable).hasSort("id", Sort.Direction.DESC);
+	}
+
+	@Test
+	void evaluatesQualifier() throws Exception {
+
+		mockMvc.perform(get("/characters/qualifier")
+				.param("my_page", "5")
+				.param("my_size", "10")
+				.param("my_sort", "id,desc") // <-- no space after comma!!!
+				.param("my_sort", "name,asc")) // <-- no space after comma!!!
+				.andExpect(status().isOk());
+
+		ArgumentCaptor<Pageable> pageableCaptor = ArgumentCaptor.forClass(Pageable.class);
+		verify(characterRepository).findAllPage(pageableCaptor.capture());
+		PageRequest pageable = (PageRequest) pageableCaptor.getValue();
+
+		assertThat(pageable).hasPageNumber(5);
+		assertThat(pageable).hasPageSize(10);
+		assertThat(pageable).hasSort("name", Sort.Direction.ASC);
+		assertThat(pageable).hasSort("id", Sort.Direction.DESC);
+	}
+
+	@Test
+	void setsUpperPageLimit() throws Exception {
+
+		mockMvc.perform(get("/characters/page")
+				.param("size", "10000"))
+				.andExpect(status().isOk());
+
+		ArgumentCaptor<Pageable> pageableCaptor = ArgumentCaptor.forClass(Pageable.class);
+		verify(characterRepository).findAllPage(pageableCaptor.capture());
+		PageRequest pageable = (PageRequest) pageableCaptor.getValue();
+
+		assertThat(pageable).hasPageSize(2000);
+	}
+
+	@Test
+	void evaluatesPageableDefault() throws Exception {
+
+		mockMvc.perform(get("/characters/page"))
+				.andExpect(status().isOk());
+
+		ArgumentCaptor<Pageable> pageableCaptor = ArgumentCaptor.forClass(Pageable.class);
+		verify(characterRepository).findAllPage(pageableCaptor.capture());
+		PageRequest pageable = (PageRequest) pageableCaptor.getValue();
+
+		assertThat(pageable).hasPageNumber(0);
+		assertThat(pageable).hasPageSize(20);
+		assertThat(pageable).hasSort("name", Sort.Direction.DESC);
+		assertThat(pageable).hasSort("id", Sort.Direction.ASC);
 	}
 
 	@Test
