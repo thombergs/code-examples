@@ -33,7 +33,6 @@ class UserServiceConsumerTest {
 	@Pact(state = "provider accepts a new person", provider = "userservice", consumer = "userclient")
 	RequestResponsePact createPersonPact(PactDslWithProvider builder) {
 
-		restTemplate.postForEntity("http://...", );
 		// @formatter:off
 		return builder
 						.given("provider accepts a new person")
