@@ -1,4 +1,4 @@
-package io.reflectoring.pagination;
+package io.reflectoring.paging;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -10,19 +10,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static io.reflectoring.pagination.PageableAssert.*;
-import static io.reflectoring.pagination.SortAssert.*;
+import static io.reflectoring.paging.PageableAssert.*;
+import static io.reflectoring.paging.SortAssert.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(
-		controllers = PaginatedController.class
+		controllers = PagedController.class
 		// If we exclude SpringDataWebAutoConfiguration, the Pageable parameter will not be resolved.
 		// If we only exclude it on the Application class itself, the test will still work!!!
 		// excludeAutoConfiguration = SpringDataWebAutoConfiguration.class
 )
-class PaginatedControllerTest {
+class PagedControllerTest {
 
 	@MockBean
 	private MovieCharacterRepository characterRepository;

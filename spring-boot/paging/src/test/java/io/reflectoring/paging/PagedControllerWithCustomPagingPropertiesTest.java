@@ -1,29 +1,27 @@
-package io.reflectoring.pagination;
+package io.reflectoring.paging;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import static io.reflectoring.pagination.PageableAssert.*;
+import static io.reflectoring.paging.PageableAssert.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = PaginatedController.class)
+@WebMvcTest(controllers = PagedController.class)
 @TestPropertySource(properties = {
 		"spring.data.web.pageable.prefix=prefix_",
 		"spring.data.web.pageable.size-parameter=my-size",
 		"spring.data.web.pageable.page-parameter=my-page"
 })
-class PaginatedControllerWithCustomPagingPropertiesTest {
+class PagedControllerWithCustomPagingPropertiesTest {
 
 	@MockBean
 	private MovieCharacterRepository characterRepository;

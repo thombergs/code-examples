@@ -22,6 +22,8 @@ include 'spring-boot:spring-boot-testing'
 include 'spring-boot:spring-boot-logging'
 include 'spring-boot:validation'
 include 'spring-boot:conditionals'
+include 'spring-boot:configuration'
+include 'spring-boot:paging'
 
 include 'logging'
 

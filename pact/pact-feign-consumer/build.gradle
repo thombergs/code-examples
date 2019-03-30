@@ -35,6 +35,14 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-openfeign')
     compile('org.springframework.cloud:spring-cloud-starter-netflix-ribbon')
     compile('com.h2database:h2:1.4.196')
+
+    // add jaxb since it's no longer available in Java 11
+    runtime('javax.xml.bind:jaxb-api:2.3.1')
+
+    // add javassist >= 3.23.1-GA since earlier versions are broken in Java 11
+    // see https://github.com/jboss-javassist/javassist/issues/194
+    runtime('org.javassist:javassist:3.23.1-GA')
+
     testCompile('org.codehaus.groovy:groovy-all:2.4.6')
     testCompile("au.com.dius:pact-jvm-consumer-junit5_2.12:${pact_version}")
     testCompile('org.springframework.boot:spring-boot-starter-test')

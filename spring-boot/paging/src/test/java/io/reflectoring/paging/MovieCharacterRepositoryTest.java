@@ -1,4 +1,4 @@
-package io.reflectoring.pagination;
+package io.reflectoring.paging;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

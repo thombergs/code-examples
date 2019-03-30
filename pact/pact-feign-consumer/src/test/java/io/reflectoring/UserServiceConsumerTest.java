@@ -27,9 +27,6 @@ class UserServiceConsumerTest {
 	@Autowired
 	private UserClient userClient;
 
-	@Autowired
-	private RestTemplate restTemplate;
-
 	@Pact(state = "provider accepts a new person", provider = "userservice", consumer = "userclient")
 	RequestResponsePact createPersonPact(PactDslWithProvider builder) {
 

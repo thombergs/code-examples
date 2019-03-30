@@ -18,8 +18,5 @@ public class Customer {
 	@GeneratedValue
 	private Long id;
 
-	@Version
-	private Long version;
-
 	private String name;
 }

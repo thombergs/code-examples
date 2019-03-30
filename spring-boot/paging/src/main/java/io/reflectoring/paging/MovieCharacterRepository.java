@@ -1,4 +1,4 @@
-package io.reflectoring.pagination;
+package io.reflectoring.paging;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package io.reflectoring.pagination;
+package io.reflectoring.paging;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-class PaginatedController {
+class PagedController {
 
 	private final MovieCharacterRepository characterRepository;
 
@@ -25,7 +25,8 @@ class PaginatedController {
 			@SortDefault.SortDefaults({
 					@SortDefault(sort = "name", direction = Sort.Direction.DESC),
 					@SortDefault(sort = "id", direction = Sort.Direction.ASC)
-			}) Pageable pageable) {
+			})
+		Pageable pageable) {
 		return characterRepository.findAllPage(pageable);
 	}
 

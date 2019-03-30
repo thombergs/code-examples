@@ -1,4 +1,4 @@
-package io.reflectoring.pagination;
+package io.reflectoring.paging;
 
 import org.assertj.core.api.AbstractAssert;
 import org.springframework.data.domain.Sort;

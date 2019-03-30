@@ -14,8 +14,8 @@
             "contents": {
                 "messageUuid": "string",
                 "user": {
-                    "name": "Zaphod Beeblebrox",
-                    "id": 42
+                    "id": 42,
+                    "name": "Zaphod Beeblebrox"
                 }
             },
             "matchingRules": {

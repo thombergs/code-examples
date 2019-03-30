@@ -11,6 +11,10 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    
+    // adding javax.annotation since it's no longer included in Java 11
+    compile("javax.annotation:javax.annotation-api:1.3.2")
+    
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
 

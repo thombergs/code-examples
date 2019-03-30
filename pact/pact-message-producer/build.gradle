@@ -13,7 +13,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 repositories {
     mavenLocal()
@@ -25,6 +25,18 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-amqp')
     compile('com.h2database:h2:1.4.196')
     compileOnly('org.projectlombok:lombok:1.18.2')
+
+    // add jaxb since it's no longer available in Java 11
+    runtime('javax.xml.bind:jaxb-api:2.3.1')
+
+    // add javassist >= 3.23.1-GA since earlier versions are broken in Java 11
+    // see https://github.com/jboss-javassist/javassist/issues/194
+    runtime('org.javassist:javassist:3.23.1-GA')
+
+    // overriding bytebuddy to newer version that supports Java 11
+    // see https://github.com/raphw/byte-buddy/issues/428
+    testCompile('net.bytebuddy:byte-buddy:1.9.12')
+
     testCompile("au.com.dius:pact-jvm-provider-junit_2.12:${pact_version}")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

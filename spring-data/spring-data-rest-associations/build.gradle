@@ -15,7 +15,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 repositories {
 	mavenLocal()
@@ -27,5 +27,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile('com.h2database:h2:1.4.196')
+
+	// add jaxb since it's no longer available in Java 11
+	runtime('javax.xml.bind:jaxb-api:2.3.1')
+	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
