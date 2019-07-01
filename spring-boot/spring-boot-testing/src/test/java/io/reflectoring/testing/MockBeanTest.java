@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -32,9 +33,9 @@ class MockBeanTest {
     // given
     User user = new User("Zaphod", "zaphod@galaxy.net");
     boolean sendWelcomeMail = true;
+    given(userRepository.save(any(UserEntity.class))).willReturn(userEntity(1L));
 
     // when
-    when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity(1L));
     Long userId = registerUseCase.registerUser(user, sendWelcomeMail);
 
     // then
