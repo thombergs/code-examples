@@ -9,7 +9,9 @@ before_install:
 
 install: ./gradlew assemble
 
-script: ./gradlew clean build --info
+script:
+  - ./gradlew clean build --info
+  - cd spring-boot/starter && ./gradlew clean build --info
 
 language: java
 
