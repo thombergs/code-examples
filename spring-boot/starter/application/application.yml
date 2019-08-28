@@ -1,0 +1,4 @@
+eventstarter:
+  listener:
+    enabled-events:
+      - foo

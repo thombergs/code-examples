@@ -1,0 +1,30 @@
+plugins {
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group = 'io.reflectoring'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.7.RELEASE")
+    }
+}
+
+dependencies {
+    compileOnly 'org.springframework.boot:spring-boot-starter'
+    annotationProcessor 'org.springframework.boot:spring-boot-autoconfigure-processor'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    compileOnly('org.projectlombok:lombok:1.18.2')
+    annotationProcessor 'org.projectlombok:lombok:1.18.2'
+}
+
+compileJava.dependsOn(processResources)
