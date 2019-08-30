@@ -1,4 +1,5 @@
 eventstarter:
+  enabled: true
   listener:
     enabled-events:
       - foo

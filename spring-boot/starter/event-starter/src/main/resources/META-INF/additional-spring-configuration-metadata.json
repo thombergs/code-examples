@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "eventstarter.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enables or disables the EventStarter completely. If disabled, no EventPublisher bean will be available in the application context."
+    }
+  ]
+}
