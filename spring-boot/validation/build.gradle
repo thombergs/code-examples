@@ -23,7 +23,6 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation('org.springframework.boot:spring-boot-starter-validation')
@@ -36,4 +35,8 @@ dependencies {
 	// are no longer part of the JDK
 	implementation('javax.xml.bind:jaxb-api:2.3.1')
 	implementation('org.javassist:javassist:3.23.1-GA')
+}
+
+test{
+	useJUnitPlatform()
 }

@@ -13,6 +13,7 @@ install: ./gradlew assemble
 script:
   - ./gradlew clean build --info
   - cd spring-boot/starter && ./gradlew clean build --info
+  - cd spring-boot/validation && ./gradlew clean build --info
 
 language: java
 
