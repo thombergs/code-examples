@@ -1,4 +1,5 @@
 before_install:
+ - chmod +x build-all.sh
  - chmod +x gradlew
  - chmod +x **/gradlew
  - |
@@ -8,12 +9,8 @@ before_install:
      exit
    fi
 
-install: ./gradlew assemble
-
 script:
-  - ./gradlew clean build --info
-  - cd spring-boot/starter && ./gradlew clean build --info && cd ../../
-  - cd spring-boot/validation && ./gradlew clean build --info && cd ../../
+  - ./build-all.sh
 
 language: java
 
