@@ -1,4 +1,14 @@
-buildDir=$(pwd)
-cd $(buildDir) && ./gradlew clean build --info
-cd $(buildDir)/spring-boot/starter && ./gradlew clean build --info
-cd $(buildDir)/spring-boot/validation && ./gradlew clean build --info
+chmod +x gradlew
+./gradlew clean build --info
+
+cd spring-boot/starter && {
+  chmod +x gradlew
+  ./gradlew clean build --info
+  cd ../../
+}
+
+cd spring-boot/validation && {
+  chmod +x gradlew
+  ./gradlew clean build --info
+  cd ../../
+}
