@@ -7,7 +7,7 @@ before_install:
      exit
    fi
 
-install:
+install: skip
 
 script:
   - ./build-all.sh
