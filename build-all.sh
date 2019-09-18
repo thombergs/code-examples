@@ -12,3 +12,9 @@ cd spring-boot/validation && {
   ./gradlew clean build --info
   cd ../../
 }
+
+cd spring-boot/mocking && {
+  chmod +x gradlew
+  ./gradlew clean build --info
+  cd ../../
+}
