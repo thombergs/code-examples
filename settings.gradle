@@ -28,8 +28,6 @@ include 'logging'
 
 include 'junit:conditions'
 
-include 'patterns'
-
 include 'tools:jacoco'
 
 include 'java'

@@ -5,6 +5,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'java-library'
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 11
@@ -16,7 +17,9 @@ repositories {
 
 dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.2'
-	testCompile 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
-	testCompile 'org.assertj:assertj-core:2.6.0'
-	compile files('lib/java-2.0.jar')
+	implementation 'javax.validation:validation-api:2.0.1.Final'
+	runtimeOnly 'org.hibernate:hibernate-validator:6.0.17.Final'
+	testRuntimeOnly 'org.hibernate:hibernate-validator:6.0.17.Final'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+	testImplementation 'org.assertj:assertj-core:2.6.0'
 }
