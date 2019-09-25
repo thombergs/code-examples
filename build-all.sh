@@ -19,7 +19,7 @@ cd spring-boot/mocking && {
   cd ../../
 }
 
-cd spring-boot/patterns && {
+cd patterns && {
   chmod +x gradlew
   ./gradlew clean build --info
   cd ../../
