@@ -24,3 +24,9 @@ cd patterns && {
   ./gradlew clean build --info
   cd ../../
 }
+
+cd spring-boot/static && {
+  chmod +x gradlew
+  ./gradlew clean build --info
+  cd ../../
+}

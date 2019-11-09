@@ -12,7 +12,9 @@ All modules require **Java 11** to compile and run.
 
 # Building with Gradle
 
-The build is configured so that you can build all modules at once or each module separately.
+Modules should be as independent as possible. There are groups of modules that only work together, but other than that, a module should have its own build.
+
+See [build-all.sh](build-all.sh) for all builds that are run in the CI pipeline.
 
 ## Building all Modules at Once
 

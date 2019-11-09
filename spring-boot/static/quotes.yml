@@ -1,0 +1,6 @@
+static:
+  quotes:
+    - text: "A clever person solves a problem. A wise person avoids it."
+      author: "Albert Einstein"
+    - text: "Adding manpower to a late software project makes it later."
+      author: "Fred Brooks"
