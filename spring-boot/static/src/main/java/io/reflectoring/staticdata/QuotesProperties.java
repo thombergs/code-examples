@@ -3,7 +3,6 @@ package io.reflectoring.staticdata;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -16,7 +15,7 @@ public class QuotesProperties {
         this.quotes = quotes;
     }
 
-    public List<Quote> getQuotes(){
+    public List<Quote> getQuotes() {
         return this.quotes;
     }
 
