@@ -7,15 +7,15 @@ import java.util.List;
 
 @Component
 @ConfigurationProperties("static")
-public class QuotesProperties {
+class QuotesProperties {
 
     private final List<Quote> quotes;
 
-    public QuotesProperties(List<Quote> quotes) {
+    QuotesProperties(List<Quote> quotes) {
         this.quotes = quotes;
     }
 
-    public List<Quote> getQuotes() {
+    List<Quote> getQuotes() {
         return this.quotes;
     }
 

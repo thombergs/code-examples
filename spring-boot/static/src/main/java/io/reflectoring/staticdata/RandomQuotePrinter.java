@@ -10,13 +10,13 @@ import java.util.Random;
 
 @Configuration
 @EnableScheduling
-public class RandomQuotePrinter {
+class RandomQuotePrinter {
 
     private static final Logger logger = LoggerFactory.getLogger(RandomQuotePrinter.class);
     private final Random random = new Random();
     private final QuotesProperties quotesProperties;
 
-    public RandomQuotePrinter(QuotesProperties quotesProperties) {
+    RandomQuotePrinter(QuotesProperties quotesProperties) {
         this.quotesProperties = quotesProperties;
     }
 

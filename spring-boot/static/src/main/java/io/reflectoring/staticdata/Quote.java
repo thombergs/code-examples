@@ -1,26 +1,24 @@
 package io.reflectoring.staticdata;
 
-public class Quote {
+import org.springframework.boot.context.properties.ConstructorBinding;
 
-    private String text;
-    private String author;
+@ConstructorBinding
+class Quote {
 
-    public Quote() {
+    private final String text;
+    private final String author;
+
+    public Quote(String text, String author) {
+        this.text = text;
+        this.author = author;
     }
 
-    public String getText() {
+    String getText() {
         return text;
     }
 
-    public String getAuthor() {
+    String getAuthor() {
         return author;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 }
