@@ -30,3 +30,9 @@ cd spring-boot/static && {
   ./gradlew clean build --info
   cd ../../
 }
+
+cd spring-boot/startup && {
+  chmod +x gradlew
+  ./gradlew clean build --info
+  cd ../../
+}
