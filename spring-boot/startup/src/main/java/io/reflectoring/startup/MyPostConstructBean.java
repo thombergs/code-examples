@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 @Component
-//@DependsOn("myUberBean")
+@DependsOn("myApplicationListener")
 class MyPostConstructBean {
 
     private static final Logger logger = LoggerFactory.getLogger(MyPostConstructBean.class);

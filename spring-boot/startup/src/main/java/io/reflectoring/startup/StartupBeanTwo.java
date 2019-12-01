@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 
 @Component
 //@DependsOn("startupBeanOne")
-//@Order(1)
+@Order(1)
 public class StartupBeanTwo implements ApplicationListener<ApplicationReadyEvent>, ApplicationRunner, CommandLineRunner, InitializingBean {
 
     private static final Logger logger = LoggerFactory.getLogger(StartupBeanTwo.class);

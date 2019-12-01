@@ -22,3 +22,7 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+bootRun{
+	systemProperties = System.properties
+}
