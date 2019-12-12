@@ -36,3 +36,15 @@ cd spring-boot/startup && {
   ./gradlew clean build --info
   cd ../../
 }
+
+cd spring-data/spring-data-rest-associations && {
+  chmod +x gradlew
+  ./gradlew clean build --info
+  cd ../../
+}
+
+cd spring-data/spring-data-rest-springfox && {
+  chmod +x gradlew
+  ./gradlew clean build --info
+  cd ../../
+}
