@@ -1,0 +1,2 @@
+include "spring-cloud-contract-consumer"
+include "spring-cloud-contract-provider"

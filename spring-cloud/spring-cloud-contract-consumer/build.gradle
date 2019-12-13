@@ -31,7 +31,7 @@ dependencies {
     compile('com.h2database:h2:1.4.196')
     // This dependency is only included so that the gradle build executes the provider build first!
     // It should not be included in a real project.
-    compile project(':spring-cloud:spring-cloud-contract-provider')
+    compile project(':spring-cloud-contract-provider')
     testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
