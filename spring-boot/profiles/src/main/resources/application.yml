@@ -1,0 +1,5 @@
+spring.profiles.active: foo
+helloMessage: "Hello Default!"
+
+database-url: "INVALID!"
+mock.enabled: false

@@ -1,0 +1,4 @@
+helloMessage: "Hello Prod!"
+
+database-url: "path-to-the-real-db:1234"
+mock.enabled: false

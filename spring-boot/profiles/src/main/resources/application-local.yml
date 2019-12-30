@@ -1,0 +1,4 @@
+helloMessage: "Hello Local!"
+
+database-url: "localhost:1234"
+mock.enabled: true
