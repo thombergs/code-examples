@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/test
+
+  flyway:
+    url: "${spring.datasource.url}"
+    user: test
+    password: test
+    schemas: public
