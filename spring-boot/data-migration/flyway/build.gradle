@@ -42,6 +42,4 @@ test {
 
 flyway {
     url = 'jdbc:h2:mem:'
-    user = 'sa'
-    password = ''
 }
