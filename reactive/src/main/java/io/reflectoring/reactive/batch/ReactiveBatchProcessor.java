@@ -5,95 +5,82 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import io.reflectoring.reactive.batch.MessageHandler.Result;
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 
 public class ReactiveBatchProcessor {
 
-    private final static Logger logger = new Logger();
+  private final static Logger logger = new Logger();
 
-    private final int MESSAGE_BATCHES = 10;
+  private final int threads;
 
-    private final int BATCH_SIZE = 3;
+  private final MessageHandler messageHandler;
 
-    private final int THREADS = 4;
+  private final MessageSource messageSource;
 
-    private final MessageHandler messageHandler = new MessageHandler();
+  public ReactiveBatchProcessor(
+      MessageSource messageSource,
+      MessageHandler messageHandler,
+      int threads) {
+    this.messageSource = messageSource;
+    this.threads = threads;
+    this.messageHandler = messageHandler;
+  }
 
-    public void start() {
+  public void start() {
 
-        Scheduler threadPoolScheduler = threadPoolScheduler(THREADS, 10);
+    Scheduler scheduler = threadPoolScheduler(threads, 10);
 
-        retrieveMessageBatches()
-                .doOnNext(batch -> logger.log(batch.toString()))
-                .flatMap(batch -> Flowable.fromIterable(batch.getMessages()))
-                .flatMapSingle(message -> Single.defer(() -> Single.just(messageHandler.handleMessage(message)))
-                        .doOnSuccess(result -> logger.log("message handled"))
-                        .subscribeOn(threadPoolScheduler))
-                .subscribeWith(subscriber());
-    }
+    messageSource.getMessageBatches()
+        .subscribeOn(Schedulers.from(Executors.newSingleThreadExecutor()))
+        .doOnNext(batch -> logger.log(batch.toString()))
+        .flatMap(batch -> Flowable.fromIterable(batch.getMessages()))
+        .flatMapSingle(m -> Single.defer(() -> Single.just(m)
+            .map(messageHandler::handleMessage))
+            .subscribeOn(scheduler))
+        .subscribeWith(subscriber());
+  }
 
-    private Subscriber<MessageHandler.Result> subscriber() {
-        return new Subscriber<>() {
-            private Subscription subscription;
+  private Subscriber<MessageHandler.Result> subscriber() {
+    return new Subscriber<>() {
+      private Subscription subscription;
 
-            @Override
-            public void onSubscribe(Subscription subscription) {
-                this.subscription = subscription;
-                subscription.request(THREADS);
-                logger.log("subscribed");
-            }
+      @Override
+      public void onSubscribe(Subscription subscription) {
+        this.subscription = subscription;
+        subscription.request(threads);
+        logger.log("subscribed");
+      }
 
-            @Override
-            public void onNext(Result message) {
-                subscription.request(THREADS);
-            }
+      @Override
+      public void onNext(Result message) {
+        subscription.request(threads);
+      }
 
-            @Override
-            public void onError(Throwable t) {
-                logger.log("error");
-            }
+      @Override
+      public void onError(Throwable t) {
+        logger.log("error");
+      }
 
-            @Override
-            public void onComplete() {
-                logger.log("completed");
-            }
-        };
-    }
+      @Override
+      public void onComplete() {
+        logger.log("completed");
+      }
+    };
+  }
 
-    private Scheduler threadPoolScheduler(int poolSize, int queueSize) {
-        return Schedulers.from(new ThreadPoolExecutor(
-                poolSize,
-                poolSize,
-                0L,
-                TimeUnit.SECONDS,
-                new LinkedBlockingDeque<>(queueSize),
-                new RetryRejectedExecutionHandler()
-        ));
-    }
-
-    public boolean allMessagesProcessed() {
-        return this.messageHandler.getProcessedMessages() == MESSAGE_BATCHES * BATCH_SIZE;
-    }
-
-    private Flowable<MessageBatch> retrieveMessageBatches() {
-        return Flowable.range(1, MESSAGE_BATCHES)
-                .map(this::messageBatch);
-    }
-
-    private MessageBatch messageBatch(int batchNumber) {
-        List<Message> messages = new ArrayList<>();
-        for (int i = 1; i <= BATCH_SIZE; i++) {
-            messages.add(new Message(String.format("%d-%d", batchNumber, i)));
-        }
-        return new MessageBatch(messages);
-    }
-
+  private Scheduler threadPoolScheduler(int poolSize, int queueSize) {
+    return Schedulers.from(new ThreadPoolExecutor(
+        poolSize,
+        poolSize,
+        0L,
+        TimeUnit.SECONDS,
+        new LinkedBlockingDeque<>(queueSize)
+    ));
+  }
 
 }
