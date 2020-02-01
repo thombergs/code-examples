@@ -1,4 +1,6 @@
-public class BurgerOrder implements IOrder {
+package io.reflectoring.solid.isp;
+
+class BurgerOrder implements IOrder {
     @Override
     public void orderBurger(int quantity) {
 
