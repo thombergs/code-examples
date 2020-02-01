@@ -1,4 +1,6 @@
-public class AdaptedFriesOrder implements IAdapterOrderForFries {
+package io.reflectoring.solid.isp;
+
+class AdaptedFriesOrder implements IAdapterOrderForFries {
     private final IOrder friesOrder;
     public AdaptedFriesOrder(IOrder friesOrder){
         this.friesOrder = friesOrder;
