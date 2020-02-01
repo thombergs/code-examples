@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class ReactiveBatchProcessor {
+public class ReactiveBatchProcessorV3 {
 
   private final static Logger logger = new Logger();
 
@@ -21,7 +21,7 @@ public class ReactiveBatchProcessor {
 
   private final MessageSource messageSource;
 
-  public ReactiveBatchProcessor(
+  public ReactiveBatchProcessorV3(
       MessageSource messageSource,
       MessageHandler messageHandler,
       int threads,
@@ -33,15 +33,13 @@ public class ReactiveBatchProcessor {
   }
 
   public void start() {
-
     Scheduler scheduler = threadPoolScheduler(threads, threadPoolQueueSize);
 
     messageSource.getMessageBatches()
         .subscribeOn(Schedulers.from(Executors.newSingleThreadExecutor()))
         .doOnNext(batch -> logger.log(batch.toString()))
         .flatMap(batch -> Flowable.fromIterable(batch.getMessages()))
-        .flatMapSingle(m -> Single.defer(() -> Single.just(m)
-            .map(messageHandler::handleMessage))
+        .flatMapSingle(m -> Single.defer(() -> Single.just(messageHandler.handleMessage(m)))
             .subscribeOn(scheduler))
         .subscribeWith(new SimpleSubscriber<>(threads, 1));
   }
@@ -52,8 +50,7 @@ public class ReactiveBatchProcessor {
         poolSize,
         0L,
         TimeUnit.SECONDS,
-        new LinkedBlockingDeque<>(queueSize),
-        new WaitForCapacityPolicy()
+        new LinkedBlockingDeque<>(queueSize)
     ));
   }
 
