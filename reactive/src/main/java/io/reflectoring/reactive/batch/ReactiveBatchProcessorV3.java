@@ -33,6 +33,7 @@ public class ReactiveBatchProcessorV3 {
   }
 
   public void start() {
+    // WARNING: this code doesn't work as expected
     Scheduler scheduler = threadPoolScheduler(threads, threadPoolQueueSize);
 
     messageSource.getMessageBatches()

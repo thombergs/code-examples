@@ -33,6 +33,7 @@ public class ReactiveBatchProcessorV2 {
   }
 
   public void start() {
+    // WARNING: this code doesn't work as expected
     messageSource.getMessageBatches()
         .subscribeOn(Schedulers.from(Executors.newSingleThreadExecutor()))
         .doOnNext(batch -> logger.log(batch.toString()))
