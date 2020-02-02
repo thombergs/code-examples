@@ -1,9 +1,9 @@
 package io.reflectoring.reactive.batch;
 
-import io.reactivex.Flowable;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -21,7 +21,7 @@ public class ReactiveBatchProcessor {
 
   private final MessageSource messageSource;
 
-  public ReactiveBatchProcessor(
+  ReactiveBatchProcessor(
       MessageSource messageSource,
       MessageHandler messageHandler,
       int threads,
@@ -32,7 +32,7 @@ public class ReactiveBatchProcessor {
     this.threadPoolQueueSize = threadPoolQueueSize;
   }
 
-  public void start() {
+  void start() {
 
     Scheduler scheduler = threadPoolScheduler(threads, threadPoolQueueSize);
 

@@ -1,14 +1,11 @@
-package io.reflectoring;
+package io.reflectoring.reactive.batch;
 
-import io.reflectoring.reactive.batch.Logger;
-import io.reflectoring.reactive.batch.Message;
-import io.reflectoring.reactive.batch.MessageHandler;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class TestMessageHandler implements MessageHandler {
+class TestMessageHandler implements MessageHandler {
 
   private final AtomicInteger processedMessages = new AtomicInteger();
 

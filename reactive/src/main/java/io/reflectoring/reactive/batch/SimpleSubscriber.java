@@ -3,7 +3,7 @@ package io.reflectoring.reactive.batch;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-public class SimpleSubscriber<T> implements Subscriber<T> {
+class SimpleSubscriber<T> implements Subscriber<T> {
 
   private final Logger logger = new Logger();
 
@@ -12,7 +12,7 @@ public class SimpleSubscriber<T> implements Subscriber<T> {
 
   private Subscription subscription;
 
-  public SimpleSubscriber(int initialFetchCount, int onNextFetchCount) {
+  SimpleSubscriber(int initialFetchCount, int onNextFetchCount) {
     this.initialFetchCount = initialFetchCount;
     this.onNextFetchCount = onNextFetchCount;
   }

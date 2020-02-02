@@ -4,7 +4,7 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class WaitForCapacityPolicy implements RejectedExecutionHandler {
+class WaitForCapacityPolicy implements RejectedExecutionHandler {
 
     @Override
     public void rejectedExecution(Runnable runnable, ThreadPoolExecutor threadPoolExecutor) {
