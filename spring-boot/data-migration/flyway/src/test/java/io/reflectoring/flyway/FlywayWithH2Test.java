@@ -1,7 +1,6 @@
 package io.reflectoring.flyway;
 
 import java.util.List;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +16,28 @@ class FlywayWithH2Test {
   @Test
   void databaseHasBeenInitialized() {
 
-    jdbcTemplate.execute("insert into auth_user values(1, 'reflectoring')");
+    jdbcTemplate.execute("insert into test_user (username, first_name, last_name) values('reflectoring', 'Elvis', 'Presley')");
 
     final List<AuthUser> authUsers = jdbcTemplate
-        .query("SELECT id, username FROM auth_user", (rs, rowNum) -> new AuthUser(
-            rs.getString("id"),
-            rs.getString("username")
+        .query("SELECT username, first_name, last_name FROM test_user", (rs, rowNum) -> new AuthUser(
+            rs.getString("username"),
+            rs.getString("first_name"),
+            rs.getString("last_name")
         ));
 
     Assertions.assertThat(authUsers).isNotEmpty();
   }
 
   private static class AuthUser {
-    public String id;
     public String username;
+    public String firstName;
+    public String lastName;
 
-    public AuthUser(final String id, final String username) {
+    public AuthUser(final String username, final String firstName, final String lastName) {
 
-      this.id = id;
       this.username = username;
+      this.firstName = firstName;
+      this.lastName = lastName;
     }
   }
 }

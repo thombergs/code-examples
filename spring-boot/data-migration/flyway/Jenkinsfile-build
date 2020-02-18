@@ -1,0 +1,19 @@
+pipeline {
+	agent any
+
+	stages {
+		checkout scm
+
+		stage('Gradle Build') {
+      steps {
+        script {
+          if (isUnix()) {
+            sh './gradlew clean build --info'
+          } else {
+            bat 'gradlew.bat clean build --info'
+          }
+        }
+      }
+    }
+	}
+}
