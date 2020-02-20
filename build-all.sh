@@ -28,6 +28,7 @@ build_gradle_module() {
 
 chmod +x gradlew
 
+build_gradle_module "spring-boot/data-migration/flyway"
 build_gradle_module "junit/assumptions"
 build_gradle_module "logging"
 build_gradle_module "pact/pact-feign-consumer"
