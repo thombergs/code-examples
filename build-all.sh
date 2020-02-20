@@ -4,6 +4,7 @@ MAIN_DIR=$PWD
 
 build_gradle_module() {
   MODULE_PATH=$1
+  echo ""
   echo "+++"
   echo "+++ BUILDING MODULE $MODULE_PATH"
   echo "+++"
@@ -12,15 +13,16 @@ build_gradle_module() {
     ./gradlew clean build --info --stacktrace
     if [ $? -ne 0 ]
     then
+      echo ""
       echo "+++"
       echo "+++ BUILDING MODULE $MODULE_PATH FAILED"
       echo "+++"
       exit 1
     else
+      echo ""
       echo "+++"
       echo "+++ BUILDING MODULE $MODULE_PATH SUCCESSFUL"
       echo "+++"
-      echo ""
     fi
     cd $MAIN_DIR
   }
@@ -29,6 +31,7 @@ build_gradle_module() {
 chmod +x gradlew
 
 build_gradle_module "spring-boot/data-migration/flyway"
+build_gradle_module "reactive"
 build_gradle_module "junit/assumptions"
 build_gradle_module "logging"
 build_gradle_module "pact/pact-feign-consumer"
@@ -49,6 +52,7 @@ build_gradle_module "spring-boot/starter"
 build_gradle_module "spring-boot/startup"
 build_gradle_module "spring-boot/static"
 build_gradle_module "spring-boot/validation"
+build_gradle_module "spring-boot/profiles"
 build_gradle_module "spring-cloud/feign-with-spring-data-rest"
 build_gradle_module "spring-cloud/sleuth-downstream-service"
 build_gradle_module "spring-cloud/sleuth-upstream-service"
@@ -58,6 +62,7 @@ build_gradle_module "spring-data/spring-data-rest-associations"
 build_gradle_module "spring-data/spring-data-rest-springfox"
 build_gradle_module "tools/jacoco"
 
+echo ""
 echo "+++"
 echo "+++ ALL MODULES SUCCESSFUL"
 echo "+++"

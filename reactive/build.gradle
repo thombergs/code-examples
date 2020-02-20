@@ -1,0 +1,25 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
+apply plugin: 'java'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 11
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'io.reactivex.rxjava3:rxjava:3.0.0-RC9'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+	testImplementation 'org.awaitility:awaitility:3.0.0'
+}
+
+test {
+	useJUnitPlatform()
+}
