@@ -9,20 +9,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class JdbcUserDetailPasswordService implements UserDetailsPasswordService {
 
-  private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-  private final UserDetailsMapper userDetailsMapper;
+    private final UserDetailsMapper userDetailsMapper;
 
-  public JdbcUserDetailPasswordService(
-      UserRepository userRepository, UserDetailsMapper userDetailsMapper) {
-    this.userRepository = userRepository;
-    this.userDetailsMapper = userDetailsMapper;
-  }
+    public JdbcUserDetailPasswordService(
+            UserRepository userRepository, UserDetailsMapper userDetailsMapper) {
+        this.userRepository = userRepository;
+        this.userDetailsMapper = userDetailsMapper;
+    }
 
-  @Override
-  public UserDetails updatePassword(UserDetails user, String newPassword) {
-    UserCredentials userCredentials = userRepository.findByUsername(user.getUsername());
-    userCredentials.setPassword(newPassword);
-    return userDetailsMapper.toUserDetails(userCredentials);
-  }
+    @Override
+    public UserDetails updatePassword(UserDetails user, String newPassword) {
+        UserCredentials userCredentials = userRepository.findByUsername(user.getUsername());
+        userCredentials.setPassword(newPassword);
+        return userDetailsMapper.toUserDetails(userCredentials);
+    }
 }
