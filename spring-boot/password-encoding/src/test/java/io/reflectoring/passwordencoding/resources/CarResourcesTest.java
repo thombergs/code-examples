@@ -22,73 +22,70 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 class CarResourcesTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+  @Autowired private ObjectMapper objectMapper;
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
-    @Test
-    void getCarsShouldReturnUnauthorizedIfTheRequestHasNoBasicAuthentication() throws Exception {
-        mockMvc.perform(get("/cars"))
-                .andExpect(status().isUnauthorized());
-    }
+  @Test
+  void getCarsShouldReturnUnauthorizedIfTheRequestHasNoBasicAuthentication() throws Exception {
+    mockMvc.perform(get("/cars")).andExpect(status().isUnauthorized());
+  }
 
-    @Test
-    void getCarsShouldReturnCarsForTheAuthenticatedUser() throws Exception {
-        mockMvc.perform(get("/cars")
-                .with(httpBasic("user", "password")))
-                .andExpect(status().isOk());
-    }
+  @Test
+  void getCarsShouldReturnCarsForTheAuthenticatedUser() throws Exception {
+    mockMvc.perform(get("/cars").with(httpBasic("user", "password"))).andExpect(status().isOk());
+  }
 
-    @Test
-    void registrationShouldReturnCreated() throws Exception {
+  @Test
+  void registrationShouldReturnCreated() throws Exception {
 
-        // register
-        UserCredentialsDto userCredentialsDto = UserCredentialsDto.builder().username("toyota").password("my secret").build();
-        mockMvc.perform(post("/registration")
+    // register
+    UserCredentialsDto userCredentialsDto =
+        UserCredentialsDto.builder().username("toyota").password("my secret").build();
+    mockMvc
+        .perform(
+            post("/registration")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(userCredentialsDto)))
-                .andExpect(status().isCreated());
-    }
+        .andExpect(status().isCreated());
+  }
 
-    @Test
-    void registrationShouldReturnUnauthorizedWithWrongCredentials() throws Exception {
+  @Test
+  void registrationShouldReturnUnauthorizedWithWrongCredentials() throws Exception {
 
-        mockMvc.perform(get("/cars")
-                .with(httpBasic("user", "wrong password")))
-                .andExpect(status().isUnauthorized());
-    }
+    mockMvc
+        .perform(get("/cars").with(httpBasic("user", "wrong password")))
+        .andExpect(status().isUnauthorized());
+  }
 
-    @Test
-    void getCarsShouldUpdatePasswordFromWorkingFactor5toHigherValue() throws Exception {
-        mockMvc.perform(get("/cars")
-                .with(httpBasic("user with working factor 5", "password")))
-                .andExpect(status().isOk());
+  @Test
+  void getCarsShouldUpdatePasswordFromWorkingFactor5toHigherValue() throws Exception {
+    mockMvc
+        .perform(get("/cars").with(httpBasic("user with working factor 5", "password")))
+        .andExpect(status().isOk());
 
-        UserCredentials userCredentials = userRepository.findByUsername("user with working factor 5");
-        // we don't know what strength the BcCryptWorkFactorService returns,
-        // but it should be more than 5
-        assertThat(userCredentials.getPassword()).doesNotStartWith("{bcrypt}$2a$05");
-    }
+    UserCredentials userCredentials = userRepository.findByUsername("user with working factor 5");
+    // we don't know what strength the BcCryptWorkFactorService returns,
+    // but it should be more than 5
+    assertThat(userCredentials.getPassword()).doesNotStartWith("{bcrypt}$2a$05");
+  }
 
-    @Test
-    void getCarsShouldUpdateSha1PasswordToBcrypt() throws Exception {
-        mockMvc.perform(get("/cars")
-                .with(httpBasic("user with sha1 encoding", "password")))
-                .andExpect(status().isOk());
+  @Test
+  void getCarsShouldUpdateSha1PasswordToBcrypt() throws Exception {
+    mockMvc
+        .perform(get("/cars").with(httpBasic("user with sha1 encoding", "password")))
+        .andExpect(status().isOk());
 
-        UserCredentials userCredentials = userRepository.findByUsername("user with sha1 encoding");
-        assertThat(userCredentials.getPassword()).startsWith("{bcrypt}");
-    }
+    UserCredentials userCredentials = userRepository.findByUsername("user with sha1 encoding");
+    assertThat(userCredentials.getPassword()).startsWith("{bcrypt}");
+  }
 
-    @Test
-    void getCarsShouldReturnOkForScryptUser() throws Exception {
-        mockMvc.perform(get("/cars")
-                .with(httpBasic("scrypt user", "password")))
-                .andExpect(status().isOk());
-    }
+  @Test
+  void getCarsShouldReturnOkForScryptUser() throws Exception {
+    mockMvc
+        .perform(get("/cars").with(httpBasic("scrypt user", "password")))
+        .andExpect(status().isOk());
+  }
 }

@@ -29,73 +29,84 @@ import java.util.Map;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+  private final UserRepository userRepository;
+  private final UserDetailsMapper userDetailsMapper;
+  private final BcCryptWorkFactorService bcCryptWorkFactorService;
 
-    private final UserRepository userRepository;
-    private final UserDetailsMapper userDetailsMapper;
-    private final BcCryptWorkFactorService bcCryptWorkFactorService;
+  public SecurityConfiguration(
+      UserRepository userRepository,
+      UserDetailsMapper userDetailsMapper,
+      BcCryptWorkFactorService bcCryptWorkFactorService) {
+    this.userRepository = userRepository;
+    this.userDetailsMapper = userDetailsMapper;
+    this.bcCryptWorkFactorService = bcCryptWorkFactorService;
+  }
 
-    public SecurityConfiguration(UserRepository userRepository, UserDetailsMapper userDetailsMapper, BcCryptWorkFactorService bcCryptWorkFactorService) {
-        this.userRepository = userRepository;
-        this.userDetailsMapper = userDetailsMapper;
-        this.bcCryptWorkFactorService = bcCryptWorkFactorService;
-    }
+  @Override
+  protected void configure(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity
+        .csrf()
+        .disable()
+        .authorizeRequests()
+        .antMatchers("/registration")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .httpBasic();
 
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/registration").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+    httpSecurity.headers().frameOptions().disable();
+  }
 
-        httpSecurity.headers().frameOptions().disable();
-    }
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.authenticationProvider(daoAuthenticationProvider()).eraseCredentials(false);
+  }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .authenticationProvider(daoAuthenticationProvider())
-                .eraseCredentials(false);
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    // we must user deprecated encoder to support their encoding
+    String encodingId = "bcrypt";
+    Map<String, PasswordEncoder> encoders = new HashMap<>();
+    encoders.put(
+        encodingId, new BCryptPasswordEncoder(bcCryptWorkFactorService.calculateStrength()));
+    encoders.put("ldap", new org.springframework.security.crypto.password.LdapShaPasswordEncoder());
+    encoders.put("MD4", new org.springframework.security.crypto.password.Md4PasswordEncoder());
+    encoders.put(
+        "MD5",
+        new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("MD5"));
+    encoders.put(
+        "noop", org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance());
+    encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
+    encoders.put("scrypt", new SCryptPasswordEncoder());
+    encoders.put(
+        "SHA-1",
+        new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-1"));
+    encoders.put(
+        "SHA-256",
+        new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-256"));
+    encoders.put(
+        "sha256", new org.springframework.security.crypto.password.StandardPasswordEncoder());
+    encoders.put("argon2", new Argon2PasswordEncoder());
 
+    return new DelegatingPasswordEncoder(encodingId, encoders);
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        // we must user deprecated encoder to support their encoding
-        String encodingId = "bcrypt";
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put(encodingId, new BCryptPasswordEncoder(bcCryptWorkFactorService.calculateStrength()));
-        encoders.put("ldap", new org.springframework.security.crypto.password.LdapShaPasswordEncoder());
-        encoders.put("MD4", new org.springframework.security.crypto.password.Md4PasswordEncoder());
-        encoders.put("MD5", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("MD5"));
-        encoders.put("noop", org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance());
-        encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
-        encoders.put("scrypt", new SCryptPasswordEncoder());
-        encoders.put("SHA-1", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-1"));
-        encoders.put("SHA-256", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-256"));
-        encoders.put("sha256", new org.springframework.security.crypto.password.StandardPasswordEncoder());
-        encoders.put("argon2", new Argon2PasswordEncoder());
+  @Bean
+  public UserDetailsPasswordService userDetailsPasswordService() {
+    return new JdbcUserDetailPasswordService(userRepository, userDetailsMapper);
+  }
 
-        return new DelegatingPasswordEncoder(encodingId, encoders);
-    }
+  public UserDetailsService userDetailsService() {
+    return new JdbcUserDetailsService(userRepository, userDetailsMapper);
+  }
 
-    @Bean
-    public UserDetailsPasswordService userDetailsPasswordService() {
-        return new JdbcUserDetailPasswordService(userRepository, userDetailsMapper);
-    }
-
-    public UserDetailsService userDetailsService() {
-        return new JdbcUserDetailsService(userRepository, userDetailsMapper);
-    }
-
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsPasswordService(userDetailsPasswordService());
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService());
-        return daoAuthenticationProvider;
-    }
+  @Bean
+  public DaoAuthenticationProvider daoAuthenticationProvider() {
+    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+    daoAuthenticationProvider.setUserDetailsPasswordService(userDetailsPasswordService());
+    daoAuthenticationProvider.setUserDetailsService(userDetailsService());
+    return daoAuthenticationProvider;
+  }
 }

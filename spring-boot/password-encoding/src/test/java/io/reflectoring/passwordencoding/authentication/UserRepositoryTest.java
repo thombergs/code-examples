@@ -9,18 +9,17 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 @DataJpaTest
 class UserRepositoryTest {
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
-    @Test
-    void findUserByUsername() {
-        // given
-        String username = "user";
+  @Test
+  void findUserByUsername() {
+    // given
+    String username = "user";
 
-        // when
-        UserCredentials userCredentials = userRepository.findByUsername(username);
+    // when
+    UserCredentials userCredentials = userRepository.findByUsername(username);
 
-        // then
-        assertThat(userCredentials).isNotNull();
-    }
+    // then
+    assertThat(userCredentials).isNotNull();
+  }
 }

@@ -6,5 +6,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface UserRepository extends JpaRepository<UserCredentials, String> {
 
-    UserCredentials findByUsername(String username);
+  UserCredentials findByUsername(String username);
 }

@@ -1,121 +1,119 @@
 package io.reflectoring.passwordencoding.workfactor;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class BcCryptWorkFactorServiceTest {
 
-    private BcCryptWorkFactorService bcCryptWorkFactorService = new BcCryptWorkFactorService();
+  private BcCryptWorkFactorService bcCryptWorkFactorService = new BcCryptWorkFactorService();
 
-    @Test
-    void calculateStrength() {
-        // given
+  @Test
+  void calculateStrength() {
+    // given
 
-        // when
-        int strength = bcCryptWorkFactorService.calculateStrength();
+    // when
+    int strength = bcCryptWorkFactorService.calculateStrength();
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength);
+    // then
+    assertThat(strength).isBetween(4, 31);
+  }
 
-        // then
-        assertThat(strength).isBetween(4, 31);
-    }
+  @Test
+  void calculateStrengthBi() {
+    // given
 
-    @Test
-    void calculateRounds() {
-        // given
+    // when
+    BcryptWorkFactor bcryptWorkFactor =
+        bcCryptWorkFactorService.calculateStrengthDivideAndConquer();
 
-        // when
-        int strength = bcCryptWorkFactorService.calculateStrengthClosestToTimeGoal();
+    // then
+    assertThat(bcryptWorkFactor.getStrength()).isBetween(4, 31);
+  }
 
-        // then
-        assertThat(strength).isBetween(4, 31);
-    }
+  @Test
+  void findCloserToShouldReturnNumber1IfItCloserToGoalThanNumber2() {
+    // given
+    int number1 = 950;
+    int number2 = 1051;
 
-    @Test
-    void findCloserToShouldReturnNumber1IfItCloserToGoalThanNumber2() {
-        // given
-        int number1 = 950;
-        int number2 = 1051;
+    // when
+    boolean actual = bcCryptWorkFactorService.isPreviousDurationCloserToGoal(number1, number2);
 
-        // when
-        boolean actual = bcCryptWorkFactorService.isPreviousDurationCloserToGoal(number1, number2);
+    // then
+    assertThat(actual).isTrue();
+  }
 
-        // then
-        assertThat(actual).isTrue();
-    }
+  @Test
+  void findCloserToShouldReturnNUmber2IfItCloserToGoalThanNumber1() {
+    // given
+    int number1 = 1002;
+    int number2 = 999;
 
-    @Test
-    void findCloserToShouldReturnNUmber2IfItCloserToGoalThanNumber1() {
-        // given
-        int number1 = 1002;
-        int number2 = 999;
+    // when
+    boolean actual = bcCryptWorkFactorService.isPreviousDurationCloserToGoal(number1, number2);
 
-        // when
-        boolean actual = bcCryptWorkFactorService.isPreviousDurationCloserToGoal(number1, number2);
+    // then
+    assertThat(actual).isFalse();
+  }
 
-        // then
-        assertThat(actual).isFalse();
-    }
+  @Test
+  void findCloserToShouldReturnGoalIfNumber2IsEqualGoal() {
+    // given
+    int number1 = 999;
+    int number2 = 1000;
 
-    @Test
-    void findCloserToShouldReturnGoalIfNumber2IsEqualGoal() {
-        // given
-        int number1 = 999;
-        int number2 = 1000;
+    // when
+    boolean actual = bcCryptWorkFactorService.isPreviousDurationCloserToGoal(number1, number2);
 
-        // when
-        boolean actual = bcCryptWorkFactorService.isPreviousDurationCloserToGoal(number1, number2);
+    // then
+    assertThat(actual).isFalse();
+  }
 
-        // then
-        assertThat(actual).isFalse();
-    }
+  @Test
+  void findCloserToShouldReturnGoalIfNumber1IsEqualGoal() {
+    // given
+    int number1 = 1000;
+    int number2 = 1001;
 
-    @Test
-    void findCloserToShouldReturnGoalIfNumber1IsEqualGoal() {
-        // given
-        int number1 = 1000;
-        int number2 = 1001;
+    // when
+    boolean actual = bcCryptWorkFactorService.isPreviousDurationCloserToGoal(number1, number2);
 
-        // when
-        boolean actual = bcCryptWorkFactorService.isPreviousDurationCloserToGoal(number1, number2);
+    // then
+    assertThat(actual).isTrue();
+  }
 
-        // then
-        assertThat(actual).isTrue();
-    }
+  @Test
+  void getStrengthShouldReturn4IfStrengthIs4() {
+    // given
+    int currentStrength = 4;
 
-    @Test
-    void getStrengthShouldReturn4IfStrengthIs4() {
-        // given
-        int currentStrength = 4;
+    // when
+    int actual = bcCryptWorkFactorService.getStrength(0, 0, currentStrength);
 
-        // when
-        int actual = bcCryptWorkFactorService.getStrength(0, 0, currentStrength);
+    // then
+    assertThat(actual).isEqualTo(4);
+  }
 
-        // then
-        assertThat(actual).isEqualTo(4);
-    }
+  @Test
+  void getStrengthShouldReturnPreviousStrengthIfPreviousDurationCloserToGoal() {
+    // given
 
-    @Test
-    void getStrengthShouldReturnPreviousStrengthIfPreviousDurationCloserToGoal() {
-        // given
+    // when
+    int actual = bcCryptWorkFactorService.getStrength(980, 1021, 5);
 
-        // when
-        int actual = bcCryptWorkFactorService.getStrength(980, 1021, 5);
+    // then
+    assertThat(actual).isEqualTo(4);
+  }
 
-        // then
-        assertThat(actual).isEqualTo(4);
-    }
+  @Test
+  void getStrengthShouldReturnCurrentStrengthIfCurrentDurationCloserToGoal() {
+    // given
 
-    @Test
-    void getStrengthShouldReturnCurrentStrengthIfCurrentDurationCloserToGoal() {
-        // given
+    // when
+    int actual = bcCryptWorkFactorService.getStrength(960, 1021, 5);
 
-        // when
-        int actual = bcCryptWorkFactorService.getStrength(960, 1021, 5);
-
-        // then
-        assertThat(actual).isEqualTo(5);
-    }
+    // then
+    assertThat(actual).isEqualTo(5);
+  }
 }

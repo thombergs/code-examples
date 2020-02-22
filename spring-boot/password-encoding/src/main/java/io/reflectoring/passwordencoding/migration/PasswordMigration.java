@@ -13,21 +13,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class PasswordMigration {
 
-    @Bean
-    public ApplicationListener<AuthenticationSuccessEvent> authenticationSuccessListener(
-            PasswordEncoder encoder,
-            UserDetailsPasswordService userDetailsPasswordService) {
-        return (AuthenticationSuccessEvent event) -> {
-            Authentication authentication = event.getAuthentication();
-            User user = (User) authentication.getPrincipal();
-            String encodedPassword = user.getPassword();
-            if (encodedPassword.startsWith("{SHA-1}")) {
-                CharSequence clearTextPassword = (CharSequence) authentication.getCredentials();
-                String newPassword = encoder.encode(clearTextPassword);
-                userDetailsPasswordService.updatePassword(user, newPassword);
-            }
-            ((UsernamePasswordAuthenticationToken) authentication).eraseCredentials();
-        };
-    }
-
+  @Bean
+  public ApplicationListener<AuthenticationSuccessEvent> authenticationSuccessListener(
+      PasswordEncoder encoder, UserDetailsPasswordService userDetailsPasswordService) {
+    return (AuthenticationSuccessEvent event) -> {
+      Authentication authentication = event.getAuthentication();
+      User user = (User) authentication.getPrincipal();
+      String encodedPassword = user.getPassword();
+      if (encodedPassword.startsWith("{SHA-1}")) {
+        CharSequence clearTextPassword = (CharSequence) authentication.getCredentials();
+        String newPassword = encoder.encode(clearTextPassword);
+        userDetailsPasswordService.updatePassword(user, newPassword);
+      }
+      ((UsernamePasswordAuthenticationToken) authentication).eraseCredentials();
+    };
+  }
 }

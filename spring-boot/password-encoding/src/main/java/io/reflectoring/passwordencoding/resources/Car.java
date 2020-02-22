@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Car {
 
-    private String name;
-    private String color;
+  private String name;
+  private String color;
 }
