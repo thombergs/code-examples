@@ -8,19 +8,11 @@ import java.util.Set;
 @RestController
 public class CarResources {
 
-    // we use this endpoint as authentication test
-    @GetMapping("/cars")
-    public Set<Car> cars() {
-        return Set.of(
-                Car.builder()
-                        .name("vw")
-                        .color("black")
-                        .build(),
-                Car.builder()
-                        .name("bmw")
-                        .color("white")
-                        .build()
-        );
-    }
+  // we use this endpoint as authentication test
+  @GetMapping("/cars")
+  public Set<Car> cars() {
+    return Set.of(
+        Car.builder().name("vw").color("black").build(),
+        Car.builder().name("bmw").color("white").build());
+  }
 }
-
