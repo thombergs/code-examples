@@ -17,8 +17,8 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import io.reflectoring.eventsdemo.events.UserCreatedEvent;
-import io.reflectoring.eventsdemo.listeners.UserCreatedListener;
+import io.reflectoring.eventsdemo.UserCreatedEvent;
+import io.reflectoring.eventsdemo.UserListener;
 import junit.framework.Assert;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +29,7 @@ class EventsDemoApplicationTests {
 	private ApplicationEventPublisher applicationEventPublisher;
 
 	@SpyBean
-	UserCreatedListener userCreatedListener;
+	UserListener userCreatedListener;
 
 	@Captor
 	protected ArgumentCaptor<UserCreatedEvent> publishEventCaptor;

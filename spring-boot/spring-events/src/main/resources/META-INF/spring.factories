@@ -1,0 +1,1 @@
+org.springframework.context.ApplicationListener=io.reflectoring.eventsdemo.SpringBuiltInEventsListener
