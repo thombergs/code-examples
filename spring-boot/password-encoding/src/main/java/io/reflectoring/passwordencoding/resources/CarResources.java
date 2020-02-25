@@ -8,7 +8,6 @@ import java.util.Set;
 @RestController
 public class CarResources {
 
-    // we use this endpoint as authentication test
     @GetMapping("/cars")
     public Set<Car> cars() {
         return Set.of(
