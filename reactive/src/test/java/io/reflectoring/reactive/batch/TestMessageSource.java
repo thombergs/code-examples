@@ -1,13 +1,13 @@
-package io.reflectoring;
+package io.reflectoring.reactive.batch;
 
-import io.reactivex.Flowable;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reflectoring.reactive.batch.Message;
 import io.reflectoring.reactive.batch.MessageBatch;
 import io.reflectoring.reactive.batch.MessageSource;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestMessageSource implements MessageSource {
+class TestMessageSource implements MessageSource {
 
   private final int batches;
 
@@ -19,7 +19,7 @@ public class TestMessageSource implements MessageSource {
    * @param batches   the number of message batches to produce.
    * @param batchSize the number of messages per batch.
    */
-  public TestMessageSource(int batches, int batchSize) {
+  TestMessageSource(int batches, int batchSize) {
     this.batches = batches;
     this.batchSize = batchSize;
   }

@@ -1,8 +1,8 @@
 package io.reflectoring.reactive.batch;
 
-import io.reactivex.Flowable;
+import io.reactivex.rxjava3.core.Flowable;
 
-public interface MessageSource {
+interface MessageSource {
 
   Flowable<MessageBatch> getMessageBatches();
 
