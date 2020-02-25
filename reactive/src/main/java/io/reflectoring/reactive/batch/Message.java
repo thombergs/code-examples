@@ -1,10 +1,10 @@
 package io.reflectoring.reactive.batch;
 
-public class Message {
+class Message {
 
   private final String content;
 
-  public Message(String content) {
+  Message(String content) {
     this.content = content;
   }
 

@@ -3,11 +3,11 @@ package io.reflectoring.reactive.batch;
 import java.util.Collections;
 import java.util.List;
 
-public class MessageBatch {
+class MessageBatch {
 
   private final List<Message> messages;
 
-  public MessageBatch(List<Message> messages) {
+  MessageBatch(List<Message> messages) {
     this.messages = messages;
   }
 

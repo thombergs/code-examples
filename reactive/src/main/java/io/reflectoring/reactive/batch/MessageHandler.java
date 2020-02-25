@@ -1,6 +1,6 @@
 package io.reflectoring.reactive.batch;
 
-public interface MessageHandler {
+interface MessageHandler {
 
   enum Result {
     SUCCESS,

@@ -1,0 +1,19 @@
+pipeline {
+	agent any
+
+	stages {
+		checkout scm
+
+		stage('Apply Database Migrations') {
+      steps {
+        script {
+          if (isUnix()) {
+            sh '/gradlew flywayMigrate --info'
+          } else {
+            bat 'gradlew.bat flywayMigrate --info'
+          }
+        }
+      }
+    }
+	}
+}
