@@ -2,19 +2,16 @@ package io.reflectoring.passwordencoding.configuration;
 
 import io.reflectoring.passwordencoding.authentication.JdbcUserDetailPasswordService;
 import io.reflectoring.passwordencoding.authentication.JdbcUserDetailsService;
-import io.reflectoring.passwordencoding.authentication.UserDetailsMapper;
-import io.reflectoring.passwordencoding.authentication.UserRepository;
 import io.reflectoring.passwordencoding.workfactor.BcCryptWorkFactorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsPasswordService;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
@@ -29,17 +26,17 @@ import java.util.Map;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final UserRepository userRepository;
-    private final UserDetailsMapper userDetailsMapper;
     private final BcCryptWorkFactorService bcCryptWorkFactorService;
+    private final JdbcUserDetailsService jdbcUserDetailsService;
+    private final JdbcUserDetailPasswordService jdbcUserDetailPasswordService;
 
     public SecurityConfiguration(
-            UserRepository userRepository,
-            UserDetailsMapper userDetailsMapper,
-            BcCryptWorkFactorService bcCryptWorkFactorService) {
-        this.userRepository = userRepository;
-        this.userDetailsMapper = userDetailsMapper;
+            BcCryptWorkFactorService bcCryptWorkFactorService,
+            JdbcUserDetailsService jdbcUserDetailsService,
+            JdbcUserDetailPasswordService jdbcUserDetailPasswordService) {
         this.bcCryptWorkFactorService = bcCryptWorkFactorService;
+        this.jdbcUserDetailsService = jdbcUserDetailsService;
+        this.jdbcUserDetailPasswordService = jdbcUserDetailPasswordService;
     }
 
     @Override
@@ -60,7 +57,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(daoAuthenticationProvider()).eraseCredentials(false);
+        auth.authenticationProvider(daoAuthenticationProvider())
+                .eraseCredentials(false);
     }
 
     @Bean
@@ -83,21 +81,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new DelegatingPasswordEncoder(encodingId, encoders);
     }
 
-    @Bean
-    public UserDetailsPasswordService userDetailsPasswordService() {
-        return new JdbcUserDetailPasswordService(userRepository, userDetailsMapper);
-    }
 
-    public UserDetailsService userDetailsService() {
-        return new JdbcUserDetailsService(userRepository, userDetailsMapper);
-    }
-
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
+    public AuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsPasswordService(userDetailsPasswordService());
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService());
+        daoAuthenticationProvider.setUserDetailsPasswordService(this.jdbcUserDetailPasswordService);
+        daoAuthenticationProvider.setUserDetailsService(this.jdbcUserDetailsService);
         return daoAuthenticationProvider;
     }
 }

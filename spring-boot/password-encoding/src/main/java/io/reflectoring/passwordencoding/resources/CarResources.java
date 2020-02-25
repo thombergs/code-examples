@@ -12,7 +12,7 @@ public class CarResources {
     @GetMapping("/cars")
     public Set<Car> cars() {
         return Set.of(
-                Car.builder().name("vw").color("black").build(),
-                Car.builder().name("bmw").color("white").build());
+                new Car("vw", "black"),
+                new Car("bmw", "white"));
     }
 }
