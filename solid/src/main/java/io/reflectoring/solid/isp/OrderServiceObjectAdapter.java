@@ -1,4 +1,6 @@
-class OrderServiceObjectAdapter implements BurgerOrderService {
+package io.reflectoring.solid.isp;
+
+class OrderServiceObjectAdapter implements NewBurgerOrderService {
     private OrderService adaptee;
     public OrderServiceObjectAdapter(OrderService adaptee) {
         super();

@@ -1,3 +1,5 @@
+package io.reflectoring.solid.isp;
+
 class BurgerOrderService implements OrderService {
     @Override
     public void orderBurger(int quantity) {

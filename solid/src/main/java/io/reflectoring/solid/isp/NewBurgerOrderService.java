@@ -1,3 +1,5 @@
+package io.reflectoring.solid.isp;
+
 interface NewBurgerOrderService {
-    void orderBurgers(int quantity);
+    void orderBurger(int quantity);
 }
