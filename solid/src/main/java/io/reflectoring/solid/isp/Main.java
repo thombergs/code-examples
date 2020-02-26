@@ -2,9 +2,9 @@ package io.reflectoring.solid.isp;
 
 class Main{
     public static void main(String[] args){
-        ComboOrderService comboOrderService = new ComboOrderService();
-        comboOrderService.orderCombo(4,5);
-        OrderServiceObjectAdapter orderServObjectAdapter = new OrderServiceObjectAdapter(new ComboOrderService());
-        orderServObjectAdapter.orderBurger(4);
+        OrderService comboOrderService = new ComboOrderService();
+        NewBurgerOrderService burgerService =
+            new OrderServiceObjectAdapter(new ComboOrderService());
+        burgerService.orderBurger(4);
     }
 }
