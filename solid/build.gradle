@@ -1,0 +1,25 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'java-library'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+	testImplementation 'org.assertj:assertj-core:2.6.0'
+}
+
+test {
+	useJUnitPlatform()
+}
