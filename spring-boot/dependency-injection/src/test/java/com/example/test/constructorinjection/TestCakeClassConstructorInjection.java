@@ -16,10 +16,10 @@ public class TestCakeClassConstructorInjection {
 
 	@Autowired
 	Cake cake;
-	
+
 	@Test
-	public void testConstructorInjection() {	
-		String testColor=cake.getFlavor().getColor();
+	public void testConstructorInjection() {
+		String testColor = cake.getFlavor().getColor();
 		Assert.assertEquals(testColor, " White ");
 	}
 }
