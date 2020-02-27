@@ -8,13 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class JdbcUserDetailsService implements UserDetailsService {
+public class DatabaseUserDetailsService implements UserDetailsService {
 
   private final UserRepository userRepository;
 
   private final UserDetailsMapper userDetailsMapper;
 
-  public JdbcUserDetailsService(
+  public DatabaseUserDetailsService(
       UserRepository userRepository, UserDetailsMapper userDetailsMapper) {
     this.userRepository = userRepository;
     this.userDetailsMapper = userDetailsMapper;
