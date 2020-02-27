@@ -14,12 +14,12 @@ import java.util.Set;
 
 @RestController
 @Transactional
-class UserResources {
+class RegistrationResource {
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
 
-  public UserResources(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+  public RegistrationResource(UserRepository userRepository, PasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
   }
