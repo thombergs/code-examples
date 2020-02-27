@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class BcryptWorkFactor {
+class BcryptWorkFactor {
 
-    private int strength;
-    private long duration;
+  private int strength;
+  private long duration;
 }

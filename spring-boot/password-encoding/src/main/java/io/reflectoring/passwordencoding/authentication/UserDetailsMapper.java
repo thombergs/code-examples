@@ -5,13 +5,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDetailsMapper {
+class UserDetailsMapper {
 
-    UserDetails toUserDetails(UserCredentials userCredentials) {
+  UserDetails toUserDetails(UserCredentials userCredentials) {
 
-        return User.withUsername(userCredentials.getUsername())
-                .password(userCredentials.getPassword())
-                .roles(userCredentials.getRoles().toArray(String[]::new))
-                .build();
-    }
+    return User.withUsername(userCredentials.getUsername())
+        .password(userCredentials.getPassword())
+        .roles(userCredentials.getRoles().toArray(String[]::new))
+        .build();
+  }
 }

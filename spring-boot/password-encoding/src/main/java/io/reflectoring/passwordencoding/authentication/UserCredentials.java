@@ -16,17 +16,16 @@ import java.util.Set;
 @Table(name = "users")
 public class UserCredentials {
 
-    @Id
-    private String username;
+  @Id private String username;
 
-    private String password;
+  private String password;
 
-    boolean enabled;
+  boolean enabled;
 
-    @ElementCollection
-    @JoinTable(
-            name = "authorities",
-            joinColumns = {@JoinColumn(name = "username")})
-    @Column(name = "authority")
-    private Set<String> roles;
+  @ElementCollection
+  @JoinTable(
+      name = "authorities",
+      joinColumns = {@JoinColumn(name = "username")})
+  @Column(name = "authority")
+  private Set<String> roles;
 }

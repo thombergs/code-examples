@@ -26,67 +26,74 @@ import java.util.Map;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final BcCryptWorkFactorService bcCryptWorkFactorService;
-    private final JdbcUserDetailsService jdbcUserDetailsService;
-    private final JdbcUserDetailPasswordService jdbcUserDetailPasswordService;
+  private final BcCryptWorkFactorService bcCryptWorkFactorService;
+  private final JdbcUserDetailsService jdbcUserDetailsService;
+  private final JdbcUserDetailPasswordService jdbcUserDetailPasswordService;
 
-    public SecurityConfiguration(
-            BcCryptWorkFactorService bcCryptWorkFactorService,
-            JdbcUserDetailsService jdbcUserDetailsService,
-            JdbcUserDetailPasswordService jdbcUserDetailPasswordService) {
-        this.bcCryptWorkFactorService = bcCryptWorkFactorService;
-        this.jdbcUserDetailsService = jdbcUserDetailsService;
-        this.jdbcUserDetailPasswordService = jdbcUserDetailPasswordService;
-    }
+  public SecurityConfiguration(
+      BcCryptWorkFactorService bcCryptWorkFactorService,
+      JdbcUserDetailsService jdbcUserDetailsService,
+      JdbcUserDetailPasswordService jdbcUserDetailPasswordService) {
+    this.bcCryptWorkFactorService = bcCryptWorkFactorService;
+    this.jdbcUserDetailsService = jdbcUserDetailsService;
+    this.jdbcUserDetailPasswordService = jdbcUserDetailPasswordService;
+  }
 
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf()
-                .disable()
-                .authorizeRequests()
-                .antMatchers("/registration")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
+  @Override
+  protected void configure(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity
+        .csrf()
+        .disable()
+        .authorizeRequests()
+        .antMatchers("/registration")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .httpBasic();
 
-        httpSecurity.headers().frameOptions().disable();
-    }
+    httpSecurity.headers().frameOptions().disable();
+  }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(daoAuthenticationProvider())
-                .eraseCredentials(false);
-    }
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.authenticationProvider(daoAuthenticationProvider()).eraseCredentials(false);
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        // we must user deprecated encoder to support their encoding
-        String encodingId = "bcrypt";
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put(encodingId, new BCryptPasswordEncoder(bcCryptWorkFactorService.calculateStrength()));
-        encoders.put("ldap", new org.springframework.security.crypto.password.LdapShaPasswordEncoder());
-        encoders.put("MD4", new org.springframework.security.crypto.password.Md4PasswordEncoder());
-        encoders.put("MD5", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("MD5"));
-        encoders.put("noop", org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance());
-        encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
-        encoders.put("scrypt", new SCryptPasswordEncoder());
-        encoders.put("SHA-1", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-1"));
-        encoders.put("SHA-256", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-256"));
-        encoders.put("sha256", new org.springframework.security.crypto.password.StandardPasswordEncoder());
-        encoders.put("argon2", new Argon2PasswordEncoder());
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    // we must user deprecated encoder to support their encoding
+    String encodingId = "bcrypt";
+    Map<String, PasswordEncoder> encoders = new HashMap<>();
+    encoders.put(
+        encodingId, new BCryptPasswordEncoder(bcCryptWorkFactorService.calculateStrength()));
+    encoders.put("ldap", new org.springframework.security.crypto.password.LdapShaPasswordEncoder());
+    encoders.put("MD4", new org.springframework.security.crypto.password.Md4PasswordEncoder());
+    encoders.put(
+        "MD5",
+        new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("MD5"));
+    encoders.put(
+        "noop", org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance());
+    encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
+    encoders.put("scrypt", new SCryptPasswordEncoder());
+    encoders.put(
+        "SHA-1",
+        new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-1"));
+    encoders.put(
+        "SHA-256",
+        new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-256"));
+    encoders.put(
+        "sha256", new org.springframework.security.crypto.password.StandardPasswordEncoder());
+    encoders.put("argon2", new Argon2PasswordEncoder());
 
-        return new DelegatingPasswordEncoder(encodingId, encoders);
-    }
+    return new DelegatingPasswordEncoder(encodingId, encoders);
+  }
 
-
-    public AuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsPasswordService(this.jdbcUserDetailPasswordService);
-        daoAuthenticationProvider.setUserDetailsService(this.jdbcUserDetailsService);
-        return daoAuthenticationProvider;
-    }
+  public AuthenticationProvider daoAuthenticationProvider() {
+    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+    daoAuthenticationProvider.setUserDetailsPasswordService(this.jdbcUserDetailPasswordService);
+    daoAuthenticationProvider.setUserDetailsService(this.jdbcUserDetailsService);
+    return daoAuthenticationProvider;
+  }
 }
