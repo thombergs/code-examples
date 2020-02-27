@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @AllArgsConstructor
-public class Car {
+class Car {
 
-    private String name;
-    private String color;
+  private String name;
+  private String color;
 }

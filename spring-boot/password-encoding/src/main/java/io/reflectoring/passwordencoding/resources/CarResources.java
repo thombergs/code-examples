@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 @RestController
-public class CarResources {
+class CarResources {
 
-    @GetMapping("/cars")
-    public Set<Car> cars() {
-        return Set.of(
-                new Car("vw", "black"),
-                new Car("bmw", "white"));
-    }
+  @GetMapping("/cars")
+  public Set<Car> cars() {
+    return Set.of(new Car("vw", "black"), new Car("bmw", "white"));
+  }
 }

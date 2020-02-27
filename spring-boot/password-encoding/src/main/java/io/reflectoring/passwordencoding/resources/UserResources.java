@@ -14,26 +14,26 @@ import java.util.Set;
 
 @RestController
 @Transactional
-public class UserResources {
+class UserResources {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+  private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
 
-    public UserResources(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+  public UserResources(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    this.userRepository = userRepository;
+    this.passwordEncoder = passwordEncoder;
+  }
 
-    @PostMapping("/registration")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public void register(@RequestBody UserCredentialsDto userCredentialsDto) {
-        UserCredentials user =
-                UserCredentials.builder()
-                        .enabled(true)
-                        .username(userCredentialsDto.getUsername())
-                        .password(passwordEncoder.encode(userCredentialsDto.getPassword()))
-                        .roles(Set.of("USER"))
-                        .build();
-        userRepository.save(user);
-    }
+  @PostMapping("/registration")
+  @ResponseStatus(code = HttpStatus.CREATED)
+  public void register(@RequestBody UserCredentialsDto userCredentialsDto) {
+    UserCredentials user =
+        UserCredentials.builder()
+            .enabled(true)
+            .username(userCredentialsDto.getUsername())
+            .password(passwordEncoder.encode(userCredentialsDto.getPassword()))
+            .roles(Set.of("USER"))
+            .build();
+    userRepository.save(user);
+  }
 }
