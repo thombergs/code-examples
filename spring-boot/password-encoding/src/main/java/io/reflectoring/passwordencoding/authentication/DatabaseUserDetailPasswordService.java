@@ -7,13 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Service
-public class JdbcUserDetailPasswordService implements UserDetailsPasswordService {
+public class DatabaseUserDetailPasswordService implements UserDetailsPasswordService {
 
   private final UserRepository userRepository;
 
   private final UserDetailsMapper userDetailsMapper;
 
-  public JdbcUserDetailPasswordService(
+  public DatabaseUserDetailPasswordService(
       UserRepository userRepository, UserDetailsMapper userDetailsMapper) {
     this.userRepository = userRepository;
     this.userDetailsMapper = userDetailsMapper;
