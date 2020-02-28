@@ -1,7 +1,7 @@
 package io.reflectoring.passwordencoding.configuration;
 
+import io.reflectoring.passwordencoding.authentication.DatabaseUserDetailPasswordService;
 import io.reflectoring.passwordencoding.authentication.DatabaseUserDetailsService;
-import io.reflectoring.passwordencoding.authentication.JdbcUserDetailPasswordService;
 import io.reflectoring.passwordencoding.workfactor.BcCryptWorkFactorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,15 +28,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private final BcCryptWorkFactorService bcCryptWorkFactorService;
   private final DatabaseUserDetailsService databaseUserDetailsService;
-  private final JdbcUserDetailPasswordService jdbcUserDetailPasswordService;
+  private final DatabaseUserDetailPasswordService databaseUserDetailPasswordService;
 
   public SecurityConfiguration(
           BcCryptWorkFactorService bcCryptWorkFactorService,
           DatabaseUserDetailsService databaseUserDetailsService,
-          JdbcUserDetailPasswordService jdbcUserDetailPasswordService) {
+          DatabaseUserDetailPasswordService databaseUserDetailPasswordService) {
     this.bcCryptWorkFactorService = bcCryptWorkFactorService;
     this.databaseUserDetailsService = databaseUserDetailsService;
-    this.jdbcUserDetailPasswordService = jdbcUserDetailPasswordService;
+    this.databaseUserDetailPasswordService = databaseUserDetailPasswordService;
   }
 
   @Override
@@ -92,7 +92,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   public AuthenticationProvider daoAuthenticationProvider() {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
     provider.setPasswordEncoder(passwordEncoder());
-    provider.setUserDetailsPasswordService(this.jdbcUserDetailPasswordService);
+    provider.setUserDetailsPasswordService(this.databaseUserDetailPasswordService);
     provider.setUserDetailsService(this.databaseUserDetailsService);
     return provider;
   }
