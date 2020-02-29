@@ -1,7 +1,6 @@
 package io.reflectoring.argumentresolver;
 
 import java.util.Optional;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -13,8 +12,6 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 @RequiredArgsConstructor
 class RepositoryArgumentResolver implements HandlerMethodArgumentResolver {
-
-  private static final Pattern SLUG_PATTERN = Pattern.compile("^/([^/]*).*$");
 
   private final RepositoryFinder repositoryFinder;
 
@@ -32,20 +29,9 @@ class RepositoryArgumentResolver implements HandlerMethodArgumentResolver {
 
     String requestPath = ((ServletWebRequest) webRequest).getRequest().getPathInfo();
 
-    Matcher matcher = SLUG_PATTERN.matcher(requestPath);
-
-    if (!matcher.matches()) {
-      throw new IllegalArgumentException(String.format(
-          "Cannot resolve argument of type Site. Expecting the slug to be the first part of the request path (%s).",
-          requestPath));
-    }
-
-    String slug = matcher.group(1);
-    if (slug == null || slug.isBlank()) {
-      throw new IllegalArgumentException(String.format(
-          "Cannot resolve argument of type Site. Slug is empty (request path: %s).",
-          requestPath));
-    }
+    String slug = requestPath
+        .substring(0, requestPath.indexOf("/", 1))
+        .replaceAll("^/", "");
 
     Optional<Repository> repository = repositoryFinder.findBySlug(slug);
 

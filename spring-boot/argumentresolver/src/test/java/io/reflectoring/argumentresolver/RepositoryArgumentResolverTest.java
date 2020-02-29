@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(controllers = TestController.class)
+@WebMvcTest(controllers = RepositoryArgumentResolverTestController.class)
 class RepositoryArgumentResolverTest {
 
   @Autowired
@@ -26,7 +26,7 @@ class RepositoryArgumentResolverTest {
     given(repositoryFinder.findBySlug("my-repo"))
         .willReturn(Optional.of(new Repository(1L, "my-repo")));
 
-    mockMvc.perform(get("/my-repo/foo"))
+    mockMvc.perform(get("/my-repo/listContributors"))
         .andExpect(status().isOk());
   }
 
@@ -36,7 +36,7 @@ class RepositoryArgumentResolverTest {
     given(repositoryFinder.findBySlug("unknownSlug"))
         .willReturn(Optional.empty());
 
-    mockMvc.perform(get("/unknownSlug/foo"))
+    mockMvc.perform(get("/unknownSlug/listContributors"))
         .andExpect(status().isNotFound());
   }
 
