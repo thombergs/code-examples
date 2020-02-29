@@ -1,12 +1,10 @@
 package io.reflectoring.argumentresolver;
 
-
 import lombok.Value;
 
 @Value
-class Repository {
+class RepositoryId {
 
-  private final Long id;
-  private final String slug;
+  private final long value;
 
 }
