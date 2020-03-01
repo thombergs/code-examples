@@ -73,7 +73,7 @@ class CarResourcesTest {
   }
 
   @Test
-  void getCarsShouldUpdateSha1PasswordToBcrypt() throws Exception {
+  void getCarsShouldMigrateSha1PasswordToBcrypt() throws Exception {
     mockMvc
         .perform(get("/cars").with(httpBasic("user with sha1 encoding", "password")))
         .andExpect(status().isOk());
