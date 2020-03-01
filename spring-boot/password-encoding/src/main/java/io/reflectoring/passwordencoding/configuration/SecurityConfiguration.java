@@ -3,7 +3,6 @@ package io.reflectoring.passwordencoding.configuration;
 import io.reflectoring.passwordencoding.authentication.DatabaseUserDetailPasswordService;
 import io.reflectoring.passwordencoding.authentication.DatabaseUserDetailsService;
 import io.reflectoring.passwordencoding.workfactor.BcCryptWorkFactorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -72,7 +71,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     return new DelegatingPasswordEncoder(encodingId, encoders);
   }
 
-  @Autowired
+  @Bean
   public AuthenticationProvider daoAuthenticationProvider() {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
     provider.setPasswordEncoder(passwordEncoder());
