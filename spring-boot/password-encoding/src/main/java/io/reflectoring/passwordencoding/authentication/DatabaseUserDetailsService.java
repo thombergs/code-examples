@@ -21,7 +21,8 @@ public class DatabaseUserDetailsService implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String username)
+          throws UsernameNotFoundException {
     UserCredentials userCredentials = userRepository.findByUsername(username);
     return userDetailsMapper.toUserDetails(userCredentials);
   }
