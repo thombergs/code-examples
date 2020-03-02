@@ -30,6 +30,7 @@ build_gradle_module() {
 
 chmod +x gradlew
 
+build_gradle_module "spring-boot/argumentresolver"
 build_gradle_module "spring-data/spring-data-jdbc-converter"
 build_gradle_module "solid"
 build_gradle_module "spring-boot/data-migration/flyway"
