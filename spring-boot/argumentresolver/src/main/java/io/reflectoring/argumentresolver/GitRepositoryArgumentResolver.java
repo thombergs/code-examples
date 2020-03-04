@@ -1,7 +1,6 @@
 package io.reflectoring.argumentresolver;
 
 import java.util.Optional;
-import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -11,13 +10,13 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 @RequiredArgsConstructor
-class RepositoryArgumentResolver implements HandlerMethodArgumentResolver {
+class GitRepositoryArgumentResolver implements HandlerMethodArgumentResolver {
 
-  private final RepositoryFinder repositoryFinder;
+  private final GitRepositoryFinder gitRepositoryFinder;
 
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
-    return parameter.getParameter().getType() == Repository.class;
+    return parameter.getParameter().getType() == GitRepository.class;
   }
 
   @Override
@@ -33,7 +32,7 @@ class RepositoryArgumentResolver implements HandlerMethodArgumentResolver {
         .substring(0, requestPath.indexOf("/", 1))
         .replaceAll("^/", "");
 
-    Optional<Repository> repository = repositoryFinder.findBySlug(slug);
+    Optional<GitRepository> repository = gitRepositoryFinder.findBySlug(slug);
 
     if (repository.isEmpty()) {
       throw new NotFoundException();

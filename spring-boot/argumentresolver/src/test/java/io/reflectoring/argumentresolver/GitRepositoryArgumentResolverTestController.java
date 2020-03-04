@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/{repositorySlug}")
-class RepositoryArgumentResolverTestController {
+class GitRepositoryArgumentResolverTestController {
 
   @GetMapping("/listContributors")
-  String listContributors(Repository repository) {
-    assertThat(repository.getId()).isEqualTo(1L);
+  String listContributors(GitRepository gitRepository) {
+    assertThat(gitRepository.getId()).isEqualTo(1L);
     return "test";
   }
 
