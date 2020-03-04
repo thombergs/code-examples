@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-class RepositoryIdConverterTestController {
+class GitRepositoryIdConverterTestController {
 
   @GetMapping("/repositories/{repositoryId}")
-  String getRepository(@PathVariable("repositoryId") RepositoryId repositoryId) {
-    assertThat(repositoryId).isNotNull();
+  String getRepository(@PathVariable("repositoryId") GitRepositoryId gitRepositoryId) {
+    assertThat(gitRepositoryId).isNotNull();
     return "test";
   }
 

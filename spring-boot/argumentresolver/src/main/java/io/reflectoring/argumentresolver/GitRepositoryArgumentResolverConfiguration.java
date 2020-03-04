@@ -8,13 +8,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Component
 @RequiredArgsConstructor
-class RepositoryArgumentResolverConfiguration implements WebMvcConfigurer {
+class GitRepositoryArgumentResolverConfiguration implements WebMvcConfigurer {
 
-  private final RepositoryFinder repositoryFinder;
+  private final GitRepositoryFinder gitRepositoryFinder;
 
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-    resolvers.add(new RepositoryArgumentResolver(repositoryFinder));
+    resolvers.add(new GitRepositoryArgumentResolver(gitRepositoryFinder));
   }
 
 }

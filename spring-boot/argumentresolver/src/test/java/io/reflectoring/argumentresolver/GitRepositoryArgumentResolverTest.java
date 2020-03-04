@@ -11,20 +11,20 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(controllers = RepositoryArgumentResolverTestController.class)
-class RepositoryArgumentResolverTest {
+@WebMvcTest(controllers = GitRepositoryArgumentResolverTestController.class)
+class GitRepositoryArgumentResolverTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @MockBean
-  private RepositoryFinder repositoryFinder;
+  private GitRepositoryFinder gitRepositoryFinder;
 
   @Test
   void resolvesSiteSuccessfully() throws Exception {
 
-    given(repositoryFinder.findBySlug("my-repo"))
-        .willReturn(Optional.of(new Repository(1L, "my-repo")));
+    given(gitRepositoryFinder.findBySlug("my-repo"))
+        .willReturn(Optional.of(new GitRepository(1L, "my-repo")));
 
     mockMvc.perform(get("/my-repo/listContributors"))
         .andExpect(status().isOk());
@@ -33,7 +33,7 @@ class RepositoryArgumentResolverTest {
   @Test
   void notFoundOnUnknownSlug() throws Exception {
 
-    given(repositoryFinder.findBySlug("unknownSlug"))
+    given(gitRepositoryFinder.findBySlug("unknownSlug"))
         .willReturn(Optional.empty());
 
     mockMvc.perform(get("/unknownSlug/listContributors"))
