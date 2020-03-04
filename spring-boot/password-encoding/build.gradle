@@ -1,0 +1,41 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group = 'io.reflectoring'
+version = '0.0.1-SNAPSHOT'
+description = 'password-encoding-spring-boot'
+sourceCompatibility = '11'
+
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.2.4.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.2.4.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.2.4.RELEASE'
+    implementation 'com.h2database:h2:1.4.200'
+    implementation 'org.flywaydb:flyway-core:6.0.8'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.64'
+    implementation 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'com.google.guava:guava:28.2-jre'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.4.RELEASE'
+    testImplementation 'org.springframework.security:spring-security-test:5.2.1.RELEASE'
+}
+
+
+test {
+    useJUnitPlatform()
+}
