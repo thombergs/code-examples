@@ -26,7 +26,7 @@ class GitRepositoryArgumentResolverTest {
     given(gitRepositoryFinder.findBySlug("my-repo"))
         .willReturn(Optional.of(new GitRepository(1L, "my-repo")));
 
-    mockMvc.perform(get("/my-repo/listContributors"))
+    mockMvc.perform(get("/my-repo/contributors"))
         .andExpect(status().isOk());
   }
 
@@ -36,7 +36,7 @@ class GitRepositoryArgumentResolverTest {
     given(gitRepositoryFinder.findBySlug("unknownSlug"))
         .willReturn(Optional.empty());
 
-    mockMvc.perform(get("/unknownSlug/listContributors"))
+    mockMvc.perform(get("/unknownSlug/contributors"))
         .andExpect(status().isNotFound());
   }
 
