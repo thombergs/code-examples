@@ -1,12 +1,12 @@
 package io.reflectoring;
 
-import io.reflectoring.api.UserApi;
+import io.reflectoring.api.UserApiDelegate;
 import io.reflectoring.model.User;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
-@RestController
-public class UserController implements UserApi {
+@Service
+public class UserApiDelegateImpl implements UserApiDelegate {
 
     @Override
     public ResponseEntity<User> getUserByName(String username) {
