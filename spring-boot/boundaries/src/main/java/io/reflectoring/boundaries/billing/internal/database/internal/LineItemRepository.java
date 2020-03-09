@@ -1,4 +1,4 @@
-package io.reflectoring.boundaries.billingmodule.internal.database.internal;
+package io.reflectoring.boundaries.billing.internal.database.internal;
 
 import java.time.LocalDate;
 import java.util.List;

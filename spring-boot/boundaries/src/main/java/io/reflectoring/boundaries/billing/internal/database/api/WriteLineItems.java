@@ -1,4 +1,4 @@
-package io.reflectoring.boundaries.billingmodule.internal.database.api;
+package io.reflectoring.boundaries.billing.internal.database.api;
 
 import java.util.List;
 
