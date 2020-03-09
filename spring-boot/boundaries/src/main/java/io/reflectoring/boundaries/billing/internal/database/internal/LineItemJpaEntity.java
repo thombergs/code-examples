@@ -1,6 +1,6 @@
-package io.reflectoring.boundaries.billingmodule.internal.database.internal;
+package io.reflectoring.boundaries.billing.internal.database.internal;
 
-import io.reflectoring.boundaries.billingmodule.internal.database.api.LineItem;
+import io.reflectoring.boundaries.billing.internal.database.api.LineItem;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

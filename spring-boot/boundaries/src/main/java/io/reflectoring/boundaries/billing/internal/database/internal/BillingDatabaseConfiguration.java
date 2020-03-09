@@ -1,4 +1,4 @@
-package io.reflectoring.boundaries.billingmodule.internal.database.internal;
+package io.reflectoring.boundaries.billing.internal.database.internal;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

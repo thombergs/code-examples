@@ -1,4 +1,4 @@
-package io.reflectoring.boundaries.billingmodule.api;
+package io.reflectoring.boundaries.billing.api;
 
 import lombok.Value;
 

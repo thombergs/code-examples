@@ -1,7 +1,7 @@
-package io.reflectoring.boundaries.billingmodule.internal.batchjob.internal;
+package io.reflectoring.boundaries.billing.internal.batchjob.internal;
 
-import io.reflectoring.boundaries.billingmodule.internal.database.api.WriteLineItems;
-import io.reflectoring.boundaries.billingmodule.internal.database.api.LineItem;
+import io.reflectoring.boundaries.billing.internal.database.api.WriteLineItems;
+import io.reflectoring.boundaries.billing.internal.database.api.LineItem;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;

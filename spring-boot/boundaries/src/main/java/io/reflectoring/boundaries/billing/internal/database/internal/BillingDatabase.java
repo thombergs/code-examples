@@ -1,8 +1,8 @@
-package io.reflectoring.boundaries.billingmodule.internal.database.internal;
+package io.reflectoring.boundaries.billing.internal.database.internal;
 
-import io.reflectoring.boundaries.billingmodule.internal.database.api.LineItem;
-import io.reflectoring.boundaries.billingmodule.internal.database.api.ReadLineItems;
-import io.reflectoring.boundaries.billingmodule.internal.database.api.WriteLineItems;
+import io.reflectoring.boundaries.billing.internal.database.api.LineItem;
+import io.reflectoring.boundaries.billing.internal.database.api.ReadLineItems;
+import io.reflectoring.boundaries.billing.internal.database.api.WriteLineItems;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
