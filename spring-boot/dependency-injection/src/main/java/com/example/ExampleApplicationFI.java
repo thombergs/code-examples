@@ -4,16 +4,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import com.example.setterinjection.Cookie;
+import com.example.fieldinjection.IceCream;
 
-@SpringBootApplication(scanBasePackages = { "com.example.setterinjection", "com.example.dependency", })
-public class ExampleApplicationSI {
+@SpringBootApplication(scanBasePackages = { "com.example.dependency", "com.example.fieldinjection" })
+public class ExampleApplicationFI {
 
 	public static void main(String[] args) {
 
 		ApplicationContext context = SpringApplication.run(ExampleApplicationSI.class, args);
-		Cookie obj = context.getBean(Cookie.class);
-		System.out.println("Cookie : " + obj.toString());
+		IceCream obj = context.getBean(IceCream.class);
+		System.out.println("IceCream : " + obj.toString());
 	}
 
 }
