@@ -5,13 +5,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class Topping {
 
-	private String toppingName;
+	String toppingName;
 
 	public String getToppingName() {
 		return toppingName;
 	}
 
-	public void setToppingName(String toppingName) {
+	void setToppingName(String toppingName) {
 		this.toppingName = toppingName;
 	}
 
@@ -19,6 +19,5 @@ public class Topping {
 	public String toString() {
 		return "Topping [toppingName=" + toppingName + "]";
 	}
-
 
 }
