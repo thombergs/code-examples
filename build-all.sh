@@ -10,7 +10,7 @@ build_gradle_module() {
   echo "+++"
   cd $MODULE_PATH && {
     chmod +x gradlew
-    ./gradlew clean build --info --stacktrace
+    ./gradlew clean build
     if [ $? -ne 0 ]
     then
       echo ""
