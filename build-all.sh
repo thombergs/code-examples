@@ -54,8 +54,6 @@ build_maven_module() {
   }
 }
 
-chmod +x gradlew
-
 build_maven_module "spring-boot/spring-boot-openapi"
 build_gradle_module "spring-boot/boundaries"
 build_gradle_module "spring-boot/argumentresolver"
