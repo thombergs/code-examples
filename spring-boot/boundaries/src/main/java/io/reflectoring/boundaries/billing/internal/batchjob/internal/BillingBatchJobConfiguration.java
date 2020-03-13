@@ -7,6 +7,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @EnableScheduling
 @ComponentScan
-class BatchJobConfiguration {
+class BillingBatchJobConfiguration {
 
 }
