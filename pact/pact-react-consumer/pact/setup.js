@@ -6,7 +6,7 @@ global.provider = new Pact({
     cors: true,
     port: global.port,
     log: path.resolve(process.cwd(), 'logs', 'pact.log'),
-    loglevel: 'debug',
+    logLevel: 'debug',
     dir: path.resolve(process.cwd(), 'pacts'),
     spec: 2,
     pactfileWriteMode: 'update',
