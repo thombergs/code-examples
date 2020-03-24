@@ -7,15 +7,13 @@ import org.springframework.stereotype.Component;
 public class Pizza {
 
 	@Autowired
-	Topping toppings;
+	private Topping toppings;
 
 	Pizza(Topping toppings) {
 		this.toppings = toppings;
 	}
 
-	@Autowired
 	public Topping getToppings() {
-		System.out.println("Using field injection - " + this.toppings);
 		return toppings;
 	}
 

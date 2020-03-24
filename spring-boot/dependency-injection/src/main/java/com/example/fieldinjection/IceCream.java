@@ -9,13 +9,14 @@ import com.example.dependency.Topping;
 public class IceCream {
 
 	@Autowired
-	Topping toppings;
+	private Topping toppings;
 
 	public Topping getToppings() {
 		return toppings;
 	}
 
 	void setToppings(Topping toppings) {
+		System.out.println("Using setter injection - " + this.toppings);
 		this.toppings = toppings;
 	}
 

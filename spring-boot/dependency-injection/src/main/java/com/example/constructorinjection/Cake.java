@@ -12,13 +12,8 @@ public class Cake {
 	private Flavor flavor;
 
 	Cake(Flavor flavor) {
-
-		// check if the required dependency is not null
-		if (Objects.requireNonNull(flavor) != null) {
-			this.flavor = flavor;
-		} else {
-			throw new IllegalArgumentException("Cake cannot be created with null flavor object");
-		}
+		Objects.requireNonNull(flavor);
+		this.flavor = flavor;
 	}
 
 	public Flavor getFlavor() {
