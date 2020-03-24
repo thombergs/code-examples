@@ -11,7 +11,7 @@ public class ExampleApplicationFI {
 
 	public static void main(String[] args) {
 
-		ApplicationContext context = SpringApplication.run(ExampleApplicationSI.class, args);
+		ApplicationContext context = SpringApplication.run(ExampleApplicationFI.class, args);
 		IceCream obj = context.getBean(IceCream.class);
 		System.out.println("IceCream : " + obj.toString());
 	}

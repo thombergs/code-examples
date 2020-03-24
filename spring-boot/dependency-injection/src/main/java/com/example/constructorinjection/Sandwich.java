@@ -9,8 +9,8 @@ import com.example.dependency.Topping;
 @Component
 public class Sandwich {
 
-	Topping toppings;
-	Bread breadType;
+	private Topping toppings;
+	private Bread breadType;
 
 	Sandwich(Topping toppings) {
 		this.toppings = toppings;

@@ -1,10 +1,10 @@
 package com.example;
 
+import com.example.constructorinjection.Cake;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import com.example.constructorinjection.Cake;
 
 @SpringBootApplication(scanBasePackages = { "com.example.constructorinjection", "com.example.dependency" })
 public class ExampleApplicationCI {
