@@ -32,12 +32,7 @@ class GitRepositoryArgumentResolver implements HandlerMethodArgumentResolver {
         .substring(0, requestPath.indexOf("/", 1))
         .replaceAll("^/", "");
 
-    Optional<GitRepository> repository = gitRepositoryFinder.findBySlug(slug);
-
-    if (repository.isEmpty()) {
-      throw new NotFoundException();
-    }
-
-    return repository.get();
+    return gitRepositoryFinder.findBySlug(slug)
+        .orElseThrow(NotFoundException::new);
   }
 }
