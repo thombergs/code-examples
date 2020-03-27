@@ -10,7 +10,7 @@ build_gradle_module() {
   echo "+++"
   cd $MODULE_PATH && {
     chmod +x gradlew
-    ./gradlew clean build --info --stacktrace
+    ./gradlew clean build
     if [ $? -ne 0 ]
     then
       echo ""
@@ -28,8 +28,38 @@ build_gradle_module() {
   }
 }
 
-chmod +x gradlew
+build_maven_module() {
+  MODULE_PATH=$1
+  echo ""
+  echo "+++"
+  echo "+++ BUILDING MODULE $MODULE_PATH"
+  echo "+++"
+  cd $MODULE_PATH && {
+    chmod +x mvnw
+    ./mvnw clean package
+    if [ $? -ne 0 ]
+    then
+      echo ""
+      echo "+++"
+      echo "+++ BUILDING MODULE $MODULE_PATH FAILED"
+      echo "+++"
+      exit 1
+    else
+      echo ""
+      echo "+++"
+      echo "+++ BUILDING MODULE $MODULE_PATH SUCCESSFUL"
+      echo "+++"
+    fi
+    cd $MAIN_DIR
+  }
+}
 
+build_maven_module "spring-boot/spring-boot-openapi"
+build_gradle_module "spring-boot/boundaries"
+build_gradle_module "spring-boot/argumentresolver"
+build_gradle_module "spring-data/spring-data-jdbc-converter"
+build_gradle_module "solid"
+build_gradle_module "spring-boot/data-migration/flyway"
 build_gradle_module "reactive"
 build_gradle_module "junit/assumptions"
 build_gradle_module "logging"
@@ -52,6 +82,7 @@ build_gradle_module "spring-boot/startup"
 build_gradle_module "spring-boot/static"
 build_gradle_module "spring-boot/validation"
 build_gradle_module "spring-boot/profiles"
+build_gradle_module "spring-boot/password-encoding"
 build_gradle_module "spring-cloud/feign-with-spring-data-rest"
 build_gradle_module "spring-cloud/sleuth-downstream-service"
 build_gradle_module "spring-cloud/sleuth-upstream-service"
