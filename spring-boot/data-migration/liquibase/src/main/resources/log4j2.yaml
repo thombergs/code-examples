@@ -1,0 +1,19 @@
+Configuration:
+  status: error
+
+  appenders:
+    Console:
+      name: Console
+      PatternLayout:
+        Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+  Loggers:
+    logger:
+      - name: io.reflectoring
+        level: debug
+        additivity: false
+        AppenderRef:
+          - ref: Console
+    Root:
+      level: error
+      AppenderRef:
+        ref: Console
