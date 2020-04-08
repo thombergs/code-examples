@@ -28,7 +28,6 @@ class InternalPackageTests {
     List<String> internalPackages = internalPackages(BASE_PACKAGE);
 
     for (String internalPackage : internalPackages) {
-      assertPackageExists(internalPackage);
       assertPackageIsNotAccessedFromOutside(internalPackage);
     }
 
