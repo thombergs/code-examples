@@ -56,6 +56,7 @@ build_maven_module() {
 
 build_maven_module "spring-boot/dependency-injection"
 build_maven_module "spring-boot/spring-boot-openapi"
+build_maven_module "spring-boot/data-migration/liquibase"
 build_gradle_module "spring-boot/boundaries"
 build_gradle_module "spring-boot/argumentresolver"
 build_gradle_module "spring-data/spring-data-jdbc-converter"
