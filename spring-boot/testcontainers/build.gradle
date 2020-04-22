@@ -38,17 +38,7 @@ dependencies {
 
 }
 
-dcompose {
-    testDb {
-        image = 'postgres:12.2'
-        portBindings = ['5432:5432']
-    }
-}
 
 test {
     useJUnitPlatform()
-    //dependsOn startDatabaseContainer
-    dependsOn dcompose.testDb
-    //finalizedBy stopDatabaseContainer
-
 }
