@@ -21,6 +21,7 @@ public class AbstractIntegrationTest {
 
         public static Map<String, String> getProperties() {
             Startables.deepStart(Stream.of(postgres)).join();
+            // we can add further containers here like rabbitmq or other database
 
             return Map.of(
                     "spring.datasource.url", postgres.getJdbcUrl(),
