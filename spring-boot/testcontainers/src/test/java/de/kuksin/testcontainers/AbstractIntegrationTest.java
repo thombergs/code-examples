@@ -1,6 +1,5 @@
 package de.kuksin.testcontainers;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -25,7 +24,6 @@ public class AbstractIntegrationTest {
             // we can add further containers here like rabbitmq or other database
         }
 
-        @NotNull
         private static Map<String, String> createConnectionConfiguration() {
             return Map.of(
                     "spring.datasource.url", postgres.getJdbcUrl(),
