@@ -1,4 +1,4 @@
-package de.kuksin.testcontainers;
+package io.reflectoring.testcontainers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package de.kuksin.testcontainers;
+package io.reflectoring.testcontainers;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
