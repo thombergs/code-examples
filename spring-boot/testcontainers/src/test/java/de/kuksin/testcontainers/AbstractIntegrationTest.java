@@ -19,10 +19,12 @@ public class AbstractIntegrationTest {
 
         static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>();
 
-        public static Map<String, String> getProperties() {
+        private static void startContainers() {
             Startables.deepStart(Stream.of(postgres)).join();
             // we can add further containers here like rabbitmq or other database
+        }
 
+        private static Map<String, String> createConnectionConfiguration() {
             return Map.of(
                     "spring.datasource.url", postgres.getJdbcUrl(),
                     "spring.datasource.username", postgres.getUsername(),
@@ -33,10 +35,11 @@ public class AbstractIntegrationTest {
 
         @Override
         public void initialize(ConfigurableApplicationContext applicationContext) {
+            startContainers();
             ConfigurableEnvironment environment = applicationContext.getEnvironment();
             MapPropertySource testcontainers = new MapPropertySource(
                     "testcontainers",
-                    (Map) getProperties()
+                    (Map) createConnectionConfiguration()
             );
             environment.getPropertySources().addFirst(testcontainers);
         }
