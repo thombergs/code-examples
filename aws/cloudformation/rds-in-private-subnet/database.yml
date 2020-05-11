@@ -1,0 +1,82 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: A stack that creates an RDS instance and places it into two subnets
+Parameters:
+  NetworkStackName:
+    Type: String
+    Description: The name of the networking stack that this stack will build upon.
+  DBInstanceClass:
+    Type: String
+    Description: The ID of the second subnet to place the RDS instance into.
+    Default: 'db.t2.micro'
+  DBName:
+    Type: String
+    Description: The name of the database that is created within the PostgreSQL instance.
+  DBUsername:
+    Type: String
+    Description: The master user name for the PostgreSQL instance.
+Resources:
+
+  Secret:
+    Type: "AWS::SecretsManager::Secret"
+    Properties:
+      Name: !Ref 'DBUsername'
+      GenerateSecretString:
+        # This will generate a JSON object with the keys "username" and password.
+        SecretStringTemplate: !Join ['', ['{"username": "', !Ref 'DBUsername' ,'"}']]
+        GenerateStringKey: "password"
+        PasswordLength: 32
+
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for the RDS instance
+      DBSubnetGroupName: DBSubnetGroup
+      SubnetIds:
+        - Fn::ImportValue:
+            !Join [':', [!Ref 'NetworkStackName', 'PrivateSubnetOne']]
+        - Fn::ImportValue:
+            !Join [':', [!Ref 'NetworkStackName', 'PrivateSubnetTwo']]
+
+  PostgresInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: {Ref: 'AWS::Region'}
+      DBInstanceClass: !Ref 'DBInstanceClass'
+      DBName: !Ref 'DBName'
+      DBSubnetGroupName: !Ref 'DBSubnetGroup'
+      Engine: postgres
+      EngineVersion: 11.5
+      MasterUsername: !Ref 'DBUsername'
+      MasterUserPassword: !Join ['', ['{{resolve:secretsmanager:', !Ref Secret, ':SecretString:password}}' ]]
+      PubliclyAccessible: false
+      VPCSecurityGroups:
+        - Fn::ImportValue:
+            !Join [':', [!Ref 'NetworkStackName', 'DBSecurityGroupId']]
+
+  SecretRDSInstanceAttachment:
+    Type: "AWS::SecretsManager::SecretTargetAttachment"
+    Properties:
+      SecretId: !Ref Secret
+      TargetId: !Ref PostgresInstance
+      TargetType: AWS::RDS::DBInstance
+
+Outputs:
+  EndpointAddress:
+    Description: Address of the RDS endpoint.
+    Value: !GetAtt 'PostgresInstance.Endpoint.Address'
+    Export:
+      Name: !Join [ ':', [ !Ref 'AWS::StackName', 'EndpointAddress' ] ]
+  EndpointPort:
+    Description: Port of the RDS endpoint.
+    Value: !GetAtt 'PostgresInstance.Endpoint.Port'
+    Export:
+      Name: !Join [ ':', [ !Ref 'AWS::StackName', 'EndpointPort' ] ]
+  Secret:
+    Description: Reference to the secret containing the password to the database.
+    Value: !Ref 'Secret'
+    Export:
+      Name: !Join [ ':', [ !Ref 'AWS::StackName', 'Secret' ] ]

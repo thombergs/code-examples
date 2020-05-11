@@ -16,7 +16,7 @@ Use the image instead of your real application to test AWS CloudFormation stacks
 4. Configure your deployment in a way that Docker will pass the coordinates to your RDS database as environment variables, equivalent to this command:
     ``` 
     docker run \
-      -e SPRING_DATASOURCE_URL=jdbc:postgresql://<RDS-ENDPOINT>:5432/postgres \
+      -e SPRING_DATASOURCE_URL=':'<RDS-ENDPOINT>:5432/postgres \
       -e SPRING_DATASOURCE_USERNAME=<USERNAME> \
       -e SPRING_DATASOURCE_PASSWORD=<PASSWORD> \
       -p 8080:8080 reflectoring/aws-rds-hello-world

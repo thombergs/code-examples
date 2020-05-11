@@ -2,10 +2,19 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: Deploy a service on AWS Fargate, hosted in two public subnets and accessible via a public load balancer.
   Derived from a template at https://github.com/nathanpeck/aws-cloudformation-fargate.
 Parameters:
-  StackName:
+  NetworkStackName:
     Type: String
     Description: The name of the networking stack that
       these resources are put into.
+  DatabaseStackName:
+    Type: String
+    Description: The name of the database stack with the database this service should connect to.
+  DBName:
+    Type: String
+    Description: The database name.
+  DBUsername:
+    Type: String
+    Description: The database username.
   ServiceName:
     Type: String
     Description: A human-readable name for the service.
@@ -60,7 +69,7 @@ Resources:
       UnhealthyThresholdCount: 2
       VpcId:
         Fn::ImportValue:
-          !Join [':', [!Ref 'StackName', 'VPCId']]
+          !Join [':', [!Ref 'NetworkStackName', 'VPCId']]
 
   LoadBalancerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
@@ -73,7 +82,7 @@ Resources:
           Values: [!Ref 'Path']
       ListenerArn:
         Fn::ImportValue:
-          !Join [':', [!Ref 'StackName', 'PublicListener']]
+          !Join [':', [!Ref 'NetworkStackName', 'PublicListener']]
       Priority: 1
 
   LogGroup:
@@ -93,12 +102,30 @@ Resources:
         - FARGATE
       ExecutionRoleArn:
         Fn::ImportValue:
-          !Join [':', [!Ref 'StackName', 'ECSTaskExecutionRole']]
+          !Join [':', [!Ref 'NetworkStackName', 'ECSTaskExecutionRole']]
       ContainerDefinitions:
         - Name: !Ref 'ServiceName'
           Cpu: !Ref 'ContainerCpu'
           Memory: !Ref 'ContainerMemory'
           Image: !Ref 'ImageUrl'
+          Environment:
+            - Name: SPRING_DATASOURCE_URL
+              Value: !Join
+                - ''
+                - - 'jdbc:postgresql://'
+                  - Fn::ImportValue: !Join [':', [!Ref 'DatabaseStackName', 'EndpointAddress']]
+                  - ':'
+                  - Fn::ImportValue: !Join [':', [!Ref 'DatabaseStackName', 'EndpointPort']]
+                  - '/'
+                  - !Ref 'DBName'
+            - Name: SPRING_DATASOURCE_USERNAME
+              Value: !Ref 'DBUsername'
+            - Name: SPRING_DATASOURCE_PASSWORD
+              Value: !Join
+                - ''
+                - - '{{resolve:secretsmanager:'
+                  - Fn::ImportValue: !Join [':', [!Ref 'DatabaseStackName', 'Secret']]
+                  - ':SecretString:password}}'
           PortMappings:
             - ContainerPort: !Ref 'ContainerPort'
           LogConfiguration:
@@ -115,7 +142,7 @@ Resources:
       ServiceName: !Ref 'ServiceName'
       Cluster:
         Fn::ImportValue:
-          !Join [':', [!Ref 'StackName', 'ClusterName']]
+          !Join [':', [!Ref 'NetworkStackName', 'ClusterName']]
       LaunchType: FARGATE
       DeploymentConfiguration:
         MaximumPercent: 200
@@ -126,12 +153,12 @@ Resources:
           AssignPublicIp: ENABLED
           SecurityGroups:
             - Fn::ImportValue:
-                !Join [':', [!Ref 'StackName', 'ECSSecurityGroup']]
+                !Join [':', [!Ref 'NetworkStackName', 'ECSSecurityGroup']]
           Subnets:
             - Fn::ImportValue:
-                !Join [':', [!Ref 'StackName', 'PublicSubnetOne']]
+                !Join [':', [!Ref 'NetworkStackName', 'PublicSubnetOne']]
             - Fn::ImportValue:
-                !Join [':', [!Ref 'StackName', 'PublicSubnetTwo']]
+                !Join [':', [!Ref 'NetworkStackName', 'PublicSubnetTwo']]
       TaskDefinition: !Ref 'TaskDefinition'
       LoadBalancers:
         - ContainerName: !Ref 'ServiceName'
