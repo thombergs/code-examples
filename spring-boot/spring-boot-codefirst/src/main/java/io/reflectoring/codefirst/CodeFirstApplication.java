@@ -32,6 +32,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
+@SpringBootApplication
+public class CodeFirstApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(CodeFirstApplication.class, args);
+    }
+}
+
 @RequestMapping("/api/todos")
 @Tag(name = "Todo API", description = "euismod in pellentesque massa placerat duis ultricies lacus sed turpis")
 @SecurityRequirement(name = "api")
@@ -67,13 +74,6 @@ interface UnsecuredApi {
     String unsecured();
 }
 
-@SpringBootApplication
-public class CodeFirstApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(CodeFirstApplication.class, args);
-    }
-}
-
 @OpenAPIDefinition(
         info = @Info(
                 title = "Code-First Approach (reflectoring.io)",
@@ -85,7 +85,7 @@ public class CodeFirstApplication {
                 license = @License(name = "MIT Licence", url = "https://github.com/thombergs/code-examples/blob/master/LICENSE")),
         servers = @Server(url = "http://localhost:8080")
 )
-@SecurityScheme(scheme = "basic", type = SecuritySchemeType.HTTP, name = "api", in = SecuritySchemeIn.HEADER)
+@SecurityScheme(name = "api", scheme = "basic", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 class OpenAPIConfiguration {
 }
 
