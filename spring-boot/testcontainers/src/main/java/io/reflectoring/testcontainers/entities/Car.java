@@ -1,4 +1,4 @@
-package de.kuksin.testcontainers.entities;
+package io.reflectoring.testcontainers.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

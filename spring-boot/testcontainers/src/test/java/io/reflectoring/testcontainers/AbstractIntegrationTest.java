@@ -1,4 +1,4 @@
-package de.kuksin.testcontainers;
+package io.reflectoring.testcontainers;
 
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
