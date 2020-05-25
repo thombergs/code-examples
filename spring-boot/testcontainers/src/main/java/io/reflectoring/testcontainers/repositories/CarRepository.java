@@ -1,6 +1,6 @@
-package de.kuksin.testcontainers.repositories;
+package io.reflectoring.testcontainers.repositories;
 
-import de.kuksin.testcontainers.entities.Car;
+import io.reflectoring.testcontainers.entities.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
