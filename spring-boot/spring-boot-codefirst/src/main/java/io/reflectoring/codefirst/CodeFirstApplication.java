@@ -65,15 +65,6 @@ interface TodoApi {
     void delete(@PathVariable String id);
 }
 
-@RequestMapping("/unsecured")
-@Tag(name = "Unsecured API", description = "aliquet nec ullamcorper sit amet risus nullam eget felis eget")
-interface UnsecuredApi {
-
-    @GetMapping
-    @ResponseStatus(code = HttpStatus.OK)
-    String unsecured();
-}
-
 @OpenAPIDefinition(
         info = @Info(
                 title = "Code-First Approach (reflectoring.io)",
@@ -165,14 +156,5 @@ class TodoController implements TodoApi {
         todos = Stream.of("Groceries", "Lisa's birthday")
                 .map(todo -> new Todo(UUID.randomUUID().toString(), todo))
                 .collect(Collectors.toList());
-    }
-}
-
-@RestController
-class Unsecured implements UnsecuredApi {
-
-    @Override
-    public String unsecured() {
-        return "unsecured";
     }
 }

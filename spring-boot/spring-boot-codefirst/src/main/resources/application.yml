@@ -1,9 +1,3 @@
 springdoc:
   api-docs:
     path: /reflectoring-openapi
-  show-actuator: true
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
