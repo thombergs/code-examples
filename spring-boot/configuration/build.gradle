@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.1.3.RELEASE'
+	id 'org.springframework.boot' version '2.3.0.RELEASE'
 	id 'java'
 }
 
@@ -7,7 +7,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'io.reflectoring'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '13'
 
 repositories {
 	mavenCentral()
@@ -23,6 +23,7 @@ dependencies {
 	testImplementation('org.junit.jupiter:junit-jupiter:5.4.0')
 	testImplementation('org.springframework.boot:spring-boot-starter-test'){
 		exclude group: 'junit', module: 'junit'
+		exclude group: 'org.junit.vintage'
 	}
 }
 

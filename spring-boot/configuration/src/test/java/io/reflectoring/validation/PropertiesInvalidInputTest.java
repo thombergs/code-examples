@@ -70,8 +70,7 @@ class PropertiesInvalidInputTest {
         assertThatThrownBy(application::run)
                 .isInstanceOf(ConfigurationPropertiesBindException.class)
                 .hasRootCauseInstanceOf(BindValidationException.class)
-                .hasStackTraceContaining("Field error in object 'app.properties' on field 'report.intervalInDays'")
-                .hasStackTraceContaining("[must be less than or equal to 30]");
+                .hasStackTraceContaining("rejected value [31]");
 
     }
 
@@ -83,8 +82,7 @@ class PropertiesInvalidInputTest {
         assertThatThrownBy(application::run)
                 .isInstanceOf(ConfigurationPropertiesBindException.class)
                 .hasRootCauseInstanceOf(BindValidationException.class)
-                .hasStackTraceContaining("Field error in object 'app.properties' on field 'report.intervalInDays'")
-                .hasStackTraceContaining("[must be greater than or equal to 7]");
+                .hasStackTraceContaining("rejected value [6]");
 
     }
 
@@ -96,8 +94,7 @@ class PropertiesInvalidInputTest {
         assertThatThrownBy(application::run)
                 .isInstanceOf(ConfigurationPropertiesBindException.class)
                 .hasRootCauseInstanceOf(BindValidationException.class)
-                .hasStackTraceContaining("Field error in object 'app.properties' on field 'report.emailAddress'")
-                .hasStackTraceContaining("[must be a well-formed email address]");
+                .hasStackTraceContaining("rejected value [manager.analysisapp.com]");
 
     }
 

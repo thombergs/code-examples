@@ -9,12 +9,6 @@ Parameters:
   DatabaseStackName:
     Type: String
     Description: The name of the database stack with the database this service should connect to.
-  DBName:
-    Type: String
-    Description: The database name.
-  DBUsername:
-    Type: String
-    Description: The database username.
   ServiceName:
     Type: String
     Description: A human-readable name for the service.
@@ -117,9 +111,13 @@ Resources:
                   - ':'
                   - Fn::ImportValue: !Join [':', [!Ref 'DatabaseStackName', 'EndpointPort']]
                   - '/'
-                  - !Ref 'DBName'
+                  - Fn::ImportValue: !Join [':', [!Ref 'DatabaseStackName', 'DBName']]
             - Name: SPRING_DATASOURCE_USERNAME
-              Value: !Ref 'DBUsername'
+              Value: !Join
+                - ''
+                - - '{{resolve:secretsmanager:'
+                  - Fn::ImportValue: !Join [':', [!Ref 'DatabaseStackName', 'Secret']]
+                  - ':SecretString:username}}'
             - Name: SPRING_DATASOURCE_PASSWORD
               Value: !Join
                 - ''

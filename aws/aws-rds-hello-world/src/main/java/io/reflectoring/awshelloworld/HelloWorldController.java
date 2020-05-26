@@ -4,16 +4,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloWorldController {
+class HelloWorldController {
 
   private final UserRepository userRepository;
 
-  public HelloWorldController(UserRepository userRepository) {
+  HelloWorldController(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 
   @GetMapping("/hello")
-  public String helloWorld(){
+  String helloWorld(){
 
     Iterable<User> users = userRepository.findAll();
 
