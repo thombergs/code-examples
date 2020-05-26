@@ -37,7 +37,7 @@ class PropertiesInvalidInputTest {
     }
 
     @Test
-    void whenGivenNameEmpty_thenNotEmptyValidationFails() {
+    void whenGivenNameEmpty_thenNotBlankValidationFails() {
 
         properties.put("app.properties.name", "");
 
@@ -46,6 +46,19 @@ class PropertiesInvalidInputTest {
                 .hasRootCauseInstanceOf(BindValidationException.class)
                 .hasStackTraceContaining("Field error in object 'app.properties' on field 'name'")
                 .hasStackTraceContaining("[must not be blank]");
+
+    }
+
+    @Test
+    void whenGivenNameDoesNotContainBaseName_thenCustomAppPropertiesValidatorFails() {
+
+        properties.put("app.properties.name", "My App");
+
+        assertThatThrownBy(application::run)
+                .isInstanceOf(ConfigurationPropertiesBindException.class)
+                .hasRootCauseInstanceOf(BindValidationException.class)
+                .hasStackTraceContaining("Field error in object 'app.properties' on field 'name'")
+                .hasStackTraceContaining("[The application name must contain [Application] base name]");
 
     }
 
@@ -102,7 +115,7 @@ class PropertiesInvalidInputTest {
     }
 
     @Test
-    void whenGivenThirdPartyComponentNameIsEmpty_thenNotEmptyValidationFails() {
+    void whenGivenThirdPartyComponentNameIsEmpty_thenNotBlankValidationFails() {
 
         properties.put("app.third-party.properties.name", "");
 

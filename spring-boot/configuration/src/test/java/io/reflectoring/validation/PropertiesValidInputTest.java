@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(properties = {
-        "app.properties.name=My Test App",
+        "app.properties.name=My Test Application",
         "app.properties.report.send-emails=true",
         "app.properties.report.type=PLAIN_TEXT",
         "app.properties.report.interval-in-days=14",
@@ -26,7 +26,7 @@ class PropertiesValidInputTest {
     @Test
     void appPropertiesAreLoaded() {
         assertThat(appProperties).isNotNull();
-        assertThat(appProperties.getName()).isEqualTo("My Test App");
+        assertThat(appProperties.getName()).isEqualTo("My Test Application");
         assertThat(appProperties.getReport()).isNotNull();
         assertThat(appProperties.getReport().getSendEmails()).isTrue();
         assertThat(appProperties.getReport().getType()).isEqualTo(ReportType.PLAIN_TEXT);
