@@ -27,7 +27,7 @@ class ControllerTest {
     @Test
     void putGet() throws Exception {
         // given
-        String number = "BO 5489";
+        String number = "BO5489";
         Car car = Car.builder()
                 .number(number)
                 .name("VW")
@@ -36,7 +36,7 @@ class ControllerTest {
         // put
         String content = objectMapper.writeValueAsString(car);
         mockMvc.perform(
-                post("/cars")
+                post("/cars/" + number)
                         .content(content)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
         ).andExpect(status().isCreated());

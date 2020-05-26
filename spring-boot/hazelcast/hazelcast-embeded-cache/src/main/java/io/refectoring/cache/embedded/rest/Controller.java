@@ -16,18 +16,14 @@ public class Controller {
         this.hazelcastNode = hazelcastNode;
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/{number}", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.CREATED)
-    public String put(@RequestBody Car car){
-        return hazelcastNode.put(car.getNumber(), car.getName());
+    public String put(@RequestBody Car car, @PathVariable String number) {
+        return hazelcastNode.put(number, car);
     }
 
     @GetMapping(value = "/{number}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Car get(@PathVariable String number){
-        String value = hazelcastNode.get(number);
-        return Car.builder()
-                .number(number)
-                .name(value)
-                .build();
+    public Car get(@PathVariable String number) {
+        return hazelcastNode.get(number);
     }
 }
