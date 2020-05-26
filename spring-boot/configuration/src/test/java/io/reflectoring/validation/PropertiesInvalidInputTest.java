@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * We create Spring Application dynamically to catch and test application context startup exceptions
  */
-class AppPropertiesInvalidInputTest {
+class PropertiesInvalidInputTest {
 
     SpringApplication application;
     Properties properties;
@@ -45,7 +45,7 @@ class AppPropertiesInvalidInputTest {
                 .isInstanceOf(ConfigurationPropertiesBindException.class)
                 .hasRootCauseInstanceOf(BindValidationException.class)
                 .hasStackTraceContaining("Field error in object 'app.properties' on field 'name'")
-                .hasStackTraceContaining("[must not be empty]");
+                .hasStackTraceContaining("[must not be blank]");
 
     }
 
@@ -98,6 +98,19 @@ class AppPropertiesInvalidInputTest {
                 .hasRootCauseInstanceOf(BindValidationException.class)
                 .hasStackTraceContaining("Field error in object 'app.properties.report' on field 'emailAddress'")
                 .hasStackTraceContaining("[The email address must contain [@analysisapp.com] domain]");
+
+    }
+
+    @Test
+    void whenGivenThirdPartyComponentNameIsEmpty_thenNotEmptyValidationFails() {
+
+        properties.put("app.third-party.properties.name", "");
+
+        assertThatThrownBy(application::run)
+                .isInstanceOf(ConfigurationPropertiesBindException.class)
+                .hasRootCauseInstanceOf(BindValidationException.class)
+                .hasStackTraceContaining("Field error in object 'app.third-party.properties' on field 'name'")
+                .hasStackTraceContaining("[must not be blank]");
 
     }
 
