@@ -25,6 +25,7 @@ Resources:
         SecretStringTemplate: !Join ['', ['{"username": "', !Ref 'DBUsername' ,'"}']]
         GenerateStringKey: "password"
         PasswordLength: 32
+        ExcludeCharacters: '"@/\'
 
   DBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
@@ -75,6 +76,11 @@ Outputs:
     Value: !GetAtt 'PostgresInstance.Endpoint.Port'
     Export:
       Name: !Join [ ':', [ !Ref 'AWS::StackName', 'EndpointPort' ] ]
+  DBName:
+    Description: The name of the database that is created within the PostgreSQL instance.
+    Value: !Ref DBName
+    Export:
+      Name: !Join [ ':', [ !Ref 'AWS::StackName', 'DBName' ] ]
   Secret:
     Description: Reference to the secret containing the password to the database.
     Value: !Ref 'Secret'
