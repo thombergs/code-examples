@@ -13,14 +13,14 @@ public class HazelcastNode {
     public static final String CARS = "cars";
     private final HazelcastInstance hzInstance = Hazelcast.newHazelcastInstance(createConfig());
 
-    public String put(String number, Car car){
-        IMap<Object, Object> map = hzInstance.getMap(CARS);
-        return (String) map.putIfAbsent(number, car);
+    public Car put(String number, Car car){
+        IMap<String, Car> map = hzInstance.getMap(CARS);
+        return map.putIfAbsent(number, car);
     }
 
     public Car get(String key){
-        IMap<Object, Object> map = hzInstance.getMap(CARS);
-        return (Car) map.get(key);
+        IMap<String, Car> map = hzInstance.getMap(CARS);
+        return map.get(key);
     }
 
     public Config createConfig() {
@@ -31,16 +31,8 @@ public class HazelcastNode {
 
     private MapConfig mapConfig() {
         MapConfig mapConfig = new MapConfig(CARS);
-        mapConfig.setEvictionConfig(evictionConfig());
         mapConfig.setTimeToLiveSeconds(20);
         mapConfig.setMaxIdleSeconds(360);
         return mapConfig;
-    }
-
-    private EvictionConfig evictionConfig() {
-        EvictionConfig evictionConfig = new EvictionConfig();
-        evictionConfig.setEvictionPolicy(EvictionPolicy.LFU);
-        evictionConfig.setSize(2000);
-        return evictionConfig;
     }
 }

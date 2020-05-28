@@ -18,7 +18,7 @@ public class Controller {
 
     @PostMapping(path = "/{number}", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.CREATED)
-    public String put(@RequestBody Car car, @PathVariable String number) {
+    public Car put(@RequestBody Car car, @PathVariable String number) {
         return hazelcastNode.put(number, car);
     }
 

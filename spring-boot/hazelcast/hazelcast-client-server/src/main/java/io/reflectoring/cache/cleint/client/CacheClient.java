@@ -14,12 +14,12 @@ public class CacheClient {
     private HazelcastInstance client = HazelcastClient.newHazelcastClient();
 
     public Car put(String key, Car car){
-        IMap<Object, Object> map = client.getMap(CARS);
-        return (Car) map.put(key, car);
+        IMap<String, Car> map = client.getMap(CARS);
+        return map.put(key, car);
     }
 
     public Car get(String key){
-        IMap<Object, Object> map = client.getMap(CARS);
-        return (Car) map.get(key);
+        IMap<String, Car> map = client.getMap(CARS);
+        return map.get(key);
     }
 }
