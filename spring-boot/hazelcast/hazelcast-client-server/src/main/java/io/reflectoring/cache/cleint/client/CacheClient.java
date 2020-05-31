@@ -1,9 +1,6 @@
 package io.reflectoring.cache.cleint.client;
 
 import com.hazelcast.client.HazelcastClient;
-import com.hazelcast.client.config.ClientConfig;
-import com.hazelcast.config.Config;
-import com.hazelcast.config.MapConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import io.reflectoring.cache.cleint.rest.Car;
