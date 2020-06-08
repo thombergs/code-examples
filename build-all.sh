@@ -28,6 +28,33 @@ build_gradle_module() {
   }
 }
 
+run_gradle_task() {
+  MODULE_PATH=$1
+  TASK_NAME=$2
+  echo ""
+  echo "+++"
+  echo "+++ RUNNING GRADLE TASK $MODULE_PATH : $TASK_NAME"
+  echo "+++"
+  cd $MODULE_PATH && {
+    chmod +x gradlew
+    ./gradlew $TASK_NAME
+    if [ $? -ne 0 ]
+    then
+      echo ""
+      echo "+++"
+      echo "+++ GRADLE TASK $MODULE_PATH : $TASK_NAME FAILED"
+      echo "+++"
+      exit 1
+    else
+      echo ""
+      echo "+++"
+      echo "+++ GRADLE TASK $MODULE_PATH : $TASK_NAME SUCCESSFUL"
+      echo "+++"
+    fi
+    cd $MAIN_DIR
+  }
+}
+
 build_maven_module() {
   MODULE_PATH=$1
   echo ""
@@ -54,6 +81,7 @@ build_maven_module() {
   }
 }
 
+run_gradle_task "spring-boot/thymeleaf-vue" "npmInstall"
 build_gradle_module "spring-boot/thymeleaf-vue"
 build_gradle_module "spring-boot/spring-boot-springdoc"
 build_maven_module "spring-boot/dependency-injection"
