@@ -54,6 +54,7 @@ build_maven_module() {
   }
 }
 
+build_gradle_module "spring-boot/thymeleaf-vue"
 build_gradle_module "spring-boot/spring-boot-springdoc"
 build_maven_module "spring-boot/dependency-injection"
 build_maven_module "spring-boot/spring-boot-openapi"

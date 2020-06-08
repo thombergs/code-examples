@@ -1,0 +1,23 @@
+<html>
+<body>
+<h1 th:text="${title}">This title will be replaced</h1>
+<p> Here comes a Vue component!</p>
+
+<div id="chart">
+    <chart th:v-bind:chart-data="${chartData}"></chart>
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+<script th:src="@{/js/vue-components/WeekChart/WeekChart.umd.min.js}"></script>
+<script>
+  (function() {
+      new Vue({
+        components: {
+          chart: WeekChart
+        }
+      }).$mount('#chart')
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+plugins {
+	id "com.github.node-gradle.node" version "2.2.4"
+}
+
+task build(type: NpmTask) {
+	inputs.dir("src")
+	outputs.dir("dist")
+	args = ['run', 'build']
+}
