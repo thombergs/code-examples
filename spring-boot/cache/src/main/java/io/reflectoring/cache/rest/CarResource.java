@@ -2,6 +2,7 @@ package io.reflectoring.cache.rest;
 
 import io.reflectoring.cache.dao.Car;
 import io.reflectoring.cache.service.CarService;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,12 @@ public class CarResource {
 
     private final CarService carService;
     private final CarMapper carMapper;
+    private final CacheManager cacheManager;
 
-    public CarResource(CarService carService, CarMapper carMapper) {
+    public CarResource(CarService carService, CarMapper carMapper, CacheManager cacheManager) {
         this.carService = carService;
         this.carMapper = carMapper;
+        this.cacheManager = cacheManager;
     }
 
     @PostMapping

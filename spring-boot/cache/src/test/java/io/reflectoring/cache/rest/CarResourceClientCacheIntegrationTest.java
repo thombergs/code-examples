@@ -2,26 +2,22 @@ package io.reflectoring.cache.rest;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.reflectoring.cache.AbstractIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
-@ActiveProfiles("embedded")
-class CarResourceTest {
+@ActiveProfiles("client")
+class CarResourceClientCacheIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,34 +26,36 @@ class CarResourceTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void saveCar() throws Exception {
+    void manageCar() throws Exception {
         // given
-        CarDto carDto = CarDto.builder()
+        CarDto newCarDto = CarDto.builder()
                 .name("vw")
                 .color("white")
                 .build();
 
         // when
+        String response = mockMvc.perform(
+                post("/cars")
+                        .content(objectMapper.writeValueAsString(newCarDto))
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                // then
+                .andExpect(status().isCreated())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
         mockMvc.perform(
                 post("/cars")
-                        .content(objectMapper.writeValueAsString(carDto))
+                        .content(objectMapper.writeValueAsString(newCarDto))
                         .contentType(MediaType.APPLICATION_JSON)
         )
                 // then
                 .andExpect(status().isCreated());
-    }
 
-    @Test
-    @Sql("/insert_car.sql")
-    void updateCar() throws Exception {
-        // given
-        CarDto carDto = CarDto.builder()
-                .id(UUID.fromString("1b104b1a-8539-4e06-aea7-9d77f2193b80"))
-                .name("vw")
-                .color("white")
-                .build();
+        CarDto carDto = objectMapper.readValue(response, CarDto.class);
+        carDto.setName("bmw");
 
-        // when
         mockMvc.perform(
                 put("/cars")
                         .content(objectMapper.writeValueAsString(carDto))
@@ -65,34 +63,32 @@ class CarResourceTest {
         )
                 // then
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    @Sql("/insert_car.sql")
-    void getCar() throws Exception {
-        // given
-
-        UUID id = UUID.fromString("1b104b1a-8539-4e06-aea7-9d77f2193b80");
 
         // when
         mockMvc.perform(
-                get("/cars/" + id)
+                get("/cars/" + carDto.getId())
                         .contentType(MediaType.APPLICATION_JSON)
         )
                 // then
                 .andExpect(status().isOk());
-    }
 
-    @Test
-    @Sql("/insert_car.sql")
-    void deleteCar() throws Exception {
-        // given
+        mockMvc.perform(
+                get("/cars/" + carDto.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                // then
+                .andExpect(status().isOk());
 
-        UUID id = UUID.fromString("1b104b1a-8539-4e06-aea7-9d77f2193b80");
+        mockMvc.perform(
+                get("/cars/" + carDto.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                // then
+                .andExpect(status().isOk());
 
         // when
         mockMvc.perform(
-                delete("/cars/" + id)
+                delete("/cars/" + carDto.getId())
         )
                 // then
                 .andExpect(status().isNoContent());
