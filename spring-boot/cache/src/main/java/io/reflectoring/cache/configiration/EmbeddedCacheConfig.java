@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @EnableCaching
 @Profile("embedded")
-public class EmbeddedCacheConfig /*extends CachingConfigurerSupport*/ {
+public class EmbeddedCacheConfig {
 
     @Bean
     Config config(){
@@ -20,9 +20,8 @@ public class EmbeddedCacheConfig /*extends CachingConfigurerSupport*/ {
 
         MapConfig mapConfig = new MapConfig();
         mapConfig.setTimeToLiveSeconds(300);
-        //mapConfig.setMaxIdleSeconds(10);
-
         config.getMapConfigs().put("cars", mapConfig);
+
         return config;
     }
 

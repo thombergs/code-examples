@@ -33,10 +33,6 @@ public class CarResource {
 
     @PutMapping
     private CarDto updateCar(@RequestBody CarDto carDto) {
-        if (carDto.getId() == null){
-            // TODO add exception handler to return 400
-            throw new IllegalArgumentException("A car must have an id to be updated.");
-        }
         Car car = carMapper.toCar(carDto);
         return carMapper.toCarDto(carService.update(car));
     }

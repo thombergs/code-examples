@@ -2,7 +2,6 @@ package io.reflectoring.cache.service;
 
 import io.reflectoring.cache.dao.Car;
 import io.reflectoring.cache.dao.CarRepository;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,11 +13,9 @@ import java.util.UUID;
 public class CarService {
 
     private final CarRepository carRepository;
-    private final CacheManager cacheManager;
 
-    public CarService(CarRepository carRepository, CacheManager cacheManager) {
+    public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
-        this.cacheManager = cacheManager;
     }
 
     public Car saveCar(Car car) {
@@ -30,7 +27,6 @@ public class CarService {
         if (carRepository.existsById(car.getId())) {
             return carRepository.save(car);
         }
-        // TODO add an exception handle and a dedicated exception
         throw new IllegalArgumentException("A car mus have an id to be updated");
     }
 
@@ -43,13 +39,6 @@ public class CarService {
     @CacheEvict(value = "cars")
     public void delete(UUID uuid) {
         carRepository.deleteById(uuid);
-        System.out.println(cacheManager.getClass().getCanonicalName());
-//        long cacheHits = ((HazelcastCacheManager) cacheManager).getHazelcastInstance().getMap("cars").getLocalMapStats().getHits();
-//        System.out.println(((HazelcastCacheManager) cacheManager).getHazelcastInstance().getMap("cars").getLocalMapStats());
-//        long cacheMisses = ((HazelcastCacheManager) cacheManager).getHazelcastInstance().getCacheManager().getCache("cars").getLocalCacheStatistics().getCacheMisses();
-//
-//        System.out.println("hits:" + cacheHits);
-//        System.out.println("misses:" + cacheMisses);
     }
 
 }
