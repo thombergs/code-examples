@@ -16,7 +16,7 @@ public class ResponseBodyMatchers {
     return mvcResult -> {
       String json = mvcResult.getResponse().getContentAsString();
       T actualObject = objectMapper.readValue(json, targetClass);
-      assertThat(expectedObject).isEqualToComparingFieldByField(actualObject);
+      assertThat(actualObject).isEqualToComparingFieldByField(expectedObject);
     };
   }
 

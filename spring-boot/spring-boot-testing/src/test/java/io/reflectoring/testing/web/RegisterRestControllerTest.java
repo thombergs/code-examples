@@ -88,9 +88,8 @@ class RegisterRestControllerTest {
 
     UserResource expectedResponseBody = user;
     String actualResponseBody = mvcResult.getResponse().getContentAsString();
-    assertThat(objectMapper.writeValueAsString(expectedResponseBody))
-            .isEqualToIgnoringWhitespace(actualResponseBody);
-
+    assertThat(actualResponseBody).isEqualToIgnoringWhitespace(
+            objectMapper.writeValueAsString(expectedResponseBody));
   }
 
   @Test
@@ -121,8 +120,8 @@ class RegisterRestControllerTest {
 
     UserResource expected = user;
     UserResource actualResponseBody = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), UserResource.class);
-    assertThat(expected.getName()).isEqualTo(actualResponseBody.getName());
-    assertThat(expected.getEmail()).isEqualTo(actualResponseBody.getEmail());
+    assertThat(actualResponseBody.getName()).isEqualTo(expected.getName());
+    assertThat(actualResponseBody.getEmail()).isEqualTo(expected.getEmail());
 
   }
 
@@ -153,7 +152,7 @@ class RegisterRestControllerTest {
     ErrorResult expectedErrorResponse = new ErrorResult("name", "must not be null");
     String actualResponseBody = mvcResult.getResponse().getContentAsString();
     String expectedResponseBody = objectMapper.writeValueAsString(expectedErrorResponse);
-    assertThat(expectedResponseBody).isEqualToIgnoringWhitespace(actualResponseBody);
+    assertThat(actualResponseBody).isEqualToIgnoringWhitespace(expectedResponseBody);
   }
 
   @Test
