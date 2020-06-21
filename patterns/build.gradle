@@ -16,7 +16,8 @@ repositories {
 }
 
 dependencies {
-	compileOnly 'org.projectlombok:lombok:1.18.2'
+	compileOnly 'org.projectlombok:lombok:1.18.6'
+	annotationProcessor 'org.projectlombok:lombok:1.18.6'
 	implementation 'javax.validation:validation-api:2.0.1.Final'
 	runtimeOnly 'org.hibernate:hibernate-validator:6.0.17.Final'
 	testRuntimeOnly 'org.hibernate:hibernate-validator:6.0.17.Final'
