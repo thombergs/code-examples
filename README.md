@@ -1,6 +1,6 @@
 # Example Code Repository
 
-[![Travis CI Status](https://travis-ci.org/thombergs/code-examples.svg?branch=master)](https://travis-ci.org/thombergs/code-examples)
+[![CI](https://github.com/thombergs/code-examples/workflows/CI/badge.svg)](https://github.com/thombergs/code-examples/actions?query=workflow%3ACI)
 
 This repo contains example projects which show how to use different (not only) Java technologies.
 The examples are usually accompanied by a blog post on [https://reflectoring.io](https://reflectoring.io).
