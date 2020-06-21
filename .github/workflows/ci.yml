@@ -1,0 +1,16 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout sources"
+      uses: actions/checkout@v1
+    - name: "Setup Java"
+      uses: actions/setup-java@v1
+      with:
+        java-version: 13
+    - name: "Build all modules"
+      run: chmod 755 build-all.sh && ./build-all.sh
