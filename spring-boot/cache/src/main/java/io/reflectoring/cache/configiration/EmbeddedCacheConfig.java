@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Profile;
 public class EmbeddedCacheConfig {
 
     @Bean
-    Config config(){
+    Config config() {
         Config config = new Config();
 
         MapConfig mapConfig = new MapConfig();
@@ -24,5 +24,4 @@ public class EmbeddedCacheConfig {
 
         return config;
     }
-
 }

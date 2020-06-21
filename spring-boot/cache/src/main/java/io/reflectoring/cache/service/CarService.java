@@ -2,6 +2,7 @@ package io.reflectoring.cache.service;
 
 import io.reflectoring.cache.dao.Car;
 import io.reflectoring.cache.dao.CarRepository;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,9 +14,11 @@ import java.util.UUID;
 public class CarService {
 
     private final CarRepository carRepository;
+    private final CacheManager cacheManager;
 
-    public CarService(CarRepository carRepository) {
+    public CarService(CarRepository carRepository, CacheManager cacheManager) {
         this.carRepository = carRepository;
+        this.cacheManager = cacheManager;
     }
 
     public Car saveCar(Car car) {
