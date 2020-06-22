@@ -25,12 +25,12 @@ public class CarService {
         return carRepository.save(car);
     }
 
-    @CachePut(value = "cars")
+    @CachePut(value = "cars", key = "#car.id")
     public Car update(Car car) {
         if (carRepository.existsById(car.getId())) {
             return carRepository.save(car);
         }
-        throw new IllegalArgumentException("A car mus have an id to be updated");
+        throw new IllegalArgumentException("A car must have an id to be updated");
     }
 
     @Cacheable(value = "cars")
@@ -39,7 +39,7 @@ public class CarService {
                 .orElseThrow(() -> new IllegalStateException("car with id " + uuid + " was not found"));
     }
 
-    @CacheEvict(value = "cars")
+    @CacheEvict(value = "cars", key = "#uuid")
     public void delete(UUID uuid) {
         carRepository.deleteById(uuid);
     }
