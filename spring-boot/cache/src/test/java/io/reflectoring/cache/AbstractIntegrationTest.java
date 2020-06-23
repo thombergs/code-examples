@@ -1,4 +1,4 @@
-package io.reflectoring.cache.cleint;
+package io.reflectoring.cache;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.testcontainers.containers.FixedHostPortGenericContainer;
