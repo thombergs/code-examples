@@ -10,12 +10,15 @@ buildscript {
 	}
 }
 
+plugins {
+	id 'org.springframework.boot' version '2.3.1.RELEASE'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 11
 
 repositories {
 	mavenLocal()
