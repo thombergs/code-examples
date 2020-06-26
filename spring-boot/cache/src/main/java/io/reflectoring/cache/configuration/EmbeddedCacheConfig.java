@@ -1,4 +1,4 @@
-package io.reflectoring.cache.configiration;
+package io.reflectoring.cache.configuration;
 
 
 import com.hazelcast.config.Config;
