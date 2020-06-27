@@ -2,10 +2,12 @@ package io.refectoring.cache.embedded;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.config.MapConfig;
+import com.hazelcast.config.SerializerConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
 import io.refectoring.cache.embedded.rest.Car;
+import io.refectoring.cache.embedded.serializer.CarSerializer;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,7 +29,14 @@ public class CacheClient {
     public Config createConfig() {
         Config config = new Config();
         config.addMapConfig(mapConfig());
+        config.getSerializationConfig().addSerializerConfig(serializerConfig());
         return config;
+    }
+
+    private SerializerConfig serializerConfig() {
+        return  new SerializerConfig()
+                .setImplementation(new CarSerializer())
+                .setTypeClass(Car.class);
     }
 
     private MapConfig mapConfig() {
