@@ -7,7 +7,7 @@ import io.reflectoring.solid.lsp.paymentexample.common.external.PaymentGateway;
 import io.reflectoring.solid.lsp.paymentexample.common.external.ThirdPartyFraudDetectionSystem;
 import java.util.Date;
 
-public class PaymentInstrument {
+public abstract class PaymentInstrument {
   String name;
   String cardNumber;
   String verificationCode;
