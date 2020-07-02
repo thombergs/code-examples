@@ -10,7 +10,7 @@ import io.reflectoring.solid.lsp.paymentexample.redesigned.paymentgateway.IPayme
 import io.reflectoring.solid.lsp.paymentexample.redesigned.validators.IPaymentInstrumentValidator;
 import java.util.Date;
 
-public class BaseBankCard implements IPaymentInstrument {
+public abstract class BaseBankCard implements IPaymentInstrument {
     String name;
     String cardNumber;
     String verificationCode;
