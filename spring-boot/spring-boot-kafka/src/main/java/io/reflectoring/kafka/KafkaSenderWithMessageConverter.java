@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaSenderWithMessageConverter {
 	
-	private static Logger LOG = LoggerFactory.getLogger(KafkaSenderWithMessageConverter.class);
+	private final Logger LOG = LoggerFactory.getLogger(KafkaSenderWithMessageConverter.class);
 	
 	@Autowired
-	private KafkaTemplate<String,?> kafkaTemplate;
+	private KafkaTemplate<String,Message<?>> kafkaTemplate;
 	
 	void sendMessageWithConverter(Message<?> user) {
 		LOG.info("Sending With Message Converter : {}", user);

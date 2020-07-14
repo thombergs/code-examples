@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 class InitSend {
 	
-	Logger LOG = LoggerFactory.getLogger(InitSend.class);
+	private final Logger LOG = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private KafkaSenderExample kafkaSenderExample;

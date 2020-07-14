@@ -13,12 +13,11 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 @Component
 class KafkaSenderExample {
 
-	private static Logger LOG = LoggerFactory.getLogger(KafkaSenderExample.class);
+	private final Logger LOG = LoggerFactory.getLogger(KafkaSenderExample.class);
 
 	@Autowired
 	private KafkaTemplate<String, String> kafkaTemplate;
 	
-
 	@Autowired
 	private RoutingKafkaTemplate routingKafkaTemplate;
 

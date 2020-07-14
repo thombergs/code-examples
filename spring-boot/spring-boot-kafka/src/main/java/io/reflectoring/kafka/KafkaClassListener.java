@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @KafkaListener(id = "class-level", topics = "reflectoring-1")
 class KafkaClassListener {
 
-	Logger LOG = LoggerFactory.getLogger(KafkaClassListener.class);
+	private final Logger LOG = LoggerFactory.getLogger(getClass());
 	
 	@KafkaHandler
 	void listen(String message) {

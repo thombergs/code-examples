@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 class KafkaListenersExample {
 
-	Logger LOG = LoggerFactory.getLogger(KafkaListenersExample.class);
+	private final Logger LOG = LoggerFactory.getLogger(KafkaListenersExample.class);
 
 	@KafkaListener(topics = "reflectoring-1")
 	void listener(String message) {
