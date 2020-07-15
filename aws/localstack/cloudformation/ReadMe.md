@@ -1,0 +1,1 @@
+aws cloudformation --endpoint-url http://localhost:4566 create-stack --stack-name samplestack --template-url sample.yaml

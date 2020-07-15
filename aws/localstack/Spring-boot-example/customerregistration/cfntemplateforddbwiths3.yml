@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: A sample template for creating a stack with a bucket and a DynamoDB table.
+Resources:
+    S3BucketForPoc:
+        Type: AWS::S3::Bucket
+        Properties:
+          BucketName: io.pratik.poc
+    DynamoDBTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          TableName: customers
