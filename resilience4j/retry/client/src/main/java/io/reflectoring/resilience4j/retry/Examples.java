@@ -2,6 +2,15 @@ package io.reflectoring.resilience4j.retry;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 
+import io.github.resilience4j.core.IntervalFunction;
+import io.github.resilience4j.micrometer.tagged.TaggedRetryMetrics;
+import io.github.resilience4j.retry.Retry;
+import io.github.resilience4j.retry.RetryConfig;
+import io.github.resilience4j.retry.RetryRegistry;
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
+import io.reflectoring.resilience4j.retry.exceptions.FlightServiceBaseException;
 import io.reflectoring.resilience4j.retry.exceptions.RateLimitExceededException;
 import io.reflectoring.resilience4j.retry.exceptions.SeatsUnavailableException;
 import io.reflectoring.resilience4j.retry.model.BookingRequest;
@@ -14,15 +23,6 @@ import io.reflectoring.resilience4j.retry.services.FlightSearchService;
 import io.reflectoring.resilience4j.retry.services.failures.FailHalfTheTime;
 import io.reflectoring.resilience4j.retry.services.failures.FailNTimes;
 import io.reflectoring.resilience4j.retry.services.failures.RateLimitFailNTimes;
-import io.reflectoring.resilience4j.retry.services.failures.SeatsUnavailableFailureNTimes;
-import io.github.resilience4j.core.IntervalFunction;
-import io.github.resilience4j.micrometer.tagged.TaggedRetryMetrics;
-import io.github.resilience4j.retry.Retry;
-import io.github.resilience4j.retry.RetryConfig;
-import io.github.resilience4j.retry.RetryRegistry;
-import io.micrometer.core.instrument.Meter;
-import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.vavr.CheckedFunction0;
 import java.time.Duration;
 import java.util.Collections;
@@ -36,9 +36,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.StreamSupport;
-import lombok.extern.java.Log;
 
-@Log
 public class Examples {
 
     void generalUsagePattern() {
@@ -131,18 +129,18 @@ public class Examples {
         }
     }
 
-    void exceptionsExample() {
+    void retryExceptionsIgnoreExceptionsExample() {
         RetryConfig config = RetryConfig.custom().
-                                    maxAttempts(3).
-                                    waitDuration(Duration.of(3, SECONDS)).
-                                    retryExceptions(RateLimitExceededException.class).
-                                    ignoreExceptions(SeatsUnavailableException.class).
-                                    build();
+                maxAttempts(3).
+                waitDuration(Duration.of(3, SECONDS)).
+                retryExceptions(FlightServiceBaseException.class).
+                ignoreExceptions(SeatsUnavailableException.class).
+                build();
         RetryRegistry registry = RetryRegistry.of(config);
         Retry retry = registry.retry("flightBookService", config);
 
         FlightBookingService service = new FlightBookingService();
-        System.out.println("Example to illustrate: rate limit exception - will be retried");
+        System.out.println("Example to illustrate: rate limit runtime exception - will be retried");
         // rate limit exception
         service.setPotentialFailure(new RateLimitFailNTimes(2));
         Flight flight = new Flight("XY 213", "07/30/2020", "NYC", "LAX");
@@ -150,19 +148,26 @@ public class Examples {
         Supplier<BookingResponse> bookingResponseSupplier = () -> service.bookFlight(request);
         Supplier<BookingResponse> bookingResponse = Retry.decorateSupplier(retry, bookingResponseSupplier);
 
-        System.out.println(bookingResponse.get());
+        try {
+            System.out.println(bookingResponse.get());
+        }
+        catch (RateLimitExceededException rle) {
+            rle.printStackTrace();
+        }
 
-        System.out.println("Example to illustrate: no seats available - no retry");
-        // seats not available exception
-        service.setPotentialFailure(new SeatsUnavailableFailureNTimes(2));
-        Supplier<BookingResponse> bookingResponseSupplier2 = () -> service.bookFlight(request);
-        Supplier<BookingResponse> bookingResponse2 = Retry.decorateSupplier(retry, bookingResponseSupplier2);
+        System.out.println("Example to illustrate: no seats available runtime exception will not be retried");
+        // seats not available checked exception
+        FlightBookingService service2 = new FlightBookingService();
+        Flight flight2 = new Flight("XY 765", "07/30/2020", "NYC", "LAX");
+        BookingRequest request2 = new BookingRequest(UUID.randomUUID().toString(), flight2, 2, "C");
+        CheckedFunction0<BookingResponse> bookingResponseSupplier2 = () -> service2.bookFlight(request2);
+        CheckedFunction0<BookingResponse> bookingResponse2 = Retry.decorateCheckedSupplier(retry, bookingResponseSupplier2);
 
         try {
-            System.out.println(bookingResponse2.get());
+            System.out.println(bookingResponse2.apply());
         }
-        catch (RuntimeException re) {
-            re.printStackTrace();
+        catch (Throwable e) {
+            e.printStackTrace();
         }
     }
 
@@ -314,8 +319,8 @@ public class Examples {
         examples.predicateExample();
         System.out.println("----------------------------------------------------------------------");
 
-        System.out.println("---------------------------- exceptionsExample ------------------------------------------");
-        examples.exceptionsExample();
+        System.out.println("---------------------------- retryExceptionsIgnoreExceptionsExample ------------------------------------------");
+        examples.retryExceptionsIgnoreExceptionsExample();
         System.out.println("----------------------------------------------------------------------");
 
         System.out.println("---------------------------- intervalFunction_Random ------------------------------------------");

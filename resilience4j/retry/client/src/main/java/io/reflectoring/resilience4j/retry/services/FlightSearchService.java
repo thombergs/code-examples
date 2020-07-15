@@ -5,22 +5,16 @@ import io.reflectoring.resilience4j.retry.model.SearchRequest;
 import io.reflectoring.resilience4j.retry.model.SearchResponse;
 import io.reflectoring.resilience4j.retry.services.failures.NoFailure;
 import io.reflectoring.resilience4j.retry.services.failures.PotentialFailure;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 
 public class FlightSearchService {
     PotentialFailure potentialFailure = new NoFailure();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss SSS");
-    ObjectMapper mapper = new ObjectMapper();
 
     public List<Flight> searchFlights(SearchRequest request) {
         System.out.println("Searching for flights; current time = " + LocalDateTime.now().format(formatter));
@@ -38,8 +32,6 @@ public class FlightSearchService {
 
     public List<Flight> searchFlightsThrowingException(SearchRequest request) throws Exception {
         System.out.println("Searching for flights; current time = " + LocalDateTime.now().format(formatter));
-        potentialFailure.occur();
-
         throw new Exception("Exception when searching for flights");
     }
 
@@ -51,10 +43,26 @@ public class FlightSearchService {
         System.out.println("Searching for flights; current time = " + LocalDateTime.now().format(formatter));
         potentialFailure.occur();
 
-        HttpClient client = HttpClientBuilder.create().build();
-        String url = "http://localhost:8080/flights/search?from=" + request.getFrom() + "&to=" + request.getTo() + "&date=" + request.getFlightDate();
-        HttpResponse response = client.execute(new HttpGet(url));
-        String body = EntityUtils.toString(response.getEntity());
-        return mapper.readValue(body, SearchResponse.class);
+        String date = request.getFlightDate();
+        String from = request.getFrom();
+        String to = request.getTo();
+        if (request.getFlightDate().equals("07/25/2020")) { // Simulating an error scenario
+            System.out.println("Flight data initialization in progress, cannot search at this time");
+            SearchResponse response = new SearchResponse();
+            response.setErrorCode("FS-167");
+            response.setFlights(Collections.emptyList());
+            return response;
+        }
+
+        List<Flight> flights = Arrays.asList(
+                new Flight("XY 765", date, from, to),
+                new Flight("XY 781", date, from, to),
+                new Flight("XY 732", date, from, to),
+                new Flight("XY 746", date, from, to)
+        );
+        System.out.println("Flight search successful");
+        SearchResponse response = new SearchResponse();
+        response.setFlights(flights);
+        return response;
     }
 }

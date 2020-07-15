@@ -1,6 +1,6 @@
 package io.reflectoring.resilience4j.retry.exceptions;
 
-public class RateLimitExceededException extends RuntimeException {
+public class RateLimitExceededException extends FlightServiceBaseException {
     String errorCode;
 
     public RateLimitExceededException(String message, String errorCode) {
