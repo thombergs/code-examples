@@ -81,6 +81,7 @@ build_maven_module() {
   }
 }
 
+build_maven_module "spring-boot/spring-boot-kafka"
 build_maven_module "solid/lsp"
 run_gradle_task "spring-boot/thymeleaf-vue" "npmInstall"
 build_gradle_module "spring-boot/thymeleaf-vue"
