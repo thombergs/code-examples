@@ -20,8 +20,8 @@ class KafkaListenersExample {
 	void listener(String message) {
 		LOG.info("Listener [{}]", message);
 	}
-	
-	@KafkaListener(topics= {"reflectoring-1","reflectoring-2"}, groupId = "reflectoring-group-2")
+
+	@KafkaListener(topics = { "reflectoring-1", "reflectoring-2" }, groupId = "reflectoring-group-2")
 	void commonListenerForMultipleTopics(String message) {
 		LOG.info("MultipleTopicListener - [{}]", message);
 	}
@@ -32,12 +32,12 @@ class KafkaListenersExample {
 			@Header(KafkaHeaders.OFFSET) int offset) {
 		LOG.info("ListenToPartitionWithOffset [{}] from partition-{} with offset-{}", message, partition, offset);
 	}
-	
+
 	@KafkaListener(topics = "reflectoring-bytes")
 	void listenerForRoutingTemplate(String message) {
 		LOG.info("RoutingTemplate BytesListener [{}]", message);
 	}
-	
+
 	@KafkaListener(topics = "reflectoring-others")
 	@SendTo("reflectoring-2")
 	String listenAndReply(String message) {
@@ -45,8 +45,7 @@ class KafkaListenersExample {
 		return "This is a reply sent to 'reflectoring-2' topic after receiving message at 'reflectoring-others' topic";
 	}
 
-
-	@KafkaListener(id="1", topics = "reflectoring-user", groupId="reflectoring-user-mc", containerFactory="kafkaJsonListenerContainerFactory")
+	@KafkaListener(id = "1", topics = "reflectoring-user", groupId = "reflectoring-user-mc", containerFactory = "kafkaJsonListenerContainerFactory")
 	void listenerWithMessageConverter(User user) {
 		LOG.info("MessageConverterUserListener [{}]", user);
 	}

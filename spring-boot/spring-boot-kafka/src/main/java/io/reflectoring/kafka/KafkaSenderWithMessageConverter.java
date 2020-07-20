@@ -9,17 +9,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class KafkaSenderWithMessageConverter {
-	
+
 	private final Logger LOG = LoggerFactory.getLogger(KafkaSenderWithMessageConverter.class);
-	
+
 	@Autowired
-	private KafkaTemplate<String,Message<?>> kafkaTemplate;
-	
+	private KafkaTemplate<String, ?> kafkaTemplate;
+
 	void sendMessageWithConverter(Message<?> user) {
 		LOG.info("Sending With Message Converter : {}", user);
 		LOG.info("--------------------------------");
-		
+
 		kafkaTemplate.send(user);
 	}
-	
+
 }

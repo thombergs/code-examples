@@ -10,6 +10,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,8 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 @Configuration
 class KafkaProducerConfig {
 
+	private final Logger LOG = LoggerFactory.getLogger(getClass());
+
 	@Value("${io.reflectoring.kafka.bootstrap-servers}")
 	private String bootstrapServers;
 
@@ -37,7 +40,6 @@ class KafkaProducerConfig {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 		return props;
 	}
 
@@ -54,15 +56,16 @@ class KafkaProducerConfig {
 		kafkaTemplate.setProducerListener(new ProducerListener<String, String>() {
 			@Override
 			public void onSuccess(ProducerRecord<String, String> producerRecord, RecordMetadata recordMetadata) {
-				LoggerFactory.getLogger(getClass()).info("Acknowledgement from ProducerListener [message: {}, offset:  {}]", producerRecord.value(), recordMetadata.offset());
+				LOG.info("ACK from ProducerListener message: {} offset:  {}", producerRecord.value(),
+						recordMetadata.offset());
 			}
 		});
 		return kafkaTemplate;
 	}
-	
+
 	@Bean
 	public RoutingKafkaTemplate routingTemplate(GenericApplicationContext context) {
-		
+
 		// ProducerFactory with Bytes serializer
 		Map<String, Object> props = new HashMap<>();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -73,9 +76,8 @@ class KafkaProducerConfig {
 
 		// ProducerFactory with String serializer
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		DefaultKafkaProducerFactory<Object, Object> stringPF = new DefaultKafkaProducerFactory<>(props);		
-		
-		
+		DefaultKafkaProducerFactory<Object, Object> stringPF = new DefaultKafkaProducerFactory<>(props);
+
 		Map<Pattern, ProducerFactory<Object, Object>> map = new LinkedHashMap<>();
 		map.put(Pattern.compile(".*-bytes"), bytesPF);
 		map.put(Pattern.compile("reflectoring-.*"), stringPF);

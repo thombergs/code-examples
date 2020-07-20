@@ -15,36 +15,39 @@ class KafkaSenderExample {
 
 	private final Logger LOG = LoggerFactory.getLogger(KafkaSenderExample.class);
 
-	@Autowired
 	private KafkaTemplate<String, String> kafkaTemplate;
-	
-	@Autowired
 	private RoutingKafkaTemplate routingKafkaTemplate;
+	private KafkaTemplate<String, User> userKafkaTemplate;
 
 	@Autowired
-	private KafkaTemplate<String, User> userKafkaTemplate;
+	KafkaSenderExample(KafkaTemplate<String, String> kafkaTemplate, RoutingKafkaTemplate routingKafkaTemplate,
+			KafkaTemplate<String, User> userKafkaTemplate) {
+		this.kafkaTemplate = kafkaTemplate;
+		this.routingKafkaTemplate = routingKafkaTemplate;
+		this.userKafkaTemplate = userKafkaTemplate;
+	}
 
 	void sendMessage(String message, String topicName) {
 		LOG.info("Sending : {}", message);
 		LOG.info("--------------------------------");
-		
+
 		kafkaTemplate.send(topicName, message);
 	}
 
 	void sendWithRoutingTemplate(String message, String topicName) {
 		LOG.info("Sending : {}", message);
 		LOG.info("--------------------------------");
-		
+
 		routingKafkaTemplate.send(topicName, message.getBytes());
 	}
-	
+
 	void sendCustomMessage(User user, String topicName) {
 		LOG.info("Sending Json Serializer : {}", user);
 		LOG.info("--------------------------------");
-		
+
 		userKafkaTemplate.send(topicName, user);
 	}
-	
+
 	void sendMessageWithCallback(String message, String topicName) {
 		LOG.info("Sending : {}", message);
 		LOG.info("---------------------------------");
