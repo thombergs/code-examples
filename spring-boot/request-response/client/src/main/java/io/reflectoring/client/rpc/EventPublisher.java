@@ -25,7 +25,8 @@ public class EventPublisher {
 
     private final DirectExchange directExchange;
 
-    public EventPublisher(DirectExchange directExchange, RabbitTemplate template, AsyncRabbitTemplate asyncRabbitTemplate) {
+    public EventPublisher(DirectExchange directExchange, RabbitTemplate template,
+                          AsyncRabbitTemplate asyncRabbitTemplate) {
         this.directExchange = directExchange;
         this.template = template;
         this.asyncRabbitTemplate = asyncRabbitTemplate;
@@ -36,38 +37,41 @@ public class EventPublisher {
         String key = "vw";
         Car car = Car.builder()
                 .id(UUID.randomUUID())
-                // TODO get random color and name.
                 .color("white")
                 .name("vw")
                 .build();
         LOGGER.info("Sending message with routing key {} and id {}", key, car.getId());
 
-        ParameterizedTypeReference<Registration> responseType = new ParameterizedTypeReference<>() {
+        ParameterizedTypeReference<Registration> responseType
+                = new ParameterizedTypeReference<>() {
         };
-        Registration registration = template.convertSendAndReceiveAsType(directExchange.getName(), key, car, responseType);
+        Registration registration = template.convertSendAndReceiveAsType(
+                directExchange.getName(), key, car, responseType);
         LOGGER.info("Message received: {}", registration);
     }
+
 
     @Scheduled(fixedDelay = 3000, initialDelay = 1500)
     public void sendAsynchronously() {
         String key = "vw";
         Car car = Car.builder()
                 .id(UUID.randomUUID())
-                // TODO get random color and name.
-                .color("white")
-                .name("vw")
+                .color("black")
+                .name("bmw")
                 .build();
         LOGGER.info("Sending message with routing key {} and id {}", key, car.getId());
 
-        ParameterizedTypeReference<Registration> responseType = new ParameterizedTypeReference<>() {
+        ParameterizedTypeReference<Registration> responseType
+                = new ParameterizedTypeReference<>() {
         };
         AsyncRabbitTemplate.RabbitConverterFuture<Registration> future =
-                asyncRabbitTemplate.convertSendAndReceiveAsType(directExchange.getName(), key, car, responseType);
+                asyncRabbitTemplate.convertSendAndReceiveAsType(
+                        directExchange.getName(), key, car, responseType);
         try {
             Registration registration = future.get();
             LOGGER.info("Asynchronous message received: {}", registration);
         } catch (InterruptedException | ExecutionException e) {
-            LOGGER.error("Cannot get response.");
+            LOGGER.error("Cannot get response.", e);
         }
     }
 }
