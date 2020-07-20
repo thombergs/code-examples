@@ -34,7 +34,7 @@ public class EventPublisher {
 
     @Scheduled(fixedDelay = 3000)
     public void send() {
-        String key = "vw";
+        String key = "old.car";
         Car car = Car.builder()
                 .id(UUID.randomUUID())
                 .color("white")
@@ -53,7 +53,7 @@ public class EventPublisher {
 
     @Scheduled(fixedDelay = 3000, initialDelay = 1500)
     public void sendAsynchronously() {
-        String key = "vw";
+        String key = "old.car";
         Car car = Car.builder()
                 .id(UUID.randomUUID())
                 .color("black")

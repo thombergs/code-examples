@@ -27,7 +27,7 @@ public class ServerConfiguration {
                            Queue queue) {
         return BindingBuilder.bind(queue)
                 .to(directExchange)
-                .with("vw");
+                .with("old.car");
     }
 
     @Bean
