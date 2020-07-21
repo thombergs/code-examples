@@ -130,6 +130,7 @@ build_gradle_module "spring-cloud/spring-cloud-contract-provider"
 build_gradle_module "spring-data/spring-data-rest-associations"
 build_gradle_module "spring-data/spring-data-rest-springfox"
 build_gradle_module "tools/jacoco"
+build_maven_module "aws/localstack"
 
 echo ""
 echo "+++"

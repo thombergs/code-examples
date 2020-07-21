@@ -10,6 +10,12 @@ jobs:
       uses: actions/checkout@v1
     - name: "Setup Java"
       uses: actions/setup-java@v1
+      env:
+        # We don't actually need AWS credentials in the tests, but LocalStack
+        # complains if they're not there, so we add dummies to the environment.
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+        AWS_REGION: ${{ secrets.AWSREGION }}
       with:
         java-version: 13
     - name: "Build all modules"
