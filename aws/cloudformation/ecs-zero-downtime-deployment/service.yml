@@ -100,7 +100,7 @@ Resources:
           Memory: !Ref 'ContainerMemory'
           Image: !Ref 'ImageUrl'
           PortMappings:
-            - ContainerPort: !Ref 'ContainerPort' serve
+            - ContainerPort: !Ref 'ContainerPort'
           LogConfiguration:
             LogDriver: 'awslogs'
             Options:

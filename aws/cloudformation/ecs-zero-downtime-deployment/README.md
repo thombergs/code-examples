@@ -1,8 +1,8 @@
 # Overview
 
-![ECS in two public subnets](ecs-in-two-public-subnets.svg)
+![ECS Zero Downtime Deployment](ecs-in-two-public-subnets.svg)
 
 # Companion Blog Post
 
-[The AWS Journey Part 2: Deploying a Docker image from the Command Line with CloudFormation](https://reflectoring.io/aws-cloudformation-deploy-docker-image/)
+[The AWS Journey Part 4: Zero-Downtime Deployment with CloudFormation and ECS](https://reflectoring.io/aws-cloudformation-ecs-deployment/)
 
