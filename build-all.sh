@@ -81,7 +81,6 @@ build_maven_module() {
   }
 }
 
-build_maven_module "aws/localstack"
 build_maven_module "spring-boot/spring-boot-kafka"
 build_maven_module "resilience4j/retry"
 build_maven_module "solid/lsp"
@@ -131,6 +130,7 @@ build_gradle_module "spring-cloud/spring-cloud-contract-provider"
 build_gradle_module "spring-data/spring-data-rest-associations"
 build_gradle_module "spring-data/spring-data-rest-springfox"
 build_gradle_module "tools/jacoco"
+build_maven_module "aws/localstack"
 
 echo ""
 echo "+++"
