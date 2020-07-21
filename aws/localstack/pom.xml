@@ -16,7 +16,7 @@
 	<description>Spring Boot with Dynamodb and S3 to demonstrate LocalStack</description>
 
 	<properties>
-		<java.version>14</java.version>
+		<java.version>13</java.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>

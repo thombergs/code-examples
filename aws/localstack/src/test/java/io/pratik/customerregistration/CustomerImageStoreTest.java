@@ -31,7 +31,7 @@ import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
  */
 @Slf4j
 @ExtendWith(LocalstackDockerExtension.class)
-@LocalstackDockerProperties(services = { "s3", "sqs" })
+@LocalstackDockerProperties(services = { "s3" })
 class CustomerImageStoreTest {
 	
 	private static final Region region = Region.US_EAST_1;
