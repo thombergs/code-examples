@@ -1,4 +1,4 @@
-package io.reflectoring.client.rpc;
+package io.reflectoring.client.registration.rpc;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;

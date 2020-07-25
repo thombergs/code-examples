@@ -8,6 +8,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class EventConsumer {
@@ -15,9 +16,11 @@ public class EventConsumer {
     public static final Logger LOGGER = LoggerFactory.getLogger(EventConsumer.class);
 
 
-    @RabbitListener(queues = "#{queue.name}")
-    public Registration receive(Car car) {
+    @RabbitListener(queues = "#{queue.name}", concurrency = "10")
+    public Registration receive(Car car) throws InterruptedException {
         LOGGER.info("Message received {} ", car);
+        TimeUnit.SECONDS.sleep(10);
+        LOGGER.info("Message proceeded {} ", car);
         return Registration.builder()
                 .id(car.getId())
                 .date(new Date())

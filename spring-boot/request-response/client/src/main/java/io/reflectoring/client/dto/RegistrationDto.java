@@ -5,15 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Car {
+public class RegistrationDto {
 
     private UUID id;
-    private String name;
-    private String color;
+    private Date date;
+    private String owner;
+    private String signature;
 }

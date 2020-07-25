@@ -1,6 +1,7 @@
-package io.reflectoring.client.rpc;
+package io.reflectoring.client.config;
 
 import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -25,5 +26,10 @@ public class PublisherConfiguration {
     @Bean
     public AsyncRabbitTemplate asyncRabbitTemplate(RabbitTemplate rabbitTemplate){
         return new AsyncRabbitTemplate(rabbitTemplate);
+    }
+
+    @Bean
+    public Queue response(){
+        return new Queue("response");
     }
 }

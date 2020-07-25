@@ -1,35 +1,27 @@
-package io.reflectoring.client.rpc;
+package io.reflectoring.client.registration.rpc;
 
+import io.reflectoring.client.registration.AbstractIntegrationTest;
 import org.assertj.core.api.ThrowableAssert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.testcontainers.containers.RabbitMQContainer;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 @SpringBootTest
 @TestPropertySource(properties = "scheduling.enable=false")
-class EventPublisherTest {
-
-    private final RabbitMQContainer rabbitMQContainer = new RabbitMQContainer();
+class StatefulClientTest extends AbstractIntegrationTest {
 
     @Autowired
-    private EventPublisher eventPublisher;
-
-    @BeforeEach
-    void setUp() {
-        rabbitMQContainer.start();
-    }
+    private StatefulClient statefulClient;
 
     @Test
     void sendMessageSynchronously() {
         // given
 
         // when
-        ThrowableAssert.ThrowingCallable send = () -> eventPublisher.send();
+        ThrowableAssert.ThrowingCallable send = () -> statefulClient.send();
 
         // then
         assertThatCode(send).doesNotThrowAnyException();
@@ -40,7 +32,7 @@ class EventPublisherTest {
         // given
 
         // when
-        ThrowableAssert.ThrowingCallable send = () -> eventPublisher.sendAsynchronously();
+        ThrowableAssert.ThrowingCallable send = () -> statefulClient.sendAsynchronously();
 
         // then
         assertThatCode(send).doesNotThrowAnyException();
