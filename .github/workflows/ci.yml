@@ -29,7 +29,7 @@ jobs:
         # We don't actually need AWS credentials in the tests, but LocalStack
         # complains if they're not there, so we add dummies to the environment.
         AWS_ACCESS_KEY_ID: dummy
-        AWS_SECRET_KEY: dummy
+        AWS_SECRET_ACCESS_KEY: dummy
         AWS_REGION: us-east-1
       run: |
         chmod 755 build-all.sh && ./build-all.sh $MODULE
