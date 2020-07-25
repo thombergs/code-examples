@@ -84,7 +84,6 @@ build_maven_module() {
 if [[ "$MODULE" == "module1" ]]
 then
   build_maven_module "spring-boot/spring-boot-kafka"
-  build_gradle_module "spring-boot/thymeleaf-vue"
   build_gradle_module "spring-boot/spring-boot-springdoc"
   build_maven_module "spring-boot/dependency-injection"
   build_maven_module "spring-boot/spring-boot-openapi"
@@ -92,7 +91,7 @@ then
   build_gradle_module "spring-boot/boundaries"
   build_gradle_module "spring-boot/argumentresolver"
   build_gradle_module "spring-boot/data-migration/flyway"
-  run_gradle_task "spring-boot/thymeleaf-vue" "npmInstall"
+  run_gradle_task "spring-boot/thymeleaf-vue" "clean npmInstall build"
   build_gradle_module "spring-boot/conditionals"
   build_gradle_module "spring-boot/configuration"
 
