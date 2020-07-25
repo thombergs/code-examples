@@ -33,4 +33,4 @@ jobs:
       env:
         MODULE: ${{ matrix.module }}
       run: |
-        chmod 755 build-all.sh && ./build-all.sh
+        chmod 755 build-all.sh && ./build-all.sh $MODULE

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+MODULE=$1
 MAIN_DIR=$PWD
 
 build_gradle_module() {
@@ -125,8 +126,8 @@ then
   build_gradle_module "spring-cloud/feign-with-spring-data-rest"
   build_gradle_module "spring-cloud/sleuth-downstream-service"
   build_gradle_module "spring-cloud/sleuth-upstream-service"
+  build_gradle_module "spring-cloud/spring-cloud-contract-provider" # has to run before consumer
   build_gradle_module "spring-cloud/spring-cloud-contract-consumer"
-  build_gradle_module "spring-cloud/spring-cloud-contract-provider"
   build_gradle_module "spring-data/spring-data-rest-associations"
   build_gradle_module "spring-data/spring-data-rest-springfox"
   build_gradle_module "tools/jacoco"
