@@ -121,6 +121,7 @@ fi
 
 if [[ "$MODULE" == "module3" ]]
 then
+  build_maven_module "aws/localstack"
   build_gradle_module "pact/pact-spring-provider"
   build_gradle_module "patterns"
   build_gradle_module "spring-cloud/feign-with-spring-data-rest"
@@ -131,7 +132,6 @@ then
   build_gradle_module "spring-data/spring-data-rest-associations"
   build_gradle_module "spring-data/spring-data-rest-springfox"
   build_gradle_module "tools/jacoco"
-  build_maven_module "aws/localstack"
 
   echo ""
   echo "+++"
