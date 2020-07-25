@@ -1,26 +1,21 @@
 /**
  * 
  */
-package com.pratik.customers.models;
+package io.reflectoring.customerregistration.dtos;
 
-import java.io.Serializable;
 import java.util.List;
 
 import lombok.Builder;
 import lombok.Data;
 
-
-
 /**
  * @author Pratik Das
  *
  */
-
 @Data
 @Builder
-public class Customer implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+public class CustomerDto {
+	private String customerID;
 	private String userName;
 	private String dateOfBirth;
 	private String email;
@@ -29,7 +24,5 @@ public class Customer implements Serializable{
 	private String phoneNumber;
 	private String gender;
 	private String photo;
-	private List<Address> addresses;
-	private Credentials password;
-
+	private List<AddressDto> addresses;
 }

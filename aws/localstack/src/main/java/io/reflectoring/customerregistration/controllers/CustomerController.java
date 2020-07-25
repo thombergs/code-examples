@@ -1,8 +1,11 @@
 /**
  * 
  */
-package io.pratik.customerregistration.controllers;
+package io.reflectoring.customerregistration.controllers;
 
+import io.reflectoring.customerregistration.dtos.CustomerCreateResponse;
+import io.reflectoring.customerregistration.dtos.CustomerDto;
+import io.reflectoring.customerregistration.services.CustomerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.pratik.customerregistration.dtos.CustomerCreateRequest;
-import io.pratik.customerregistration.dtos.CustomerCreateResponse;
-import io.pratik.customerregistration.dtos.CustomerDto;
-import io.pratik.customerregistration.services.CustomerService;
+import io.reflectoring.customerregistration.dtos.CustomerCreateRequest;
 import lombok.extern.slf4j.Slf4j;
 
 /**

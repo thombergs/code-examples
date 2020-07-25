@@ -1,4 +1,4 @@
-package io.pratik.customerregistration;
+package io.reflectoring.customerregistration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import io.reflectoring.customerregistration.dtos.CustomerDto;
+import io.reflectoring.customerregistration.repositories.CustomerProfileStore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,10 +17,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import cloud.localstack.Localstack;
 import cloud.localstack.docker.LocalstackDockerExtension;
 import cloud.localstack.docker.annotation.LocalstackDockerProperties;
-import io.pratik.customerregistration.dtos.CustomerCreateRequest;
-import io.pratik.customerregistration.dtos.CustomerDto;
-import io.pratik.customerregistration.repositories.CustomerProfileStore;
+import io.reflectoring.customerregistration.dtos.CustomerCreateRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.test.context.ActiveProfiles;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
@@ -34,6 +35,7 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
  */
 @Slf4j
 @ExtendWith(LocalstackDockerExtension.class)
+@ActiveProfiles("local")
 @LocalstackDockerProperties(services = { "dynamodb"})
 class CustomerProfileStoreTest {
 	

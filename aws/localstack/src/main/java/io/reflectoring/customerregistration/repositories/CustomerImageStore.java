@@ -1,7 +1,7 @@
 /**
  * 
  */
-package io.pratik.customerregistration.repositories;
+package io.reflectoring.customerregistration.repositories;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import io.pratik.customerregistration.dtos.CustomerCreateRequest;
+import io.reflectoring.customerregistration.dtos.CustomerCreateRequest;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;

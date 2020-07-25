@@ -1,7 +1,7 @@
 /**
  * 
  */
-package io.pratik.customerregistration.repositories;
+package io.reflectoring.customerregistration.repositories;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,8 +12,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import io.pratik.customerregistration.dtos.CustomerCreateRequest;
-import io.pratik.customerregistration.dtos.CustomerDto;
+import io.reflectoring.customerregistration.dtos.CustomerCreateRequest;
+import io.reflectoring.customerregistration.dtos.CustomerDto;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;

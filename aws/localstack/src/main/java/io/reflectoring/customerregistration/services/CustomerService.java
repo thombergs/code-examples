@@ -1,15 +1,15 @@
 /**
  * 
  */
-package io.pratik.customerregistration.services;
+package io.reflectoring.customerregistration.services;
 
+import io.reflectoring.customerregistration.dtos.CustomerDto;
+import io.reflectoring.customerregistration.repositories.CustomerImageStore;
+import io.reflectoring.customerregistration.repositories.CustomerProfileStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.pratik.customerregistration.dtos.CustomerCreateRequest;
-import io.pratik.customerregistration.dtos.CustomerDto;
-import io.pratik.customerregistration.repositories.CustomerImageStore;
-import io.pratik.customerregistration.repositories.CustomerProfileStore;
+import io.reflectoring.customerregistration.dtos.CustomerCreateRequest;
 import lombok.extern.slf4j.Slf4j;
 
 /**

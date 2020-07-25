@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pratik.customers.models;
+package io.reflectoring.customerregistration.models;
 
 /**
  * @author Pratik Das

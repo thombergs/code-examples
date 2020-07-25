@@ -1,7 +1,7 @@
 /**
  * 
  */
-package io.pratik.customerregistration.dtos;
+package io.reflectoring.customerregistration.dtos;
 
 import java.util.List;
 

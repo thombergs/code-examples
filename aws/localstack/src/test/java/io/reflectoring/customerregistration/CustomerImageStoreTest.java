@@ -1,13 +1,15 @@
 /**
  * 
  */
-package io.pratik.customerregistration;
+package io.reflectoring.customerregistration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import io.reflectoring.customerregistration.dtos.CustomerCreateRequest;
+import io.reflectoring.customerregistration.repositories.CustomerImageStore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,9 +18,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import cloud.localstack.Localstack;
 import cloud.localstack.docker.LocalstackDockerExtension;
 import cloud.localstack.docker.annotation.LocalstackDockerProperties;
-import io.pratik.customerregistration.dtos.CustomerCreateRequest;
-import io.pratik.customerregistration.repositories.CustomerImageStore;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.test.context.ActiveProfiles;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
@@ -31,6 +32,7 @@ import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
  */
 @Slf4j
 @ExtendWith(LocalstackDockerExtension.class)
+@ActiveProfiles("local")
 @LocalstackDockerProperties(services = { "s3" })
 class CustomerImageStoreTest {
 	
