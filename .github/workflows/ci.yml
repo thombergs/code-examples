@@ -11,7 +11,7 @@ jobs:
       matrix:
         # The MODULE environment variable is evaluated in build-all.sh to run a subset
         # of the builds. This way, multiple modules can be built in parallel.
-        module: [ "module1", "module2", "module3", "module4" ]
+        module: [ "module1", "module2", "module3", "module4", "module5" ]
 
     steps:
 

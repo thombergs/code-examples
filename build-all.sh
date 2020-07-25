@@ -82,6 +82,22 @@ build_maven_module() {
   }
 }
 
+if [[ "$MODULE" == "module5" ]]
+then
+  # ADD NEW MODULES HERE
+  # (add new modules above the rest so you get quicker feedback if it fails)
+
+  build_gradle_module "spring-boot/hazelcast/hazelcast-embedded-cache"
+  build_gradle_module "spring-boot/hazelcast/hazelcast-client-server"
+  build_gradle_module "spring-boot/cache"
+
+  echo ""
+  echo "+++"
+  echo "+++ MODULE 5 SUCCESSFUL"
+  echo "+++"
+fi
+
+
 if [[ "$MODULE" == "module1" ]]
 then
   build_maven_module "spring-boot/spring-boot-kafka"
@@ -154,9 +170,6 @@ then
   build_gradle_module "spring-boot/profiles"
   build_gradle_module "spring-boot/password-encoding"
   build_gradle_module "spring-boot/testcontainers"
-  build_gradle_module "spring-boot/hazelcast/hazelcast-embedded-cache"
-  build_gradle_module "spring-boot/hazelcast/hazelcast-client-server"
-  build_gradle_module "spring-boot/cache"
 
   echo ""
   echo "+++"
