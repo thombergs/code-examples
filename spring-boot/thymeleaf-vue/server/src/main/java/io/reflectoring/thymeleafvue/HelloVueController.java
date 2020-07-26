@@ -11,7 +11,7 @@ import java.util.Map;
 @Controller
 class HelloVueController {
 
-    @GetMapping("/hello")
+    @GetMapping("/")
     ModelAndView showHelloPage() {
         Map<String, Object> model = new HashMap<>();
         model.put("title", "Hello Vue!");
