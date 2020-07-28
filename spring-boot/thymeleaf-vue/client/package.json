@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --dest dist/WeekChart --name WeekChart src/components/WeekChart.vue",
+    "clean": "rm -rf dist",
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
