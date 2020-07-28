@@ -11,30 +11,21 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 
 @SpringBootTest
 @TestPropertySource(properties = "scheduling.enable=false")
-class StatefulClientTest extends AbstractIntegrationTest {
+class StatefulFutureClientTest extends AbstractIntegrationTest {
 
     @Autowired
-    private StatefulClient statefulClient;
+    private StatefulFutureClient statefulFutureClient;
 
     @Test
-    void sendMessageSynchronously() {
+    void sendAsynchronously() {
         // given
 
         // when
-        ThrowableAssert.ThrowingCallable send = () -> statefulClient.send();
+        ThrowableAssert.ThrowingCallable send =
+                () -> statefulFutureClient.sendWithFuture();
 
         // then
-        assertThatCode(send).doesNotThrowAnyException();
-    }
-
-    @Test
-    void sendMessageAsynchronously() {
-        // given
-
-        // when
-        ThrowableAssert.ThrowingCallable send = () -> statefulClient.sendAsynchronously();
-
-        // then
-        assertThatCode(send).doesNotThrowAnyException();
+        assertThatCode(send)
+                .doesNotThrowAnyException();
     }
 }

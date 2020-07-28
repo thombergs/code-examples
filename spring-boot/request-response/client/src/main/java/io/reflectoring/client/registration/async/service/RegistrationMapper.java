@@ -1,7 +1,7 @@
-package io.reflectoring.client.registration.service;
+package io.reflectoring.client.registration.async.service;
 
 import io.reflectoring.client.dto.RegistrationDto;
-import io.reflectoring.client.registration.persistance.Registration;
+import io.reflectoring.client.registration.async.persistance.Registration;
 import org.springframework.stereotype.Component;
 
 @Component

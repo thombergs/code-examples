@@ -1,12 +1,11 @@
 package io.reflectoring.client.registration.async;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reflectoring.client.dto.CarDto;
-import io.reflectoring.client.registration.service.RegistrationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.*;
+import io.reflectoring.client.registration.async.service.RegistrationService;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -17,8 +16,6 @@ import java.util.UUID;
 @Component
 @Transactional
 public class StatelessClient {
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(StatelessClient.class);
 
     private final RabbitTemplate template;
 
@@ -37,26 +34,27 @@ public class StatelessClient {
     }
 
     @Scheduled(fixedDelay = 3000)
-    public void sendAndForget() throws JsonProcessingException {
+    public void sendAndForget() {
 
         CarDto carDto = CarDto.builder()
                 .id(UUID.randomUUID())
                 .color("white")
                 .name("vw")
                 .build();
-        LOGGER.info("Sending message with routing key {} and id {}", "old.car", carDto.getId());
-
         UUID correlationId = UUID.randomUUID();
 
         registrationService.saveCar(carDto, correlationId);
 
-        byte[] body = new ObjectMapper().writeValueAsBytes(carDto);
-        MessageProperties messageProperties = new MessageProperties();
-        messageProperties.setReplyTo(replyQueue.getName());
-        messageProperties.setCorrelationId(correlationId.toString());
-        Message message = MessageBuilder.withBody(body)
-                .andProperties(messageProperties).build();
+        MessagePostProcessor messagePostProcessor = message -> {
+            MessageProperties messageProperties = message.getMessageProperties();
+            messageProperties.setReplyTo(replyQueue.getName());
+            messageProperties.setCorrelationId(correlationId.toString());
+            return message;
+        };
 
-        template.send(directExchange.getName(), "old.car", message);
+        template.convertAndSend(directExchange.getName(),
+                "old.car",
+                carDto,
+                messagePostProcessor);
     }
 }

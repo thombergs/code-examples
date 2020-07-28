@@ -1,11 +1,11 @@
-package io.reflectoring.client.registration.service;
+package io.reflectoring.client.registration.async.service;
 
 import io.reflectoring.client.dto.CarDto;
 import io.reflectoring.client.dto.RegistrationDto;
-import io.reflectoring.client.registration.persistance.Car;
-import io.reflectoring.client.registration.persistance.CarRepository;
-import io.reflectoring.client.registration.persistance.Registration;
-import io.reflectoring.client.registration.persistance.RegistrationRepository;
+import io.reflectoring.client.registration.async.persistance.Car;
+import io.reflectoring.client.registration.async.persistance.CarRepository;
+import io.reflectoring.client.registration.async.persistance.Registration;
+import io.reflectoring.client.registration.async.persistance.RegistrationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

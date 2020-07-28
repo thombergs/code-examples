@@ -19,9 +19,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp:2.3.2.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.3.1.RELEASE'
 
     implementation 'org.flywaydb:flyway-core'
     compile 'com.fasterxml.jackson.core:jackson-core'

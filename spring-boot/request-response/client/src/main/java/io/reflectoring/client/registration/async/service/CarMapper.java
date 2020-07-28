@@ -1,7 +1,7 @@
-package io.reflectoring.client.registration.service;
+package io.reflectoring.client.registration.async.service;
 
 import io.reflectoring.client.dto.CarDto;
-import io.reflectoring.client.registration.persistance.Car;
+import io.reflectoring.client.registration.async.persistance.Car;
 import org.springframework.stereotype.Component;
 
 @Component

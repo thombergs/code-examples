@@ -1,4 +1,4 @@
-package io.reflectoring.client.registration.persistance;
+package io.reflectoring.client.registration.async.persistance;
 
 
 import lombok.AllArgsConstructor;
