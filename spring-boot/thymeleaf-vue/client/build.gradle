@@ -2,8 +2,28 @@ plugins {
 	id "com.github.node-gradle.node" version "2.2.4"
 }
 
-task build(type: NpmTask) {
+apply plugin: 'java'
+
+group = 'io.reflectoring'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+task npmBuild(type: NpmTask) {
 	inputs.dir("src")
 	outputs.dir("dist")
 	args = ['run', 'build']
 }
+
+task npmClean(type: NpmTask) {
+	args = ['run', 'clean']
+}
+
+jar {
+	into '/static', {
+		from 'dist'
+		include '**/*.umd.min.js'
+	}
+}
+
+jar.dependsOn('npmBuild')
+clean.dependsOn('npmClean')

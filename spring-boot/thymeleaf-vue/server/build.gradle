@@ -6,14 +6,14 @@ plugins {
 
 group = 'io.reflectoring'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	project(':client')
+	implementation project(':client')
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -24,16 +24,3 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
-
-task copyJavascriptComponents(type: Copy) {
-	from '../client/dist'
-	include '**/*.umd.min.js'
-	into 'src/main/resources/static/js/vue-components'
-}
-
-task cleanJavascriptComponents(type: Delete) {
-	delete 'src/main/resources/static/js/vue-components'
-}
-
-processResources.dependsOn copyJavascriptComponents
-clean.dependsOn cleanJavascriptComponents
