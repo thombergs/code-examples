@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegistrationMapper {
 
-    public Registration toRegistration(RegistrationDto registrationDto){
+    Registration toRegistration(RegistrationDto registrationDto){
         return Registration.builder()
                 .id(registrationDto.getId())
                 .date(registrationDto.getDate())
