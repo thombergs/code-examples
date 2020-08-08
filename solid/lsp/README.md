@@ -1,3 +1,5 @@
+# Liskov Substition Principle
+
 There are 5 programs under com/reflectoring/examples/lsp/paymentexample.
 
 Run in this order to see class design evolution:
@@ -11,4 +13,8 @@ Packages are organized similarly: violation, forcefit, forcefitandconditional,
 and redesigned have specific classes modified at that point in the evolution.
 
 Common code is in common, common/exceptions, common/external and 
-common/instruments.  
+common/instruments.
+
+## Blog posts 
+
+* [The Liskov Substitution Principle Explained](https://reflectoring.io/lsp-explained/) 

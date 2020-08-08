@@ -123,11 +123,11 @@ fi
 
 if [[ "$MODULE" == "module2" ]]
 then
+  build_gradle_module "solid/isp"
+  build_maven_module "solid/lsp"
   build_maven_module "resilience4j/retry"
   build_maven_module "resilience4j/ratelimiter"
-  build_maven_module "solid/lsp"
   build_gradle_module "spring-data/spring-data-jdbc-converter"
-  build_gradle_module "solid"
   build_gradle_module "reactive"
   build_gradle_module "junit/assumptions"
   build_gradle_module "logging"
