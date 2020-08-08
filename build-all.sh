@@ -87,11 +87,12 @@ then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
 
+  build_gradle_module "spring-boot/cache"
+  build_gradle_module "spring-boot/bean-lifecycle"
   build_gradle_module "spring-boot/request-response/client"
   build_gradle_module "spring-boot/request-response/server"
   build_gradle_module "spring-boot/hazelcast/hazelcast-embedded-cache"
   build_gradle_module "spring-boot/hazelcast/hazelcast-client-server"
-  build_gradle_module "spring-boot/cache"
 
   echo ""
   echo "+++"
@@ -122,12 +123,12 @@ fi
 
 if [[ "$MODULE" == "module2" ]]
 then
+  build_gradle_module "solid/isp"
+  build_maven_module "solid/lsp"
   build_maven_module "resilience4j/retry"
   build_maven_module "resilience4j/ratelimiter"
   build_maven_module "resilience4j/timelimiter"
-  build_maven_module "solid/lsp"
   build_gradle_module "spring-data/spring-data-jdbc-converter"
-  build_gradle_module "solid"
   build_gradle_module "reactive"
   build_gradle_module "junit/assumptions"
   build_gradle_module "logging"

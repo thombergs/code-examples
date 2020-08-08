@@ -33,3 +33,14 @@ jobs:
         AWS_REGION: us-east-1
       run: |
         chmod 755 build-all.sh && ./build-all.sh $MODULE
+
+    - name: "Zip build reports"
+      if: failure()
+      run: zip -r reports.zip **/**/build/reports
+
+    - uses: actions/upload-artifact@v1
+      name: "Upload build reports"
+      if: failure()
+      with:
+        name: reports
+        path: reports.zip
