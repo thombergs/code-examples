@@ -36,7 +36,7 @@ jobs:
 
     - name: "Zip build reports"
       if: failure()
-      run: zip -r reports.zip **/build/reports
+      run: zip -r reports.zip **/**/build/reports
 
     - uses: actions/upload-artifact@v1
       name: "Upload build reports"
