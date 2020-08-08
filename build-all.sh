@@ -124,6 +124,7 @@ if [[ "$MODULE" == "module2" ]]
 then
   build_maven_module "resilience4j/retry"
   build_maven_module "resilience4j/ratelimiter"
+  build_maven_module "resilience4j/timelimiter"
   build_maven_module "solid/lsp"
   build_gradle_module "spring-data/spring-data-jdbc-converter"
   build_gradle_module "solid"
