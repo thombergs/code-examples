@@ -87,12 +87,12 @@ then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
 
+  build_gradle_module "spring-boot/cache"
   build_gradle_module "spring-boot/bean-lifecycle"
   build_gradle_module "spring-boot/request-response/client"
   build_gradle_module "spring-boot/request-response/server"
   build_gradle_module "spring-boot/hazelcast/hazelcast-embedded-cache"
   build_gradle_module "spring-boot/hazelcast/hazelcast-client-server"
-  build_gradle_module "spring-boot/cache"
 
   echo ""
   echo "+++"
