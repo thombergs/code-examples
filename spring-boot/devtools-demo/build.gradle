@@ -1,0 +1,36 @@
+plugins {
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+}
+
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
+
+    jar.baseName("devtools-demo-${project.name}")
+
+    group = 'io.reflectoring'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '13'
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.3.2.RELEASE")
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+}
+

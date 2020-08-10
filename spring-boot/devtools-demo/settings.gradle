@@ -1,0 +1,10 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+include 'app'
+include 'module'
