@@ -1,0 +1,4 @@
+spring:
+  devtools:
+    restart:
+      exclude: static/**,templates/**,custom/**
