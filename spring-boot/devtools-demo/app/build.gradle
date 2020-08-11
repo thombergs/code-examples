@@ -1,0 +1,66 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+}
+
+dependencies {
+    implementation project(':module')
+
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+bootRun {
+    jvmArgs = [
+            "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005",
+    ]
+}
+
+test {
+    useJUnitPlatform()
+}
+
+/**
+ * Copies all resources into the build folder that don't require the Spring Boot
+ * app to restart, but will trigger a reload instead. These files must be excluded
+ * from triggering a restart in the spring.devtools.restart.exclude property
+ * in application.yml.
+ */
+task reload(type: Copy) {
+    from 'src/main/resources'
+    into 'build/resources/main'
+    include 'static/**'
+    include 'templates/**'
+    include 'custom/**'
+    dependsOn('reloadModule')
+}
+
+task reloadModule(type: Copy){
+    from '../module/src/main/resources'
+    into 'build/resources/main'
+    include 'static/**'
+    include 'templates/**'
+    include 'custom/**'
+}
+
+/**
+ * Copies all resources into the build folder that should trigger a
+ * restart of the Spring Boot application.
+ */
+task restart {
+    dependsOn(compileJava)
+    dependsOn(processResources)
+    dependsOn('restartModule')
+}
+
+task restartModule(type: Copy){
+    from '../module/build/classes/'
+    into 'build/classes'
+
+    dependsOn(':module:compileJava')
+    dependsOn(':module:processResources')
+}
