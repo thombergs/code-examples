@@ -4,11 +4,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.reflectoring.resilience4j.ratelimit</groupId>
-  <artifactId>ratelimiter</artifactId>
+  <groupId>io.reflectoring.resilience4j.timelimiter</groupId>
+  <artifactId>timelimiter</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>ratelimiter</name>
+  <name>timelimiter</name>
   <url>https://reflectoring.io</url>
 
   <properties>
@@ -24,10 +24,10 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/io.github.resilience4j/resilience4j-ratelimiter -->
+    <!-- https://mvnrepository.com/artifact/io.github.resilience4j/resilience4j-retry -->
     <dependency>
       <groupId>io.github.resilience4j</groupId>
-      <artifactId>resilience4j-ratelimiter</artifactId>
+      <artifactId>resilience4j-timelimiter</artifactId>
       <version>1.5.0</version>
     </dependency>
 
