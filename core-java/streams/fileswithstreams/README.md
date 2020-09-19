@@ -2,4 +2,4 @@
  
 ## Related Blog Articles
 
-* [Processing-Files-using-Java-8-Streams.md](https://reflectoring.io/logging-levels/)
+* [Processing Files using Java 8 Streams](https://reflectoring.io/logging-levels/)
