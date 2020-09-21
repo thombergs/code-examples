@@ -3,10 +3,7 @@
  */
 package io.pratik.healthcheck.usersignup;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.Socket;
-import java.net.URL;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
@@ -28,24 +25,11 @@ public class UrlShortenerServiceHealthIndicator implements HealthIndicator, Heal
 	@Override
 	public Health health() {
 		// check if url shortener service url is reachable
-        try {
-            URL url = new URL(URL);
-            int port = url.getPort();
-            if (port == -1) {
-                port = url.getDefaultPort();
-            }
-
-            try (Socket socket = new Socket(url.getHost(), port)) {
-            } catch (IOException e) {
-                log.warn("Failed to connect to : {}", URL);
-                return Health.down().withDetail("error", e.getMessage()).build();
-            }
-        } catch (MalformedURLException e1) {
-            log.warn("Invalid URL: {}",URL);
+		try (Socket socket = new Socket(new java.net.URL(URL).getHost(),80)) {
+        } catch (Exception e1) {
+            log.warn("Failed to connect to : {}",URL);
             return Health.down().withDetail("error", e1.getMessage()).build();
         }
-
         return Health.up().build();
 	}
-
 }

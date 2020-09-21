@@ -22,16 +22,11 @@ public class UserController {
 
 	@GetMapping("/users")
 	public List<User> getUsers() {
-
-		List<User> users = userService.getUsers();
-
-		return users;
-
+		return userService.getUsers();
 	}
 
 	@PostMapping("users")
 	public ResponseEntity<String> addUser(@RequestBody User user) {
-
 		userService.addUser(user);
 		BodyBuilder response = ResponseEntity.status(HttpStatus.CREATED);
 
@@ -40,10 +35,8 @@ public class UserController {
 	
 	@PostMapping("users/activate")
 	public ResponseEntity<String> activateUser(@RequestBody User user) {
-
 		userService.addUser(user);
 		BodyBuilder response = ResponseEntity.status(HttpStatus.OK);
-
 		return response.build();
 	}
 

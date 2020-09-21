@@ -20,7 +20,7 @@ public class UsersignupApplication {
 	InitializingBean populateUsers() {
 		return () -> {
 			userRepository.deleteAll();
-			userRepository.save(User.builder().firstName("Roger").lastName("Federer").build());
+			userRepository.save(User.builder().firstName("Roger").lastName("Federer").profileURL("http://linkin.com/576567").build());
 			userRepository.save(User.builder().firstName("Rafal").lastName("Nadal").build());
 			userRepository.save(User.builder().firstName("Novak").lastName("Djokovik").build());
 		};
