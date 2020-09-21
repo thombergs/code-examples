@@ -88,6 +88,7 @@ then
   # (add new modules above the rest so you get quicker feedback if it fails)
   build_maven_module "spring-boot/spring-boot-health-check"
   build_maven_module "spring-boot/spring-boot-logging-2"
+  build_maven_module "spring-boot/spring-boot-docker"
   build_gradle_module "spring-boot/devtools-demo"
   build_gradle_module "spring-boot/cache"
   build_gradle_module "spring-boot/bean-lifecycle"
@@ -130,6 +131,7 @@ then
   build_maven_module "resilience4j/retry"
   build_maven_module "resilience4j/ratelimiter"
   build_maven_module "resilience4j/timelimiter"
+  build_maven_module "resilience4j/bulkhead"
   build_gradle_module "spring-data/spring-data-jdbc-converter"
   build_gradle_module "reactive"
   build_gradle_module "junit/assumptions"
