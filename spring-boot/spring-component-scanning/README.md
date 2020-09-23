@@ -4,4 +4,4 @@ This code example helps to understand how to use Spring's component scanning and
 
 # Related Blog Posts
 
-- [Spring Component Scanning]()
+- [Spring Component Scanning](https://reflectoring.io/spring-component-scanning/)
