@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'io.reflectoring.server'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '12'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-amqp:2.3.2.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.6'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.6'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.6'
+
+    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+    testImplementation "org.testcontainers:rabbitmq:1.14.3"
+}
+
+test {
+    useJUnitPlatform()
+}

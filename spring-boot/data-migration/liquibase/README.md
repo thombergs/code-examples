@@ -17,6 +17,11 @@ The project also demonstrates the following.
 * It demonstrates use of liquibase [change log parameters](src/main/resources/db/changelog/db.changelog-yaml-example.yaml#L21-L33)
 * IT demonstrates use of liquibase [context](src/main/resources/db/changelog/db.changelog-xml-example.xml#L5)
 
+## Related Blog Posts
+
+* [One-Stop Guide to Database Migration with Liquibase and Spring Boot](https://reflectoring.io/database-migration-spring-boot-liquibase/)
+* [Tool-based Database Refactoring: Flyway vs. Liquibase](https://reflectoring.io/database-refactoring-flyway-vs-liquibase/)
+
 ## How to Run the project and tests
 
 ### Have Docker and Docker Compose in your machine?

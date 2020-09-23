@@ -58,7 +58,5 @@ contracts {
 
 // a hack to locally publish the contract stubs when executing the build task
 // so that it works in the CI build without a Nexus or Artifactory server
-build.doLast {
-    tasks.generatePomFileForStubsPublication.execute()
-    tasks.publishStubsPublicationToMavenLocal.execute()
-}
+build.dependsOn('generatePomFileForStubsPublication')
+build.dependsOn('publishStubsPublicationToMavenLocal')
