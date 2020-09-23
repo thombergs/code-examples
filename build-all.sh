@@ -89,6 +89,7 @@ then
   build_maven_module "spring-boot/spring-boot-health-check"
   build_maven_module "spring-boot/spring-boot-logging-2"
   build_maven_module "spring-boot/spring-boot-docker"
+  build_maven_module "spring-boot/spring-component-scanning"
   build_gradle_module "spring-boot/devtools-demo"
   build_gradle_module "spring-boot/cache"
   build_gradle_module "spring-boot/bean-lifecycle"
