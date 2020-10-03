@@ -67,7 +67,7 @@ public class SearchService {
         QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
                 .forEntity(User.class)
                 .get();
-        Query similarToUser = qb.keyword().fuzzy().withEditDistanceUpTo(3).onField("first")
+        Query similarToUser = qb.keyword().fuzzy().withEditDistanceUpTo(2).onField("first")
                 .matching(first).createQuery();
         Query finalQuery = qb.bool().must(similarToUser).createQuery();
 

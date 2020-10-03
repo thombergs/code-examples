@@ -21,10 +21,10 @@ public class User {
   @Field(name = "fullName")
   private String first;
 
-  @Field(index = Index.NO)
+  @Field(index = Index.NO, store = Store.YES)
   private String middle;
 
-  @Field
+  @Field(store = Store.YES)
   @Field(name = "fullName")
   private String last;
 
