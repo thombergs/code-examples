@@ -12,6 +12,7 @@ import io.reflectoring.customerregistration.dtos.CustomerCreateRequest;
 import io.reflectoring.customerregistration.repositories.CustomerImageStore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -34,6 +35,7 @@ import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 @ExtendWith(LocalstackDockerExtension.class)
 @ActiveProfiles("local")
 @LocalstackDockerProperties(services = { "s3" })
+@Disabled(value = "Disabled because starting Docker containers like this does not run on GitHub Actions.")
 class CustomerImageStoreTest {
 	
 	private static final Region region = Region.US_EAST_1;
