@@ -38,7 +38,7 @@ class CustomProductRepositoryTest {
     @Test
     void testDynamicSpecification() {
         QueryInput nameLike = QueryInput.builder()
-                .field("namey")
+                .field("name")
                 .operator(QueryOperator.LIKE)
                 .value("jacket")
                 .isOptional(false)
