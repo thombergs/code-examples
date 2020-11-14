@@ -15,23 +15,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class CustomProductRepositoryTest {
 
     @Autowired
-    private CustomProductRepository productAdapter;
+    private CustomProductRepository productRepository;
 
     @Test
     void getLowRangeProducts() {
-        List<Product> products = productAdapter.getLowRangeProducts(List.of(Category.MOBILE, Category.TV_APPLIANCES));
+        List<Product> products = productRepository.getLowRangeProducts(List.of(Category.MOBILE, Category.TV_APPLIANCES));
         assertEquals(2, products.size());
     }
 
     @Test
     void getPremiumProducts() {
-        List<Product> products = productAdapter.getPremiumProducts(List.of(Category.MEN_FASHION, Category.WOMEN_FASHION));
+        List<Product> products = productRepository.getPremiumProducts(List.of(Category.MEN_FASHION, Category.WOMEN_FASHION));
         assertEquals(2, products.size());
     }
 
     @Test
     void testGetPremiumProducts() {
-        List<Product> products = productAdapter.getPremiumProducts("jacket", List.of(Category.MEN_FASHION));
+        List<Product> products = productRepository.getPremiumProducts("jacket", List.of(Category.MEN_FASHION));
         assertEquals(2, products.size());
     }
 
@@ -50,7 +50,7 @@ class CustomProductRepositoryTest {
         List<Filter> filters = new ArrayList<>();
         filters.add(nameLike);
         filters.add(categories);
-        List<Product> products = productAdapter.getQueryResult(filters);
+        List<Product> products = productRepository.getQueryResult(filters);
         assertEquals(2, products.size());
 
         Filter lowRange = Filter.builder()
@@ -63,7 +63,7 @@ class CustomProductRepositoryTest {
         filters.add(lowRange);
         filters.add(categories);
 
-        products = productAdapter.getQueryResult(filters);
+        products = productRepository.getQueryResult(filters);
         assertEquals(2, products.size());
 
         Filter priceEquals = Filter.builder()
@@ -73,7 +73,7 @@ class CustomProductRepositoryTest {
                 .build();
         filters = new ArrayList<>();
         filters.add(priceEquals);
-        products = productAdapter.getQueryResult(filters);
+        products = productRepository.getQueryResult(filters);
         assertEquals(1, products.size());
     }
 }
