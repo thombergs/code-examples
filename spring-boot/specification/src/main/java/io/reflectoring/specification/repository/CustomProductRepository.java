@@ -5,8 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.criteria.*;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,29 +32,26 @@ public class CustomProductRepository {
                         .and(isPremium()));
     }
 
-    public List<Product> getQueryResult(List<QueryInput> queryInputs){
-        if(queryInputs.size()>0) {
-            return productRepository.findAll(getSpecificationFromQuery(queryInputs));
+
+    public List<Product> getQueryResult(List<Filter> filters){
+        if(filters.size()>0) {
+            return productRepository.findAll(getSpecificationFromFilters(filters));
         }else {
             return productRepository.findAll();
         }
     }
 
-    private Specification<Product> getSpecificationFromQuery(List<QueryInput> queryInput) {
-        Specification<Product> specification = where(createSpecification(queryInput.remove(0)));
-        for (QueryInput input : queryInput) {
-            if(input.isOptional()){
-                specification = specification.or(createSpecification(input));
-            }else {
-                specification = specification.and(createSpecification(input));
-            }
+    private Specification<Product> getSpecificationFromFilters(List<Filter> filter) {
+        Specification<Product> specification = where(createSpecification(filter.remove(0)));
+        for (Filter input : filter) {
+            specification = specification.and(createSpecification(input));
         }
         return specification;
     }
 
-    private Specification<Product> createSpecification(QueryInput input) {
+    private Specification<Product> createSpecification(Filter input) {
         switch (input.getOperator()){
-            case EQ:
+            case EQUALS:
                 return (root, query, criteriaBuilder) ->
                         criteriaBuilder.equal(root.get(input.getField()),
                         castToRequiredType(root.get(input.getField()).getJavaType(), input.getValue()));
@@ -64,11 +59,11 @@ public class CustomProductRepository {
                 return (root, query, criteriaBuilder) ->
                         criteriaBuilder.notEqual(root.get(input.getField()),
                         castToRequiredType(root.get(input.getField()).getJavaType(), input.getValue()));
-            case GT:
+            case GREATER_THAN:
                 return (root, query, criteriaBuilder) ->
                         criteriaBuilder.gt(root.get(input.getField()),
                         (Number) castToRequiredType(root.get(input.getField()).getJavaType(), input.getValue()));
-            case LT:
+            case LESS_THAN:
                 return (root, query, criteriaBuilder) ->
                         criteriaBuilder.lt(root.get(input.getField()),
                         (Number) castToRequiredType(root.get(input.getField()).getJavaType(), input.getValue()));

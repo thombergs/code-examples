@@ -37,46 +37,43 @@ class CustomProductRepositoryTest {
 
     @Test
     void testDynamicSpecification() {
-        QueryInput nameLike = QueryInput.builder()
+        Filter nameLike = Filter.builder()
                 .field("name")
                 .operator(QueryOperator.LIKE)
                 .value("jacket")
-                .isOptional(false)
                 .build();
-        QueryInput categories = QueryInput.builder()
+        Filter categories = Filter.builder()
                 .field("category")
                 .operator(QueryOperator.IN)
                 .values(List.of(Category.MEN_FASHION.name(), Category.WOMEN_FASHION.name()))
-                .isOptional(false)
                 .build();
-        List<QueryInput> queries = new ArrayList<>();
-        queries.add(nameLike);
-        queries.add(categories);
-        List<Product> products = productAdapter.getQueryResult(queries);
+        List<Filter> filters = new ArrayList<>();
+        filters.add(nameLike);
+        filters.add(categories);
+        List<Product> products = productAdapter.getQueryResult(filters);
         assertEquals(2, products.size());
 
-        QueryInput lowRange = QueryInput.builder()
+        Filter lowRange = Filter.builder()
                 .field("price")
-                .operator(QueryOperator.LT)
+                .operator(QueryOperator.LESS_THAN)
                 .value("1000")
-                .isOptional(false)
                 .build();
         categories.setValues(List.of(Category.MOBILE.name(), Category.TV_APPLIANCES.name()));
-        queries = new ArrayList<>();
-        queries.add(lowRange);
-        queries.add(categories);
+        filters = new ArrayList<>();
+        filters.add(lowRange);
+        filters.add(categories);
 
-        products = productAdapter.getQueryResult(queries);
+        products = productAdapter.getQueryResult(filters);
         assertEquals(2, products.size());
 
-        QueryInput priceEquals = QueryInput.builder()
+        Filter priceEquals = Filter.builder()
                 .field("price")
-                .operator(QueryOperator.EQ)
+                .operator(QueryOperator.EQUALS)
                 .value("1100")
                 .build();
-        queries = new ArrayList<>();
-        queries.add(priceEquals);
-        products = productAdapter.getQueryResult(queries);
+        filters = new ArrayList<>();
+        filters.add(priceEquals);
+        products = productAdapter.getQueryResult(filters);
         assertEquals(1, products.size());
     }
 }
