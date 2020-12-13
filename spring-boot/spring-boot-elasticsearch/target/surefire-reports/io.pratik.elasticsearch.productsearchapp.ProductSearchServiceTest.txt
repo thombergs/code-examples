@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest
--------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.224 s - in io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest
