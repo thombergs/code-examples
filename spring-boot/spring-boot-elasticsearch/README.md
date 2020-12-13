@@ -1,3 +1,3 @@
 # Related Blog Posts
 
-* [How to Configure Logging Behavior with Spring Boot](https://reflectoring.io/springboot-logging/)
+* [How to use Elasticsearch with Spring Data](https://reflectoring.io/springboot-elasticsearch/)
