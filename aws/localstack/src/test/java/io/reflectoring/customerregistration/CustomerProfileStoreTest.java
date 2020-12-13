@@ -10,6 +10,7 @@ import io.reflectoring.customerregistration.dtos.CustomerDto;
 import io.reflectoring.customerregistration.repositories.CustomerProfileStore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -37,6 +38,7 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 @ExtendWith(LocalstackDockerExtension.class)
 @ActiveProfiles("local")
 @LocalstackDockerProperties(services = { "dynamodb"})
+@Disabled(value = "Disabled because starting Docker containers like this does not run on GitHub Actions.")
 class CustomerProfileStoreTest {
 	
 	private static final Region region = Region.US_EAST_1;
