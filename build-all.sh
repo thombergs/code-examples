@@ -134,6 +134,7 @@ then
   build_maven_module "resilience4j/ratelimiter"
   build_maven_module "resilience4j/timelimiter"
   build_maven_module "resilience4j/bulkhead"
+  build_maven_module "resilience4j/circuitbreaker"
   build_gradle_module "spring-data/spring-data-jdbc-converter"
   build_gradle_module "reactive"
   build_gradle_module "junit/assumptions"
