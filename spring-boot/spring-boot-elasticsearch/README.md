@@ -1,6 +1,6 @@
 # Related Blog Posts
 
-* [How to use Elasticsearch with Spring Data](https://reflectoring.io/springboot-elasticsearch/)
+* [How to use Elasticsearch with Spring Data](https://reflectoring.io/spring-boot-elasticsearch/)
 
 This application code demonstrates use of indexing and search capabilities of Spring Data Elasticsearch in a simple search application used for searching products in a product inventory. The main steps for running the application are:
 
