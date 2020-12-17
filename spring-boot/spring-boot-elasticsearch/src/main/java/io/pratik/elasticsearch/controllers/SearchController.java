@@ -49,7 +49,7 @@ public class SearchController {
 	@ResponseBody
 	public List<String> fetchSuggestions(@RequestParam(value = "q", required = false) String query) {                         
         log.info("fetch suggests {}",query);
-        List<String> suggests = searchService.fetchRecentSuggestions(query);
+        List<String> suggests = searchService.fetchSuggestions(query);
         log.info("suggests {}",suggests);
         return suggests;
 	  }

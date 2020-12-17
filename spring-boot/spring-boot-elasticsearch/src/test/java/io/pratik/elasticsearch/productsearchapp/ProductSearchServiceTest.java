@@ -135,11 +135,11 @@ class ProductSearchServiceTest {
 	}
 
 	/**
-	 * Test method for {@link io.pratik.elasticsearch.services.ProductSearchService#findProductCountByBrand(java.lang.String)}.
+	 * Test method for {@link io.pratik.elasticsearch.services.ProductSearchService#findProductsByBrand(java.lang.String)}.
 	 */
 	@Test
 	void testFindProductCountByBrand() {
-		productSearchService.findProductCountByBrand("samsung");
+		productSearchService.findProductsByBrand("samsung");
 	}
 
 	/**
@@ -165,14 +165,11 @@ class ProductSearchServiceTest {
 	    log.info("results {}",results);
 	}
 	
-	@Test
-	void testSearchIndexUpdate() {
-		productSearchService.updateSuggestionsIndex("samsng 163 cm");
-	}
+
 	
 	@Test
 	void testFetchSearchSuggestions() {
-		List<String> suggestions = productSearchService.fetchRecentSuggestions("samsng 163 cm");
+		List<String> suggestions = productSearchService.fetchSuggestions("samsng 163 cm");
 	    log.info("suggestions {}",suggestions);
 	}
 

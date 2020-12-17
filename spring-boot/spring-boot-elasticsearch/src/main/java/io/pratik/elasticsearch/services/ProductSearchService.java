@@ -13,6 +13,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
@@ -27,8 +28,6 @@ import org.springframework.data.elasticsearch.core.query.StringQuery;
 import org.springframework.stereotype.Service;
 
 import io.pratik.elasticsearch.models.Product;
-import io.pratik.elasticsearch.models.SearchSuggest;
-import io.pratik.elasticsearch.repositories.SearchSuggestRepository;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -39,16 +38,13 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductSearchService {
 
 	private static final String PRODUCT_INDEX = "productindex";
-	private static final String SEARCH_SUGGEST_INDEX = "searchsuggest";
 
 	private ElasticsearchOperations elasticsearchOperations;
-	private SearchSuggestRepository searchSuggestRepository; 
 
 	@Autowired
-	public ProductSearchService(final ElasticsearchOperations elasticsearchOperations, final SearchSuggestRepository searchSuggestRepository) {
+	public ProductSearchService(final ElasticsearchOperations elasticsearchOperations) {
 		super();
 		this.elasticsearchOperations = elasticsearchOperations;
-		this.searchSuggestRepository = searchSuggestRepository;
 	}
 
 	public List<String> createProductIndexBulk(final List<Product> products) {
@@ -70,7 +66,7 @@ public class ProductSearchService {
 		return documentId;
 	}
 
-	public void findProductCountByBrand(final String brandName) {
+	public void findProductsByBrand(final String brandName) {
 		QueryBuilder queryBuilder = QueryBuilders
 				.matchQuery("manufacturer", brandName);
 		// .fuzziness(0.8)
@@ -79,8 +75,6 @@ public class ProductSearchService {
 		// .fuzzyTranspositions(true);
 
 		Query searchQuery = new NativeSearchQueryBuilder()
-				//.addAggregation(AggregationBuilders
-				//		.cardinality("category"))
 				.withQuery(queryBuilder)
 				.build();
 
@@ -91,18 +85,18 @@ public class ProductSearchService {
 
 		log.info("productHits {} {}", productHits.getSearchHits().size(), productHits.getSearchHits());
 
-		List<SearchHit<Product>> srchHits = 
+		List<SearchHit<Product>> searchHits = 
 				productHits.getSearchHits();
 		int i = 0;
-		for (SearchHit<Product> srchHit : srchHits) {
-			log.info("srchHit {}", srchHit);
+		for (SearchHit<Product> searchHit : searchHits) {
+			log.info("searchHit {}", searchHit);
 		}
 
 	}
 
 	public void findByProductName(final String productName) {
 		Query searchQuery = new StringQuery(
-				"{ \"match\": { \"name\": { \"query\": \""+ productName + "\" } } } \"");
+				"{\"match\":{\"name\":{\"query\":\""+ productName + "\"}}}\"");
 
 		SearchHits<Product> products = elasticsearchOperations.search(searchQuery, Product.class,
 				IndexCoordinates.of(PRODUCT_INDEX));
@@ -119,10 +113,7 @@ public class ProductSearchService {
 	public List<Product> processSearch(final String query) {
 		log.info("Search with query {}", query);
 		
-		// 1. Update searchsuggest Index
-		updateSuggestionsIndex(query);  
-
-		// 2. Create query on multiple fields enabling fuzzy search
+		// 1. Create query on multiple fields enabling fuzzy search
 		QueryBuilder queryBuilder = 
 				QueryBuilders
 				.multiMatchQuery(query, "name", "description")
@@ -132,13 +123,13 @@ public class ProductSearchService {
 				                .withFilter(queryBuilder)
 				                .build();
 
-		// 3. Execute search
+		// 2. Execute search
 		SearchHits<Product> productHits = 
 				elasticsearchOperations
 				.search(searchQuery, Product.class,
 				IndexCoordinates.of(PRODUCT_INDEX));
 
-		// 4. Map searchHits to product list
+		// 3. Map searchHits to product list
 		List<Product> productMatches = new ArrayList<Product>();
 		productHits.forEach(srchHit->{
 			productMatches.add(srchHit.getContent());
@@ -147,32 +138,26 @@ public class ProductSearchService {
 	}
 
 	
-	public void updateSuggestionsIndex(String query) {
-		if(query.getBytes().length < 512) {
-		   searchSuggestRepository
-		      .save(SearchSuggest
-		    		  .builder()
-		    		  .id(query)
-		    		  .searchText(query)
-		    		  .build());
-		}
-	}
+
 	
-	public List<String> fetchRecentSuggestions(String query) {
+	public List<String> fetchSuggestions(String query) {
 		QueryBuilder queryBuilder = QueryBuilders
-				.wildcardQuery("searchText", query+"*");
+				.wildcardQuery("name", query+"*");
 
 		Query searchQuery = new NativeSearchQueryBuilder()
-				.withFilter(queryBuilder).build();
+				.withFilter(queryBuilder)
+				.withPageable(PageRequest.of(0, 5))
+				.build();
 
-		SearchHits<SearchSuggest> searchSuggestions = 
+		SearchHits<Product> searchSuggestions = 
 				elasticsearchOperations.search(searchQuery, 
-						SearchSuggest.class,
-				IndexCoordinates.of(SEARCH_SUGGEST_INDEX));
+						Product.class,
+				IndexCoordinates.of(PRODUCT_INDEX));
 		
 		List<String> suggestions = new ArrayList<String>();
-		searchSuggestions.getSearchHits().forEach(srchHit->{
-			suggestions.add(srchHit.getContent().getSearchText());
+		
+		searchSuggestions.getSearchHits().forEach(searchHit->{
+			suggestions.add(searchHit.getContent().getName());
 		});
 		return suggestions;
 	}
