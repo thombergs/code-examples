@@ -41,12 +41,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchElementFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementFoundException itemNotFoundException, WebRequest request) {
+        log.error("Failed to find the requested element", itemNotFoundException);
         return buildErrorResponse(itemNotFoundException, HttpStatus.NOT_FOUND, request);
     }
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<Object> handleAllUncaughtException(RuntimeException exception, WebRequest request) {
+    public ResponseEntity<Object> handleAllUncaughtException(Exception exception, WebRequest request) {
+        log.error("Unknown error occurred", exception);
         return buildErrorResponse(exception, "Unknown error occurred", HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
