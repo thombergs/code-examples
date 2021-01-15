@@ -1,0 +1,49 @@
+<configuration debug="true">
+	<include
+		resource="/org/springframework/boot/logging/logback/base.xml" />
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%X{user}] [%X{function}] [%thread]
+				%-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>app.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${app.logPathPrefix}/myproject.%d{yyyy-MM-dd}.%i.log.gz
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%level] [%thread]
+				[%logger:%line] %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.springframework" level="ERROR" />
+	<logger name="io.pratik" level="INFO" />
+	<logger name="org.springframework.data.elasticsearch.client.WIRE" level="trace"/>
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+	<springProfile name="dev">
+		<logger name="io.pratik" level="info" />
+	</springProfile>
+	<springProfile name="test">
+		<logger name="io.pratik" level="trace" />
+	</springProfile>
+</configuration>
