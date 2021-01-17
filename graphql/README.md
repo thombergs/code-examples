@@ -1,3 +1,3 @@
 # Related Blog Posts
 
-* [How to Configure Logging Behavior with Spring Boot](https://reflectoring.io/springboot-logging/)
+* [Getting Started with GraphQL](https://reflectoring.io/getting-started-with-graphql/)
