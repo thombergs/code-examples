@@ -1,3 +1,5 @@
-# Related Blog Posts
+# Setting Cookies with the Servlet API and Spring
+ 
+## Related Blog Articles
 
-* [Cookies]()
+* [Setting Cookies with the Servlet API and Spring]()
