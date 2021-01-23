@@ -17,7 +17,7 @@ public class SpringCookieController {
 	 @GetMapping("/create-spring-cookie")
 	    public ResponseEntity setCookie() {
 		 
-		 ResponseCookie resCookie = ResponseCookie.from("cookie-name", "spring-cookie")
+		 ResponseCookie resCookie = ResponseCookie.from("user-id", "c2FtLnNtaXRoQGV4YW1wbGUuY29t")
 		            .httpOnly(true)
 		            .secure(true)
 		            .path("/")
@@ -33,7 +33,7 @@ public class SpringCookieController {
 	    public ResponseEntity deleteCookie() {
 
 	        // create a cookie
-	    	 ResponseCookie resCookie = ResponseCookie.from("cookie-name", null)
+	    	 ResponseCookie resCookie = ResponseCookie.from("user-id", null)
 			            .build();
 
 		        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, resCookie.toString()).build();
@@ -41,8 +41,8 @@ public class SpringCookieController {
 	    }
 	    
 	    @GetMapping("/read-spring-cookie")
-	    public String readCookie(@CookieValue(name = "cookie-name", defaultValue = "default-spring-cookie") String cookieName) {
-	        return String.format("value of the cookie with name cookie-name is: %s", cookieName);
+	    public String readCookie(@CookieValue(name = "user-id", defaultValue = "default-user-id") String cookieName) {
+	        return String.format("value of the cookie with name user-id is: %s", cookieName);
 	    }
 
 }

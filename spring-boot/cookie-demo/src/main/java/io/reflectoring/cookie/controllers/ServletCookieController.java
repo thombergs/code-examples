@@ -23,8 +23,8 @@ public class ServletCookieController {
 
 	    @GetMapping("/create-servlet-cookie")
 	    public String setCookie(HttpServletRequest request, HttpServletResponse response) {
-            System.out.println("domain" + request.getServerName());
-	    	Cookie servletCookie = CookieUtil.createCookie("cookie-name", "servlet-cookie", 1 * 24 * 60 * 60, true, true, "/", request.getServerName());
+          
+	    	Cookie servletCookie = CookieUtil.createCookie("user-id", "c2FtLnNtaXRoQGV4YW1wbGUuY29t", 1 * 24 * 60 * 60, true, true, "/", request.getServerName());
 	        response.addCookie(servletCookie);
 
 	        return String.format("Cookie with name %s and value %s was created", servletCookie.getName(), servletCookie.getValue());
@@ -33,7 +33,7 @@ public class ServletCookieController {
 	    @GetMapping("/delete-servlet-cookie")
 	    public String deleteCookie(HttpServletRequest request, HttpServletResponse response) {
 
-	    	Cookie deleteServletookie = CookieUtil.createCookie("cookie-name", null, 0, true, true, "/", request.getServerName());
+	    	Cookie deleteServletookie = CookieUtil.createCookie("user-id", null, 0, true, true, "/", request.getServerName());
 	        response.addCookie(deleteServletookie);
 
 	        return String.format("Cookie with name %s was deleted", deleteServletookie.getName());
@@ -42,7 +42,7 @@ public class ServletCookieController {
 	    @GetMapping("/all-servlet-cookies")
 	    public String readAllCookies(HttpServletRequest request) {
 	    	
-	    	return CookieUtil.readCookie(request, "cookie-name").orElse("cookie with name \"cookie-name\" is missing");
+	    	return CookieUtil.readCookie(request, "user-id").orElse("cookie with name \"user-id\" is missing");
 	    	
 	    }
 
