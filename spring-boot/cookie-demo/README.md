@@ -2,4 +2,4 @@
  
 ## Related Blog Articles
 
-* [Setting Cookies with the Servlet API and Spring]()
+* [Setting Cookies with the Servlet API and Spring](https://reflectoring.io/spring-boot-cookies/)

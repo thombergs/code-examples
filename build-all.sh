@@ -113,6 +113,7 @@ fi
 
 if [[ "$MODULE" == "module1" ]]
 then
+  build_maven_module "spring-boot/spring-boot-cookie-demo"
   build_maven_module "spring-boot/spring-boot-kafka"
   build_gradle_module "spring-boot/spring-boot-springdoc"
   build_maven_module "spring-boot/dependency-injection"
