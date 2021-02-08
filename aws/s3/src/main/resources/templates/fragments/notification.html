@@ -1,0 +1,23 @@
+<script th:inline="javascript" th:fragment="script" xmlns:th="http://www.w3.org/1999/xhtml">
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            var $notification = $delete.parentNode;
+
+            $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+            });
+        });
+    });
+</script>
+
+<div th:fragment="notification" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <div class="notification" th:if="${success}">
+        <button class="delete"></button>
+        <p class="has-text-grey-light" th:text="${success}"/>
+    </div>
+    <div class="notification is-warning is-light" th:if="${warn}">
+        <button class="delete"></button>
+        <p th:text="${warn}"/>
+    </div>
+</div>
