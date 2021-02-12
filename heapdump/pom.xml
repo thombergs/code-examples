@@ -6,6 +6,10 @@
 	<artifactId>oomegen</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>oomegen</name>
+	<properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
 
 	<build>
 		<plugins>
@@ -14,7 +18,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.inventory.gui.InventoryApp</mainClass>
+							<mainClass>io.pratik.OOMGenerator</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

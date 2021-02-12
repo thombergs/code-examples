@@ -1,0 +1,11 @@
+io/pratik/ProductManager.class
+io/pratik/models/Price.class
+io/pratik/models/ProductGroup.class
+io/pratik/models/LuxuryGood.class
+io/pratik/JavaAgent.class
+io/pratik/models/ElectronicGood.class
+io/pratik/models/BrandedProduct.class
+io/pratik/models/Manufacturer.class
+io/pratik/AbstractProduct.class
+io/pratik/models/GroceryProduct.class
+io/pratik/OOMGenerator.class
