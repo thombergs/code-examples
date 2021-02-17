@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"/>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"/>
+
+<section class="hero is-fullheight-with-navbar is-primary is-bold">
+
+    <section class="hero-body columns is-centered  m-0">
+        <div class="column is-half  ">
+            <form action="#" th:action="@{/space/__${space}__/object-form}" th:object="${object}" method="post"
+                  enctype="multipart/form-data">
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <input class="input is-medium" type="text" th:field="*{name}" placeholder="Name of your File">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-heading"></i>
+                        </span>
+                    </div>
+                    <p class="help">Human readable name of the file</p>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <input type="file" name="file"/>
+                    </div>
+                    <p class="help">Human readable name of the file</p>
+                </div>
+
+                <div class="field is-grouped is-grouped-centered">
+                    <p class="control">
+                        <button class="button is-primary is-outlined is-inverted" type="submit">
+                            Submit
+                        </button>
+                    </p>
+                    <p class="control">
+                        <a class="button is-primary is-outlined is-inverted" href="#">
+                            Cancel
+                        </a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </section>
+</section>
+</body>
+</html>

@@ -29,9 +29,9 @@ dependencies {
     compile 'org.postgresql:postgresql'
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
-    testCompile "org.testcontainers:testcontainers:1.12.5"
-    testCompile "org.testcontainers:junit-jupiter:1.12.5"
-    testCompile "org.testcontainers:postgresql:1.12.5"
+    testCompile "org.testcontainers:testcontainers:1.15.1"
+    testCompile "org.testcontainers:junit-jupiter:1.15.1"
+    testCompile "org.testcontainers:postgresql:1.15.1"
 
 }
 
