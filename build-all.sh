@@ -86,6 +86,7 @@ if [[ "$MODULE" == "module5" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build_maven_module "core-java/heapdump"
   build_gradle_module "aws/s3"
   build_maven_module "graphql"
   build_gradle_module "spring-boot/exception-handling"
