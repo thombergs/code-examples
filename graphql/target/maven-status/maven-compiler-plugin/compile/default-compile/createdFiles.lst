@@ -1,0 +1,13 @@
+io/pratik/graphqldemo/Product.class
+io/pratik/graphqldemo/ProductResolver.class
+io/pratik/graphqldemo/Manufacturer$ManufacturerBuilder.class
+io/pratik/graphqldemo/ManufacturerRepository.class
+io/pratik/graphqldemo/ProductRepository.class
+io/pratik/graphqldemo/Product$ProductBuilder.class
+io/pratik/graphqldemo/GraphqldemoApplication.class
+io/pratik/graphqldemo/Manufacturer.class
+io/pratik/graphqldemo/ManufacturerRepository$1.class
+io/pratik/graphqldemo/ProductRepository$1.class
+io/pratik/graphqldemo/Mutation.class
+io/pratik/graphqldemo/QueryResolver.class
+io/pratik/graphqldemo/ManufacturerRepository$2.class

@@ -1,0 +1,13 @@
+io/pratik/elasticsearch/services/ProductSearchServiceWithRepo.class
+io/pratik/elasticsearch/services/ProductSearchService.class
+io/pratik/elasticsearch/productsearchapp/ProductsearchappApplication.class
+io/pratik/elasticsearch/models/SearchSuggest$SearchSuggestBuilder.class
+io/pratik/elasticsearch/services/SearchService.class
+io/pratik/elasticsearch/models/Product.class
+io/pratik/elasticsearch/repositories/SearchSuggestRepository.class
+io/pratik/elasticsearch/productsearchapp/ElasticsearchClientConfig.class
+io/pratik/elasticsearch/controllers/UIController.class
+io/pratik/elasticsearch/controllers/SearchController.class
+io/pratik/elasticsearch/repositories/ProductRepository.class
+io/pratik/elasticsearch/models/Product$ProductBuilder.class
+io/pratik/elasticsearch/models/SearchSuggest.class

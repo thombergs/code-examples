@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        search:
+          default:
+            indexmanager: elasticsearch
+            elasticsearch:
+              host: http://192.168.0.103:9200
+              index_schema_management_strategy: drop-and-create
+              required_index_status: yellow

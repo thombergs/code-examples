@@ -1,0 +1,43 @@
+<nav class="navbar" th:fragment="navbar" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class=" container">
+
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                       <span class="icon-text">
+                           <span class="icon">
+                               <i class="fas fa-home"></i>
+                           </span>
+                           <span>Home</span>
+                       </span>
+            </a>
+            <a class="navbar-item" th:href="@{~/space}">
+                       <span class="icon-text">
+                           <span class="icon">
+                               <i class="fas fa-folder-open"></i>
+                           </span>
+                           <span>Spaces</span>
+                       </span>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="h2" target="_blank">
+                       <span class="icon-text">
+                           <span class="icon">
+                               <i class="fas fa-database"></i>
+                           </span>
+                           <span>DB</span>
+                       </span>
+                </a>
+                <span class="navbar-item">
+              <a class="button is-primary" href="https://github.com/jgoerner" target="_blank">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>GitHub</span>
+              </a>
+            </span>
+            </div>
+        </div>
+    </div>
+</nav>

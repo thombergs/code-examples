@@ -1,0 +1,11 @@
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/repositories/ProductRepository.java
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/services/SearchService.java
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/models/SearchSuggest.java
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/controllers/UIController.java
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/controllers/SearchController.java
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/services/ProductSearchService.java
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/repositories/SearchSuggestRepository.java
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/productsearchapp/ElasticsearchClientConfig.java
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/services/ProductSearchServiceWithRepo.java
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/models/Product.java
+/Users/fab/Documents/pratik/code-examples/spring-boot/spring-boot-elasticsearch/src/main/java/io/pratik/elasticsearch/productsearchapp/ProductsearchappApplication.java

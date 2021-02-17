@@ -28,7 +28,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.6'
 
     testImplementation 'org.springframework.amqp:spring-rabbit-test'
-    testImplementation "org.testcontainers:rabbitmq:1.14.3"
+    testImplementation "org.testcontainers:rabbitmq:1.15.1"
 }
 
 test {
