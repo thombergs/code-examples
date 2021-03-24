@@ -9,10 +9,10 @@
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>library-demo</module>
+    <module>library-client</module>
     <module>library-service-provider</module>
-    <module>standard-library</module>
-    <module>custom-library</module>
+    <module>classics-library</module>
+    <module>computer-science-library</module>
   </modules>
 
   <name>Library Service Provider Example</name>
