@@ -1,0 +1,11 @@
+spring:
+    datasource:
+        username: sa
+        password:
+        url: jdbc:h2:mem:world
+
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+    h2:
+        console:
+            enabled: true
