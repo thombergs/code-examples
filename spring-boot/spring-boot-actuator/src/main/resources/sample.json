@@ -1,0 +1,33 @@
+{
+  "students": [
+    {
+      "name": "John",
+      "age": 10,
+      "grade": 3,
+      "subjects": [
+        "math",
+        "english"
+      ]
+    },
+    {
+      "name": "Jack",
+      "age": 10,
+      "grade": 3,
+      "subjects": [
+        "math",
+        "social science",
+        "painting"
+      ]
+    },
+    {
+      "name": "James",
+      "age": 11,
+      "grade": 5,
+      "subjects": [
+        "math",
+        "environmental science",
+        "english"
+      ]
+    }
+  ]
+}
