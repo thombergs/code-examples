@@ -28,8 +28,6 @@ public class OrderController {
   public List<Order> getOrders(@PathVariable(value = "customerId") String customerId) {
     System.out.println("Get orders requested for customer: " + customerId);
 
-    registry.counter("orders.placed.counter").increment();
-
     // Dummy order history for example purpose
     OrderLineItem orderLineItem1 = new OrderLineItem();
     orderLineItem1.setProductId(UUID.randomUUID().toString());
@@ -65,6 +63,8 @@ public class OrderController {
   public OrderCreatedResponse placeOrder(@PathVariable(value = "customerId") String customerId,
       @RequestBody Order order) {
     System.out.println("Place order requested for customer: " + customerId);
+
+    registry.counter("orders.placed.counter").increment();
 
     OrderCreatedResponse response = new OrderCreatedResponse();
     response.setOrderId(UUID.randomUUID().toString());
