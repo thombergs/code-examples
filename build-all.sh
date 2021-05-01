@@ -86,6 +86,7 @@ if [[ "$MODULE" == "module5" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build_maven_module "aws/springcloudsqs"
   build_maven_module "spring-boot/spring-boot-logging-2"
   build_gradle_module "spring-boot/devtools-demo"
   build_gradle_module "spring-boot/cache"
@@ -163,7 +164,6 @@ fi
 
 if [[ "$MODULE" == "module4" ]]
 then
-  build_maven_module "aws/springcloudsqs"
   build_gradle_module "spring-boot/mocking"
   build_gradle_module "spring-boot/modular"
   build_gradle_module "spring-boot/paging"
