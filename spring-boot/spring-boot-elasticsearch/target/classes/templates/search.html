@@ -1,0 +1,79 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<title>Product Search</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+
+<div class="card mb-3" style="max-width: 540px;">
+<p class="text-info">Search Products</p>
+<span class="border border-info">
+	<div class="input-group mb-3">
+	  <input type="text" class="form-control" placeholder="Search Product by Name or description" aria-label="Product Name" aria-describedby="btnNameSearch" id="productNamedesc">
+	  <div class="input-group-append">
+	    <button class="btn btn-outline-secondary" type="button" id="btnNameSearch">Search</button>
+	  </div>
+	</div>
+</span>
+</div>
+
+<div id="results" class="card"></div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="   crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script th:inline="javascript">
+    $(document).ready(function() {
+        $('#productNamedesc').autocomplete({
+	           source: function (request, response){
+	               $.get("http://localhost:8080/suggestions?",{q : request.term},function(data, status){
+	                  $("#results").html("");
+	                  if(status=='success'){
+	                    response(data);
+	                  }
+	               });
+	           }
+           }
+        );
+    
+        $("#btnNameSearch").click(function(){
+          var inputText = $("#productNamedesc").val();
+          if(inputText.length == 0) {
+             alert("Enter product name or description");
+          }else{
+             var response = '';
+	         $.ajax({
+	            type: "GET",
+	            url: "http://localhost:8080/products?q="+inputText,
+	            async: true,
+	            success: function(resp) {
+	                var len = resp.length;
+	                var strHtml = "";                    
+                    if(len == 0) {
+                      $("#results").html("<p class='text-danger'>Zero matches</p>");
+                    }else{
+                       strHTML = "<p class='text-success'>"+len + " matches found.</p>";
+                       strHTML += "<ul class='list-unstyled'>";
+                       for(var i=0; i<len; i++){                    
+                         strHTML += "<li>"+resp[i].name+"</li>";
+                       }
+                       strHTML = strHTML + "</ul>";
+                       $("#results").html(strHTML)
+                    }
+	            }
+	        });           
+          }
+        });
+    });
+</script>
+
+</body>
+</html>
