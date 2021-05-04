@@ -181,6 +181,7 @@ fi
 
 if [[ "$MODULE" == "module4" ]]
 then
+  build_maven_module "core-java/threaddump"
   build_gradle_module "spring-boot/mocking"
   build_gradle_module "spring-boot/modular"
   build_gradle_module "spring-boot/paging"
