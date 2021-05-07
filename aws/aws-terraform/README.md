@@ -1,4 +1,4 @@
-# Terraform for creating Ads Resources
+# Terraform for creating AWS Resources
 
 Example code to create/update AWS resources with Terraform.
 Examples include Terraform capabilities of using modules, input variables and using Terraform cloud.
