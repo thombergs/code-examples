@@ -2,6 +2,8 @@ package io.reflectoring.springboot.testconfiguration;
 
 import io.reflectoring.springboot.testconfiguration.service.DataService;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -21,13 +23,13 @@ public class UsingStaticInnerTestConfiguration {
 
     @TestConfiguration
     public static class WebClientTestConfiguration {
+        private static final Logger LOGGER = LoggerFactory.getLogger(WebClientTestConfiguration.class);
         @Bean
         public WebClient getWebClient(final WebClient.Builder builder) {
             WebClient webClient = builder
                     .baseUrl("http://localhost")
                     .build();
-            System.out.println("WebClient Instance Created During Testing, using static inner class: "
-                    + webClient.toString());
+            LOGGER.info("WebClient Instance Created During Testing, using static inner class: {}", webClient);
             return webClient;
         }
     }
