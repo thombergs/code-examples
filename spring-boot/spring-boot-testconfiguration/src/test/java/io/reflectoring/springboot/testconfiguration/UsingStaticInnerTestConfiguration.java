@@ -10,7 +10,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootTest
-@TestPropertySource(locations="classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 public class UsingStaticInnerTestConfiguration {
     @Autowired
     private DataService dataService;
@@ -20,7 +20,7 @@ public class UsingStaticInnerTestConfiguration {
     }
 
     @TestConfiguration
-    public static class WebClientConfiguration {
+    public static class WebClientTestConfiguration {
         @Bean
         public WebClient getWebClient(final WebClient.Builder builder) {
             WebClient webClient = builder
