@@ -86,6 +86,7 @@ if [[ "$MODULE" == "module5" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build_maven_module "spring-boot/spring-boot-testconfiguration"
   build_maven_module "aws/springcloudrds"
   build_maven_module "aws/springcloudsqs"
   build_maven_module "spring-boot/spring-boot-actuator"
