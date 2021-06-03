@@ -87,16 +87,32 @@ then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
   build maven_module "aws/aws-dynamodb"
+  build_maven_module "spring-boot/spring-boot-testconfiguration"
   build_maven_module "aws/springcloudrds"
   build_maven_module "aws/springcloudsqs"
+  build_maven_module "spring-boot/spring-boot-actuator"
+  build_maven_module "mockito"
+  build_maven_module "core-java/service-provider-interface"
+  build_gradle_module "spring-boot/hazelcast/hazelcast-embedded-cache"
+  build_gradle_module "spring-boot/hazelcast/hazelcast-client-server"
+  build_maven_module "core-java/heapdump"
+  build_gradle_module "aws/s3"
+  build_maven_module "graphql"
+  build_gradle_module "spring-boot/exception-handling"
+  build_maven_module "spring-boot/spring-boot-elasticsearch"
+  build_gradle_module "spring-boot/spring-boot-mocking-modules"
+  build_gradle_module "spring-boot/specification"
+  build_gradle_module "spring-boot/hibernate-search"
+  build_maven_module "core-java/streams/fileswithstreams"
+  build_maven_module "spring-boot/spring-boot-health-check"
   build_maven_module "spring-boot/spring-boot-logging-2"
+  build_maven_module "spring-boot/spring-boot-docker"
+  build_maven_module "spring-boot/spring-component-scanning"
   build_gradle_module "spring-boot/devtools-demo"
   build_gradle_module "spring-boot/cache"
   build_gradle_module "spring-boot/bean-lifecycle"
   build_gradle_module "spring-boot/request-response/client"
   build_gradle_module "spring-boot/request-response/server"
-  build_gradle_module "spring-boot/hazelcast/hazelcast-embedded-cache"
-  build_gradle_module "spring-boot/hazelcast/hazelcast-client-server"
 
   echo ""
   echo "+++"
@@ -107,6 +123,7 @@ fi
 
 if [[ "$MODULE" == "module1" ]]
 then
+  build_maven_module "spring-boot/spring-boot-cookie-demo"
   build_maven_module "spring-boot/spring-boot-kafka"
   build_gradle_module "spring-boot/spring-boot-springdoc"
   build_maven_module "spring-boot/dependency-injection"
@@ -132,6 +149,8 @@ then
   build_maven_module "resilience4j/retry"
   build_maven_module "resilience4j/ratelimiter"
   build_maven_module "resilience4j/timelimiter"
+  build_maven_module "resilience4j/bulkhead"
+  build_maven_module "resilience4j/circuitbreaker"
   build_gradle_module "spring-data/spring-data-jdbc-converter"
   build_gradle_module "reactive"
   build_gradle_module "junit/assumptions"
@@ -166,6 +185,7 @@ fi
 
 if [[ "$MODULE" == "module4" ]]
 then
+  build_maven_module "core-java/threaddump"
   build_gradle_module "spring-boot/mocking"
   build_gradle_module "spring-boot/modular"
   build_gradle_module "spring-boot/paging"

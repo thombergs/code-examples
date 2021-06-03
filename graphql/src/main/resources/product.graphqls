@@ -1,0 +1,25 @@
+type Product {
+    id: ID!
+    title: String!
+    description: String!
+    category: String
+    madeBy: Manufacturer!
+}
+
+type Manufacturer {
+    id: ID!
+    name: String!
+    address: String
+}
+
+# The Root Query for the application
+type Query {
+    myRecentPurchases(count: Int, customerID: String): [Product]!
+    lastVisitedProducts(count: Int, customerID: String): [Product]!
+    productsByCategory(category: String): [Product]!
+}
+
+# The Root Mutation for the application
+type Mutation {
+    addRecentProduct(title: String!, description: String!, category: String) : Product!
+}

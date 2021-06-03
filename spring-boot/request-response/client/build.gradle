@@ -34,7 +34,7 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'org.springframework.amqp:spring-rabbit-test'
-    testImplementation "org.testcontainers:rabbitmq:1.14.3"
+    testImplementation "org.testcontainers:rabbitmq:1.15.1"
 
     annotationProcessor 'org.projectlombok:lombok'
 }
