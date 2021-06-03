@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"/>
+
+<body>
+<div th:replace="fragments/navbar :: navbar"/>
+
+<section class="hero is-fullheight-with-navbar is-primary is-bold">
+
+    <section class="hero-body columns is-centered  m-0">
+        <div class="column is-half has-text-centered">
+            <div th:replace="fragments/notification :: notification"/>
+            <div th:each="space: ${spaces}" class="card m-4">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-4 has-text-dark" th:text="${space.name}"/>
+                            <p class="subtitle is-6 has-text-grey-light mb-1" th:text="${space.bucket}"/>
+                            <p th:if=${space.ttl} class="subtitle is-6 has-text-grey-light"
+                               th:text="${'Only storing files for ' + space.ttl + ' days'}"/>
+                            <p th:unless=${space.ttl} class="subtitle is-6 has-text-grey-light"
+                            >Permanent Storage</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a th:href="@{space/__${space.name}__}"
+                       class="card-footer-item has-text-info">
+                        <span class="icon is-small pr-3">
+                            <i class="fas fa-info"></i>
+                        </span>
+                        <span>Details</span>
+                    </a>
+                    <a th:unless="${space.ttl}" th:href="@{space/temporary/__${space.name}__}"
+                       class="card-footer-item has-text-info">
+                        <span class="icon is-small pr-3">
+                            <i class="fas fa-hourglass-half"></i>
+                        </span>
+                        <span>Make Temporary</span>
+                    </a>
+                    <a th:if="${space.ttl}" th:href="@{space/permanent/__${space.name}__}"
+                       class="card-footer-item has-text-info">
+                        <span class="icon is-small pr-3">
+                            <i class="fas fa-infinity"></i>
+                        </span>
+                        <span>Make Permanent</span>
+                    </a>
+                    <a th:href="@{space/delete/__${space.name}__}"
+                       class="card-footer-item has-text-danger">
+                        <span class="icon is-small pr-3">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                        <span>Delete</span>
+                    </a>
+                </div>
+            </div>
+            <button class="button is-medium is-primary is-inverted is-outlined ">
+                <a href="space-form">
+                <span class="icon is-small">
+                   <i class="fas fa-plus-square"></i>
+                </span>
+                    <span>New Space</span>
+                </a>
+            </button>
+        </div>
+    </section>
+</section>
+
+<script th:replace="fragments/notification :: script"/>
+
+</body>
+</html>

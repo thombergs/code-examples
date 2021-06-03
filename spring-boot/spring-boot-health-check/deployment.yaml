@@ -1,0 +1,46 @@
+apiVersion: v1  
+kind: Service  
+metadata:  
+  name: usersignup-service  
+  labels:  
+    app: usersignup-service  
+spec:  
+  ports:  
+    - name: http  
+      port: 8080 
+      targetPort: 8080  
+  selector:  
+    app: usersignup  
+---  
+
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: usersignup-svc-deployment
+spec:
+  selector:
+    matchLabels:
+      app: usersignup
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: usersignup
+    spec:
+      containers:
+      - name: usersignupservice
+        image: pratikdas/usersignupservice:1.0
+        ports:
+        - containerPort: 8080
+        livenessProbe:  
+            httpGet:  
+              path: /actuator/health/liveness  
+              port: 8080  
+            initialDelaySeconds: 15  
+            periodSeconds: 5
+        readinessProbe:  
+            httpGet:  
+              path: /actuator/health/readiness  
+              port: 8080  
+            initialDelaySeconds: 5  
+            periodSeconds: 5    
