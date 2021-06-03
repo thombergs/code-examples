@@ -1,0 +1,10 @@
+io/pratik/dynamodbspring/repositories/OrderRepository.class
+io/pratik/dynamodbspring/repositories/CustomerRepository.class
+io/pratik/dynamodbspring/CustomerService.class
+io/pratik/dynamodbspring/models/Product.class
+io/pratik/dynamodbspring/DynamodbspringApplication.class
+io/pratik/dynamodbspring/models/Order.class
+io/pratik/dynamodbspring/models/OrderID.class
+io/pratik/dynamodbspring/config/AppConfig.class
+io/pratik/dynamodbspring/OrderService.class
+io/pratik/dynamodbspring/models/Customer.class
