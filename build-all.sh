@@ -82,10 +82,20 @@ build_maven_module() {
   }
 }
 
-if [[ "$MODULE" == "module5" ]]
+if [[ "$MODULE" == "module6" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build_maven_module "logging/log4j"
+
+  echo ""
+  echo "+++"
+  echo "+++ MODULE 6 SUCCESSFUL"
+  echo "+++"
+fi
+
+if [[ "$MODULE" == "module5" ]]
+then
   build_gradle_module "spring-boot/hazelcast/hazelcast-embedded-cache"
   build_gradle_module "spring-boot/hazelcast/hazelcast-client-server"
   build_maven_module "core-java/heapdump"
