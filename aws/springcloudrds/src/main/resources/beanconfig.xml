@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:jdbc="http://www.springframework.org/schema/cloud/aws/jdbc"
+	   xmlns:context="http://www.springframework.org/schema/cloud/aws/context"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   https://www.springframework.org/schema/beans/spring-beans.xsd
+	   					   http://www.springframework.org/schema/cloud/aws/jdbc
+	   					   http://www.springframework.org/schema/cloud/aws/jdbc/spring-cloud-aws-jdbc.xsd
+	   					   http://www.springframework.org/schema/cloud/aws/context
+	   					   http://www.springframework.org/schema/cloud/aws/context/spring-cloud-aws-context.xsd">
+
+	<jdbc:retry-interceptor 
+		db-instance-identifier="testinstance" 
+		id="interceptor" 
+		max-number-of-retries="3" 
+		amazon-rds="customRdsClient"/>
+
+	<bean id="customRdsClient" class="io.pratik.springcloudrds.SystemRepository" >
+		<constructor-arg value="com.amazonaws.services.rds.AmazonRDS"/>
+	</bean>
+</beans>
