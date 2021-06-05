@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import io.pratik.dynamodbapps.models.Order;
 import io.pratik.dynamodbapps.models.Product;
+import software.amazon.awssdk.enhanced.dynamodb.model.PageIterable;
 
 /**
  * @author pratikdas
@@ -73,4 +74,10 @@ class OrderRepositoryTest {
 		System.out.println("order "+order.getProducts());
 	}
 
+	@Test
+	void testFindOrdersByValue() {
+		PageIterable<Order> orders = 
+		    orderRepository.findOrdersByValue("CUST-001", 5.0d);
+		System.out.println("orders "+orders.items());
+	}
 }
