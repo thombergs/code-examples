@@ -7,7 +7,7 @@
     </appender>
 
     <appender name="LOGZIO" class="io.logz.logback.LogzioLogbackAppender">
-        <token>eoUyeKjGgqfrMGVWeZLfTyYCAmBTbhvh</token>
+        <token>${LOGZIO_TOKEN}</token>
         <logzioUrl>https://listener.logz.io:8071</logzioUrl>
         <logzioType>java</logzioType>
     </appender>
