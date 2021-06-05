@@ -6,6 +6,6 @@ Example code for using Spring AWS DynamoDB
 
 Blog posts about this topic:
 
-* [Working with AWS DynamoDB and Spring ](https://reflectoring.io/spring-aws-dynamodb/)
+* [Working with AWS DynamoDB and Spring ](https://reflectoring.io/spring-dynamodb/)
 
 
