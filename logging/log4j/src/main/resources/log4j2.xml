@@ -6,7 +6,7 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
         <LogzioAppender name="LOGZIO">
-            <logzioToken>eoUyeKjGgqfrMGVWeZLfTyYCAmBTbhvh</logzioToken>
+            <logzioToken>${env:LOGZIO_TOKEN}</logzioToken>
             <logzioUrl>https://listener.logz.io:8071</logzioUrl>
             <logzioType>java</logzioType>
         </LogzioAppender>
