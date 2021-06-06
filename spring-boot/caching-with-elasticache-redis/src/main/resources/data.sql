@@ -27,3 +27,13 @@ insert into product
 (id, name, price, manufacturing_date,  weight, height, width,  category)
 values
 ('prod_6', 'zara jacket green color', 1500, now(),  1.3, 10.4, 29.5,  'MEN_FASHION');
+
+insert into user
+(id, first_name, last_name)
+values
+('user_1', 'john', 'doe');
+
+insert into user
+(id, first_name, last_name)
+values
+('user_2', 'richard', 'mayor');

@@ -15,7 +15,7 @@ import java.util.Objects;
 
 @Service
 @AllArgsConstructor
-@CacheConfig(cacheNames = "product")
+@CacheConfig(cacheNames = "product-cache")
 public class ProductService {
     private final ProductRepository repository;
 

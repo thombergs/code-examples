@@ -24,10 +24,19 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'io.awspring.cloud:spring-cloud-starter-aws'
+//    implementation 'com.amazonaws:aws-java-sdk-cloudformation'
+    implementation 'com.amazonaws:aws-java-sdk-elasticache'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.awspring.cloud:spring-cloud-aws-dependencies:2.3.1'
+    }
 }
 
 test {

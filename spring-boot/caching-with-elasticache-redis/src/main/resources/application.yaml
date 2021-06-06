@@ -3,22 +3,22 @@ spring:
     initialization-mode: always
   application:
     name: spring-cloud-redis
-  cache:
-    type: redis
-    redis:
-      time-to-live: 60000
-  redis:
-    primary: spring-redis-cluster.xxx.ng.0001.use2.cache.amazonaws.com
-    reader: spring-redis-cluster-ro.xxx.ng.0001.use2.cache.amazonaws.com
   jpa:
     show-sql: true
     generate-ddl: true
     hibernate:
       ddl-auto: create-drop
-#  redis:
-#    cluster:
-#      nodes: spring-redis-cluster.xxx.clustercfg.use2.cache.amazonaws.com:6379
-#    lettuce:
-#      cluster:
-#        refresh:
-#          period: PT10M
+#cloud:
+#  aws:
+#    stack:
+#      name: spring-cache-2
+cloud:
+  aws:
+    elasticache:
+      clusters:
+        -
+          name: product-cache
+          expiration: 100
+        -
+          name: user-cache
+          expiration: 6000
