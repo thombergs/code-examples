@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <springProperty name="logzioToken" source="logzio.token"/>
+
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <appender name="LOGZIO" class="io.logz.logback.LogzioLogbackAppender">
+        <token>${logzioToken}</token>
+        <logzioUrl>https://listener.logz.io:8071</logzioUrl>
+        <logzioType>spring-boot-example-app</logzioType>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %cyan(%d{ISO8601}) %highlight(%-5level) [%blue(%-30t)] %yellow(%C{1.}): %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <springProfile name="local">
+        <root level="WARN">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="io.reflectoring" level="DEBUG"/>
+    </springProfile>
+
+    <springProfile name="staging">
+        <root level="WARN">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="LOGZIO"/>
+        </root>
+        <logger name="io.reflectoring" level="DEBUG"/>
+    </springProfile>
+
+    <springProfile name="production">
+        <root level="WARN">
+            <appender-ref ref="LOGZIO"/>
+        </root>
+        <logger name="io.reflectoring" level="WARN"/>
+    </springProfile>
+
+</configuration>

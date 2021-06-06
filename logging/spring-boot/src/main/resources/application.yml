@@ -1,0 +1,2 @@
+logzio:
+  token: ${LOGZIO_TOKEN}

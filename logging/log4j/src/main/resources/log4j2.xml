@@ -8,13 +8,13 @@
         <LogzioAppender name="LOGZIO">
             <logzioToken>${env:LOGZIO_TOKEN}</logzioToken>
             <logzioUrl>https://listener.logz.io:8071</logzioUrl>
-            <logzioType>java</logzioType>
+            <logzioType>log4j-example-app</logzioType>
         </LogzioAppender>
     </Appenders>
 
     <Loggers>
         <Root level="INFO">
-            <AppenderRef ref="${env:LOG_APPENDER:-CONSOLE}"/>
+            <AppenderRef ref="${env:LOG_TARGET:-CONSOLE}"/>
         </Root>
     </Loggers>
 </Configuration>
