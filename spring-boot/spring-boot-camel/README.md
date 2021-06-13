@@ -1,4 +1,4 @@
-# Working with Apache Camel and Spring
+# Getting started with Apache Camel and Spring Boot
 
 Example code for using Spring Boot with Apache Camel
 
