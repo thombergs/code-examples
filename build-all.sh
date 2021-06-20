@@ -86,7 +86,7 @@ if [[ "$MODULE" == "module5" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
-  build_gradle_module "spring-boot/caching-with-elasticsearch-redis"
+  build_gradle_module "aws/spring-cloud-caching-redis"
   build_maven_module "spring-boot/spring-boot-testconfiguration"
   build_maven_module "aws/springcloudrds"
   build_maven_module "aws/springcloudsqs"
