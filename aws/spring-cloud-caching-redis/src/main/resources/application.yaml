@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    initialization-mode: always
+  application:
+    name: spring-cloud-redis
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+#cloud:
+#  aws:
+#    stack:
+#      name: spring-cache-2
+cloud:
+  aws:
+    elasticache:
+      clusters:
+        -
+          name: product-cache
+          expiration: 100
+        -
+          name: user-cache
+          expiration: 6000
