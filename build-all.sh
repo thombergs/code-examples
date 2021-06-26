@@ -82,12 +82,25 @@ build_maven_module() {
   }
 }
 
-if [[ "$MODULE" == "module5" ]]
+if [[ "$MODULE" == "module6" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
   build maven_module "aws/springcloudses"
+  build_gradle_module "aws/spring-cloud-caching-redis"
   build maven_module "spring-boot/spring-boot-camel"
+  build_maven_module "logging/spring-boot"
+  build_maven_module "logging/logback"
+  build_maven_module "logging/log4j"
+
+  echo ""
+  echo "+++"
+  echo "+++ MODULE 6 SUCCESSFUL"
+  echo "+++"
+fi
+
+if [[ "$MODULE" == "module5" ]]
+then
   build maven_module "aws/aws-dynamodb"
   build_maven_module "spring-boot/spring-boot-testconfiguration"
   build_maven_module "aws/springcloudrds"
@@ -187,7 +200,6 @@ fi
 
 if [[ "$MODULE" == "module4" ]]
 then
-  build_maven_module "core-java/threaddump"
   build_gradle_module "spring-boot/mocking"
   build_gradle_module "spring-boot/modular"
   build_gradle_module "spring-boot/paging"
