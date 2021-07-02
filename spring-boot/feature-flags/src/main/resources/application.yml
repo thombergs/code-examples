@@ -1,0 +1,18 @@
+launchdarkly:
+  sdkKey: <YOUR-SDK-KEY>
+
+logging:
+  level:
+    org.togglz: DEBUG
+    com.launchdarkly: TRACE
+
+togglz:
+  feature-enums: io.reflectoring.featureflags.togglz.Features
+  features:
+    GLOBAL_BOOLEAN_FLAG:
+      enabled: true
+  console:
+    enabled: true
+    secured: false
+    path: /togglz
+    use-management-port: false
