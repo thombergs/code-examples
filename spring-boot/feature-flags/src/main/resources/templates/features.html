@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Your features</title>
+    <style>
+    td {
+      padding:10px;
+    }
+    </style>
+
+  </head>
+
+  <body>
+
+  <h1>Who are you?</h1>
+  <ul>
+    <li><a href="/alice">Alice</a></li>
+    <li><a href="/bob">Bob</a></li>
+    <li><a href="/charlie">Charlie</a></li>
+  </ul>
+
+  <h1><span th:text="${@userSession.username}">Bob</span>'s features</h1>
+    <table>
+      <tr>
+        <td></td>
+        <th>Togglz</th>
+        <th>FF4J</th>
+        <th>Launchdarkly</th>
+      </tr>
+      <tr>
+        <th>global boolean feature</th>
+        <td th:text="${@togglz.isGlobalBooleanFeatureActive()}"></td>
+        <td th:text="${@ff4j.isGlobalBooleanFeatureActive()}"></td>
+        <td th:text="${@launchdarkly.isGlobalBooleanFeatureActive()}"></td>
+      </tr>
+      <tr>
+        <th>user-based percentage rollout (50%)</th>
+        <td th:text="${@togglz.isPercentageRolloutActive()}"></td>
+        <td th:text="${@ff4j.isPercentageRolloutActive()}"></td>
+        <td th:text="${@launchdarkly.isPercentageRolloutActive()}"></td>
+      </tr>
+      <tr>
+        <th>rollout based on user click</th>
+        <td th:text="${@togglz.isUserActionTargetedFeatureActive()}"></td>
+        <td>N/A</td>
+        <td th:text="${@launchdarkly.isUserActionTargetedFeatureActive()}"></td>
+      </tr>
+    </table>
+
+  <form action="/click" method="post">
+    <input type="submit" value="Click to enable User-Action targeted feature"/>
+  </form>
+
+  <form action="/test" method="post">
+    <input type="submit" value="testuser"/>
+  </form>
+  </body>
+</html>
