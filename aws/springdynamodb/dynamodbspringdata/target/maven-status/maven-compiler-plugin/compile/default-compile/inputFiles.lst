@@ -1,0 +1,10 @@
+/Users/pratikdas/pratik/code-examples/aws/aws-dynamodb/dynamodbspringdata/src/main/java/io/pratik/dynamodbspring/models/Order.java
+/Users/pratikdas/pratik/code-examples/aws/aws-dynamodb/dynamodbspringdata/src/main/java/io/pratik/dynamodbspring/models/Product.java
+/Users/pratikdas/pratik/code-examples/aws/aws-dynamodb/dynamodbspringdata/src/main/java/io/pratik/dynamodbspring/OrderService.java
+/Users/pratikdas/pratik/code-examples/aws/aws-dynamodb/dynamodbspringdata/src/main/java/io/pratik/dynamodbspring/models/OrderID.java
+/Users/pratikdas/pratik/code-examples/aws/aws-dynamodb/dynamodbspringdata/src/main/java/io/pratik/dynamodbspring/config/AppConfig.java
+/Users/pratikdas/pratik/code-examples/aws/aws-dynamodb/dynamodbspringdata/src/main/java/io/pratik/dynamodbspring/models/Customer.java
+/Users/pratikdas/pratik/code-examples/aws/aws-dynamodb/dynamodbspringdata/src/main/java/io/pratik/dynamodbspring/DynamodbspringApplication.java
+/Users/pratikdas/pratik/code-examples/aws/aws-dynamodb/dynamodbspringdata/src/main/java/io/pratik/dynamodbspring/repositories/CustomerRepository.java
+/Users/pratikdas/pratik/code-examples/aws/aws-dynamodb/dynamodbspringdata/src/main/java/io/pratik/dynamodbspring/repositories/OrderRepository.java
+/Users/pratikdas/pratik/code-examples/aws/aws-dynamodb/dynamodbspringdata/src/main/java/io/pratik/dynamodbspring/CustomerService.java

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ff4j xmlns="http://www.ff4j.org/schema/ff4j"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ff4j.org/schema/ff4j http://ff4j.org/schema/ff4j-1.4.0.xsd">
+
+    <features>
+        <feature uid="global-boolean-flag" enable="true"  description="A global boolean flag" />
+
+        <feature uid="global-percentage-rollout" enable="true" description="A global percentage rollout">
+            <flipstrategy class="org.ff4j.strategy.PonderationStrategy" >
+                <param name="weight" value="0.5" />
+            </flipstrategy>
+        </feature>
+
+    </features>
+
+
+</ff4j>
