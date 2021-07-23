@@ -7,3 +7,6 @@ spring:
   h2:
     console:
       enabled: true
+
+launchdarkly:
+  sdkKey: <YOUR-SDK-KEY>
