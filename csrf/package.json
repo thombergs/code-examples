@@ -1,0 +1,23 @@
+{
+  "name": "csrfapp",
+  "version": "1.0.0",
+  "description": "CSRF mitigation example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "csrf"
+  ],
+  "author": "Pratik Das",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
+    "csurf": "^1.11.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "pug": "^3.0.2"
+  }
+}
