@@ -86,11 +86,12 @@ if [[ "$MODULE" == "module6" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build_maven_module "spring-boot/zero-downtime"
   build_maven_module "resilience4j/springboot-resilience4j"
   build_maven_module "spring-boot/feature-flags"
-  build maven_module "aws/springcloudses"
+  build_maven_module  "aws/springcloudses"
   build_gradle_module "aws/spring-cloud-caching-redis"
-  build maven_module "spring-boot/spring-boot-camel"
+  build_maven_module "spring-boot/spring-boot-camel"
   build_maven_module "logging/spring-boot"
   build_maven_module "logging/logback"
   build_maven_module "logging/log4j"
@@ -103,7 +104,7 @@ fi
 
 if [[ "$MODULE" == "module5" ]]
 then
-  build maven_module "aws/aws-dynamodb"
+  build_maven_module "aws/aws-dynamodb"
   build_maven_module "spring-boot/spring-boot-testconfiguration"
   build_maven_module "aws/springcloudrds"
   build_maven_module "aws/springcloudsqs"

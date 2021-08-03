@@ -5,27 +5,30 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("CUSTOMER")
-public class Customer {
+public class NewCustomer {
 
     @Id
     private long id;
     private String firstName;
     private String lastName;
-    private String address;
+    private String addressStreet;
+    private String addressStreetNumber;
 
-    public Customer(String firstName, String lastName, String address) {
+    public NewCustomer(String firstName, String lastName, String addressStreet, String addressStreetNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = address;
+        this.addressStreet = addressStreet;
+        this.addressStreetNumber = addressStreetNumber;
     }
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "NewCustomer{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
+                ", addressStreet='" + addressStreet + '\'' +
+                ", addressStreetNumber='" + addressStreetNumber + '\'' +
                 '}';
     }
 }
