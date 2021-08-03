@@ -1,7 +1,10 @@
 package io.reflectoring.zerodowntime;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 public class CustomerController {
@@ -17,7 +20,7 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/create")
-    String createUser() {
+    String createCustomer() {
         if (featureFlagService.writeToNewCustomerSchema()) {
             NewCustomer customer = new NewCustomer("Bob", "Builder", "Build Street", "21");
             newCustomerRepository.save(customer);
@@ -28,8 +31,19 @@ public class CustomerController {
         return "customer created";
     }
 
+    @GetMapping("/customers/{id}}")
+    String getCustomer(@PathVariable("id") Long id) {
+        if (featureFlagService.readFromNewCustomerSchema()) {
+            Optional<NewCustomer> customer = newCustomerRepository.findById(id);
+            return customer.get().toString();
+        } else {
+            Optional<OldCustomer> customer = oldCustomerRepository.findById(id);
+            return customer.get().toString();
+        }
+    }
+
     @GetMapping("/customers/list")
-    String showUser() {
+    String getCustomer() {
         StringBuffer buffer = new StringBuffer();
         if (featureFlagService.readFromNewCustomerSchema()) {
             Iterable<NewCustomer> customers = newCustomerRepository.findAll();
