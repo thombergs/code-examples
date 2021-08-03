@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function load(domainURL) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("demo").innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", domainURL, true);
+                xhttp.send();
+            }                     
+            
+            function loadFromSameDomain() {
+                load("http://localhost:8001/orders")
+            }  
+            
+            function loadFromCrossDomain() {
+                load("http://localhost:8000/orders")
+            }  
+        </script>
+
+        
+    </head>
+<body>
+
+<div id="demo">
+  <h2>Order Processing</h2>
+  <div><button type="button" onclick="loadFromSameDomain()">Fetch Orders from same domain</button></div><br/><br/>
+  <div><button type="button" onclick="loadFromCrossDomain()">Fetch Orders from different domain (Cross Domain)</button></div>
+</div>
+
+</body>
+</html>

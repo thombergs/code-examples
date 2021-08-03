@@ -1,0 +1,51 @@
+resilience4j:
+  retry:
+    instances:
+
+      # Retry object used in RetryingService.basicExample()
+      basic:
+        maxRetryAttempts: 3
+        waitDuration: 2s
+
+      # Retry object used in RetryingService.fallbackExample()
+      fallbackExample:
+        maxRetryAttempts: 3
+        waitDuration: 2s
+
+      # Retry object used in RetryingService.intervalFunctionExponentialExample()
+      intervalFunctionExponentialExample:
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+        maxRetryAttempts: 6
+        waitDuration: 1s
+
+      # Retry object used in RetryingService.intervalFunctionRandomExample()
+      intervalFunctionRandomExample:
+        enableRandomizedWait: true
+        maxRetryAttempts: 3
+        randomizedWaitFactor: 0.5
+        waitDuration: 2s
+
+      # Retry object used in RetryingService.loggedRetryExample()
+      loggedRetryExample:
+        maxRetryAttempts: 3
+        waitDuration: 2s
+
+      # Retry object used in RetryingService.predicateExample()
+      predicateExample:
+        maxRetryAttempts: 3
+        resultPredicate: io.reflectoring.resilience4j.springboot.predicates.ConditionalRetryPredicate
+        waitDuration: 3s
+
+      # Retry object used in RetryingService.basicExample_serviceThrowingException()
+      throwingException:
+        maxRetryAttempts: 3
+        retryExceptions:
+          - java.lang.Exception
+        waitDuration: 2s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

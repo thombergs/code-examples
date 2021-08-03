@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function load(domainURL) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("demo").innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", domainURL, true);
+                xhttp.send();
+            }                     
+            
+            function loadFromSameOrigin() {
+                load("http://localhost:9000/orders")
+            }  
+            
+            function loadFromCrossOrigin() {
+                load("http://localhost:8000/orders")
+            }  
+
+            function updateInCrossOrigin() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                      document.getElementById("demo").innerHTML = this.responseText;
+                    }
+                };
+                var data = {};
+                
+                xhttp.open("PUT", "http://localhost:8000/orders", true);
+                xhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
+                
+                xhttp.send(JSON.stringify(data));
+            } 
+
+            function sendAuthRequestToCrossOrigin() {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                      document.getElementById("demo").innerHTML = this.responseText;
+                    }
+                };
+                xhr.open('GET', "http://localhost:8000/orders", true);
+                xhr.setRequestHeader('Authorization', 'Bearer rtikkjhgffw456tfdd');
+                xhr.withCredentials = true;
+                xhr.send();
+            }
+
+        </script>
+
+        
+    </head>
+<body>
+
+<div id="demo">
+  <h2>Order Processing</h2>
+  <div><button type="button" onclick="loadFromSameOrigin()">Fetch Orders from same Origin</button></div><br/><br/>
+  <div><button type="button" onclick="loadFromCrossOrigin()">Fetch Orders from different Origin (Cross Origin)</button></div><br/><br/>
+  <div><button type="button" onclick="updateInCrossOrigin()">Update Orders from different Origin (Cross Origin)</button></div><br/><br/>
+  <div><button type="button" onclick="sendAuthRequestToCrossOrigin()">Request Orders from authenticated user (Cross Origin)</button></div>
+</div>
+
+</body>
+</html>
