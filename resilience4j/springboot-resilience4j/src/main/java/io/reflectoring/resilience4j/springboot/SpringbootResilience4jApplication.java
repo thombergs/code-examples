@@ -11,6 +11,9 @@ public class SpringbootResilience4jApplication {
 	@Autowired
 	private RetryExamplesRunner retryExamplesRunner;
 
+	@Autowired
+	private RateLimiterExamplesRunner rateLimiterExamplesRunner;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootResilience4jApplication.class, args);
 	}
@@ -18,5 +21,6 @@ public class SpringbootResilience4jApplication {
 	@EventListener(ApplicationReadyEvent.class)
 	public void runExamples() {
 		retryExamplesRunner.run();
+		rateLimiterExamplesRunner.run();
 	}
 }
