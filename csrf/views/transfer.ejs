@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>CSRF Token Demo</title>
+</head>
+<body>
+	<form action="process" method="POST">
+	<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+	<div>			
+	<label>Amount:</label><input type="text" name="amount">
+	</div>
+	<br/>
+	<div>			
+		<label>Transfer To:</label><input type="text" name="account">
+	</div>
+	<br/>
+	<div>	
+	    <input type="submit" value="Transfer">
+	</div>
+	</form>
+</body>
+</html>
+
+
