@@ -44,6 +44,61 @@ resilience4j:
           - java.lang.Exception
         waitDuration: 2s
 
+      # Retry object used in RateLimitingService.retryAndRateLimitExample()
+      retryAndRateLimitExample:
+        maxRetryAttempts: 2
+        waitDuration: 1s
+
+  ratelimiter:
+    instances:
+
+      # RateLimiter object used in RateLimitingService.basicExample()
+      basicExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 1s
+
+      # RateLimiter object used in RateLimitingService.timeoutExample()
+      timeoutExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 250ms
+
+      # RateLimiter object used in RateLimitingService.multipleRateLimitsExample()
+      multipleRateLimiters_rps_limiter:
+        limitForPeriod: 2
+        limitRefreshPeriod: 1s
+        timeoutDuration: 2s
+
+      multipleRateLimiters_rpm_limiter:
+        limitForPeriod: 40
+        limitRefreshPeriod: 1m
+        timeoutDuration: 2s
+
+      # RateLimiter object used in RateLimitingService.changeLimitsExample()
+      changeLimitsExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 1s
+
+      # RateLimiter object used in RateLimitingService.retryAndRateLimitExample()
+      retryAndRateLimitExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 250ms
+
+      # RateLimiter object used in RateLimitingService.rateLimiterEventsExample()
+      rateLimiterEventsExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 50ms
+
+      # RateLimiter object used in RateLimitingService.fallbackExample()
+      fallbackExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 500ms
+
 management:
   endpoints:
     web:
