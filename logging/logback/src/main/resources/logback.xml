@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="LOGZIO" class="io.logz.logback.LogzioLogbackAppender">
+        <token>${LOGZIO_TOKEN}</token>
+        <logzioUrl>https://listener.logz.io:8071</logzioUrl>
+        <logzioType>logback-example-app</logzioType>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="${LOG_TARGET}"/>
+    </root>
+</configuration>
