@@ -1,0 +1,106 @@
+resilience4j:
+  retry:
+    instances:
+
+      # Retry object used in RetryingService.basicExample()
+      basic:
+        maxRetryAttempts: 3
+        waitDuration: 2s
+
+      # Retry object used in RetryingService.fallbackExample()
+      fallbackExample:
+        maxRetryAttempts: 3
+        waitDuration: 2s
+
+      # Retry object used in RetryingService.intervalFunctionExponentialExample()
+      intervalFunctionExponentialExample:
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+        maxRetryAttempts: 6
+        waitDuration: 1s
+
+      # Retry object used in RetryingService.intervalFunctionRandomExample()
+      intervalFunctionRandomExample:
+        enableRandomizedWait: true
+        maxRetryAttempts: 3
+        randomizedWaitFactor: 0.5
+        waitDuration: 2s
+
+      # Retry object used in RetryingService.loggedRetryExample()
+      loggedRetryExample:
+        maxRetryAttempts: 3
+        waitDuration: 2s
+
+      # Retry object used in RetryingService.predicateExample()
+      predicateExample:
+        maxRetryAttempts: 3
+        resultPredicate: io.reflectoring.resilience4j.springboot.predicates.ConditionalRetryPredicate
+        waitDuration: 3s
+
+      # Retry object used in RetryingService.basicExample_serviceThrowingException()
+      throwingException:
+        maxRetryAttempts: 3
+        retryExceptions:
+          - java.lang.Exception
+        waitDuration: 2s
+
+      # Retry object used in RateLimitingService.retryAndRateLimitExample()
+      retryAndRateLimitExample:
+        maxRetryAttempts: 2
+        waitDuration: 1s
+
+  ratelimiter:
+    instances:
+
+      # RateLimiter object used in RateLimitingService.basicExample()
+      basicExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 1s
+
+      # RateLimiter object used in RateLimitingService.timeoutExample()
+      timeoutExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 250ms
+
+      # RateLimiter object used in RateLimitingService.multipleRateLimitsExample()
+      multipleRateLimiters_rps_limiter:
+        limitForPeriod: 2
+        limitRefreshPeriod: 1s
+        timeoutDuration: 2s
+
+      multipleRateLimiters_rpm_limiter:
+        limitForPeriod: 40
+        limitRefreshPeriod: 1m
+        timeoutDuration: 2s
+
+      # RateLimiter object used in RateLimitingService.changeLimitsExample()
+      changeLimitsExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 1s
+
+      # RateLimiter object used in RateLimitingService.retryAndRateLimitExample()
+      retryAndRateLimitExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 250ms
+
+      # RateLimiter object used in RateLimitingService.rateLimiterEventsExample()
+      rateLimiterEventsExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 50ms
+
+      # RateLimiter object used in RateLimitingService.fallbackExample()
+      fallbackExample:
+        limitForPeriod: 1
+        limitRefreshPeriod: 1s
+        timeoutDuration: 500ms
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
