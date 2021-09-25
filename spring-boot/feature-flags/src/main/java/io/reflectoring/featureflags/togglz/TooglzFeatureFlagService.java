@@ -26,4 +26,9 @@ public class TooglzFeatureFlagService implements FeatureFlagService {
         return Features.USER_ACTION_TARGETED_FEATURE.isActive();
     }
 
+    @Override
+    public Boolean isNewServiceEnabled() {
+        return false;
+    }
+
 }
