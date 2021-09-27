@@ -300,4 +300,13 @@ public class ExtractedPropertiesTests {
                 .contains("Tony", "Carol","Bruce","Natalia");
     }
 
+    // ----------- Method call extracting --------
+    @Test
+    void filterOnAllSesionThatAreFomToday_methodCallExtractingMethod(){
+        assertThat(sessionService.getAll())
+                .extractingResultOf("getDurationInMinutes", long.class)
+                .filteredOn(duration -> duration < 120l)
+                .hasSize(1);
+    }
+
 }
