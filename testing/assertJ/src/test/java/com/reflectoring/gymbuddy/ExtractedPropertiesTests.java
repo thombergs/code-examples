@@ -236,20 +236,6 @@ public class ExtractedPropertiesTests {
     }
 
     @Test
-    void checkByName_NotUsingExtracting(){
-        assertThat(personService.getAll().stream().map(person -> person.getName()).collect(Collectors.toList()))
-                .contains("Tony", "Bruce", "Carol","Natalia")
-                .doesNotContain("Peter","Steve");
-    }
-
-    @Test
-    void checkByNameAndLastname_NotUsingExtracting(){
-        assertThat(personService.getAll().stream().map(person -> tuple(person.getName(), person.getLastname())).collect(Collectors.toList()))
-                .contains(tuple("Tony","Stark"), tuple("Carol", "Danvers"), tuple("Bruce", "Banner"),tuple("Natalia","Romanova"))
-                .doesNotContain(tuple("Peter", "Parker"), tuple("Steve","Rogers"));
-    }
-
-    @Test
     void checkByName_UsingExtracting(){
         assertThat(personService.getAll())
                 .extracting("name")
