@@ -4,15 +4,16 @@ import org.springframework.beans.factory.FactoryBean;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
+import java.util.function.Supplier;
 
-public class FeatureFlaggedBean<T> implements FactoryBean<T> {
+public class FeatureFlagFactoryBean<T> implements FactoryBean<T> {
 
     private final Class<T> targetClass;
-    private final FeatureFlagEvaluation featureFlagEvaluation;
+    private final Supplier<Boolean> featureFlagEvaluation;
     private final T beanWhenTrue;
     private final T beanWhenFalse;
 
-    public FeatureFlaggedBean(Class<T> targetClass, FeatureFlagEvaluation featureFlagEvaluation, T beanWhenTrue, T beanWhenFalse) {
+    public FeatureFlagFactoryBean(Class<T> targetClass, Supplier<Boolean> featureFlagEvaluation, T beanWhenTrue, T beanWhenFalse) {
         this.targetClass = targetClass;
         this.featureFlagEvaluation = featureFlagEvaluation;
         this.beanWhenTrue = beanWhenTrue;
@@ -21,9 +22,8 @@ public class FeatureFlaggedBean<T> implements FactoryBean<T> {
 
     @Override
     public T getObject() {
-
         InvocationHandler invocationHandler = (proxy, method, args) -> {
-            if (featureFlagEvaluation.evaluate()) {
+            if (featureFlagEvaluation.get()) {
                 return method.invoke(beanWhenTrue, args);
             } else {
                 return method.invoke(beanWhenFalse, args);

@@ -20,6 +20,9 @@ public class ReplaceMethodTest {
     @Autowired
     private Service service;
 
+    @Autowired
+    private OldService oldService;
+
     @BeforeEach
     void resetMocks() {
         Mockito.reset(featureFlagService);
@@ -29,12 +32,15 @@ public class ReplaceMethodTest {
     void oldServiceTest() {
         given(featureFlagService.isNewServiceEnabled()).willReturn(false);
         assertThat(service.doSomething()).isEqualTo(1);
+        assertThat(oldService.doSomethingElse()).isEqualTo(2);
     }
 
     @Test
     void newServiceTest() {
         given(featureFlagService.isNewServiceEnabled()).willReturn(true);
         assertThat(service.doSomething()).isEqualTo(42);
+        // doSomethingElse() is not behind a feature flag, so it should return the same value independant of the feature flag
+        assertThat(oldService.doSomethingElse()).isEqualTo(2);
     }
 
 }

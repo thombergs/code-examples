@@ -26,4 +26,5 @@ class FeatureFlaggedService implements Service {
             return oldService.doSomething();
         }
     }
+
 }

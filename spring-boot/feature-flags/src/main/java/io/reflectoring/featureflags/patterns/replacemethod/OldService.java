@@ -8,4 +8,9 @@ class OldService implements Service {
     public int doSomething() {
         return 1;
     }
+
+    public int doSomethingElse(){
+        return 2;
+    }
+
 }

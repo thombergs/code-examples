@@ -8,4 +8,5 @@ class NewService implements Service {
     public int doSomething() {
         return 42;
     }
+
 }
