@@ -28,13 +28,13 @@ public class ReplaceBeanTest {
     @Test
     void oldServiceTest() {
         given(featureFlagService.isNewServiceEnabled()).willReturn(false);
-        assertThat(service.doSomething()).isEqualTo(1);
+        assertThat(service.doSomething()).isEqualTo("old value");
     }
 
     @Test
     void newServiceTest() {
         given(featureFlagService.isNewServiceEnabled()).willReturn(true);
-        assertThat(service.doSomething()).isEqualTo(42);
+        assertThat(service.doSomething()).isEqualTo("new value");
     }
 
 }

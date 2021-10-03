@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OldService1 implements Service1 {
     @Override
-    public int doSomething() {
-        return 1;
+    public String doSomething() {
+        return "old value";
     }
 }

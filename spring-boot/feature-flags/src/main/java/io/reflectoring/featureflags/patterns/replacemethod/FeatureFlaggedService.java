@@ -19,7 +19,7 @@ class FeatureFlaggedService implements Service {
     }
 
     @Override
-    public int doSomething() {
+    public String doSomething() {
         if (featureFlagService.isNewServiceEnabled()) {
             return newService.doSomething();
         } else {

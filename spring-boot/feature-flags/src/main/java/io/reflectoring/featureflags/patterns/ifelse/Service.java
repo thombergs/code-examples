@@ -12,11 +12,11 @@ class Service {
         this.featureFlagService = featureFlagService;
     }
 
-    public int doSomething() {
+    public String doSomething() {
         if (featureFlagService.isNewServiceEnabled()) {
-            return 42;
+            return "new value";
         } else {
-            return 1;
+            return "old value";
         }
     }
 }

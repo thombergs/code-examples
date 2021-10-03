@@ -31,14 +31,14 @@ public class ReplaceMethodTest {
     @Test
     void oldServiceTest() {
         given(featureFlagService.isNewServiceEnabled()).willReturn(false);
-        assertThat(service.doSomething()).isEqualTo(1);
+        assertThat(service.doSomething()).isEqualTo("old value");
         assertThat(oldService.doSomethingElse()).isEqualTo(2);
     }
 
     @Test
     void newServiceTest() {
         given(featureFlagService.isNewServiceEnabled()).willReturn(true);
-        assertThat(service.doSomething()).isEqualTo(42);
+        assertThat(service.doSomething()).isEqualTo("new value");
         // doSomethingElse() is not behind a feature flag, so it should return the same value independant of the feature flag
         assertThat(oldService.doSomethingElse()).isEqualTo(2);
     }
