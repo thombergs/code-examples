@@ -1,0 +1,353 @@
+package com.reflectoring.gymbuddy;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.in;
+
+import com.reflectoring.gymbuddy.conditions.SessionStartedTodayCondition;
+import com.reflectoring.gymbuddy.domain.Person;
+import com.reflectoring.gymbuddy.domain.Session;
+import com.reflectoring.gymbuddy.dto.person.PersonAddRequest;
+import com.reflectoring.gymbuddy.dto.person.PersonAddRequest.PersonAddRequestBuilder;
+import com.reflectoring.gymbuddy.dto.session.SessionAddRequest;
+import com.reflectoring.gymbuddy.dto.session.SessionAddRequest.SessionAddRequestBuilder;
+import com.reflectoring.gymbuddy.dto.set.SetAddRequest;
+import com.reflectoring.gymbuddy.dto.set.SetAddRequest.SetAddRequestBuilder;
+import com.reflectoring.gymbuddy.dto.workout.WorkoutAddRequest;
+import com.reflectoring.gymbuddy.dto.workout.WorkoutAddRequest.WorkoutAddRequestBuilder;
+import com.reflectoring.gymbuddy.services.PersonService;
+import com.reflectoring.gymbuddy.services.SessionService;
+import com.reflectoring.gymbuddy.services.SetService;
+import com.reflectoring.gymbuddy.services.WorkoutService;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.assertj.core.api.Condition;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+
+@SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+public class FilteringTests {
+
+  @Autowired
+  PersonService personService;
+
+  @Autowired
+  SessionService sessionService;
+
+  @Autowired
+  WorkoutService workoutService;
+
+  @Autowired
+  SetService setService;
+
+
+  @BeforeAll
+  void init(){
+    // Adding persons
+    PersonAddRequest ironmanReq = new PersonAddRequestBuilder()
+        .name("Tony")
+        .lastname("Stark")
+        .email("tony.stark@avengers.com")
+        .password("avengers")
+        .build();
+    PersonAddRequest hulkReq = new PersonAddRequestBuilder()
+        .name("Bruce")
+        .lastname("Banner")
+        .email("bruce.banner@avengers.com")
+        .password("avengers")
+        .build();
+    PersonAddRequest marvelReq = new PersonAddRequestBuilder()
+        .name("Carol")
+        .lastname("Danvers")
+        .email("carol.danvers@avengers.com")
+        .password("avengers")
+        .build();
+    PersonAddRequest widowReq = new PersonAddRequestBuilder()
+        .name("Natalia")
+        .lastname("Romanova")
+        .email("natalia.romanova@avengers.com")
+        .password("avengers")
+        .build();
+
+    Person ironman = personService.add(ironmanReq);
+    Person hulk = personService.add(hulkReq);
+    Person marvel = personService.add(marvelReq);
+    Person widow = personService.add(widowReq);
+
+    // Adding friends to each person
+    personService.addFriend(ironman.getEmail(), hulk.getEmail());
+    personService.addFriend(ironman.getEmail(),widow.getEmail());
+
+    personService.addFriend(hulk.getEmail(), widow.getEmail());
+    personService.addFriend(hulk.getEmail(), marvel.getEmail());
+
+    // Sets requests
+    SetAddRequest pushupSetV1 = new SetAddRequestBuilder()
+        .weight(0)
+        .reps(50)
+        .build();
+    SetAddRequest pushupSetV2 = new SetAddRequestBuilder()
+        .weight(0)
+        .reps(25)
+        .build();
+
+    SetAddRequest pullupsSetV1 = new SetAddRequestBuilder()
+        .weight(0)
+        .reps(20)
+        .build();
+    SetAddRequest pullupsSetV2 = new SetAddRequestBuilder()
+        .weight(0)
+        .reps(25)
+        .build();
+    SetAddRequest pullupsSetV3 = new SetAddRequestBuilder()
+        .weight(0)
+        .reps(35)
+        .build();
+    SetAddRequest pullupsSetV4 = new SetAddRequestBuilder()
+        .weight(0)
+        .reps(5)
+        .build();
+
+    SetAddRequest squatsSetV1 = new SetAddRequestBuilder()
+        .weight(120)
+        .reps(20)
+        .build();
+
+    SetAddRequest deadliftsSetV1 = new SetAddRequestBuilder()
+        .weight(80)
+        .reps(40)
+        .build();
+    SetAddRequest deadliftsSetV2 = new SetAddRequestBuilder()
+        .weight(150)
+        .reps(20)
+        .build();
+    SetAddRequest deadliftsSetV3 = new SetAddRequestBuilder()
+        .weight(250)
+        .reps(5)
+        .build();
+
+    SetAddRequest hiitSetV1 = new SetAddRequestBuilder()
+        .weight(0)
+        .reps(5)
+        .build();
+    SetAddRequest hiitSetV2 = new SetAddRequestBuilder()
+        .weight(0)
+        .reps(50)
+        .build();
+    SetAddRequest hiitSetV3 = new SetAddRequestBuilder()
+        .weight(0)
+        .reps(25)
+        .build();
+    SetAddRequest hiitSetV4 = new SetAddRequestBuilder()
+        .weight(50)
+        .reps(40)
+        .build();
+    SetAddRequest hiitSetV5 = new SetAddRequestBuilder()
+        .weight(100)
+        .reps(5)
+        .build();
+
+
+    // Workout requests
+    WorkoutAddRequest pushups = new WorkoutAddRequestBuilder()
+        .sets(List.of(pushupSetV1, pushupSetV1, pushupSetV2, pushupSetV1, pushupSetV2))
+        .build();
+    WorkoutAddRequest pullups = new WorkoutAddRequestBuilder()
+        .sets(List.of(pullupsSetV1, pullupsSetV2, pullupsSetV1, pullupsSetV4, pullupsSetV3))
+        .build();
+    WorkoutAddRequest squats = new WorkoutAddRequestBuilder()
+        .sets(List.of(squatsSetV1,squatsSetV1,squatsSetV1,squatsSetV1,squatsSetV1,squatsSetV1))
+        .build();
+    WorkoutAddRequest deadlifts = new WorkoutAddRequestBuilder()
+        .sets(List.of(deadliftsSetV1, deadliftsSetV2, deadliftsSetV1, deadliftsSetV2, deadliftsSetV3))
+        .build();
+    WorkoutAddRequest hiit = new WorkoutAddRequestBuilder()
+        .sets(List.of(hiitSetV1,hiitSetV2,hiitSetV3,hiitSetV4,hiitSetV5))
+        .build();
+
+    // Adding session to each
+    SessionAddRequest ironmanSessionOne = new SessionAddRequestBuilder()
+        .start(LocalDateTime.now())
+        .end(LocalDateTime.now().plusHours(2))
+        .workouts(List.of(pushups, pullups, squats))
+        .build();
+    SessionAddRequest ironmanSessionTwo = new SessionAddRequestBuilder()
+        .start(LocalDateTime.now().minusDays(2))
+        .end(LocalDateTime.now().minusDays(2).plusHours(3))
+        .workouts(List.of(deadlifts,squats))
+        .build();
+    SessionAddRequest ironmanSessionThree = new SessionAddRequestBuilder()
+        .start(LocalDateTime.now().minusDays(3))
+        .end(LocalDateTime.now().minusDays(3).plusHours(2))
+        .workouts(List.of(hiit))
+        .build();
+
+    SessionAddRequest hulkSessionOne = new SessionAddRequestBuilder()
+        .start(LocalDateTime.now())
+        .end(LocalDateTime.now().plusHours(3))
+        .workouts(List.of(squats, deadlifts))
+        .build();
+    SessionAddRequest hulkSessionTwo = new SessionAddRequestBuilder()
+        .start(LocalDateTime.now().minusDays(4))
+        .end(LocalDateTime.now().minusDays(4).plusHours(2))
+        .workouts(List.of(pullups, pushups, hiit))
+        .build();
+
+    SessionAddRequest marvelSessionOne = new SessionAddRequestBuilder()
+        .start(LocalDateTime.now())
+        .end(LocalDateTime.now().plusHours(2))
+        .workouts(List.of(pushups, pullups, squats))
+        .build();
+    SessionAddRequest marvelSessionTwo = new SessionAddRequestBuilder()
+        .start(LocalDateTime.now().minusDays(5))
+        .end(LocalDateTime.now().minusDays(5).plusHours(4))
+        .workouts(List.of(deadlifts, squats))
+        .build();
+    SessionAddRequest marvelSessionThree = new SessionAddRequestBuilder()
+        .start(LocalDateTime.now().minusDays(1))
+        .end(LocalDateTime.now().minusDays(1).plusHours(1))
+        .workouts(List.of(hiit))
+        .build();
+    SessionAddRequest marvelSessionFour = new SessionAddRequestBuilder()
+        .start(LocalDateTime.now().minusDays(10))
+        .end(LocalDateTime.now().minusDays(10).plusHours(5))
+        .workouts(List.of(pushups, pullups, squats, deadlifts))
+        .build();
+
+    SessionAddRequest widowSessionOne = new SessionAddRequestBuilder()
+        .start(LocalDateTime.now())
+        .end(LocalDateTime.now().plusHours(4))
+        .workouts(List.of(hiit, squats))
+        .build();
+
+    // Adding sessions to persons
+    sessionService.add(ironman,ironmanSessionOne);
+    sessionService.add(ironman,ironmanSessionTwo);
+    sessionService.add(ironman, ironmanSessionThree);
+
+    sessionService.add(hulk, hulkSessionOne);
+    sessionService.add(hulk, hulkSessionTwo);
+
+    sessionService.add(marvel, marvelSessionOne);
+    sessionService.add(marvel, marvelSessionTwo);
+    sessionService.add(marvel, marvelSessionThree);
+    sessionService.add(marvel, marvelSessionFour);
+
+    sessionService.add(widow, widowSessionOne);
+  }
+
+  // ---------- Predicate filtering ------------
+  @Test
+  void checkIfTonyIsInList_basicFiltering(){
+    assertThat(personService.getAll()).filteredOn(person -> person.getName().equals("Tony")).isNotEmpty();
+  }
+
+  @Test
+  @Disabled
+  void checkIfTonyIsInList_NullValue_basicFiltering(){
+    List<Session> sessions = sessionService.getAll().stream().map(
+            session -> {
+              if(session.getPerson().getName().equals("Tony")){
+                return new Session.SessionBuilder()
+                        .id(session.getId())
+                        .start(session.getStart())
+                        .end(session.getEnd())
+                        .workouts(session.getWorkouts())
+                        .person(null)
+                        .build();
+              }
+              return session;
+            }
+    ).collect(Collectors.toList());
+
+    assertThat(sessions).filteredOn(session -> session.getPerson().getName().equals("Tony")).isEmpty();
+  }
+
+  // How to filter when list is inside list
+  // Check how many sessions there are that are done today
+  // Filtering on nested properties
+
+  @Test
+  void filterOnAllSessionsThatAreFromToday_nestedFiltering() {
+    assertThat(personService.getAll())
+        .map(person -> person.getSessions().stream().filter(session -> session.getStart().isAfter(LocalDateTime.now().minusHours(1))).count())
+        .filteredOn(session -> session > 0).size().isEqualTo(4);
+  }
+
+  //Filtering on complex conditions
+  @Test
+  void filterOnNameContainsOAndNumberOfFriends_complexFiltering(){
+    assertThat(personService.getAll())
+            .filteredOn(person -> person.getName().contains("o") && person.getFriends().size() > 1)
+            .hasSize(1);
+  }
+
+
+  // -------------- Field filtering --------------
+  @Test
+  void checkIfTonyIsInList_basicFieldFiltering(){
+    assertThat(personService.getAll()).filteredOn("name", "Tony").isNotEmpty();
+  }
+
+  @Test
+  void checkIfTonyIsInList_NullValue_basicFieldFiltering(){
+    List<Session> sessions = sessionService.getAll().stream().map(
+            session -> {
+              if(session.getPerson().getName().equals("Tony")){
+                return new Session.SessionBuilder()
+                        .id(session.getId())
+                        .start(session.getStart())
+                        .end(session.getEnd())
+                        .workouts(session.getWorkouts())
+                        .person(null)
+                        .build();
+              }
+              return session;
+            }
+    ).collect(Collectors.toList());
+
+    assertThat(sessions).filteredOn("person.name","Tony").isEmpty();
+  }
+  //Filtering on complex conditions
+  @Test
+  void filterOnNameContainsOAndNumberOfFriends_complexFieldFiltering() {
+    assertThat(personService.getAll())
+            .filteredOn("name", in("Tony","Carol"))
+            .filteredOn(person -> person.getFriends().size() > 1)
+            .hasSize(1);
+  }
+
+  // ---------- Custom condition filtering ------------
+
+  // How to filter when list is inside list
+  // Check how many sessions there are that are done today
+  // Filtering on nested properties
+
+  @Test
+  void filterOnAllSessionsThatAreFromToday_customConditionFiltering() {
+    Condition<Person> sessionStartedToday = new SessionStartedTodayCondition();
+    assertThat(personService.getAll())
+            .filteredOn(sessionStartedToday)
+            .hasSize(4);
+  }
+
+  //Filtering on complex conditions
+  @Test
+  void filterOnNameContainsOAndNumberOfFriends_customConditionFiltering(){
+    Condition<Person> nameAndFriendsCondition = new Condition<>(){
+      @Override
+      public boolean matches(Person person){
+        return person.getName().contains("o") && person.getFriends().size() > 1;
+      }
+    };
+    assertThat(personService.getAll())
+            .filteredOn(nameAndFriendsCondition)
+            .hasSize(1);
+  }
+
+}
