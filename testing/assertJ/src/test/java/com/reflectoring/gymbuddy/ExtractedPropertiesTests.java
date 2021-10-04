@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +26,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class ExtractedPropertiesTests {
 
     @Autowired
@@ -304,7 +306,7 @@ public class ExtractedPropertiesTests {
     @Test
     void filterOnAllSesionThatAreFomToday_methodCallExtractingMethod(){
         assertThat(sessionService.getAll())
-                .extractingResultOf("getDurationInMinutes", long.class)
+                .extractingResultOf("getDurationInMinutes", Long.class)
                 .filteredOn(duration -> duration < 120l)
                 .hasSize(1);
     }

@@ -1,6 +1,8 @@
 package com.reflectoring.gymbuddy.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -77,6 +79,10 @@ public class Session {
 
   public Person getPerson() {
     return person;
+  }
+
+  public long getDurationInMinutes(){
+    return Duration.between(start, end).toMinutes();
   }
 
   public static class SessionBuilder{
