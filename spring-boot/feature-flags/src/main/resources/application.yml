@@ -16,3 +16,7 @@ togglz:
     secured: false
     path: /togglz
     use-management-port: false
+
+features:
+  featureOne: true
+  featureTwo: 42
