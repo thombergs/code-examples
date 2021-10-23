@@ -99,6 +99,25 @@ resilience4j:
         limitRefreshPeriod: 1s
         timeoutDuration: 500ms
 
+  timelimiter:
+    instances:
+
+      # TimeLimiter object used in TimeLimitingService.basicExample()
+      basicExample:
+        timeoutDuration: 2s
+
+      # TimeLimiter object used in TimeLimitingService.timeoutExample()
+      timeoutExample:
+        timeoutDuration: 500ms
+
+      # TimeLimiter object used in TimeLimitingService.eventsExample()
+      eventsExample:
+        timeoutDuration: 2s
+
+      # TimeLimiter object used in TimeLimitingService.fallbackExample()
+      fallbackExample:
+        timeoutDuration: 500ms
+
 management:
   endpoints:
     web:
