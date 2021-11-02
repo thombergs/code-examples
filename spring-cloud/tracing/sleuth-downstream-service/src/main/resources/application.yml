@@ -1,7 +1,5 @@
 server.port: 8080
 
-spring.zipkin.baseUrl: http://localhost:9411/
-
 customers:
   ribbon:
     eureka:

@@ -1,0 +1,10 @@
+pluginManagement {
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+}
+
+include "sleuth-downstream-service"
+include "sleuth-upstream-service"
