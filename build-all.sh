@@ -88,6 +88,7 @@ then
   # (add new modules above the rest so you get quicker feedback if it fails)
   build maven_module "http-clients"
   build maven_module "spring-boot/spring-boot-i18n"
+  build_maven_module "testing/assertJ"
   build maven_module "spring-boot/spring-boot-scheduler"
   build maven_module "aws/springcloudwatch"
   build maven_module "aws/springcloudses"

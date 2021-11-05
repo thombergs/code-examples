@@ -22,4 +22,6 @@ public interface FeatureFlagService {
      */
     Boolean isUserActionTargetedFeatureActive();
 
+    Boolean isNewServiceEnabled();
+
 }

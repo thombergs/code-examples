@@ -4,11 +4,13 @@ import com.launchdarkly.sdk.LDUser;
 import com.launchdarkly.sdk.server.LDClient;
 import io.reflectoring.featureflags.FeatureFlagService;
 import io.reflectoring.featureflags.web.UserSession;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
 @Component("launchdarkly")
+@Primary
 public class LaunchDarklyFeatureFlagService implements FeatureFlagService {
 
     private final LDClient launchdarklyClient;
@@ -54,6 +56,11 @@ public class LaunchDarklyFeatureFlagService implements FeatureFlagService {
     @Override
     public Boolean isUserActionTargetedFeatureActive() {
         return launchdarklyClient.boolVariation("user-clicked-flag", getLaunchdarklyUserFromSession(), false);
+    }
+
+    @Override
+    public Boolean isNewServiceEnabled() {
+        return true;
     }
 
     private LDUser getLaunchdarklyUserFromSession() {

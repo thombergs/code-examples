@@ -33,4 +33,9 @@ public class FF4JFeatureFlagService implements FeatureFlagService {
         return null;
     }
 
+    @Override
+    public Boolean isNewServiceEnabled() {
+        return null;
+    }
+
 }
