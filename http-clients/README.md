@@ -1,3 +1,3 @@
 # Related Blog Posts
 
-* [Complete guide to CSRF](https://reflectoring.io/complete-guide-to-csrf/)
+* [Comparison of Java HTTP Clients](https://reflectoring.io/comparison-of-java-http-clients/)
