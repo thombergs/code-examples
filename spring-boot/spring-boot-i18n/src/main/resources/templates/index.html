@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title data-th-text="#{label.title}"></title>
+  </head>
+  <body>
+    <h2 data-th-text="#{label.title}"></h2>
+    <p data-th-text="#{label.chooseLang}"></p>
+    <div>
+        <span>
+            <a href="/index?language=en" data-th-text="#{label.lang.en}"></a>&nbsp;&nbsp;&nbsp;
+            <a href="/index?language=de" data-th-text="#{label.lang.de}"></a>&nbsp;&nbsp;&nbsp;
+            <a href="/index?language=fr" data-th-text="#{label.lang.fr}"></a>
+        </span>
+  
+    </div>
+    <br/><br/>
+    <table border="1">
+        <tr>
+          <th data-th-text="#{label.product.name}"></th>
+          <th data-th-text="#{label.product.price}"></th>
+          <th data-th-text="#{label.product.lastUpdated}"></th>
+        </tr>
+	    <tr th:each="product: ${products}">
+	        <td data-th-text="#{__${product.name}__}"></td>
+		    <td data-th-text="${product.price}" />
+		    <td data-th-text="${product.lastUpdated}" />
+	    </tr>
+    </table>
+  </body>
+</html>
