@@ -28,10 +28,6 @@
             </plugin>
         </plugins>
     </build>
-    <modules>
-        <module>src/main/java/com/reflectoring/io/java9/modules/hellos</module>
-        <module>src/main/java/com/reflectoring/io/java9/modules/worlds</module>
-    </modules>
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
