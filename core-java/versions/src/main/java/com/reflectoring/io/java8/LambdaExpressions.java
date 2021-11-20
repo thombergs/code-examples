@@ -15,9 +15,6 @@ public class LambdaExpressions {
         List<Car> oldWayModel = findCarsWithModelOldWay(cars);
         System.out.println(oldWayModel);
 
-        List<Car> criteriaLambda = findCarsUsingLambdaCriteria(cars, (Car car) -> car.kilometers < 500000 && car.model.equals("Mercedes"));
-        System.out.println(criteriaLambda);
-
         List<Car> filterLambda = findCarsUsingLambda(cars);
         System.out.println(filterLambda);
 
@@ -47,22 +44,9 @@ public class LambdaExpressions {
         return selectedCars;
     }
 
-    public static List<Car> findCarsUsingLambdaCriteria(List<Car> cars, Criteria<Car> criteria){
-        List<Car> selectedCars = new ArrayList<>();
-        for(Car car: cars){
-            if(criteria.evaluate(car)){
-                selectedCars.add(car);
-            }
-        }
-        return selectedCars;
-    }
-
     public class Car{
         public String model;
         public double kilometers;
     }
 
-    public interface Criteria<T>{
-        boolean evaluate(T t);
-    }
 }
