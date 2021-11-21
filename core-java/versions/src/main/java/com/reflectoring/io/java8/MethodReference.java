@@ -6,19 +6,16 @@ import java.util.stream.Collectors;
 
 public class MethodReference {
 
-    public static void main(String[] args) {
-        List<Car> cars = new ArrayList<>();
+    List<Car> cars = new ArrayList<>();
 
-        List<String> withoutMethodReference = cars.stream().map(car -> car.toString()).collect(Collectors.toList());
-        System.out.println(withoutMethodReference);
+    List<String> withoutMethodReference =
+            cars.stream().map(car -> car.toString())
+                    .collect(Collectors.toList());
 
-        List<String> methodReference = cars.stream().map(Car::toString).collect(Collectors.toList());
-        System.out.println(methodReference);
+    List<String> methodReference = cars.stream().map(Car::toString)
+            .collect(Collectors.toList());
 
-
-    }
-
-    public class Car{
+    public class Car {
         public String model;
         public double kilometers;
 

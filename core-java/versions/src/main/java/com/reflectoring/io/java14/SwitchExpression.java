@@ -6,15 +6,30 @@ public class SwitchExpression {
         int days = 0;
         Month month = Month.APRIL;
 
-        days = switch (month){
-            case JANUARY, MARCH,MAY, JULY, AUGUST,OCTOBER,DECEMBER -> 31;
+        switch (month) {
+            case JANUARY, MARCH, MAY, JULY, AUGUST, OCTOBER,
+                    DECEMBER:
+                days = 31;
+                break;
+            case FEBRUARY:
+                days = 28;
+                break;
+            case APRIL, JUNE, SEPTEMBER, NOVEMBER:
+                days = 30;
+                break;
+            default:
+                throw new IllegalStateException();
+        }
+
+        days = switch (month) {
+            case JANUARY, MARCH, MAY, JULY, AUGUST, OCTOBER, DECEMBER -> 31;
             case FEBRUARY -> 28;
-            case APRIL, JUNE, SEPTEMBER,NOVEMBER ->  30;
+            case APRIL, JUNE, SEPTEMBER, NOVEMBER -> 30;
             default -> throw new IllegalStateException();
         };
 
-        days = switch (month){
-            case JANUARY, MARCH,MAY, JULY, AUGUST,OCTOBER,DECEMBER -> {
+        days = switch (month) {
+            case JANUARY, MARCH, MAY, JULY, AUGUST, OCTOBER, DECEMBER -> {
                 System.out.println(month);
                 yield 31;
             }
@@ -22,29 +37,16 @@ public class SwitchExpression {
                 System.out.println(month);
                 yield 28;
             }
-            case APRIL, JUNE, SEPTEMBER,NOVEMBER -> {
+            case APRIL, JUNE, SEPTEMBER, NOVEMBER -> {
                 System.out.println(month);
                 yield 30;
             }
             default -> throw new IllegalStateException();
         };
 
-        switch (month){
-            case JANUARY, MARCH,MAY, JULY, AUGUST,OCTOBER,DECEMBER:
-                days=31;
-                break;
-            case FEBRUARY:
-                days=28;
-                break;
-            case APRIL, JUNE, SEPTEMBER,NOVEMBER:
-                days = 30;
-                break;
-            default:
-                throw new IllegalStateException();
-        }
     }
 
-    public enum Month{
+    public enum Month {
         JANUARY,
         FEBRUARY,
         MARCH,

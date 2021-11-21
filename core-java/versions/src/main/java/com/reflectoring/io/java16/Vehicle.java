@@ -32,7 +32,8 @@ public class Vehicle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vehicle vehicle = (Vehicle) o;
-        return code.equals(vehicle.code) && engineType.equals(vehicle.engineType);
+        return code.equals(vehicle.code) &&
+                engineType.equals(vehicle.engineType);
     }
 
     @Override
