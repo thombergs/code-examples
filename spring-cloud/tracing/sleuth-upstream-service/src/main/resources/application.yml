@@ -1,7 +1,0 @@
-logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
-
-server.port: 8081
-spring:
-  output:
-    ansi:
-      enabled: always

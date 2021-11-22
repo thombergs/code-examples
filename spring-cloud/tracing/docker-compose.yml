@@ -1,0 +1,15 @@
+version: "3.5"
+
+services:
+
+  downstream:
+    build: ./downstream-service/
+    image: downstream:latest
+    ports:
+      - "8080:8080"
+
+  upstream:
+    build: ./upstream-service/
+    image: upstream:latest
+    ports:
+      - "8081:8081"

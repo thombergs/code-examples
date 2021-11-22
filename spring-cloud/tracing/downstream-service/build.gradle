@@ -3,3 +3,12 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+bootJar {
+    enabled = true
+    mainClass.set('com.example.demo.DemoApplication')
+}
+
+jar {
+    enabled = false
+}

@@ -1,0 +1,8 @@
+server.port: 8081
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  application:
+    name: upstream-service
