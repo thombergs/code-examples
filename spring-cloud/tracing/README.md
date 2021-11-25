@@ -6,4 +6,4 @@
 
 The above HTTP call goes to the `downstream-service`, which will call the `upstream-service` for additional information. This will create a trace across both services, as should be evident in the logs with the same trace id.
 
-The `docker-compose` command also starts up an OpenTelemetry Collector, to which the Spring Boot apps send their traces. The OpenTelemetry Collector, in turn, sends the traces to Logs.io.
+The `docker-compose` command also starts up an OpenTelemetry Collector, to which the Spring Boot apps send their traces. The OpenTelemetry Collector, in turn, sends the traces to Logz.io.
