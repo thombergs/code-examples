@@ -1,11 +1,9 @@
-# Log Tracing with Spring Cloud Sleuth
+# Tracing with Spring Cloud Sleuth, OpenTelemetry and Logz.io
  
-This project shows how to implement tracing in a network of Spring Boot applications.
+- run `./mvnw clean install` to build the two Spring Boot applications (`downstream-service` and `upstream-service)
+- run `LOGZIO_REGION=<YOUR_LOGZIO_REGION> LOGZIO_TRACES_TOKEN=<YOUR_LOGZIO_TRACING_TOKEN> docker-compose up --build`
+- call `http://localhost:8080/customers-with-address/<ID>` (where ID is a number from 1 to 50)
 
-## Companion Blog Article
-The companion blog article to this repository can be found [here](https://reflectoring.io/tracing-with-spring-cloud-sleuth/).
+The above HTTP call goes to the `downstream-service`, which will call the `upstream-service` for additional information. This will create a trace across both services, as should be evident in the logs with the same trace id.
 
-## Getting Started
-
-* build the sources with `./gradlew clean build` (don't forge to also do this after every change to the code, otherwise Docker will start the old image)
-* run the applications in Docker with `docker-compose up --build`
+The `docker-compose` command also starts up an OpenTelemetry Collector, to which the Spring Boot apps send their traces. The OpenTelemetry Collector, in turn, sends the traces to Logs.io.
