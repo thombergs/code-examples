@@ -1,6 +1,6 @@
 # Tracing with Spring Cloud Sleuth, OpenTelemetry and Logz.io
  
-- run `./mvnw clean install` to build the two Spring Boot applications (`downstream-service` and `upstream-service)
+- run `./mvnw clean install` to build the two Spring Boot applications (`downstream-service` and `upstream-service`)
 - run `LOGZIO_REGION=<YOUR_LOGZIO_REGION> LOGZIO_TRACES_TOKEN=<YOUR_LOGZIO_TRACING_TOKEN> docker-compose up --build`
 - call `http://localhost:8080/customers-with-address/<ID>` (where ID is a number from 1 to 50)
 
