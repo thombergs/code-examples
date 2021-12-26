@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,6 +21,7 @@ public class FlightSearchService {
 
   PotentialFailure potentialFailure = new NoFailure();
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss SSS");
+  Random random = new Random();
 
   PotentialFailureCheckedException potentialFailureCheckedException = new NoCheckedExceptionFailure();
 
@@ -107,5 +109,43 @@ public class FlightSearchService {
     SearchResponse response = new SearchResponse();
     response.setFlights(flights);
     return response;
+  }
+
+  public List<Flight> searchFlightsTakingOneSecond(SearchRequest request) {
+    System.out.println("Searching for flights; "
+        + "current time = " + LocalDateTime.now().format(formatter) +
+        "; current thread = " + Thread.currentThread().getName());
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    List<Flight> flights = Arrays.asList(
+        new Flight("XY 765", request.getFlightDate(), request.getFrom(), request.getTo()),
+        new Flight("XY 746", request.getFlightDate(), request.getFrom(), request.getTo())
+    );
+    System.out.println("Flight search successful at " + LocalDateTime.now().format(formatter));
+    return flights;
+  }
+
+  public List<Flight> searchFlightsTakingRandomTime(SearchRequest request) {
+    long delay = random.nextInt(3000);
+    try {
+      Thread.sleep(delay);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    System.out.println("Searching for flights; "
+        + "current time = " + LocalDateTime.now().format(formatter) +
+        "; current thread = " + Thread.currentThread().getName());
+
+    List<Flight> flights = Arrays.asList(
+        new Flight("XY 765", request.getFlightDate(), request.getFrom(), request.getTo()),
+        new Flight("XY 746", request.getFlightDate(), request.getFrom(), request.getTo())
+    );
+    System.out.println("Flight search successful");
+    return flights;
   }
 }
