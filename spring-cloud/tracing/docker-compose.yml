@@ -2,15 +2,15 @@ version: "3.5"
 
 services:
 
-  downstream:
-    build: ./downstream-service/
-    image: downstream:latest
+  api-service:
+    build: api-service/
+    image: api-service:latest
     ports:
       - "8080:8080"
 
-  upstream:
-    build: ./upstream-service/
-    image: upstream:latest
+  customer-service:
+    build: ./customer-service/
+    image: customer-service:latest
     ports:
       - "8081:8081"
 

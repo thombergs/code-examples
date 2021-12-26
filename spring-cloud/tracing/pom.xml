@@ -17,8 +17,8 @@
 
 
     <modules>
-        <module>downstream-service</module>
-        <module>upstream-service</module>
+        <module>api-service</module>
+        <module>customer-service</module>
     </modules>
 
 </project>
