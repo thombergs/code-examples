@@ -11,7 +11,7 @@ build_gradle_module() {
   echo "+++"
   cd $MODULE_PATH && {
     chmod +x gradlew
-    ./gradlew clean build
+    ./gradlew build
     if [ $? -ne 0 ]
     then
       echo ""
@@ -64,7 +64,7 @@ build_maven_module() {
   echo "+++"
   cd $MODULE_PATH && {
     chmod +x mvnw
-    ./mvnw clean package
+    ./mvnw package
     if [ $? -ne 0 ]
     then
       echo ""
@@ -86,6 +86,7 @@ if [[ "$MODULE" == "module6" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build_maven_module "spring-cloud/tracing"
   build_maven_module "core-java/versions"
   build maven_module "java-hashes"
   build maven_module "http-clients"
