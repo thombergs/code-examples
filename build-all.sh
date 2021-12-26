@@ -11,7 +11,7 @@ build_gradle_module() {
   echo "+++"
   cd $MODULE_PATH && {
     chmod +x gradlew
-    ./gradlew clean build
+    ./gradlew build
     if [ $? -ne 0 ]
     then
       echo ""
@@ -64,7 +64,7 @@ build_maven_module() {
   echo "+++"
   cd $MODULE_PATH && {
     chmod +x mvnw
-    ./mvnw clean package
+    ./mvnw package
     if [ $? -ne 0 ]
     then
       echo ""
