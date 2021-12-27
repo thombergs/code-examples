@@ -1,9 +1,0 @@
-logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
-
-spring.zipkin.baseUrl: http://localhost:9411/
-
-server.port: 8081
-spring:
-  output:
-    ansi:
-      enabled: always

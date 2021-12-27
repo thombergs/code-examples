@@ -1,0 +1,23 @@
+server.port: 8081
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  application:
+    name: customer-service
+
+  sleuth:
+    otel:
+      exporter:
+        otlp:
+          endpoint: http://collector:4317
+
+management:
+  endpoint:
+    beans:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: beans
