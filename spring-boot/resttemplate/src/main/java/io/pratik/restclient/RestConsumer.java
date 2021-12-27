@@ -124,33 +124,35 @@ public class RestConsumer {
 		
 	}
 	
-	private RequestCallback requestCallback(final Product updatedProduct) {
-	    return clientHttpRequest -> {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.writeValue(clientHttpRequest.getBody(), updatedProduct);
-	        clientHttpRequest.getHeaders().add(
-	          HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-	        clientHttpRequest.getHeaders().add(
-	          HttpHeaders.AUTHORIZATION, "Bearer Ahwye82939jeb ");
-	    };
-	}
+
 	
 	public void getProductAsStream() {
-		final Product updatedProduct = new Product("Television", "Samsung",1145.67,"S001");
+		final Product fetchProductRequest = new Product("Television", "Samsung",1145.67,"S001");
 		RestTemplate restTemplate = new RestTemplate();
 		String resourceUrl
 		  = "http://localhost:8080/products";
 	
 		
-		RequestCallback requestCallback = request -> request.getHeaders()
-			     .setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM, MediaType.ALL));
+		RequestCallback requestCallback = request -> {
+	        ObjectMapper mapper = new ObjectMapper();
+	            mapper.writeValue(request.getBody(), 
+	            		fetchProductRequest);
+
+		        request.getHeaders()
+			     .setAccept(Arrays.asList(
+			    		 MediaType.APPLICATION_OCTET_STREAM, 
+			    		 MediaType.ALL));
+		        };
 
 		ResponseExtractor<Void> responseExtractor = response -> {
 			     Path path = Paths.get("some/path");
 			     Files.copy(response.getBody(), path);
 			     return null;
 			 };
-		restTemplate.execute(resourceUrl, HttpMethod.GET, requestCallback(updatedProduct), responseExtractor );
+		restTemplate.execute(resourceUrl, 
+				HttpMethod.GET, 
+				requestCallback, 
+				responseExtractor );
 		
 		
 	}
