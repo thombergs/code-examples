@@ -1,3 +1,3 @@
 # Related Blog Posts
 
-* [How to do heap dump analysis](https://reflectoring.io/create-analyze-heapdump/)
+* [Logical Operations Between Java Collections](https://reflectoring.io/logical-ops-on-java-collections/)
