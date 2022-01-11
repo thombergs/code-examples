@@ -4,13 +4,18 @@
 package io.pratik;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author pratikdas
@@ -22,6 +27,7 @@ public class CollectionHelper {
 	    // determine the endpoints to use in `list.subList()` method
 	    int[] endpoints = {0, (listToSplit.size() + 1)/2, listToSplit.size()};
 	 
+	    
 	    List<List<T>> sublists =
 	            IntStream.rangeClosed(0, 1)
 	                    .mapToObj(i -> listToSplit.subList(endpoints[i], endpoints[i + 1]))
@@ -49,7 +55,7 @@ public class CollectionHelper {
 	}	
 	
 	public List<Integer> union(final List<Integer> collA, final List<Integer> collB){
-		Set<Integer> set = new HashSet<>();
+		Set<Integer> set = new LinkedHashSet<>();
 		set.addAll(collA);
 		set.addAll(collB);
 		
@@ -68,6 +74,49 @@ public class CollectionHelper {
 			return Collections.emptyList();
 		}
 		
+	}
+	
+	public Collection<List<Integer>> partition(final List<Integer> collA, final int chunkSize){
+		final AtomicInteger counter = new AtomicInteger();
+
+		final Collection<List<Integer>> result = collA.stream()
+		    .collect(Collectors.groupingBy(it -> counter.getAndIncrement() / chunkSize))
+		    .values();
+
+		return result;
+		
+	}
+	
+
+	public List<Integer> removeDuplicates(final List<Integer> collA){
+      List<Integer> listWithoutDuplicates = new ArrayList<>(
+         new LinkedHashSet<>(collA));
+      
+      return listWithoutDuplicates;
+	}
+	
+	public List<Integer> xor(final List<Integer> collA, final List<Integer> collB){
+	      
+	      List<Integer> listOfAnotInB = collA.stream().filter(element->{
+	    	  return !collB.contains(element);
+	      }).collect(Collectors.toList());
+	      
+	      List<Integer> listOfBnotInA = collB.stream().filter(element->{
+	    	  return !collA.contains(element);
+	      }).collect(Collectors.toList());
+	      
+	      return Stream.concat(listOfAnotInB.stream(), 
+	    		  listOfBnotInA.stream())
+	    			.collect(Collectors.toList());
+	}
+	
+	public List<Integer> not(final List<Integer> collA, final List<Integer> collB){
+		  
+		  List<Integer> notList = collA.stream().filter(element->{
+	    	  return !collB.contains(element);
+	      }).collect(Collectors.toList());
+	      
+	      return notList;
 	}
 	
 	public List<Integer> subtract(final List<Integer> collA, final List<Integer> collB){
