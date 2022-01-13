@@ -9,15 +9,15 @@ import java.util.List;
 @Value.Immutable
 public abstract class User {
 
-    abstract long getId();
+    public abstract long getId();
 
-    abstract String getName();
+    public abstract String getName();
 
-    abstract String getLastname();
+    public abstract String getLastname();
 
-    abstract String getEmail();
+    public abstract String getEmail();
 
-    abstract  String getPassword();
+    public abstract  String getPassword();
 
-    abstract List<Article> getArticles();
+    public abstract List<Article> getArticles();
 }
