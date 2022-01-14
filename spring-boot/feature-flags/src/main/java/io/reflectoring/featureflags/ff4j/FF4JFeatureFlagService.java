@@ -4,6 +4,9 @@ import io.reflectoring.featureflags.FeatureFlagService;
 import org.ff4j.FF4j;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 @Component("ff4j")
 public class FF4JFeatureFlagService implements FeatureFlagService {
 
@@ -36,6 +39,30 @@ public class FF4JFeatureFlagService implements FeatureFlagService {
     @Override
     public Boolean isNewServiceEnabled() {
         return null;
+    }
+
+    @Override
+    public Optional<LocalDateTime> currentDateForWelcomeMessage() {
+        // not supported
+        return Optional.of(LocalDateTime.now());
+    }
+
+    @Override
+    public Optional<LocalDateTime> currentDateForWelcomeEmails() {
+        // not supported
+        return Optional.of(LocalDateTime.now());
+    }
+
+    @Override
+    public Optional<LocalDateTime> currentDateForWelcomeMessage(String username) {
+        // not supported
+        return Optional.of(LocalDateTime.now());
+    }
+
+    @Override
+    public Optional<LocalDateTime> currentDateForWelcomeEmails(String username) {
+        // not supported
+        return Optional.of(LocalDateTime.now());
     }
 
 }
