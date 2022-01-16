@@ -106,7 +106,8 @@ then
   build_maven_module "logging/spring-boot"
   build_maven_module "logging/logback"
   build_maven_module "logging/log4j"
-
+  build_maven_module "spring-boot/spring-boot-null-safe-annotations"
+  
   echo ""
   echo "+++"
   echo "+++ MODULE 6 SUCCESSFUL"
