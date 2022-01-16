@@ -8,10 +8,16 @@ public class OptionalAndDefaultService {
         OptionalArticle article =  ImmutableOptionalArticle.builder().build();
         DefaultArticle defaultArticle = ImmutableDefaultArticle.builder()
                 .id(0l)
-                .content("Lorem ipsum content!")
+                .content("Lorem ipsum!")
                 .build();
 
-        System.out.println(article);
+        DefaultArticleInterface defaultArticleInterface =
+                ImmutableDefaultArticleInterface.builder()
+                        .id(0l)
+                        .content("Lorem ipsum!")
+                        .build();
+
         System.out.println(defaultArticle);
+        System.out.println(defaultArticleInterface);
     }
 }
