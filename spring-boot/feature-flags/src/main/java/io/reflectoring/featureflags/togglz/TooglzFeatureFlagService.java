@@ -3,6 +3,9 @@ package io.reflectoring.featureflags.togglz;
 import io.reflectoring.featureflags.FeatureFlagService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 @Component("togglz")
 public class TooglzFeatureFlagService implements FeatureFlagService {
 
@@ -30,5 +33,30 @@ public class TooglzFeatureFlagService implements FeatureFlagService {
     public Boolean isNewServiceEnabled() {
         return false;
     }
+
+    @Override
+    public Optional<LocalDateTime> currentDateForWelcomeMessage() {
+        // not supported
+        return Optional.of(LocalDateTime.now());
+    }
+
+    @Override
+    public Optional<LocalDateTime> currentDateForWelcomeEmails() {
+        // not supported
+        return Optional.of(LocalDateTime.now());
+    }
+
+    @Override
+    public Optional<LocalDateTime> currentDateForWelcomeMessage(String username) {
+        // not supported
+        return Optional.of(LocalDateTime.now());
+    }
+
+    @Override
+    public Optional<LocalDateTime> currentDateForWelcomeEmails(String username) {
+        // not supported
+        return Optional.of(LocalDateTime.now());
+    }
+
 
 }
