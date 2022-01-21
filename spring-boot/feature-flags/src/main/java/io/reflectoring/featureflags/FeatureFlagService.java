@@ -1,5 +1,8 @@
 package io.reflectoring.featureflags;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 public interface FeatureFlagService {
 
     /**
@@ -23,5 +26,22 @@ public interface FeatureFlagService {
     Boolean isUserActionTargetedFeatureActive();
 
     Boolean isNewServiceEnabled();
+
+    /**
+     * Returns the current time to be used by the welcome message feature.
+     */
+    Optional<LocalDateTime> currentDateForWelcomeMessage();
+
+    /**
+     * Returns the current time to be used by the welcome email feature.
+     */
+    Optional<LocalDateTime> currentDateForWelcomeEmails();
+
+    Optional<LocalDateTime> currentDateForWelcomeMessage(String username);
+
+    /**
+     * Returns the current time to be used by the welcome email feature.
+     */
+    Optional<LocalDateTime> currentDateForWelcomeEmails(String username);
 
 }
