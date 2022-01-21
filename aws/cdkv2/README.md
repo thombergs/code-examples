@@ -1,10 +1,8 @@
-# Localstack
+# Getting started with AWS CDK
 
-Example code to test against AWS services locally using Localstack.
 
-## Blog posts
 
 Blog posts about this topic:
 
-* [Local Development with AWS on LocalStack](https://reflectoring.io/aws-localstack/)
+* [Getting started with was CDK](https://reflectoring.io/getting-started-with-aws-cdk/)
 
