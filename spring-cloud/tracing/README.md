@@ -7,3 +7,6 @@
 The above HTTP call goes to the `api-service`, which will call the `customer-service` for additional information. This will create a trace across both services, as should be evident in the logs with the same trace id.
 
 The `docker-compose` command also starts up an OpenTelemetry Collector, to which the Spring Boot apps send their traces. The OpenTelemetry Collector, in turn, sends the traces to Logz.io.
+
+## Companion Article
+[Tracing with Spring Boot, OpenTelemetry, and Jaeger](https://reflectoring.io/spring-boot-tracing)
