@@ -33,9 +33,9 @@ public class MessageSender {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		 sendMessage();
+		// sendMessage();
 		// sendMessageToFifo();
-		// sendMessageToSnsTopic();
+		 sendMessageToSnsTopic();
 	}
 	public static void sendMessageToSnsTopic() {
 		SnsClient snsClient = getSNSClient();
@@ -45,10 +45,10 @@ public class MessageSender {
 		String traceId = UUID.randomUUID().toString();
 		// add traceId as a message attribute
 		messageAttributes.put(TRACE_ID_NAME, MessageAttributeValue.builder().dataType("String").stringValue(traceId).build());
-		
-		final String topicArn = "arn:aws:sns:us-east-1:" +AppConfig.ACCOUNT_NO + ":LambdaFromSqsStack-mytopicDA9518A7-18LSXENGTNKKY";
+		final String topicArn = "arn:aws:sns:us-east-1:" + AppConfig.ACCOUNT_NO + ":mytopic";
+
 		PublishRequest publishRequest = PublishRequest.builder().topicArn(topicArn).message("Test message published to topic").build();
-		PublishResponse publishResponse = snsClient.publish(publishRequest );//sendMessage(sendMessageRequest);
+		PublishResponse publishResponse = snsClient.publish(publishRequest);
 		
 		logger.info("message id: "+ publishResponse.messageId());
 		
