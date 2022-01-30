@@ -1,6 +1,6 @@
 package com.reflectoring;
 
-@SingleMemberCompany("XYZ")
+@SingleValueAnnotationCompany("XYZ")
 public class SingleValueAnnotatedEmployee {
 
     private int id;

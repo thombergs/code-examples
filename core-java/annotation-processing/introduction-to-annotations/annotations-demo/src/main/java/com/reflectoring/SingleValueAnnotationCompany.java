@@ -4,6 +4,6 @@ import java.lang.annotation.*;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SingleMemberCompany {
+public @interface SingleValueAnnotationCompany {
     String value() default "ABC";
 }
