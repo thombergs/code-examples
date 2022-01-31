@@ -86,6 +86,7 @@ if [[ "$MODULE" == "module6" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build_maven_module "spring-boot/spring-boot-null-safe-annotations"
   build maven_module "core-java/collectionops"
   build maven_module "spring-boot/resttemplate"
   build_maven_module "spring-cloud/tracing"
@@ -106,7 +107,6 @@ then
   build_maven_module "logging/spring-boot"
   build_maven_module "logging/logback"
   build_maven_module "logging/log4j"
-  build_maven_module "spring-boot/spring-boot-null-safe-annotations"
   
   echo ""
   echo "+++"
