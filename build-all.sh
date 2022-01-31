@@ -87,6 +87,8 @@ then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
   build_maven_module "spring-boot/spring-boot-null-safe-annotations"
+  build maven_module "aws/cdkv2"
+  build_maven_module "immutables"
   build maven_module "core-java/collectionops"
   build maven_module "spring-boot/resttemplate"
   build_maven_module "spring-cloud/tracing"
