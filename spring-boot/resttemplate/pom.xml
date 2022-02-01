@@ -16,7 +16,7 @@
 	<description>Project to demo Spring Rest Client</description>
 	<properties>
 		<java.version>11</java.version>
-		<xstream.version>1.4.11.1</xstream.version>
+		<xstream.version>1.4.19</xstream.version>
 	</properties>
 	<dependencies>
 		<dependency>
