@@ -1,3 +1,0 @@
-META-INF\services\javax.annotation.processing.Processor
-com\reflectoring\annotation\processor\Builder.class
-com\reflectoring\annotation\processor\BuilderProcessor.class
