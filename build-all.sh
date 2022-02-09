@@ -87,6 +87,7 @@ if [[ "$MODULE" == "module7" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build maven_module "aws/sqs"
   build_maven_module "core-java/annotation-processing/introduction-to-annotations"
 
   echo ""
@@ -98,8 +99,6 @@ fi
 
 if [[ "$MODULE" == "module6" ]]
 then
-  # ADD NEW MODULES HERE
-  # (add new modules above the rest so you get quicker feedback if it fails)
   build_maven_module "spring-boot/spring-boot-null-safe-annotations"
   build maven_module "aws/cdkv2"
   build_maven_module "immutables"
