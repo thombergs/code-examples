@@ -1,7 +1,4 @@
-# Reactive code examples
+# Examples for [How to Use Modules in Your NodeJS Application?](nodejs-module-systems)
 
-Some code examples using NodeJS.
-
-## Blog posts
-
-tbd
+This repository contains the source code of the article's examples. They cover the basics on how to use the module 
+systems CommonJS and ES Modules in NodeJS.
