@@ -2,14 +2,14 @@ const express = require('express');
 
 const app = express();
 
-const requestLogger = (req, res, next) => {
-  console.log(req);
+const requestLogger = (request, response, next) => {
+  console.log(request);
   next();
 };
 
-const requireJsonContent = (req, res, next) => {
-  if (req.headers['content-type'] !== 'application/json') {
-      res.status(400).send('Server requires application/json')
+const requireJsonContent = (request, response, next) => {
+  if (request.headers['content-type'] !== 'application/json') {
+      response.status(400).send('Server requires application/json')
   } else {
     next()
   }
@@ -17,17 +17,9 @@ const requireJsonContent = (req, res, next) => {
 
 app.use(requestLogger);
 
-const myErrorHandler = (err, req, res, next) => {
-                            if (req.foo) {
-                              res.status(500).send('Fail!');
-                            }else {
-                              next(err);
-                            }
-                          };
 
-app.use(myErrorHandler);
-app.use((err, req, res, next) => {
-  res.status(500).send('Error!')
+app.use((err, request, response, next) => {
+  response.status(500).send('Error!')
 })
 
 // Set the body size limit to 100 bytes
@@ -41,18 +33,18 @@ let products = [{"name":"television", "price":112.34, "brand":"samsung"},
 
 
 // handle get request for path /
-app.get('/', (req, res) => {
-  res.send('response for GET request');
+app.get('/', (request, response) => {
+  response.send('response for GET request');
 });
 
 // handle get request for path /products
-app.get('/products', (req, res) => {
+app.get('/products', (request, response) => {
 
-  res.json(products);
+  response.json(products);
 });
 
 // handle get request for path /products
-app.get('/products/:brand', (req, res) => {
+app.get('/products/:brand', (request, response) => {
 
   const brand = req.params.brand;
 
@@ -60,11 +52,11 @@ app.get('/products/:brand', (req, res) => {
   
   const productsFiltered = products.filter(product=> product.brand == brand);                  
 
-  res.json(productsFiltered);
+  response.json(productsFiltered);
 });
 
 // handle post request for path /products
-app.post('/products', requireJsonContent, (req, res) => {
+app.post('/products', requireJsonContent, (request, response) => {
   const products = [];
 
   const name = req.body.name  ;                
@@ -76,31 +68,31 @@ app.post('/products', requireJsonContent, (req, res) => {
   products.push({name: req.body.name, brand: req.body.brand, price: req.body.price});               
  
   const productCreationResponse = {productID: "12345", result: "success"};
-  res.json(productCreationResponse);
+  response.json(productCreationResponse);
 });
 
 app.set('view engine', 'pug')
 app.set('views', './views')
-app.get('/home',  (req, res) => {
-  res.render("home", { title: "Home", message: "My home page" , sysdate: new Date().toLocaleString()})
+app.get('/home',  (request, response) => {
+  response.render("home", { title: "Home", message: "My home page" , sysdate: new Date().toLocaleString()})
 })
 
 
 // handle get request with 3 middleware functions
-app.get('/users', (req, res, next) => {
+app.get('/users', (request, response, next) => {
   console.log("Stage 1 processing ");
   next()
 },
-(req, res, next) => {
+(request, response, next) => {
   console.log("Stage 2 processing ");
   next();
 },
-(req, res) => {
-  res.send('response for GET request');
+(request, response) => {
+  response.send('response for GET request');
 });
 
 
-app.get('/products/error', (req, res) => {
+app.get('/products/error', (request, response) => {
   throw new Error("processing error!")
 });
 // start the server

@@ -1,17 +1,18 @@
 // errormiddleware.js
-const errorLogger = (err, req, res, next) => {
+const errorLogger = (err, request, response, next) => {
     console.log( `error ${err.message}`) 
     next(err) // calling next middleware
   }
   
-  const errorResponder = (err, req, res, next) => {
-    res.header("Content-Type", 'application/json')
+const errorResponder = (err, request, response, next) => {
+  response.header("Content-Type", 'application/json')
     
-    res.status(err.statusCode).send(err.message)
+  const status = err.status || 400
+  response.status(status).send(err.message)
   }
-  const invalidPathHandler = (req, res, next) => {
-    res.status(400)
-    res.send('invalid path')
+const invalidPathHandler = (request, response, next) => {
+  response.status(400)
+  response.send('invalid path')
   }
   
 module.exports = { errorLogger, errorResponder, invalidPathHandler }

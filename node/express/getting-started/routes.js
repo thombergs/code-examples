@@ -12,59 +12,60 @@ let  products = [{"name":"television", "price":112.34, "brand":"samsung"},
 {"name":"Macbook", "price": 3454.34, "brand": "Apple"}];
 
 // handle get request for path /products
-router.get('/products', (req, res) => {
-  res.json(products);
+router.get('/products', (request, response) => {
+  console.log(products)
+  response.json(products)
 });
 
 // handle get request for path /products
-router.get('/products/:brand', (req, res) => {
+router.get('/products/:brand', (request, response) => {
 
-  const brand = req.params.brand;
+  const brand = request.params.brand;
 
   console.log(`brand ${brand} `);
   
   const productsFiltered = products.filter(product=> product.brand == brand);                  
 
-  res.json(productsFiltered);
+  response.json(productsFiltered);
 });
 
 
 // handle post request for path /products
-router.post('/products', requireJsonContent,(req, res) => {
+router.post('/products', requireJsonContent,(request, response) => {
 
-  const name = req.body.name  ;                
+  const name = request.body.name  ;                
 
-  const brand = req.body.brand;
+  const brand = request.body.brand;
 
   console.log(name + " " + brand);
   
-  products.push({name: req.body.name, brand: req.body.brand, price: req.body.price});               
+  products.push({name: request.body.name, brand: request.body.brand, price: request.body.price});               
  
   const productCreationResponse = {productID: "12345", result: "success"};
-  res.json(productCreationResponse);
+  response.json(productCreationResponse);
 });
 
 // handle put request for path /products
-router.put('/products', (req, res) => {
+router.put('/products', (request, response) => {
 
-  const name = req.body.name  ;                
+  const name = request.body.name  ;                
 
-  const brand = req.body.brand;
+  const brand = request.body.brand;
 
   console.log(name + " " + brand);
   
-  products.push({name: req.body.name, brand: req.body.brand, price: req.body.price});               
+  products.push({name: request.body.name, brand: request.body.brand, price: request.body.price});               
  
   const productCreationResponse = {productID: "12345", result: "success"};
-  res.json(productCreationResponse);
+  response.json(productCreationResponse);
 })
 
-router.get('/home',  (req, res) => {
+router.get('/home',  (request, response) => {
   console.log("rendering...")
-  res.render("home", { title: "Home", message: "My home page" , sysdate: new Date().toLocaleString()})
+  response.render("home", { title: "Home", message: "My home page" , sysdate: new Date().toLocaleString()})
 })
 
-router.get('/productswitherror', (req, res) => {
+router.get('/productswitherror', (request, response) => {
   let err = new Error("processing error ")
   err.statusCode = 400
   throw err
