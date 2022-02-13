@@ -1,8 +1,8 @@
 import chalk from "chalk";
 
-export class Logger {
-  static defaultMessage = "Hello World";
+export const defaultMessage = "Hello World";
 
+export class Logger {
   static info(message) {
     console.log(chalk.blue(message));
   }

@@ -1,4 +1,4 @@
-const logger = require("./logger");
+const Logger = require("./logger");
 
-logger.info(`${logger.defaultMessage} printed in blue`);
-logger.error("some error message printed in red");
+Logger.info(`${logger.defaultMessage} printed in blue`);
+Logger.error("some error message printed in red");

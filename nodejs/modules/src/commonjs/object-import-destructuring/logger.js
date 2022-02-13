@@ -1,17 +1,17 @@
 const chalk = require("chalk");
 
-const defaultMessage = "Hello World";
-
-function logInfo(message) {
+function info(message) {
   console.log(chalk.blue(message));
 }
 
-function logError(message) {
+function error(message) {
   console.log(chalk.red(message));
 }
 
+const defaultMessage = "Hello World";
+
 module.exports = {
+  logInfo: info,
+  logError: error,
   defaultMessage,
-  info: logInfo,
-  error: logError,
 };

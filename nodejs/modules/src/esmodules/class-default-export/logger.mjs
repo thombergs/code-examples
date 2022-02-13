@@ -1,6 +1,6 @@
 import chalk from "chalk";
 
-export class Logger {
+export default class Logger {
   static defaultMessage = "Hello World";
 
   static info(message) {
