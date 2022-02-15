@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: acuver-cms-operations
+  webflux:
+    base-path: /api
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://vlab045701.dom045700.lab:27017/test
+      database: test
+
+server:
+  port: 9000
+  http2:
+    enabled: true
+
+logging:
+  level:
+    com:
+      acuver: DEBUG
+    org:
+      springframework:
+        web: INFO
+        data:
+          mongodb:
+            core:
+              ReactiveMongoTemplate: DEBUG
+    reactor:
+      netty:
+        http:
+          client: DEBUG
