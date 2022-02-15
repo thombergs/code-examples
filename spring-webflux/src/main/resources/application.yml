@@ -1,12 +1,12 @@
 spring:
   application:
-    name: acuver-cms-operations
+    name: spring-webflux-guide
   webflux:
     base-path: /api
   data:
     mongodb:
       authentication-database: admin
-      uri: mongodb://vlab045701.dom045700.lab:27017/test
+      uri: mongodb://localhost:27017/test
       database: test
 
 server:
@@ -16,8 +16,8 @@ server:
 
 logging:
   level:
-    com:
-      acuver: DEBUG
+    io:
+      reflectoring: DEBUG
     org:
       springframework:
         web: INFO
