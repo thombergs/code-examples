@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-modules",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thombergs/code-examples.git"
+  },
+  "author": "Robert Dey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thombergs/code-examples/issues"
+  },
+  "homepage": "https://reflectoring.io/",
+  "dependencies": {
+    "chalk": "^4.1.2"
+  },
+  "devDependencies": {
+    "prettier": "2.5.1"
+  }
+}
