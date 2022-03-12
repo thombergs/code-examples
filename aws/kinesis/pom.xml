@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.pratik</groupId>
+	<artifactId>kinesisexamples</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>kinesis</artifactId>
+		</dependency>
+		<!-- <dependency> <groupId>com.amazonaws</groupId> <artifactId>amazon-kinesis-producer</artifactId> 
+			<version>0.14.10</version> </dependency> <dependency> <groupId>software.amazon.kinesis</groupId> 
+			<artifactId>amazon-kinesis-client</artifactId> <version>2.3.10</version> 
+			</dependency> -->
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>firehose</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>kinesisanalyticsv2</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>software.amazon.awssdk</groupId>
+		    <artifactId>kinesisvideo</artifactId>
+		</dependency>
+		<dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>kinesisvideomedia</artifactId>
+            </dependency>
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>amazon-kinesis-video-streams-producer-sdk-java</artifactId>
+		    <version>1.12.0</version>
+		</dependency>	
+
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-streaming-java_2.11</artifactId>
+			<version>1.14.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-clients_2.11</artifactId>
+			<version>1.14.3</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.kinesis</groupId>
+			<artifactId>amazon-kinesis-connector-flink</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>bom</artifactId>
+				<version>2.17.116</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>
