@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.reflectoring</groupId>
-    <artifactId>begginers-guide</artifactId>
+    <artifactId>beginners-guide</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>begginers-guide</name>
-    <description>begginers-guide</description>
+    <name>beginners-guide</name>
+    <description>beginners-guide</description>
     <properties>
         <java.version>11</java.version>
     </properties>
