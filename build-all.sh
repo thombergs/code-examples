@@ -132,6 +132,7 @@ fi
 
 if [[ "$MODULE" == "module5" ]]
 then
+  build_maven_module "spring-boot/begginers-guide"
   build_maven_module "aws/aws-dynamodb"
   build_maven_module "spring-boot/spring-boot-testconfiguration"
   build_maven_module "aws/springcloudrds"
