@@ -100,6 +100,7 @@ fi
 
 if [[ "$MODULE" == "module6" ]]
 then
+  build_maven_module "spring-boot/spring-boot-app-info"
   build_maven_module "spring-boot/spring-boot-null-safe-annotations"
   build maven_module "aws/cdkv2"
   build_maven_module "immutables"
@@ -132,6 +133,7 @@ fi
 
 if [[ "$MODULE" == "module5" ]]
 then
+  build_maven_module "spring-boot/beginners-guide"
   build_maven_module "aws/aws-dynamodb"
   build_maven_module "spring-boot/spring-boot-testconfiguration"
   build_maven_module "aws/springcloudrds"

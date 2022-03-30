@@ -1,0 +1,20 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'io.reflectoring'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.shell:spring-shell-starter:2.0.1.RELEASE'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
