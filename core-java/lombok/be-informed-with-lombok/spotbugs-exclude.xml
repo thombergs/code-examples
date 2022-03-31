@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter
+        xmlns="https://github.com/spotbugs/filter/3.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
+
+    <Match>
+        <!-- This is required for Immutables (or any annotation processor generated classes causing havoc) -->
+        <Package name="~.*\.model\.?.*"/>
+
+        <Bug pattern="NP_METHOD_PARAMETER_TIGHTENS_ANNOTATION"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be used -->
+        <Package name="~.*\.model\.?.*"/>
+
+        <Bug pattern="UUF_UNUSED_FIELD"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be read -->
+        <Package name="~.*\.model\.?.*"/>
+
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+
+    <Match>
+        <Package name="~.*\.model\.?.*"/>
+
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"/>
+    </Match>
+
+</FindBugsFilter>
