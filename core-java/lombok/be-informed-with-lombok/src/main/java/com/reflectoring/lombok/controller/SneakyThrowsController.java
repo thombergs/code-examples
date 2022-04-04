@@ -39,6 +39,6 @@ public class SneakyThrowsController {
     @ExceptionHandler(IOException.class)
     public Map<String, String> handleException(IOException e) {
         e.printStackTrace();
-        return Map.of("status", "FAIL");
+        return Collections.singletonMap("status", "FAIL");
     }
 }
