@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -31,9 +33,12 @@ public class SneakyThrowsController {
         return Collections.singletonMap("status", "SUCCESS");
     }
 
-    @ExceptionHandler(Exception.class)
-    public Map<String, String> handleException(Exception e) {
+    /*
+    Might be a bad design to add @SneakyThrows to multiple bubbling checked exceptions.
+     */
+    @ExceptionHandler(IOException.class)
+    public Map<String, String> handleException(IOException e) {
         e.printStackTrace();
-        return Collections.singletonMap("status", "FAIL");
+        return Map.of("status", "FAIL");
     }
 }
