@@ -44,7 +44,7 @@ app.post('/products', (request, response) => {
   const category = request.body.category
 
   if(name == null){
-    res.status(500).json({ message: "Mandatory field name is missing. " })
+    res.status(400).json({ message: "Mandatory field name is missing. " })
   }else{
     console.log(name + " " + brand)
   
