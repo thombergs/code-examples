@@ -1,0 +1,73 @@
+version: '3'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 10.204.106.55
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+      KAFKA_CFG_LOG_DIRS: /tmp/kafka_mounts/logs
+      KAFKA_CREATE_TOPICS: "transactions:1:2"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: kafka-ui
+    ports:
+      - "8090:8080"
+    depends_on:
+      - zookeeper
+      - kafka
+    restart: always
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ~/apps/mongo:/data/db
+  banking-service:
+    build: ./banking-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - zookeeper
+      - kafka
+      - mongodb
+      - user-notification-service
+      - reporting-service
+      - account-management-service
+  user-notification-service:
+    build: ./user-notification-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - zookeeper
+      - kafka
+      - mongodb
+  reporting-service:
+    build: ./reporting-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - zookeeper
+      - kafka
+      - mongodb
+  account-management-service:
+    build: ./account-management-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - zookeeper
+      - kafka
+      - mongodb
