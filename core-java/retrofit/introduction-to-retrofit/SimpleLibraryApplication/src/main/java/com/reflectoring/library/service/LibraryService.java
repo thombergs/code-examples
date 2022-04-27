@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,8 +29,15 @@ public class LibraryService {
         this.libraryMapper = libraryMapper;
     }
 
-    public List<BookDto> getAllBooks() {
-        List<Book> allBooks = bookRepository.findAll();
+    public List<BookDto> getAllBooks(String type) {
+        List<Book> allBooks;
+        if ("all".equalsIgnoreCase(type)) {
+            allBooks  = bookRepository.findAll();
+        } else { //default return empty List
+            log.error("Query Param 'type' not set to 'all'");
+            allBooks  = Collections.emptyList();
+        }
+
         log.info("Get All Books : {}", allBooks);
         return libraryMapper.bookToBookDto(allBooks);
     }
