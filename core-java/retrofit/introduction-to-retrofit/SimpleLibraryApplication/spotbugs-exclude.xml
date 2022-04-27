@@ -24,9 +24,37 @@
 
     <Match>
         <!-- Sample model class. Need not be used -->
+        <Package name="~.*\.config\.?.*"/>
+
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be used -->
+        <Package name="~.*\.config\.?.*"/>
+
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be used -->
         <Package name="~.*\.model\.?.*"/>
 
         <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be used -->
+        <Package name="~.*\.exception\.?.*"/>
+
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be used -->
+        <Package name="~.*\.exception\.?.*"/>
+
+        <Bug pattern="EI_EXPOSE_REP"/>
     </Match>
 
     <Match>
