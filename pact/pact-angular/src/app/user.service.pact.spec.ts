@@ -82,8 +82,8 @@ describe('UserService', () => {
 
     it('should create a Person', (done) => {
       const userService: UserService = TestBed.get(UserService);
-      userService.create(expectedUser).subscribe(response => {
-        expect(response).toEqual(createdUserId);
+      userService.create(expectedUser).subscribe(libResponse => {
+        expect(libResponse).toEqual(createdUserId);
         done();
       }, error => {
         done.fail(error);
@@ -120,7 +120,7 @@ describe('UserService', () => {
 
     it('should update a Person', (done) => {
       const userService: UserService = TestBed.get(UserService);
-      userService.update(expectedUser, 42).subscribe(response => {
+      userService.update(expectedUser, 42).subscribe(libResponse => {
         done();
       }, error => {
         done.fail(error);

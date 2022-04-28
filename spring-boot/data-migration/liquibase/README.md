@@ -45,7 +45,7 @@ The project also demonstrates the following.
 
 The application should start and listening on port `8080`.
 
-Open the url (http://localhost:8080/liquibase/users/100000000) in the browser. You should see a response as below
+Open the url (http://localhost:8080/liquibase/users/100000000) in the browser. You should see a libResponse as below
 
 ```json
 {
@@ -95,7 +95,7 @@ You can use h2 profile to run the app and use h2 database.
 
 The application should start and listening on port `8080`.
 
-Open the url (http://localhost:8080/liquibase/users/100000000) in the browser. You should see a response as below
+Open the url (http://localhost:8080/liquibase/users/100000000) in the browser. You should see a libResponse as below
 
 ```json
 {
