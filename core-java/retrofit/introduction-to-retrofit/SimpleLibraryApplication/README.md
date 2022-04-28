@@ -12,6 +12,7 @@ This application manages a database of books and authors
  * Use maven command: `mvn clean verify spring-boot:run`
  * The application should run at `http://localhost:8090`
  * The swagger documentation will be available at `http://localhost:8090/swagger-ui.html#/`
+ * Uses Basic auth for authentication.
 
 ## Sample request JSON body
 # POST Sample
