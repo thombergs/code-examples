@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("library/managed/books")
@@ -26,6 +27,12 @@ public class LibraryController {
     @GetMapping
     public ResponseEntity<List<BookDto>> getBooks(@RequestParam String type) {
         return ResponseEntity.ok().body(libraryService.getAllBooks(type));
+    }
+
+    @GetMapping("/{requestId}")
+    public ResponseEntity<BookDto> getBooksWithHeaders(@RequestHeader String requestId) {
+        log.info("Header values: {}", requestId);
+        return ResponseEntity.ok().body(libraryService.getOneBook(requestId));
     }
     @PostMapping
     public ResponseEntity<Response> createBook(@RequestBody BookDto book) {

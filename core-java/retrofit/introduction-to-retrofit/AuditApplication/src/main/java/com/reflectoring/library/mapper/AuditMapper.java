@@ -33,6 +33,19 @@ public class AuditMapper {
 
     }
 
+    public AuditDto populateAuditLogForGetBook(BookDto book) {
+        AuditDto log = null;
+        log = new AuditDto();
+        log.setId(UUID.randomUUID().toString());
+        log.setMethodType(HttpMethod.GET);
+        log.setRequest(null);
+        log.setResponse(book.toString());
+        log.setSuccess(Constants.SUCCESS);
+        log.setTimestamp(LocalDateTime.now());
+        return log;
+
+    }
+
     public AuditDto populateAuditLogForPostAndPut(BookDto book, LibResponse response, HttpMethod method) {
         AuditDto log = null;
         try {

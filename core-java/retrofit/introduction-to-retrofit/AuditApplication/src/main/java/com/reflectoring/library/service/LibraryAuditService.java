@@ -18,10 +18,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import retrofit2.Response;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class LibraryAuditService {
@@ -42,6 +39,37 @@ public class LibraryAuditService {
         this.auditMapper = auditMapper;
         this.auditRepository = auditRepository;
         this.libraryClient = libraryClient;
+    }
+
+    public BookDto getBooks(String bookRequest) {
+        Response<BookDto> allBooksResponse = null;
+        BookDto books = null;
+        try {
+            AuditDto audit = null;
+            allBooksResponse = libraryClient.getAllBooksWithHeaders(bookRequest).execute();
+            if (allBooksResponse.isSuccessful()) {
+                books = allBooksResponse.body();
+                log.info("Get All Books : {}", books);
+                audit = auditMapper.populateAuditLogForGetBook(books);
+            } else {
+                log.error("Error calling library client: {}", allBooksResponse.errorBody());
+                if (Objects.nonNull(allBooksResponse.errorBody())) {
+                    audit = auditMapper.populateAuditLogForException(
+                            null, HttpMethod.GET, allBooksResponse.errorBody().toString());
+                }
+
+            }
+
+            if (Objects.nonNull(audit)) {
+                AuditLog savedObj = auditRepository.save(libraryMapper.auditDtoToAuditLog(audit));
+                log.info("Saved into audit successfully: {}", savedObj);
+            }
+            return books;
+        } catch (Exception ex) {
+            log.error("Error handling retrofit call for getAllBooks", ex);
+            return books;
+        }
+
     }
 
     public List<BookDto> getAllBooks() {
@@ -73,6 +101,7 @@ public class LibraryAuditService {
         }
 
     }
+
 
     public LibResponse createBook(BookDto bookDto) {
         log.info("Book DTO from POST request : {}", bookDto);

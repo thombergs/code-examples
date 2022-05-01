@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reflectoring.library.client.LibraryClient;
 import com.reflectoring.library.interceptor.BasicAuthInterceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +19,11 @@ public class RestClientConfiguration {
 
     @Bean
     public LibraryClient libraryClient(ClientConfigProperties props) {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder()
                 .addInterceptor(new BasicAuthInterceptor(props.getUsername(), props.getPassword()))
+                .addInterceptor(interceptor)
                 .connectTimeout(props.getConnectionTimeout(), TimeUnit.SECONDS)
                 .readTimeout(props.getReadWriteTimeout(), TimeUnit.SECONDS);
 

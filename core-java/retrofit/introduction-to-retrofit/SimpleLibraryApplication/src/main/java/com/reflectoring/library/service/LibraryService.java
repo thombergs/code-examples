@@ -42,6 +42,17 @@ public class LibraryService {
         return libraryMapper.bookToBookDto(allBooks);
     }
 
+    public BookDto getOneBook(String bookId) {
+        Book book = null;
+        Optional<Book> optBook = bookRepository.findById(Long.parseLong(bookId));
+        if (optBook.isPresent()) {
+            book = optBook.get();
+        }
+
+        log.info("Get One book : {}", book);
+        return libraryMapper.bookToBookDto(book);
+    }
+
     public Response createBook(BookDto bookDto) {
         log.info("Book DTO from request : {}", bookDto);
         Book book = libraryMapper.bookDtoToBook(bookDto);

@@ -9,8 +9,15 @@ import java.util.List;
 
 public interface LibraryClient {
 
+    @Headers({
+            "Accept: application/json",
+            "Cache-Control: max-age=640000"
+    })
     @GET("/library/managed/books")
     Call<List<BookDto>> getAllBooks(@Query("type") String type);
+
+    @GET("/library/managed/books/{requestId}")
+    Call<BookDto> getAllBooksWithHeaders(@Header("requestId") String requestId);
 
     @POST("/library/managed/books")
     Call<LibResponse> createNewBook(@Body BookDto book);
