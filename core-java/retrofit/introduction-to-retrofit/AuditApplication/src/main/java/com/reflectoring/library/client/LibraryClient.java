@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface LibraryClient {
 
-    @Headers({
+    /*@Headers({
             "Accept: application/json",
             "Cache-Control: max-age=640000"
-    })
+    })*/
     @GET("/library/managed/books")
     Call<List<BookDto>> getAllBooks(@Query("type") String type);
 
