@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.*;
@@ -40,6 +42,25 @@ public class LibraryAuditService {
         this.auditRepository = auditRepository;
         this.libraryClient = libraryClient;
     }
+
+    /*public void getBooksAsync(String bookRequest) {
+        Call<BookDto> bookDtoCall = libraryClient.getAllBooksWithHeaders(bookRequest);
+        bookDtoCall.enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<BookDto> call, Response<BookDto> response) {
+                if (response.isSuccessful()) {
+                    log.info("Success response : {}", response.body());
+                } else {
+                    log.info("Error response : {}", response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BookDto> call, Throwable throwable) {
+                log.info("Network error occured : {}", throwable.getLocalizedMessage());
+            }
+        });
+    }*/
 
     public BookDto getBooks(String bookRequest) {
         Response<BookDto> allBooksResponse = null;
