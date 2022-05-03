@@ -1,5 +1,5 @@
 # A simple Spring Boot Audit application
-This application manages a database of books and authors 
+This application manages auditing of the Library application 
 
 ## Details
  * This application uses the in memory HSQLDB to call the Library application maintain audit logs of the calls made.
@@ -14,6 +14,7 @@ This application manages a database of books and authors
  * Use POSTMAN to make REST calls
 
 ## Sample request JSON body
+
 # POST Sample
 ````json
 {
