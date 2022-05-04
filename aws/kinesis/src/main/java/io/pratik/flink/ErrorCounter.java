@@ -28,6 +28,63 @@ public class ErrorCounter {
 
 		DataStream<String> inputStream = createSource(env);
 
+		DataStream<LogRecord> logRecords = mapStringToLogRecord(inputStream);
+
+		DataStream<LogRecord> errorRecords = filterErrorRecords(logRecords);
+		
+		DataStream<LogRecord> keyedStream = assignIPasKey(errorRecords);
+		
+
+		DataStream<String> keyedStreamAsText = mapLogRecordToString(keyedStream);
+
+		//TODO Uncomment this code for deploying to Kinesis Data Analytics
+		
+		// keyedStream.addSink(createSink());
+		
+		keyedStreamAsText.print();
+
+		env.execute("Error alerts");
+
+	}
+
+
+
+	private static DataStream<String> mapLogRecordToString(DataStream<LogRecord> keyedStream) {
+		DataStream<String> keyedStreamAsText = keyedStream.flatMap(new FlatMapFunction<LogRecord, String>() {
+
+			@Override
+			public void flatMap(LogRecord value, Collector<String> out) throws Exception {
+				out.collect(value.getUrl()+"::" + value.getHttpStatus());
+			}
+		});
+		return keyedStreamAsText;
+	}
+
+
+
+	private static DataStream<LogRecord> assignIPasKey(DataStream<LogRecord> errorRecords) {
+		DataStream<LogRecord> keyedStream = errorRecords.keyBy(value -> value.getIp());
+		return keyedStream;
+	}
+
+
+
+	private static DataStream<LogRecord> filterErrorRecords(DataStream<LogRecord> logRecords) {
+		DataStream<LogRecord> errorRecords = logRecords.filter(new FilterFunction<LogRecord>() {
+
+			@Override
+			public boolean filter(LogRecord value) throws Exception {
+				boolean matched = !value.getHttpStatus().equalsIgnoreCase("200");
+
+				return matched;
+			}
+		});
+		return errorRecords;
+	}
+
+
+
+	private static DataStream<LogRecord> mapStringToLogRecord(DataStream<String> inputStream) {
 		DataStream<LogRecord> logRecords = inputStream.flatMap(new FlatMapFunction<String, LogRecord>() {
 
 			@Override
@@ -45,34 +102,10 @@ public class ErrorCounter {
 			}
 
 		});
-
-		DataStream<LogRecord> errorRecords = logRecords.filter(new FilterFunction<LogRecord>() {
-
-			@Override
-			public boolean filter(LogRecord value) throws Exception {
-				boolean matched = !value.getHttpStatus().equalsIgnoreCase("200");
-
-				return matched;
-			}
-		});
-
-		DataStream<String> keyedStream = errorRecords.keyBy(value -> value.getIp()).flatMap(new FlatMapFunction<LogRecord, String>() {
-
-			@Override
-			public void flatMap(LogRecord value, Collector<String> out) throws Exception {
-				out.collect(value.getUrl()+"::" + value.getHttpStatus());
-			}
-		});
-
-		//TODO Uncomment this code for deploying to Kinesis Data Analytics
-		
-		// keyedStream.addSink(createSink());
-		
-		keyedStream.print();
-
-		env.execute("Error alerts");
-
+		return logRecords;
 	}
+	
+	
 
 	/*private static void createSink(final StreamExecutionEnvironment env, DataStream<LogRecord> input) {
 		input.print();
