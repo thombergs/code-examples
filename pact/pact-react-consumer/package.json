@@ -9,7 +9,7 @@
     "axios": "0.21.1",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
-    "node-fetch": "^2.2.1",
+    "node-fetch": "^2.6.7",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "2.0.5"
