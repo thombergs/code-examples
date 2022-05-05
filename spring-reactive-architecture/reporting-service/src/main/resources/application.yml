@@ -1,0 +1,38 @@
+server:
+  port: 8082
+
+# Configure Spring specific properties
+spring:
+
+  # Enable/Disable hot swapping
+  devtools:
+    restart:
+      enabled: true
+      log-condition-evaluation-delta: false
+
+  # Datasource Configurations
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://vlab045701.dom045700.lab:27017/reactive
+      database: reactive
+
+  # Kafka Configuration
+  cloud:
+    function:
+      definition: consumeTransaction
+    stream:
+      kafka:
+        binder:
+          brokers: vlab045701.dom045700.lab:9092
+          autoCreateTopics: false
+      bindings:
+        consumeTransaction-in-0:
+          consumer:
+            max-attempts: 3
+            back-off-initial-interval: 100
+          destination: transactions
+          group: reporting
+          concurrency: 1
+        transaction-out-0:
+          destination: transactions
