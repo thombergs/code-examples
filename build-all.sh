@@ -87,6 +87,7 @@ if [[ "$MODULE" == "module7" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build_maven_module "core-java/streams/data-streams"
   build maven_module "aws/kinesis"
   build maven_module "aws/sqs"
   build_maven_module "core-java/annotation-processing/introduction-to-annotations"
