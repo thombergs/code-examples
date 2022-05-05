@@ -1,0 +1,10 @@
+{
+  "bookName": "The Monk who sold his Ferrari",
+  "publisher": "c",
+  "publicationYear": "2009",
+  "isCopyrighted": true,
+  "authors": [{
+    "name": "Robin Sharma",
+    "dob" : "16/06/1964"
+  }]
+}

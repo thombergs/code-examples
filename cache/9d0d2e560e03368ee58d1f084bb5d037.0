@@ -1,0 +1,17 @@
+http://localhost:8090/library/managed/books?type=all
+GET
+0
+HTTP/1.1 200 
+12
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 02 May 2022 14:11:21 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+Cache-Control: max-age=60
+OkHttp-Sent-Millis: 1651500681298
+OkHttp-Received-Millis: 1651500681439
