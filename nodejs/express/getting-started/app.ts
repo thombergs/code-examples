@@ -10,14 +10,14 @@ interface Product {
     brand: string;
   };
 
-const getProducts = (request: Request, libResponse: Response, next: NextFunction) => {
+const getProducts = (request: Request, response: Response, next: NextFunction) => {
     let products: Product[] = [
       {"name":"television", "price":112.34, "brand":"samsung"},
       {"name":"washing machine", "price": 345.34, "brand": "LG"},
       {"name":"Macbook", "price": 3454.34, "brand": "Apple"}
     ]
 
-    libResponse.status(200).json(products);
+    response.status(200).json(products);
 }
 app.get('/products', getProducts);
 

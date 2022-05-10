@@ -33,11 +33,11 @@
 <script th:inline="javascript">
     $(document).ready(function() {
         $('#productNamedesc').autocomplete({
-	           source: function (request, libResponse){
+	           source: function (request, response){
 	               $.get("http://localhost:8080/suggestions?",{q : request.term},function(data, status){
 	                  $("#results").html("");
 	                  if(status=='success'){
-	                    libResponse(data);
+	                    response(data);
 	                  }
 	               });
 	           }
@@ -49,7 +49,7 @@
           if(inputText.length == 0) {
              alert("Enter product name or description");
           }else{
-             var libResponse = '';
+             var response = '';
 	         $.ajax({
 	            type: "GET",
 	            url: "http://localhost:8080/products?q="+inputText,
