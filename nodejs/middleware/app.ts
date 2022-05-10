@@ -32,7 +32,7 @@ class AppError extends Error{
     }
 }
 
-const requestLogger = (request: Request, libResponse: Response, next: NextFunction) => {
+const requestLogger = (request: Request, response: Response, next: NextFunction) => {
     console.log(`${request.method} url:: ${request.url}`);
     next()
 }
@@ -46,44 +46,44 @@ app.use(morgan('tiny'))
 app.use('/products', express.json({ limit: 100 }))
 
 // Error handling Middleware functions
-const errorLogger = (error: Error, request: Request, libResponse: Response, next: NextFunction) => {
+const errorLogger = (error: Error, request: Request, response: Response, next: NextFunction) => {
     console.log( `error ${error.message}`) 
     next(error) // calling next middleware
   }
   
-  const errorResponder = (error: AppError, request: Request, libResponse: Response, next: NextFunction) => {
-  libResponse.header("Content-Type", 'application/json')
+  const errorResponder = (error: AppError, request: Request, response: Response, next: NextFunction) => {
+  response.header("Content-Type", 'application/json')
     
   const status = error.statusCode || 400
-  libResponse.status(status).send(error.message)
+  response.status(status).send(error.message)
   }
-  const invalidPathHandler = (request: Request, libResponse: Response, next: NextFunction) => {
-  libResponse.status(400)
-  libResponse.send('invalid path')
+  const invalidPathHandler = (request: Request, response: Response, next: NextFunction) => {
+  response.status(400)
+  response.send('invalid path')
   }
   
   
   
-  app.get('product', (request: Request, libResponse: Response)=>{
-    libResponse.sendFile("productsample.html")
+  app.get('product', (request: Request, response: Response)=>{
+    response.sendFile("productsample.html")
   })
   
   // handle get request for path /
-  app.get('/', (request: Request, libResponse: Response) => {
-      libResponse.send('libResponse for GET request');
+  app.get('/', (request: Request, response: Response) => {
+      response.send('response for GET request');
   })
   
   
-  const requireJsonContent = (request: Request, libResponse: Response, next: NextFunction) => {
+  const requireJsonContent = (request: Request, response: Response, next: NextFunction) => {
     if (request.headers['content-type'] !== 'application/json') {
-        libResponse.status(400).send('Server requires application/json')
+        response.status(400).send('Server requires application/json')
     } else {
       next()
     }
   }
 
 
-const addProducts = (request: Request, libResponse: Response, next: NextFunction) => {
+const addProducts = (request: Request, response: Response, next: NextFunction) => {
     let products: Product[] = []
 
     const name: string = request.body.name                
@@ -97,13 +97,13 @@ const addProducts = (request: Request, libResponse: Response, next: NextFunction
     products.push({name: request.body.name, brand: request.body.brand, price: request.body.price})              
    
     const productCreationResponse: ProductCreationResponse = {productID: "12345", result: "success"}
-    libResponse.json(productCreationResponse)
+    response.json(productCreationResponse)
 
-    libResponse.status(200).json(products);
+    response.status(200).json(products);
 }
 app.post('/products', addProducts)
 
-app.get('/productswitherror', (request: Request, libResponse: Response) => {
+app.get('/productswitherror', (request: Request, response: Response) => {
     let error: AppError = new AppError(400, `processing error in request at ${request.url}`)
     
     throw error

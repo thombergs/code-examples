@@ -5,24 +5,24 @@
 2020-12-13 16:22:46.230 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [71370fec] Sending request GET / with parameters: 
 2020-12-13 16:22:46.287 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [71370fec] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [71370fec] Received raw response: 200 OK
 2020-12-13 16:22:46.486 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [235c997d] Sending request HEAD /productindex?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open%2Cclosed&allow_no_indices=false with parameters: 
 2020-12-13 16:22:46.496 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [235c997d] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [235c997d] Received raw response: 200 OK
 2020-12-13 16:22:46.558 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [40bf4386] Sending request POST /productindex/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:22:46.564 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [40bf4386] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [40bf4386] Received raw response: 200 OK
 2020-12-13 16:22:46.693 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [6839203b] Sending request POST /productindex/_delete_by_query?slices=1&requests_per_second=-1&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&refresh=true&conflicts=proceed&wait_for_completion=true&timeout=1m with parameters: 
 Request body: {"size":1000,"query":{"match_all":{"boost":1.0}},"_source":false}
 2020-12-13 16:22:47.042 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [6839203b] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [6839203b] Received raw response: 200 OK
 2020-12-13 16:22:47.056 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [2afdf6b7] Sending request POST /productindex/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:22:47.061 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [2afdf6b7] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [2afdf6b7] Received raw response: 200 OK
 2020-12-13 16:22:47.385 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [24fba488] Sending request POST /_bulk?timeout=1m with parameters: 
 Request body: {"index":{"_index":"productindex"}}
@@ -1523,15 +1523,15 @@ Request body: {"index":{"_index":"productindex"}}
 {"_class":"io.pratik.elasticsearch.models.Product","name":"Hot Toys - Batman The Dark Knight Rises Movie Masterpiece Action Figure - Bane 1/6","desc":"\"The Dark Knight Rises","manufacturer":" the epic conclusion to filmmaker Christopher Nolan's Batman trilogy"}
 
 2020-12-13 16:22:47.757 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [24fba488] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [24fba488] Received raw response: 200 OK
 2020-12-13 16:22:47.831 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [1e226bcd] Sending request POST /productindex/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:22:48.003 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [1e226bcd] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [1e226bcd] Received raw response: 200 OK
 2020-12-13 16:22:48.024 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [76396509] Sending request HEAD /searchsuggest?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open%2Cclosed&allow_no_indices=false with parameters: 
 2020-12-13 16:22:48.052 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [76396509] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [76396509] Received raw response: 200 OK
 2020-12-13 16:22:49.180 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest:61] Started ProductSearchServiceTest in 5.367 seconds (JVM running for 6.556)
 2020-12-13 16:22:49.698 [TRACE] [main]
@@ -1546,31 +1546,31 @@ Request body: {"index":{"_index":"productindex","_id":"17ca3917-fe0c-4c38-b02f-e
 {"_class":"io.pratik.elasticsearch.models.Product","id":"4ef6ab29-e99e-4b49-91f3-44fc14fc318a","name":"Samsung 163 cm (65 Inches) Q Series 4K Ultra HD QLED","price":2100.0,"quantity":5,"category":"television","desc":"Resolution: 4K Ultra HD (3840x2160) | Refresh Rate: 120 hertz\nConnectivity: 3 HDMI ports to connect set top box, Blu Ray players, gaming console | 2 USB ports to connect hard drives and other USB devices\nSound : 40 Watts Output\nDisplay : QLED Panel | Q HDR Elite (HDR 10+) | Slim and stylish design","manufacturer":"samsung"}
 
 2020-12-13 16:22:49.856 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [34bddf43] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [34bddf43] Received raw response: 200 OK
 2020-12-13 16:22:49.858 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest:114] documentIDs [17ca3917-fe0c-4c38-b02f-e665b4734c38, ba3607a0-9e35-49de-8637-b49b5a6beb4f, d7213440-6ba5-4853-87a5-c46c9adcd211, 4ef6ab29-e99e-4b49-91f3-44fc14fc318a]
 2020-12-13 16:22:49.878 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [4e51eda7] Sending request POST /searchsuggest/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":10000,"query":{"match_all":{"boost":1.0}},"post_filter":{"wildcard":{"searchText":{"wildcard":"samsng 163 cm*","boost":1.0}}},"version":true}
 2020-12-13 16:22:49.894 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [4e51eda7] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [4e51eda7] Received raw response: 200 OK
 2020-12-13 16:22:49.904 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest:176] suggestions []
 2020-12-13 16:22:49.916 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [4af7ac25] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":10,"query":{"wrapper":{"query":"eyAibWF0Y2giOiB7ICJuYW1lIjogeyAicXVlcnkiOiAiaXBob25lIiB9IH0gfSAi"}},"version":true}
 2020-12-13 16:22:49.950 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [4af7ac25] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [4af7ac25] Received raw response: 200 OK
 2020-12-13 16:22:49.969 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [1f4dd016] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":10000,"query":{"bool":{"must":[{"bool":{"must":[{"range":{"price":{"from":10.0,"to":null,"include_lower":false,"include_upper":true,"boost":1.0}}},{"range":{"price":{"from":null,"to":100.0,"include_lower":true,"include_upper":false,"boost":1.0}}}],"adjust_pure_negative":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true}
 2020-12-13 16:22:50.023 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [1f4dd016] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [1f4dd016] Received raw response: 200 OK
 2020-12-13 16:22:50.030 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [199806aa] Sending request PUT /productindex/_doc/94753ed0-1918-4d75-8141-716f54ed07c5?timeout=1m with parameters: 
 Request body: {"_class":"io.pratik.elasticsearch.models.Product","id":"94753ed0-1918-4d75-8141-716f54ed07c5","name":"Dell Vostro 3401 14inch FHD AG 2 Side Narrow Border Display Laptop","price":2100.0,"quantity":28,"category":"laptop","desc":"Processor:10th Generation Intel Core i3-1005G1 Processor (4MB Cache, Base frequency 1.2 GHz)\nMemory & Storage:4GB RAM 1TB 5400 rpm 2.5\" SATA Hard Drive\nDisplay:14.0-inch FHD (1920 x 1080) Anti-glare LED Backlight 2 Side Narrow Border WVA Display","manufacturer":"dell"}
 2020-12-13 16:22:50.042 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [199806aa] Received raw libResponse: 201 CREATED
+				[org.springframework.data.elasticsearch.client.WIRE:97] [199806aa] Received raw response: 201 CREATED
 2020-12-13 16:22:50.044 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest:134] documentID 94753ed0-1918-4d75-8141-716f54ed07c5
 2020-12-13 16:22:50.048 [INFO] [main]
@@ -1579,16 +1579,16 @@ Request body: {"_class":"io.pratik.elasticsearch.models.Product","id":"94753ed0-
 				[org.springframework.data.elasticsearch.client.WIRE:83] [611a2d82] Sending request PUT /searchsuggest/_doc/apple?timeout=1m with parameters: 
 Request body: {"_class":"io.pratik.elasticsearch.models.SearchSuggest","id":"apple","searchText":"apple"}
 2020-12-13 16:22:50.066 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [611a2d82] Received raw libResponse: 201 CREATED
+				[org.springframework.data.elasticsearch.client.WIRE:97] [611a2d82] Received raw response: 201 CREATED
 2020-12-13 16:22:50.067 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [6774f264] Sending request POST /searchsuggest/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:22:50.088 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [6774f264] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [6774f264] Received raw response: 200 OK
 2020-12-13 16:22:50.108 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [731e0bff] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":10000,"query":{"match_all":{"boost":1.0}},"post_filter":{"multi_match":{"query":"apple","fields":["description^1.0","name^1.0"],"type":"best_fields","operator":"OR","slop":0,"fuzziness":"AUTO","prefix_length":0,"max_expansions":50,"zero_terms_query":"NONE","auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}},"version":true}
 2020-12-13 16:22:50.121 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [731e0bff] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [731e0bff] Received raw response: 200 OK
 2020-12-13 16:22:50.173 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest:165] results [Product(id=17ca3917-fe0c-4c38-b02f-e665b4734c38, name=New Apple iPhone 12 Pro Max (128GB) - Pacific Blue, price=2300.0, quantity=55, category=phone, description=6.7-inch Super Retina XDR display
 Ceramic Shield, tougher than any smartphone glass
@@ -1603,16 +1603,16 @@ Industry-leading IP68 water resistance, manufacturer=apple)]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [e7d0db2] Sending request PUT /searchsuggest/_doc/samsng%20163%20cm?timeout=1m with parameters: 
 Request body: {"_class":"io.pratik.elasticsearch.models.SearchSuggest","id":"samsng 163 cm","searchText":"samsng 163 cm"}
 2020-12-13 16:22:50.205 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [e7d0db2] Received raw libResponse: 201 CREATED
+				[org.springframework.data.elasticsearch.client.WIRE:97] [e7d0db2] Received raw response: 201 CREATED
 2020-12-13 16:22:50.207 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [4a41caed] Sending request POST /searchsuggest/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:22:50.231 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [4a41caed] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [4a41caed] Received raw response: 200 OK
 2020-12-13 16:22:50.284 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [46d69ca4] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":10000,"query":{"match_all":{"boost":1.0}},"post_filter":{"match":{"manufacturer":{"query":"samsung","operator":"OR","prefix_length":0,"max_expansions":50,"fuzzy_transpositions":true,"lenient":false,"zero_terms_query":"NONE","auto_generate_synonyms_phrase_query":true,"boost":1.0}}},"version":true,"aggregations":{"category":{"cardinality":{}}}}
 2020-12-13 16:22:50.324 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [46d69ca4] Received raw libResponse: 400 BAD_REQUEST
+				[org.springframework.data.elasticsearch.client.WIRE:97] [46d69ca4] Received raw response: 400 BAD_REQUEST
 2020-12-13 16:22:50.453 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [75de7009] Sending request POST /_bulk?timeout=1m with parameters: 
 Request body: {"index":{"_index":"productindex","_id":"2857a9a9-74eb-4e27-a3d1-6d905b858fff"}}
@@ -1625,21 +1625,21 @@ Request body: {"index":{"_index":"productindex","_id":"2857a9a9-74eb-4e27-a3d1-6
 {"_class":"io.pratik.elasticsearch.models.Product","id":"6562fcd3-be91-4f15-ab63-309b4f1712c6","name":"Samsung 163 cm (65 Inches) Q Series 4K Ultra HD QLED","price":2100.0,"quantity":5,"category":"television","desc":"Resolution: 4K Ultra HD (3840x2160) | Refresh Rate: 120 hertz\nConnectivity: 3 HDMI ports to connect set top box, Blu Ray players, gaming console | 2 USB ports to connect hard drives and other USB devices\nSound : 40 Watts Output\nDisplay : QLED Panel | Q HDR Elite (HDR 10+) | Slim and stylish design","manufacturer":"samsung"}
 
 2020-12-13 16:22:50.481 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [75de7009] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [75de7009] Received raw response: 200 OK
 2020-12-13 16:22:50.484 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [17a77a7e] Sending request POST /productindex/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:22:50.514 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [17a77a7e] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [17a77a7e] Received raw response: 200 OK
 2020-12-13 16:22:50.532 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [3adde4ea] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":0,"query":{"bool":{"must":[{"query_string":{"query":"apple","fields":["name^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true,"track_total_hits":2147483647}
 2020-12-13 16:22:50.542 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [3adde4ea] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [3adde4ea] Received raw response: 200 OK
 2020-12-13 16:22:50.544 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [559c4e06] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":4,"query":{"bool":{"must":[{"query_string":{"query":"apple","fields":["name^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true}
 2020-12-13 16:22:50.559 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [559c4e06] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [559c4e06] Received raw response: 200 OK
 2020-12-13 16:22:50.563 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceWithRepoTest:139] products [Product(id=ba3607a0-9e35-49de-8637-b49b5a6beb4f, name=New Apple iPhone 12 Mini (64GB) - Blue, price=2300.0, quantity=15, category=phone, description=5.4-inch Super Retina XDR display
 Ceramic Shield, tougher than any smartphone glass
@@ -1662,33 +1662,33 @@ Pro camera system with 12MP Ultra Wide, Wide and Telephoto cameras; 5x optical z
 				[org.springframework.data.elasticsearch.client.WIRE:83] [4e6280de] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":0,"query":{"bool":{"must":[{"query_string":{"query":"samsung","fields":["manufacturer^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}},{"query_string":{"query":"laptop","fields":["category^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true,"track_total_hits":2147483647}
 2020-12-13 16:22:50.581 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [4e6280de] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [4e6280de] Received raw response: 200 OK
 2020-12-13 16:22:50.584 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [2fca282c] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":1,"query":{"bool":{"must":[{"query_string":{"query":"samsung","fields":["manufacturer^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}},{"query_string":{"query":"laptop","fields":["category^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true}
 2020-12-13 16:22:50.607 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [2fca282c] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [2fca282c] Received raw response: 200 OK
 2020-12-13 16:22:50.608 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceWithRepoTest:145] products []
 2020-12-13 16:22:50.615 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [4a2653a0] Sending request PUT /productindex/_doc/2111996d-02c8-462d-aaa8-ae7e96958c79?timeout=1m with parameters: 
 Request body: {"_class":"io.pratik.elasticsearch.models.Product","id":"2111996d-02c8-462d-aaa8-ae7e96958c79","name":"Dell Vostro 3401 14inch FHD AG 2 Side Narrow Border Display Laptop","price":2100.0,"quantity":28,"category":"laptop","desc":"Processor:10th Generation Intel Core i3-1005G1 Processor (4MB Cache, Base frequency 1.2 GHz)\nMemory & Storage:4GB RAM 1TB 5400 rpm 2.5\" SATA Hard Drive\nDisplay:14.0-inch FHD (1920 x 1080) Anti-glare LED Backlight 2 Side Narrow Border WVA Display","manufacturer":"dell"}
 2020-12-13 16:22:50.629 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [4a2653a0] Received raw libResponse: 201 CREATED
+				[org.springframework.data.elasticsearch.client.WIRE:97] [4a2653a0] Received raw response: 201 CREATED
 2020-12-13 16:22:50.630 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [784212] Sending request POST /productindex/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:22:50.658 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [784212] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [784212] Received raw response: 200 OK
 2020-12-13 16:22:50.665 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [5cf072ea] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":0,"query":{"bool":{"must":[{"query_string":{"query":"samsung","fields":["manufacturer^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}},{"query_string":{"query":"laptop","fields":["category^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true,"track_total_hits":2147483647}
 2020-12-13 16:22:50.673 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [5cf072ea] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [5cf072ea] Received raw response: 200 OK
 2020-12-13 16:22:50.675 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [1edac3b4] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":1,"query":{"bool":{"must":[{"query_string":{"query":"samsung","fields":["manufacturer^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}},{"query_string":{"query":"laptop","fields":["category^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true}
 2020-12-13 16:22:50.683 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [1edac3b4] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [1edac3b4] Received raw response: 200 OK
 2020-12-13 16:22:50.685 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceWithRepoTest:151] products []
 2020-12-13 16:52:15.702 [INFO] [main]
@@ -1698,24 +1698,24 @@ Request body: {"from":0,"size":1,"query":{"bool":{"must":[{"query_string":{"quer
 2020-12-13 16:52:17.343 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [104dc1a2] Sending request GET / with parameters: 
 2020-12-13 16:52:17.397 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [104dc1a2] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [104dc1a2] Received raw response: 200 OK
 2020-12-13 16:52:17.601 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [feb098f] Sending request HEAD /productindex?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open%2Cclosed&allow_no_indices=false with parameters: 
 2020-12-13 16:52:17.612 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [feb098f] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [feb098f] Received raw response: 200 OK
 2020-12-13 16:52:17.682 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [1c30cb85] Sending request POST /productindex/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:52:17.688 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [1c30cb85] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [1c30cb85] Received raw response: 200 OK
 2020-12-13 16:52:17.828 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [4a6c0f38] Sending request POST /productindex/_delete_by_query?slices=1&requests_per_second=-1&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&refresh=true&conflicts=proceed&wait_for_completion=true&timeout=1m with parameters: 
 Request body: {"size":1000,"query":{"match_all":{"boost":1.0}},"_source":false}
 2020-12-13 16:52:18.050 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [4a6c0f38] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [4a6c0f38] Received raw response: 200 OK
 2020-12-13 16:52:18.062 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [68ea253b] Sending request POST /productindex/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:52:18.071 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [68ea253b] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [68ea253b] Received raw response: 200 OK
 2020-12-13 16:52:18.362 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [1b560eb0] Sending request POST /_bulk?timeout=1m with parameters: 
 Request body: {"index":{"_index":"productindex"}}
@@ -3216,15 +3216,15 @@ Request body: {"index":{"_index":"productindex"}}
 {"_class":"io.pratik.elasticsearch.models.Product","name":"Hot Toys - Batman The Dark Knight Rises Movie Masterpiece Action Figure - Bane 1/6","desc":"\"The Dark Knight Rises","manufacturer":" the epic conclusion to filmmaker Christopher Nolan's Batman trilogy"}
 
 2020-12-13 16:52:18.774 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [1b560eb0] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [1b560eb0] Received raw response: 200 OK
 2020-12-13 16:52:18.840 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [7c588adc] Sending request POST /productindex/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:52:19.011 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [7c588adc] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [7c588adc] Received raw response: 200 OK
 2020-12-13 16:52:19.033 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [512abf25] Sending request HEAD /searchsuggest?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open%2Cclosed&allow_no_indices=false with parameters: 
 2020-12-13 16:52:19.039 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [512abf25] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [512abf25] Received raw response: 200 OK
 2020-12-13 16:52:19.981 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest:61] Started ProductSearchServiceTest in 4.807 seconds (JVM running for 6.024)
 2020-12-13 16:52:20.481 [TRACE] [main]
@@ -3239,31 +3239,31 @@ Request body: {"index":{"_index":"productindex","_id":"70f09f11-ec70-4af2-945e-8
 {"_class":"io.pratik.elasticsearch.models.Product","id":"acde7f54-90fe-4a7b-9256-b297fa268a20","name":"Samsung 163 cm (65 Inches) Q Series 4K Ultra HD QLED","price":2100.0,"quantity":5,"category":"television","desc":"Resolution: 4K Ultra HD (3840x2160) | Refresh Rate: 120 hertz\nConnectivity: 3 HDMI ports to connect set top box, Blu Ray players, gaming console | 2 USB ports to connect hard drives and other USB devices\nSound : 40 Watts Output\nDisplay : QLED Panel | Q HDR Elite (HDR 10+) | Slim and stylish design","manufacturer":"samsung"}
 
 2020-12-13 16:52:20.504 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [270b8c2a] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [270b8c2a] Received raw response: 200 OK
 2020-12-13 16:52:20.506 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest:114] documentIDs [70f09f11-ec70-4af2-945e-8a8d1a8bd3b0, e5c07746-00c2-4d75-9e97-90c8b58d029b, 833845d6-552e-4c40-9972-9d6589f7972e, acde7f54-90fe-4a7b-9256-b297fa268a20]
 2020-12-13 16:52:20.524 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [5c25daad] Sending request POST /searchsuggest/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":10000,"query":{"match_all":{"boost":1.0}},"post_filter":{"wildcard":{"searchText":{"wildcard":"samsng 163 cm*","boost":1.0}}},"version":true}
 2020-12-13 16:52:20.533 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [5c25daad] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [5c25daad] Received raw response: 200 OK
 2020-12-13 16:52:20.544 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest:176] suggestions []
 2020-12-13 16:52:20.551 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [14d81f2c] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":10,"query":{"wrapper":{"query":"eyAibWF0Y2giOiB7ICJuYW1lIjogeyAicXVlcnkiOiAiaXBob25lIiB9IH0gfSAi"}},"version":true}
 2020-12-13 16:52:20.561 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [14d81f2c] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [14d81f2c] Received raw response: 200 OK
 2020-12-13 16:52:20.578 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [34695b23] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":10000,"query":{"bool":{"must":[{"bool":{"must":[{"range":{"price":{"from":10.0,"to":null,"include_lower":false,"include_upper":true,"boost":1.0}}},{"range":{"price":{"from":null,"to":100.0,"include_lower":true,"include_upper":false,"boost":1.0}}}],"adjust_pure_negative":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true}
 2020-12-13 16:52:20.588 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [34695b23] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [34695b23] Received raw response: 200 OK
 2020-12-13 16:52:20.594 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [6c9151c1] Sending request PUT /productindex/_doc/2fe5788a-975d-405b-bb4b-60f177112982?timeout=1m with parameters: 
 Request body: {"_class":"io.pratik.elasticsearch.models.Product","id":"2fe5788a-975d-405b-bb4b-60f177112982","name":"Dell Vostro 3401 14inch FHD AG 2 Side Narrow Border Display Laptop","price":2100.0,"quantity":28,"category":"laptop","desc":"Processor:10th Generation Intel Core i3-1005G1 Processor (4MB Cache, Base frequency 1.2 GHz)\nMemory & Storage:4GB RAM 1TB 5400 rpm 2.5\" SATA Hard Drive\nDisplay:14.0-inch FHD (1920 x 1080) Anti-glare LED Backlight 2 Side Narrow Border WVA Display","manufacturer":"dell"}
 2020-12-13 16:52:20.605 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [6c9151c1] Received raw libResponse: 201 CREATED
+				[org.springframework.data.elasticsearch.client.WIRE:97] [6c9151c1] Received raw response: 201 CREATED
 2020-12-13 16:52:20.607 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest:134] documentID 2fe5788a-975d-405b-bb4b-60f177112982
 2020-12-13 16:52:20.611 [INFO] [main]
@@ -3272,32 +3272,32 @@ Request body: {"_class":"io.pratik.elasticsearch.models.Product","id":"2fe5788a-
 				[org.springframework.data.elasticsearch.client.WIRE:83] [1169fdfd] Sending request PUT /searchsuggest/_doc/apple?timeout=1m with parameters: 
 Request body: {"_class":"io.pratik.elasticsearch.models.SearchSuggest","id":"apple","searchText":"apple"}
 2020-12-13 16:52:20.628 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [1169fdfd] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [1169fdfd] Received raw response: 200 OK
 2020-12-13 16:52:20.630 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [75add13c] Sending request POST /searchsuggest/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:52:20.666 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [75add13c] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [75add13c] Received raw response: 200 OK
 2020-12-13 16:52:20.681 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [16944b58] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":10000,"query":{"match_all":{"boost":1.0}},"post_filter":{"multi_match":{"query":"apple","fields":["description^1.0","name^1.0"],"type":"best_fields","operator":"OR","slop":0,"fuzziness":"AUTO","prefix_length":0,"max_expansions":50,"zero_terms_query":"NONE","auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}},"version":true}
 2020-12-13 16:52:20.692 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [16944b58] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [16944b58] Received raw response: 200 OK
 2020-12-13 16:52:20.693 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceTest:165] results []
 2020-12-13 16:52:20.700 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [62b42406] Sending request PUT /searchsuggest/_doc/samsng%20163%20cm?timeout=1m with parameters: 
 Request body: {"_class":"io.pratik.elasticsearch.models.SearchSuggest","id":"samsng 163 cm","searchText":"samsng 163 cm"}
 2020-12-13 16:52:20.718 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [62b42406] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [62b42406] Received raw response: 200 OK
 2020-12-13 16:52:20.721 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [a0e33db] Sending request POST /searchsuggest/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:52:20.748 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [a0e33db] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [a0e33db] Received raw response: 200 OK
 2020-12-13 16:52:20.756 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [7809b43a] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":10000,"query":{"match":{"manufacturer":{"query":"samsung","operator":"OR","prefix_length":0,"max_expansions":50,"fuzzy_transpositions":true,"lenient":false,"zero_terms_query":"NONE","auto_generate_synonyms_phrase_query":true,"boost":1.0}}},"version":true}
 2020-12-13 16:52:20.767 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [7809b43a] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [7809b43a] Received raw response: 200 OK
 2020-12-13 16:52:20.768 [INFO] [main]
 				[io.pratik.elasticsearch.services.ProductSearchService:92] productHits 0 []
 2020-12-13 16:52:20.787 [TRACE] [main]
@@ -3312,21 +3312,21 @@ Request body: {"index":{"_index":"productindex","_id":"a084ad95-79eb-4b6d-9c74-5
 {"_class":"io.pratik.elasticsearch.models.Product","id":"4dafb36f-252c-49dc-be96-0d7e736ae7a7","name":"Samsung 163 cm (65 Inches) Q Series 4K Ultra HD QLED","price":2100.0,"quantity":5,"category":"television","desc":"Resolution: 4K Ultra HD (3840x2160) | Refresh Rate: 120 hertz\nConnectivity: 3 HDMI ports to connect set top box, Blu Ray players, gaming console | 2 USB ports to connect hard drives and other USB devices\nSound : 40 Watts Output\nDisplay : QLED Panel | Q HDR Elite (HDR 10+) | Slim and stylish design","manufacturer":"samsung"}
 
 2020-12-13 16:52:20.818 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [5e020dd1] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [5e020dd1] Received raw response: 200 OK
 2020-12-13 16:52:20.820 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [4bbc02ef] Sending request POST /productindex/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:52:20.941 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [4bbc02ef] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [4bbc02ef] Received raw response: 200 OK
 2020-12-13 16:52:20.986 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [53d87b2d] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":0,"query":{"bool":{"must":[{"query_string":{"query":"apple","fields":["name^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true,"track_total_hits":2147483647}
 2020-12-13 16:52:21.015 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [53d87b2d] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [53d87b2d] Received raw response: 200 OK
 2020-12-13 16:52:21.021 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [4ff9f715] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":4,"query":{"bool":{"must":[{"query_string":{"query":"apple","fields":["name^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true}
 2020-12-13 16:52:21.042 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [4ff9f715] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [4ff9f715] Received raw response: 200 OK
 2020-12-13 16:52:21.101 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceWithRepoTest:139] products [Product(id=e5c07746-00c2-4d75-9e97-90c8b58d029b, name=New Apple iPhone 12 Mini (64GB) - Blue, price=2300.0, quantity=15, category=phone, description=5.4-inch Super Retina XDR display
 Ceramic Shield, tougher than any smartphone glass
@@ -3349,32 +3349,32 @@ Pro camera system with 12MP Ultra Wide, Wide and Telephoto cameras; 5x optical z
 				[org.springframework.data.elasticsearch.client.WIRE:83] [256a5df0] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":0,"query":{"bool":{"must":[{"query_string":{"query":"samsung","fields":["manufacturer^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}},{"query_string":{"query":"laptop","fields":["category^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true,"track_total_hits":2147483647}
 2020-12-13 16:52:21.131 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [256a5df0] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [256a5df0] Received raw response: 200 OK
 2020-12-13 16:52:21.133 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [1868ed54] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":1,"query":{"bool":{"must":[{"query_string":{"query":"samsung","fields":["manufacturer^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}},{"query_string":{"query":"laptop","fields":["category^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true}
 2020-12-13 16:52:21.151 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [1868ed54] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [1868ed54] Received raw response: 200 OK
 2020-12-13 16:52:21.153 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceWithRepoTest:145] products []
 2020-12-13 16:52:21.160 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [131777e8] Sending request PUT /productindex/_doc/3470a194-25ea-4e0e-af9d-1e835c1995cf?timeout=1m with parameters: 
 Request body: {"_class":"io.pratik.elasticsearch.models.Product","id":"3470a194-25ea-4e0e-af9d-1e835c1995cf","name":"Dell Vostro 3401 14inch FHD AG 2 Side Narrow Border Display Laptop","price":2100.0,"quantity":28,"category":"laptop","desc":"Processor:10th Generation Intel Core i3-1005G1 Processor (4MB Cache, Base frequency 1.2 GHz)\nMemory & Storage:4GB RAM 1TB 5400 rpm 2.5\" SATA Hard Drive\nDisplay:14.0-inch FHD (1920 x 1080) Anti-glare LED Backlight 2 Side Narrow Border WVA Display","manufacturer":"dell"}
 2020-12-13 16:52:21.183 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [131777e8] Received raw libResponse: 201 CREATED
+				[org.springframework.data.elasticsearch.client.WIRE:97] [131777e8] Received raw response: 201 CREATED
 2020-12-13 16:52:21.185 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:64] [45790cb] Sending request POST /productindex/_refresh?ignore_throttled=false&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true with parameters: 
 2020-12-13 16:52:21.289 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [45790cb] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [45790cb] Received raw response: 200 OK
 2020-12-13 16:52:21.296 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [4780341] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":0,"query":{"bool":{"must":[{"query_string":{"query":"samsung","fields":["manufacturer^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}},{"query_string":{"query":"laptop","fields":["category^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true,"track_total_hits":2147483647}
 2020-12-13 16:52:21.309 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [4780341] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [4780341] Received raw response: 200 OK
 2020-12-13 16:52:21.311 [TRACE] [main]
 				[org.springframework.data.elasticsearch.client.WIRE:83] [3c910acd] Sending request POST /productindex/_search?pre_filter_shard_size=128&typed_keys=true&max_concurrent_shard_requests=5&ignore_unavailable=false&expand_wildcards=open&allow_no_indices=true&ignore_throttled=true&search_type=dfs_query_then_fetch&batched_reduce_size=512&ccs_minimize_roundtrips=true with parameters: 
 Request body: {"from":0,"size":1,"query":{"bool":{"must":[{"query_string":{"query":"samsung","fields":["manufacturer^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}},{"query_string":{"query":"laptop","fields":["category^1.0"],"type":"best_fields","default_operator":"and","max_determinized_states":10000,"enable_position_increments":true,"fuzziness":"AUTO","fuzzy_prefix_length":0,"fuzzy_max_expansions":50,"phrase_slop":0,"escape":false,"auto_generate_synonyms_phrase_query":true,"fuzzy_transpositions":true,"boost":1.0}}],"adjust_pure_negative":true,"boost":1.0}},"version":true}
 2020-12-13 16:52:21.332 [TRACE] [I/O dispatcher 1]
-				[org.springframework.data.elasticsearch.client.WIRE:97] [3c910acd] Received raw libResponse: 200 OK
+				[org.springframework.data.elasticsearch.client.WIRE:97] [3c910acd] Received raw response: 200 OK
 2020-12-13 16:52:21.333 [INFO] [main]
 				[io.pratik.elasticsearch.productsearchapp.ProductSearchServiceWithRepoTest:151] products []
