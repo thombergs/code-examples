@@ -97,7 +97,8 @@ public class LibraryAuditService {
         List<BookDto> books = Collections.emptyList();
         try {
             AuditDto audit = null;
-            Response<List<BookDto>> allBooksResponse = libraryClient.getAllBooks("all").execute();
+            Call<List<BookDto>> callBookResponse = libraryClient.getAllBooks("all");
+            Response<List<BookDto>> allBooksResponse = callBookResponse.execute();
             if (allBooksResponse.isSuccessful()) {
                 books = allBooksResponse.body();
                 log.info("Get All Books : {}", books);

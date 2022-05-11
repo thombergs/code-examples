@@ -9,15 +9,15 @@ import com.reflectoring.library.model.LibResponse;
 import com.reflectoring.library.model.mapstruct.BookDto;
 import com.reflectoring.library.repository.AuditRepository;
 import org.apache.commons.io.IOUtils;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import retrofit2.mock.Calls;
 
@@ -43,20 +43,23 @@ public class LibraryAuditServiceTest {
     @Autowired
     private AuditMapper auditMapper;
 
-    @MockBean
-    private AuditRepository auditRepository;
-
-    @MockBean
+    @Mock
     private LibraryClient libraryClient;
 
-    @Autowired
-    private ApplicationContext applicationContext;
+    @Mock
+    private AuditRepository auditRepository;
+
+    private LibraryAuditService libraryAuditService;
+
+    @Before
+    public void setup() {
+        libraryAuditService = new LibraryAuditService(libraryMapper, auditMapper, auditRepository, libraryClient);
+    }
 
 
     @Test
     @DisplayName("Successful getAllBooks call")
     public void getAllBooksTest() throws Exception {
-        LibraryAuditService libraryAuditService = applicationContext.getBean(LibraryAuditService.class);
         String booksResponse = getBooksResponse("/response/getAllBooks.json");
         List<BookDto> bookDtoList =
                 new ObjectMapper().readValue(booksResponse, new TypeReference<>() {
@@ -74,7 +77,6 @@ public class LibraryAuditServiceTest {
     @Test
     @DisplayName("Successful call to get a specific book")
     public void getRequestBookTest() throws Exception {
-        LibraryAuditService libraryAuditService = applicationContext.getBean(LibraryAuditService.class);
         String booksResponse = getBooksResponse("/response/getOneBook.json");
         BookDto bookDto = new ObjectMapper().readValue(booksResponse, BookDto.class);
         when(libraryClient.getAllBooksWithHeaders("1")).thenReturn(Calls.response(bookDto));
@@ -90,7 +92,6 @@ public class LibraryAuditServiceTest {
     @Test
     @DisplayName("Successful call to create a book")
     public void postBookRequestTest() throws Exception {
-        LibraryAuditService libraryAuditService = applicationContext.getBean(LibraryAuditService.class);
         String booksResponse = getBooksResponse("/request/postBook.json");
         BookDto bookDto = new ObjectMapper().readValue(booksResponse, BookDto.class);
         LibResponse response = new LibResponse("Success", "Book created successfully");
@@ -107,7 +108,6 @@ public class LibraryAuditServiceTest {
     @Test
     @DisplayName("Successful call to update a book")
     public void putBookRequestTest() throws Exception {
-        LibraryAuditService libraryAuditService = applicationContext.getBean(LibraryAuditService.class);
         String booksResponse = getBooksResponse("/request/putBook.json");
         BookDto bookDto = new ObjectMapper().readValue(booksResponse, BookDto.class);
         LibResponse response = new LibResponse("Success", "Book updated successfully");
