@@ -27,9 +27,7 @@ public class Controller {
     customer.setId(customerId);
     customer.setName(NAMES.get((int) customerId));
 
-    throw new IllegalStateException("BWAAAH!");
-
-//    return new ResponseEntity<>(customer, HttpStatus.OK);
+    return new ResponseEntity<>(customer, HttpStatus.OK);
   }
 
   @GetMapping(path = "addresses/{id}")
