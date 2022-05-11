@@ -130,7 +130,8 @@ public class LibraryAuditService {
         LibResponse resp = null;
         AuditDto audit = null;
         try {
-            Response<LibResponse> libResponse = libraryClient.createNewBook(bookDto).execute();
+            Call<LibResponse> callLibResponse = libraryClient.createNewBook(bookDto);
+            Response<LibResponse> libResponse = callLibResponse.execute();
             if (libResponse.isSuccessful()) {
                 resp = libResponse.body();
                 audit = auditMapper.populateAuditLogForPostAndPut(bookDto, resp, HttpMethod.POST);
@@ -159,7 +160,8 @@ public class LibraryAuditService {
         LibResponse resp = null;
         AuditDto audit = null;
         try {
-            Response<LibResponse> libResponse = libraryClient.updateBook(id, bookdto).execute();
+            Call<LibResponse> callLibResponse = libraryClient.updateBook(id, bookdto);
+            Response<LibResponse> libResponse = callLibResponse.execute();
             if (libResponse.isSuccessful()) {
                 resp = libResponse.body();
                 audit = auditMapper.populateAuditLogForPostAndPut(bookdto, resp, HttpMethod.PUT);
@@ -187,13 +189,16 @@ public class LibraryAuditService {
         LibResponse resp = null;
         AuditDto audit = null;
         try {
-            Response<LibResponse> libResponse = libraryClient.deleteBook(id).execute();
+            Call<LibResponse> callLibResponse = libraryClient.deleteBook(id);
+            Response<LibResponse> libResponse = callLibResponse.execute();
+
             if (libResponse.isSuccessful()) {
                 resp = libResponse.body();
                 audit = auditMapper.populateAuditLogForDelete(id, resp);
             } else {
                 log.error("Error calling library client: {}", libResponse.errorBody());
                 if (Objects.nonNull(libResponse.errorBody())) {
+                    resp = new ObjectMapper().readValue(libResponse.errorBody().string(), LibResponse.class);
                     audit = auditMapper.populateAuditLogForException(
                             String.valueOf(id), HttpMethod.POST, libResponse.errorBody().toString());
                 }

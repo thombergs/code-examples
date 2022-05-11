@@ -6,8 +6,11 @@ import com.reflectoring.library.client.LibraryClient;
 import com.reflectoring.library.mapper.AuditMapper;
 import com.reflectoring.library.mapper.LibraryMapper;
 import com.reflectoring.library.model.LibResponse;
+import com.reflectoring.library.model.Status;
 import com.reflectoring.library.model.mapstruct.BookDto;
 import com.reflectoring.library.repository.AuditRepository;
+import okhttp3.MediaType;
+import okhttp3.ResponseBody;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import retrofit2.Response;
 import retrofit2.mock.Calls;
 
 import java.io.IOException;
@@ -117,6 +121,23 @@ public class LibraryAuditServiceTest {
         assertAll(
                 () -> assertNotNull(libResponse),
                 () -> assertTrue(libResponse.getResponseCode().equals("Success"))
+        );
+
+    }
+
+    @Test
+    @DisplayName("Cannot delete a book")
+    public void deleteBookRequestTest() throws Exception {
+        LibResponse response = new LibResponse(Status.ERROR.toString(), "Could not delete book for id : 1000");
+        ResponseBody respBody = ResponseBody.create(MediaType.parse("application/json"),
+                new ObjectMapper().writeValueAsString(response));
+        Response<LibResponse> respLib = Response.error(500, respBody);
+        when(libraryClient.deleteBook(Long.valueOf("1000"))).thenReturn(Calls.response(respLib));
+        doReturn(null).when(auditRepository).save(any());
+        LibResponse libResponse = libraryAuditService.deleteBook(Long.valueOf("1000"));
+        assertAll(
+                () -> assertNotNull(libResponse),
+                () -> assertTrue(libResponse.getResponseCode().equals("Error"))
         );
 
     }
