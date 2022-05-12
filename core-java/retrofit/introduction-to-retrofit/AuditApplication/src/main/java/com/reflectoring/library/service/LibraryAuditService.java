@@ -76,7 +76,7 @@ public class LibraryAuditService {
                 log.error("Error calling library client: {}", allBooksResponse.errorBody());
                 if (Objects.nonNull(allBooksResponse.errorBody())) {
                     audit = auditMapper.populateAuditLogForException(
-                            null, HttpMethod.GET, allBooksResponse.errorBody().toString());
+                            null, HttpMethod.GET, allBooksResponse.errorBody().string());
                 }
 
             }
@@ -107,7 +107,7 @@ public class LibraryAuditService {
                 log.error("Error calling library client: {}", allBooksResponse.errorBody());
                 if (Objects.nonNull(allBooksResponse.errorBody())) {
                     audit = auditMapper.populateAuditLogForException(
-                            null, HttpMethod.GET, allBooksResponse.errorBody().toString());
+                            null, HttpMethod.GET, allBooksResponse.errorBody().string());
                 }
 
             }
@@ -140,7 +140,7 @@ public class LibraryAuditService {
                 if (Objects.nonNull(libResponse.errorBody())) {
                     audit = auditMapper.populateAuditLogForException(
                             new ObjectMapper().writeValueAsString(bookDto),
-                            HttpMethod.POST, libResponse.errorBody().toString());
+                            HttpMethod.POST, libResponse.errorBody().string());
                 }
             }
             if (Objects.nonNull(audit)) {
@@ -170,7 +170,7 @@ public class LibraryAuditService {
                 if (Objects.nonNull(libResponse.errorBody())) {
                     audit = auditMapper.populateAuditLogForException(
                             new ObjectMapper().writeValueAsString(bookdto),
-                            HttpMethod.POST, libResponse.errorBody().toString());
+                            HttpMethod.POST, libResponse.errorBody().string());
                 }
             }
         } catch (Exception ex) {
@@ -200,7 +200,7 @@ public class LibraryAuditService {
                 if (Objects.nonNull(libResponse.errorBody())) {
                     resp = new ObjectMapper().readValue(libResponse.errorBody().string(), LibResponse.class);
                     audit = auditMapper.populateAuditLogForException(
-                            String.valueOf(id), HttpMethod.POST, libResponse.errorBody().toString());
+                            String.valueOf(id), HttpMethod.POST, libResponse.errorBody().string());
                 }
             }
         } catch (Exception ex) {
