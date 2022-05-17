@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:auditdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+
+server:
+  port: 8081
+
+library:
+  endpoint: http://localhost:8090
+  username: libuser
+  password: libpass
+  connectionTimeout: 30
+  readWriteTimeout: 30

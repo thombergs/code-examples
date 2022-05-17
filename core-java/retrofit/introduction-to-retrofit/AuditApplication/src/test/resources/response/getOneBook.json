@@ -1,0 +1,14 @@
+
+  {
+    "bookId": 1,
+    "bookName": "The Da Vinci Code",
+    "publisher": "Corgie Adult",
+    "publicationYear": "2009",
+    "isCopyrighted": true,
+    "authors": [{
+      "id": 2,
+      "name": "Dan Brown",
+      "dob" : "22/06/1964"
+    }]
+  }
+
