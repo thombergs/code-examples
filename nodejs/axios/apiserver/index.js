@@ -46,5 +46,5 @@ app.get('/products/:name/itemsInStock', (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`Example server listening on port ${port}`)
+  console.log(`API server listening on port ${port}`)
 })

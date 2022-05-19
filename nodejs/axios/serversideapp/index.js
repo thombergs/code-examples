@@ -52,7 +52,7 @@ app.get('/products', (request, response) => {
 })
 
 app.get('/products/deals', (request, response) => {
-  const instance = axios.create({
+  const new_instance = axios.create({
     baseURL: 'http://localhost:3002/products',
     timeout: 1000,
     headers: {
@@ -60,7 +60,7 @@ app.get('/products/deals', (request, response) => {
       'Authorization': 'XXXXXX'
     }
   })
-  instance({
+  new_instance({
     method: 'get',
     url: '/deals'
   }).then(apiResponse=>{
@@ -166,5 +166,5 @@ app.get('/products/:productName/inventory', (request, response) => {
 
 
 app.listen(port, () => {
-  console.log(`Example server listening on port ${port}`)
+  console.log(`server side app listening on port ${port}`)
 })
