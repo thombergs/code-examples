@@ -9,11 +9,14 @@ fun main() = runBlocking{
     val job:Job = launch {
         val files = File ("/Users/10680240/Downloads/").listFiles()
         var loop = 0
-        while (loop < files.size-1 &&  isActive) {
-            readFile(files.get(++loop))
+
+        while (loop < files.size-1 ) {
+            if(isActive) {
+                readFile(files.get(++loop))
+            }
         }
     }
-    delay(50)
+    delay(1500)
     job.cancelAndJoin()
 
     println("program run ends...: ${Thread.currentThread().name}")

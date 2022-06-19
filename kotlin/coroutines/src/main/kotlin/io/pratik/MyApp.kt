@@ -14,7 +14,8 @@ fun main() = runBlocking{
         longRunningTask()
     }
 
-    println("My program run ends...: ${Thread.currentThread().name}")
+    println("My program run ends...: " +
+            "${Thread.currentThread().name}")
 }
 
 suspend fun longRunningTask(){
