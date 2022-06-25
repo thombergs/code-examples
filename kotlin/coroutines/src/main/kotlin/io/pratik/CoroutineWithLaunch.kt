@@ -1,18 +1,16 @@
 package io.pratik
 
 import kotlinx.coroutines.*
+import kotlin.coroutines.EmptyCoroutineContext
 
 fun main() = runBlocking{
     println("My program runs...: ${Thread.currentThread().name}")
 
-    val job:Job = launch {
+    val job:Job = launch (EmptyCoroutineContext, CoroutineStart.DEFAULT){
         longRunningTaskSuspended()
     }
 
     job.join()
-    /*runBlocking {
-        delay(2000)
-    }*/
 
     println("My program run ends...: ${Thread.currentThread().name}")
 }

@@ -9,7 +9,6 @@ fun main() = runBlocking{
     val taskDeferred = async {
         generateUniqueID()
     }
-
     val taskResult = taskDeferred.await()
 
     println("program run ends...:  ${taskResult}  ${Thread.currentThread().name}")

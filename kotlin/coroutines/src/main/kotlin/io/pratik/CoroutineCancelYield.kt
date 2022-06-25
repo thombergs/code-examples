@@ -3,6 +3,7 @@ package io.pratik
 import kotlinx.coroutines.*
 import java.io.File
 
+
 fun main() = runBlocking{
     try {
         val job1 = launch {
@@ -22,7 +23,7 @@ fun main() = runBlocking{
         job1.join()
         job2.join()
 
-    } catch (e: Exception) {
+    } catch (e: CancellationException) {
         // clean up code
 
     }

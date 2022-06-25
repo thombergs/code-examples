@@ -1,13 +1,17 @@
 package io.pratik
 
 import kotlinx.coroutines.*
+import kotlin.coroutines.ContinuationInterceptor
 
 fun main() = runBlocking {
-   /* launch {
+    println(coroutineContext)
+    launch {
+        println(
+            "launch default: running in  thread ${Thread.currentThread().name} ${coroutineContext[ContinuationInterceptor]}")
         longTask()
-    }*/
+    }
 
-    /*launch(Dispatchers.Unconfined) { // not confined -- will work with main thread
+   /* launch(Dispatchers.Unconfined) { // not confined -- will work with main thread
         println("Unconfined : running in thread ${Thread.currentThread().name}")
         longTask()
     }*/
@@ -19,17 +23,17 @@ fun main() = runBlocking {
             longTask()
         }
     }*/
-   launch(newSingleThreadContext("MyThread")) { // will get its own new thread
+  /* launch(newSingleThreadContext("MyThread")) { // will get its own new thread
         println("newSingleThreadContext: running in  thread ${Thread.currentThread().name}")
         longTask()
-    }
+    }*/
     println("completed tasks")
 }
 
 
 suspend fun longTask(){
-   // println("executing longTask on...: ${Thread.currentThread().name}")
+    println("executing longTask on...: ${Thread.currentThread().name}")
     delay(1000)
-   // println("longTask ends on thread ...: ${Thread.currentThread().name}")
+    println("longTask ends on thread ...: ${Thread.currentThread().name}")
 }
 
