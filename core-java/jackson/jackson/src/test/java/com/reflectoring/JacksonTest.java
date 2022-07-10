@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.reflectoring.pojo.Car;
 import com.reflectoring.pojo.Order;
 import org.junit.jupiter.api.Test;
 import com.reflectoring.pojo.Employee;
@@ -117,7 +118,6 @@ public class JacksonTest {
 
         System.out.println(json);
     }
-
     @Test
     void fileToOrder() throws IOException {
         File file = new File("src/test/resources/order.json");
@@ -127,5 +127,22 @@ public class JacksonTest {
         assertThat(order.getDate().getYear()).isEqualTo(2000);
         assertThat(order.getDate().getMonthValue()).isEqualTo(4);
         assertThat(order.getDate().getDayOfMonth()).isEqualTo(30);
+    }
+    @Test
+    void fileToCar() throws IOException {
+        File file = new File("src/test/resources/car.json");
+
+        Car car = objectMapper.readValue(file, Car.class);
+
+        assertThat(car.getBrand()).isEqualTo("BMW");
+    }
+
+    @Test
+    void fileToUnrecognizedCar() throws IOException {
+        File file = new File("src/test/resources/carUnrecognized.json");
+
+        Car car = objectMapper.readValue(file, Car.class);
+
+        assertThat(car.getUnrecognizedFields()).containsKey("productionYear");
     }
 }
