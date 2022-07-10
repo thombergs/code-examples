@@ -4,10 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.reflectoring.pojo.Car;
-import com.reflectoring.pojo.Order;
+import com.reflectoring.pojo.*;
 import org.junit.jupiter.api.Test;
-import com.reflectoring.pojo.Employee;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -144,5 +143,33 @@ public class JacksonTest {
         Car car = objectMapper.readValue(file, Car.class);
 
         assertThat(car.getUnrecognizedFields()).containsKey("productionYear");
+    }
+
+    @Test
+    void catToJson() throws JsonProcessingException {
+        Cat cat = new Cat("Monica");
+
+        String json = objectMapper.writeValueAsString(cat);
+
+        System.out.println(json);
+
+    }
+
+    @Test
+    void dogToJson() throws JsonProcessingException {
+        Dog dog = new Dog("Max", 3);
+
+        String json = objectMapper.writeValueAsString(dog);
+
+        System.out.println(json);
+    }
+    @Test
+    void fileToDog() throws IOException {
+        File file = new File("src/test/resources/dog.json");
+
+        Dog dog = objectMapper.readValue(file, Dog.class);
+
+        assertThat(dog.getName()).isEqualTo("bobby");
+        assertThat(dog.getAge()).isNull();
     }
 }
