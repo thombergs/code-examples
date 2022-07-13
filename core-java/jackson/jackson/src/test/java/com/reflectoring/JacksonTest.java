@@ -156,6 +156,15 @@ public class JacksonTest {
     }
 
     @Test
+    void catToJsonWithMap() throws JsonProcessingException {
+        Cat cat = new Cat("Monica");
+
+        String json = objectMapper.writeValueAsString(cat);
+
+        System.out.println(json);
+    }
+
+    @Test
     void dogToJson() throws JsonProcessingException {
         Dog dog = new Dog("Max", 3);
 
