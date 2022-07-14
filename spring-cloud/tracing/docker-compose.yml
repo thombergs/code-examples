@@ -12,7 +12,7 @@ services:
     build: ./customer-service/
     image: customer-service:latest
     ports:
-      - "8081:8081"
+      - "8081"
 
   collector:
     image: logzio/otel-collector-traces
