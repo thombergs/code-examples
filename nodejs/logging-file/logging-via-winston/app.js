@@ -1,5 +1,5 @@
 const express = require("express");
-const logger = require("./logger-log-rotation");
+const logger = require("./logger");
 const app = express();
 
 app.get("/", (req, res, next) => {
