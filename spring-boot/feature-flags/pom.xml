@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>org.togglz</groupId>
 			<artifactId>togglz-console</artifactId>
-			<version>2.6.1.Final</version>
+			<version>2.9.4</version>
 		</dependency>
 
 		<!-- LAUNCHDARKLY -->
