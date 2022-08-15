@@ -10,7 +10,7 @@ app.get("/", async (req, res) => {
 app.listen(8080);
 
 const sdkKey = 'sdk-d2432dc7-e56a-458b-9f93-0361af47d578';
-const buyerKey = 'mob-b9d6d4d4-4300-46fa-9b13-d9eac89f9794';
+const userName = 'admin';
 let client;
 
 async function init() {
@@ -20,7 +20,7 @@ async function init() {
   }
 
   const user = {
-    key: buyerKey
+    key: userName
   };
   const allFlagsState = await client.allFlagsState(user);
   const flags = allFlagsState.allValues();

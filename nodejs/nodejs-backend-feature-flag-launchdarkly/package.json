@@ -8,15 +8,18 @@
     "start": "nodemon index.js",
     "bootstrap": "nodemon bootstrap.js",
     "dynamic": "nodemon dynamic_logging.js",
-    "blacklist": "nodemon blacklist_check.js",
-    "batch": "nodemon batch_task.js"
+    "rateLimiter": "nodemon rate_limiter.js",
+    "cron": "nodemon cron_job.js"
   },
   "author": "Arpendu Kumar Garai",
   "license": "ISC",
   "dependencies": {
     "chalk": "4.1.2",
+    "cors": "^2.8.5",
+    "cron": "^2.1.0",
     "date-fns": "^2.28.0",
     "express": "^4.18.1",
+    "express-rate-limit": "^6.5.1",
     "launchdarkly-node-server-sdk": "^6.4.2",
     "lodash": "^4.17.21",
     "nodemon": "^2.0.19"

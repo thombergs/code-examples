@@ -2,10 +2,10 @@ import chalk from 'chalk';
 
 class LdLogger {
  
-	constructor ( ldClient, flagKey, buyerKey ) { 
+	constructor ( ldClient, flagKey, user ) { 
 		this.ldClient = ldClient;
 		this.flagKey = flagKey;
-		this.buyerKey = buyerKey;
+		this.user = user;
 		this.previousLevel = null; 
 	}
  
@@ -34,16 +34,11 @@ class LdLogger {
 	}
  
 	async _presentLog( level ) {
- 
-		// Get the minimum log-level from the given LaunchDarkly client. Since this is
-		// an OPERATIONAL flag, not a USER flag, the "key" needs to indicate the current
-		// application context. In this case, I'm calling the app, "backend-log-level". If I
-		// want to get more granular, I could use something like machine ID. But, for
-		// this particular setting, I think app-name makes sense.
+
 		const minLogLevel = await this.ldClient.variation(
 			this.flagKey,
 			{
-				key: this.buyerKey
+				key: this.user
 			},
 			'debug' // Default / fall-back value if LaunchDarkly unavailable.
 		);
@@ -51,8 +46,7 @@ class LdLogger {
 		if ( minLogLevel !== this.previousLevel ) { 
 			console.log( chalk.bgGreen.bold.white( `Switching to log-level: ${ minLogLevel }` ) ); 
 		}
- 
-		// Given the minimum log level, determine if the level in question can be logged.
+		
 		switch ( this.previousLevel = minLogLevel ) {
 			case 'error':
 				return level === 'error';

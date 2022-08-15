@@ -5,11 +5,11 @@ import Logger from './logger.js';
 
 const PORT = 5000;
 const app = express();
-const simpleLogger = new Logger('Backend');
+const simpleLogger = new Logger('SimpleLogging');
 
 const LD_SDK_KEY = 'sdk-d2432dc7-e56a-458b-9f93-0361af47d578';
 const LOG_LEVEL_FLAG_KEY = 'backend-log-level';
-const buyerKey = 'mob-b9d6d4d4-4300-46fa-9b13-d9eac89f9794';
+const userName = 'admin';
 const client = LaunchDarkly.init(LD_SDK_KEY);
 client.waitForInitialization();
 const asyncGetFlag = util.promisify(client.variation);
@@ -27,7 +27,10 @@ const subscribeToChanges = () => {
 };
 
 client.once('ready', async () => {
-  const user = { key: buyerKey, anonymous: true };
+  const user = {
+    key: userName,
+    anonymous: true
+  };
   const initialLogLevel = await asyncGetFlag(LOG_LEVEL_FLAG_KEY, user, 'debug');
   Logger.setLogLevel(initialLogLevel);
 
