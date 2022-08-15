@@ -9,7 +9,6 @@ import LdLogger from './ld_logger.js';
 const LD_SDK_KEY = 'sdk-d2432dc7-e56a-458b-9f93-0361af47d578';
 const userName = 'admin';
 const launchDarklyClient = LaunchDarkly.init( LD_SDK_KEY );
-launchDarklyClient.waitForInitialization();
 
 // Initiating the Logger
 const flagKey = 'backend-log-level';
@@ -46,7 +45,8 @@ const serverInit = async () => {
         },
         {
             windowMs: 24 * 60 * 60 * 1000, // 24 hrs in milliseconds
-            max: 100, // Limit each IP to 100 requests per `window` (here, per 24 hours). Set it to to disable rateLimiter
+            max: 100, // Limit each IP to 100 requests per `window`
+            // (here, per 24 hours). Set it to 0 to disable rateLimiter
             message: 'You have exceeded 100 requests in 24 hrs limit!', 
             standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
             legacyHeaders: false, // Disable the `X-RateLimit-*` headers

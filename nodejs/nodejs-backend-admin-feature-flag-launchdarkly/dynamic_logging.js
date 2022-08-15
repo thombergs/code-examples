@@ -6,7 +6,6 @@ const LD_SDK_KEY = 'sdk-d2432dc7-e56a-458b-9f93-0361af47d578';
 const flagKey = 'backend-log-level';
 const userName = 'admin';
 const launchDarklyClient = LaunchDarkly.init( LD_SDK_KEY );
-launchDarklyClient.waitForInitialization();
 const logger = new LdLogger( launchDarklyClient, flagKey, userName );
 let loop = 0;
 

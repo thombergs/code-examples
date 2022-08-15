@@ -8,7 +8,6 @@ const CronTime = cron.CronTime;
 const LD_SDK_KEY = 'sdk-d2432dc7-e56a-458b-9f93-0361af47d578';
 const userName = 'admin';
 const launchDarklyClient = LaunchDarkly.init( LD_SDK_KEY );
-launchDarklyClient.waitForInitialization();
 
 launchDarklyClient.once('ready', async () => {    
     const cronConfig = await launchDarklyClient.variation(
@@ -18,13 +17,13 @@ launchDarklyClient.once('ready', async () => {
       },
       '*/4 * * * *' // Default fall-back variation value.
     );
-    console.log('Cron variation: ', cronConfig);
+
     const job = new CronJob(cronConfig, function() {
       run();
     }, null, false)
 
     let run = () => {
-      console.log('function called');
+      console.log('scheduled task called');
     }
 
     let scheduler = () => {
