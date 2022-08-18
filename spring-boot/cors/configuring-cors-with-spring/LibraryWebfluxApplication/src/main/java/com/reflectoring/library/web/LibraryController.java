@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +31,7 @@ public class LibraryController {
 
     //@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "Requestor-Type", exposedHeaders = "X-Get-Header")
     @GetMapping
-    public ResponseEntity<List<BookDto>> getBooks(@RequestParam String type) {
+    public ResponseEntity<Mono<List<BookDto>>> getBooks(@RequestParam String type) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Get-Header", "ExampleHeader");
         return ResponseEntity.ok().headers(headers).body(libraryService.getAllBooks(type));
@@ -37,7 +39,8 @@ public class LibraryController {
 
     //@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/one")
-    public ResponseEntity<BookDto> getBooksWithHeaders(@RequestHeader(value="requestId", required=false) String requestId) {
+    public ResponseEntity<Mono<BookDto>> getBooksWithHeaders(
+            @RequestHeader(value = "requestId", required = false) String requestId) {
         log.info("Header values: {}", requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Book-Header", "BookHeader");

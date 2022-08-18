@@ -1,17 +1,11 @@
 spring:
-  datasource:
-    driver-class-name: org.hsqldb.jdbc.JDBCDriver
-    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
-    username: sa
+  r2dbc:
+    url: r2dbc:h2:mem:///test?options=DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    name: sa
     password:
 
-  jpa:
-    defer-datasource-initialization: true
-    hibernate:
-      ddl-auto: create
-
 server:
-  port: 8091
+  port: 8092
 
 web:
   cors:
