@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-//@CrossOrigin(maxAge = 3600)
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("cors-library/managed/books")
 public class LibraryController {
@@ -29,7 +29,7 @@ public class LibraryController {
         this.libraryService = libraryService;
     }
 
-    //@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "Requestor-Type", exposedHeaders = "X-Get-Header")
+    @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = {"Requestor-Type", "Authorization"}, exposedHeaders = "X-Get-Header")
     @GetMapping
     public ResponseEntity<Mono<List<BookDto>>> getBooks(@RequestParam String type) {
         HttpHeaders headers = new HttpHeaders();

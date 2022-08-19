@@ -20,3 +20,7 @@ web:
     max-age: 3600
     allowed-headers: "Requestor-Type"
     exposed-headers: "X-Get-Header"
+
+auth:
+  username: user
+  password: test

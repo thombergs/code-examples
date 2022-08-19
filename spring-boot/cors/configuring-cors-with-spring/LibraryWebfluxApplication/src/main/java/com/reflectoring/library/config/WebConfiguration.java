@@ -38,13 +38,16 @@ public class WebConfiguration {
         };
     }
 
-  /*  @Bean
+    /*@Bean
     public CorsWebFilter corsWebFilter() {
+        System.out.println("Cors Web filter apllies");
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
         corsConfig.setMaxAge(3600L);
         corsConfig.addAllowedMethod("*");
+        corsConfig.setAllowCredentials(true);
         corsConfig.addAllowedHeader("Requestor-Type");
+        corsConfig.addAllowedHeader("Authorization");
         corsConfig.addExposedHeader("X-Get-Header");
 
         UrlBasedCorsConfigurationSource source =

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-//@CrossOrigin(maxAge = 3600)
+//@CrossOrigin(maxAge = 3600, allowCredentials = "true")
 @RestController
 @RequestMapping("cors-library/managed/books")
 public class LibraryController {
@@ -27,7 +27,7 @@ public class LibraryController {
         this.libraryService = libraryService;
     }
 
-    //@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "Requestor-Type", exposedHeaders = "X-Get-Header")
+    //@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = {"Requestor-Type", "Authorization"}, exposedHeaders = "X-Get-Header")
     @GetMapping
     public ResponseEntity<List<BookDto>> getBooks(@RequestParam String type) {
         HttpHeaders headers = new HttpHeaders();
@@ -37,7 +37,8 @@ public class LibraryController {
 
     //@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/one")
-    public ResponseEntity<BookDto> getBooksWithHeaders(@RequestHeader(value="requestId", required=false) String requestId) {
+    public ResponseEntity<BookDto> getBooksWithHeaders(
+            @RequestHeader(value = "requestId", required = false) String requestId) {
         log.info("Header values: {}", requestId);
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Book-Header", "BookHeader");

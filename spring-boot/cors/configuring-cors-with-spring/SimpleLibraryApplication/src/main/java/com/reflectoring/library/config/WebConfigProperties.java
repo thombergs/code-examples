@@ -9,7 +9,7 @@ public class WebConfigProperties {
 
     private final Cors cors;
 
-    public WebConfigProperties (Cors cors) {
+    public WebConfigProperties(Cors cors) {
         this.cors = cors;
     }
 
@@ -28,7 +28,7 @@ public class WebConfigProperties {
 
         private final long maxAge;
 
-        public Cors (String[] allowedOrigins, String[] allowedMethods, long maxAge,
+        public Cors(String[] allowedOrigins, String[] allowedMethods, long maxAge,
                      String[] allowedHeaders, String[] exposedHeaders) {
             this.allowedOrigins = allowedOrigins;
             this.allowedMethods = allowedMethods;
