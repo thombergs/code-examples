@@ -7,7 +7,7 @@ const PORT = 5000;
 const app = express();
 const simpleLogger = new Logger('SimpleLogging');
 
-const LD_SDK_KEY = 'sdk-d2432dc7-e56a-458b-9f93-0361af47d578';
+const LD_SDK_KEY = 'sdk-********-****-****-****-************';
 const LOG_LEVEL_FLAG_KEY = 'backend-log-level';
 const client = LaunchDarkly.init(LD_SDK_KEY);
 const asyncGetFlag = util.promisify(client.variation);

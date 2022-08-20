@@ -5,7 +5,7 @@ const CronJob = cron.CronJob;
 const CronTime = cron.CronTime;
 
 // Initiating LaunchDarkly Client
-const LD_SDK_KEY = 'sdk-d2432dc7-e56a-458b-9f93-0361af47d578';
+const LD_SDK_KEY = 'sdk-********-****-****-****-************';
 const userName = 'admin';
 const launchDarklyClient = LaunchDarkly.init( LD_SDK_KEY );
 

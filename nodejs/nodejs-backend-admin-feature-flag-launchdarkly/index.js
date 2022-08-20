@@ -9,13 +9,13 @@ app.get("/", async (req, res) => {
 });
 app.listen(8080);
 
-const sdkKey = 'sdk-d2432dc7-e56a-458b-9f93-0361af47d578';
+const LD_SDK_KEY = 'sdk-********-****-****-****-************';
 const userName = 'admin';
 let client;
 
 async function init() {
   if (!client) {
-    client = LaunchDarkly.init(sdkKey);
+    client = LaunchDarkly.init(LD_SDK_KEY);
     await client.waitForInitialization();
   }
 
