@@ -20,8 +20,10 @@ class App extends Component {
   }
   componentDidMount() {
     const user = {
-      key: 'aa0ceb'
+      // UI based user
+      key: 'user_a'
     }
+    // SDK requires Client-side ID for UI call
     this.ldclient = LDClient.initialize('62e9289ade464c10d842c2b3', user);
     this.ldclient.on('ready', this.onLaunchDarklyUpdated.bind(this));
     this.ldclient.on('change', this.onLaunchDarklyUpdated.bind(this));
