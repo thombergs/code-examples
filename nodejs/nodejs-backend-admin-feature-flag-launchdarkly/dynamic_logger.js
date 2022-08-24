@@ -29,14 +29,12 @@ class DynamicLogger {
   }
 
   writeToConsole(level, message) {
-    if (LEVELS[level] >= currentLogLevel) {
       const dateTime = format(new Date(), 'MM-dd-yyyy HH:mm:ss:SSS');
       const formattedLevel = padEnd(capitalize(level), 5);
       const formattedMessage = `${dateTime} ${formattedLevel} [${
         this.module
       }] ${message}`;
       console[level](formattedMessage, '');
-    }
   }
 
   async debug( message ) { 
@@ -70,7 +68,7 @@ class DynamicLogger {
         {
            key: this.user
         },
-        'debug' // Default / fall-back value if LaunchDarkly unavailable.
+        'debug' // Default/fall-back value if LaunchDarkly unavailable.
     );
 
     if ( minLogLevel !== this.previousLevel ) { 
