@@ -2,30 +2,13 @@ import { format } from 'date-fns';
 import padEnd from 'lodash/padEnd.js';
 import capitalize from 'lodash/capitalize.js';
 
-const LEVELS = { debug: 10, log: 20, warn: 30, error: 40 };
-let currentLogLevel = LEVELS['debug'];
-
 class DynamicLogger {
   constructor( module, ldClient, flagKey, user ) {
     this.module = module ? module : '';
-
-    this.debug = this.debug.bind(this);
-    this.info = this.info.bind(this);
-    this.warn = this.warn.bind(this);
-    this.error = this.error.bind(this);
-    this.writeToConsole = this.writeToConsole.bind(this);
     this.ldClient = ldClient;
-	this.flagKey = flagKey;
-	this.user = user;
-	this.previousLevel = null; 
-  }
-
-  static setLogLevel(level) {
-    currentLogLevel = LEVELS[level];
-  }
-
-  static get(module) {
-    return new Logger(module);
+	  this.flagKey = flagKey;
+	  this.user = user;
+	  this.previousLevel = null; 
   }
 
   writeToConsole(level, message) {
@@ -72,7 +55,7 @@ class DynamicLogger {
     );
 
     if ( minLogLevel !== this.previousLevel ) { 
-       console.log( `Switching to log-level: ${ minLogLevel }` ); 
+       console.log( `Present log-level: ${ minLogLevel }` ); 
     }
         
     switch ( this.previousLevel = minLogLevel ) {
