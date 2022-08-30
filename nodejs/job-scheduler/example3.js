@@ -1,17 +1,20 @@
 // Writing to a log file
 
 // Importing required packages
+const process = require("process");
+const fs = require("fs");
 const cron = require("node-cron");
 const express = require("express");
-const fs = require("fs");
 
 app = express();
 
-// Setting a cron job
+// Setting a cron job for every 15 seconds
 cron.schedule("*/15 * * * * *", function () {
-  // Info to log
-  let data = `${new Date().toUTCString()} 
-                : Server is working\n`;
+  let heap = process.memoryUsage().heapUsed / 1000000;
+
+  let data = `Memory usage by heapUsed ${heap}MB
+  ${new Date().toUTCString()}
+               : Server is working\n`;
 
   // storing data to log
   fs.appendFile("logstatus.txt", data, function (err) {
@@ -25,7 +28,7 @@ app.listen(3000, () => {
 });
 
 /*
-* Run the script: `node example3.js`
-* To generate logstatus.txt file
-* at scheduled time
-*/
+ * Run the script: `node example3.js`
+ * To generate logstatus.txt file
+ * at scheduled time
+ */

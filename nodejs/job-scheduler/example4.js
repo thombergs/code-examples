@@ -20,7 +20,7 @@ app.listen(3000, () => {
 });
 
 /*
-* Run the script: `node example4.js`
-* To delete logstatus.txt file
-* at scheduled time
-*/
+ * Run the script: `node example4.js`
+ * To delete logstatus.txt file
+ * at scheduled time
+ */

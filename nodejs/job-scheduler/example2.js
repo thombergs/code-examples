@@ -1,37 +1,37 @@
-// Scheduling Email Using Node-Cron
 const express = require("express");
 const cron = require("node-cron");
 const nodemailer = require("nodemailer");
-const fs = require("fs");
-
 app = express();
 
-cron.schedule("*/1 * * * *", function () {
-  sendMail();
+//Send email after 1 minute
+cron.schedule("1 * * * *", function () {
+  mailService();
 });
 
-function sendMail() {
+function mailService() {
   let mailTransporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "holaszyd1@gmail.com",
-      pass: "qzzrxmfvhsqjaepy",
+      user: "<your-email>@gmail.com",
+// use generated app password for gmail
+      pass: "***********",
     },
   });
 
   // Setting credentials
   let mailDetails = {
-    from: "holaszyd1@gmail.com",
-    to: "holaszyd3@gmail.com",
+    from: "<your-email>@gmail.com",
+    to: "<user-email>@gmail.com",
     subject: "Test Mail using Cron Job",
-    text: "Node.js Cron Job Email" + " Demo Test from Reflectoring Blog",
+    text: "Node.js Cron Job Email Demo Test from Reflectoring Blog",
   };
 
   // Sending Email
   mailTransporter.sendMail(mailDetails, function (err, data) {
     if (err) {
-      console.log("Error Occurs", err.message);
+      console.log("Error Occured", err.message);
     } else {
+      console.log("---------------------");
       console.log("Email sent successfully");
     }
   });
@@ -40,20 +40,3 @@ function sendMail() {
 app.listen(3000, () => {
   console.log("Application Listening.....");
 });
-
-/*
-* Run the script: `node example2.js`
-* To send E-mail
-* at scheduled time
-*/
-
-/**
- * // Setting credentials
-	let mailDetails = {
-		from: "<your-email>@gmail.com",
-		to: "<user-email>@gmail.com",
-		subject: "Test mail using Cron job",
-		text: "Node.js cron job email"
-		+ " testing for GeeksforGeeks"
-	};
- */
