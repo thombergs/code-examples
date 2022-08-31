@@ -1,0 +1,23 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Publisher</th>
+        <th scope="col">Publication Year</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let book of books">
+        <td>{{ book.bookId }}</td>
+        <td>{{ book.bookName }}</td>
+        <td>{{ book.publisher }}</td>
+        <td>{{ book.publicationYear }}</td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
