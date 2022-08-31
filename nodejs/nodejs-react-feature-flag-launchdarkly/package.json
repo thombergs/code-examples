@@ -6,7 +6,8 @@
     "launchdarkly-js-client-sdk": "^2.22.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "styled-components": "^5.3.5"
   },
   "scripts": {
     "start": "react-scripts start",

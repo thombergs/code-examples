@@ -1,8 +1,40 @@
 import React, { Component } from 'react';
+import styled from "styled-components";
 import './App.css';
 import * as LDClient from 'launchdarkly-js-client-sdk';
 
 const isNewer = (a, b) => Date.parse(a.added) - Date.parse(b.added);
+
+const theme = {
+  blue: {
+    default: "#3f51b5",
+    hover: "#283593"
+  }
+};
+
+const Button = styled.button`
+    background-color: ${(props) => theme[props.theme].default};
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    outline: 0;
+    text-transform: uppercase;
+    margin: 10px 0px;
+    cursor: pointer;
+    box-shadow: 0px 2px 2px lightgray;
+    transition: ease background-color 250ms;
+    &:hover {
+      background-color: ${(props) => theme[props.theme].hover};
+    }
+    &:disabled {
+      cursor: default;
+      opacity: 0.7;
+    }
+  `;
+
+const clickMe = () => {
+  alert("You clicked me!");
+};
 
 class App extends Component {
   constructor() {
@@ -24,7 +56,7 @@ class App extends Component {
       key: 'user_a'
     }
     // SDK requires Client-side ID for UI call
-    this.ldclient = LDClient.initialize('62e9289ade464c10d842c2b3', user);
+    this.ldclient = LDClient.initialize('62e*********************', user);
     this.ldclient.on('ready', this.onLaunchDarklyUpdated.bind(this));
     this.ldclient.on('change', this.onLaunchDarklyUpdated.bind(this));
   }
@@ -42,7 +74,6 @@ class App extends Component {
     }
 
     let sorter;
-    console.log('Checking the environment variables: ', this.state.featureFlags);
     if (this.state.selectedSortOrder) {
       if (this.state.selectedSortOrder === 'added') {
         sorter = isNewer
@@ -58,6 +89,11 @@ class App extends Component {
     }
     return (
       <div className="App">
+        <div>{ 
+            this.state.featureFlags.hideUser === 'John Doe'
+              ? <Button theme='blue' onClick={clickMe}>Shiny New Feature</Button>
+              : '' }
+        </div>
         <div style ={{ fontWeight: 'bold' }}><h1>Users List</h1></div>
         <div
             style={{ fontWeight: sorter === undefined ? 'bold' : 'normal'}}
@@ -67,8 +103,7 @@ class App extends Component {
           onClick={() => this.setState({ selectedSortOrder: 'added' })}>Time sorting</div>
         <ul>
           {this.state.users.slice().sort(sorter).map(user =>
-             <div>{ this.state.featureFlags.hideUser === 'John Doe'
-              && user.name === 'John Doe' ? '*********' : user.name }</div>
+             <div>{ user.name }</div>
           )}
         </ul>
       </div>
