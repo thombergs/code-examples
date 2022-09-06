@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/timezonedb
+    username: rootuser
+    password: Timezone@2020
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    testWhileIdle: true
+    validationQuery: select 1
+    initialization-mode: always
+
+  jpa:
+    show-sql: true
+    ddl-auto: none
+    generate-ddl: false
+
+
+server:
+  port: 8083
