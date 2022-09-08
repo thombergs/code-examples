@@ -10,9 +10,13 @@ spring:
 
   jpa:
     show-sql: true
-    ddl-auto: none
-    generate-ddl: false
-
+    ddl-auto: create
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
 
 server:
   port: 8083

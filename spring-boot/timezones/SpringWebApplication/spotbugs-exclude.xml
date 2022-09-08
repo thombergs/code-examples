@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+
+    <Match>
+        <!-- This is required for Immutables (or any annotation processor generated classes causing havoc) -->
+        <Package name="~.*\.model\.?.*"/>
+
+        <Bug pattern="NP_METHOD_PARAMETER_TIGHTENS_ANNOTATION"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be used -->
+        <Package name="~.*\.model\.?.*"/>
+
+        <Bug pattern="UUF_UNUSED_FIELD"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be used -->
+        <Package name="~.*\.model\.?.*"/>
+
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be used -->
+        <Package name="~.*\.model\.?.*"/>
+
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be used -->
+        <Package name="~.*\.delombok\.?.*"/>
+
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <Match>
+        <!-- Sample model class. Need not be used -->
+        <Package name="~.*\.delombok\.?.*"/>
+
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+
+
+    <Match>
+        <!-- Sample model class. Need not be read -->
+        <Package name="~.*\.model\.?.*"/>
+
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+
+    <Match>
+        <Package name="~.*\.model\.?.*"/>
+
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"/>
+    </Match>
+
+</FindBugsFilter>

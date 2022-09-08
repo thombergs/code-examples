@@ -100,6 +100,12 @@
 						<version>4.6.0</version>
 					</dependency>
 				</dependencies>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<outputEncoding>UTF-8</outputEncoding>
+					<includeTests>false</includeTests>
+					<excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
+				</configuration>
 				<executions>
 					<execution>
 						<id>verify</id>

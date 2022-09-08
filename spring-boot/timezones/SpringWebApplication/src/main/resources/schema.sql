@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS `timezonedb`.`date_time_tbl` (
     `local_time` TIME NULL,
     `local_date`  DATE NULL,
     `local_datetime_dt` DATETIME NULL,
-    `local_datetime_ts` TIMESTAMP NULL,
     `offset_datetime` TIMESTAMP NULL,
     `zoned_datetime` TIMESTAMP NULL,
+    `created_at` TIMESTAMP NOT NULL,
 
     PRIMARY KEY (`id`));
