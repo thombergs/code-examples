@@ -7,12 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.TimeZone;
 
 @Service
@@ -22,15 +20,18 @@ public class DateTimeService {
 
     private final DateTimeRepository repository;
 
-    public DateTimeService(DateTimeRepository repository) {
+    private final Clock clock;
+
+    public DateTimeService(DateTimeRepository repository, Clock clock) {
         this.repository = repository;
+        this.clock = Objects.isNull(clock) ? Clock.system(ZoneId.of(TimeZone.getDefault().getID())) : clock;
     }
 
     public List<DateTimeEntity> saveDateTime() {
         final ZoneId zoneId = ZoneId.of(TimeZone.getDefault().getID());
         log.info("Timezone is : {}", TimeZone.getDefault());
 
-        OffsetDateTime current = OffsetDateTime.now();
+        OffsetDateTime current = OffsetDateTime.now(clock);
         log.info("Current OffsetDateTime : {}", current);
 
         DateTimeEntity dateTimeObj = new DateTimeEntity();
