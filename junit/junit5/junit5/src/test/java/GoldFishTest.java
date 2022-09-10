@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,23 +9,22 @@ import static org.hamcrest.Matchers.equalToIgnoringCase;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 public class GoldFishTest {
     @Test
     public void testBooleanAssumption() {
-        GoldFish goldFish = new GoldFish("Jelly", 1);
+        GoldFish goldFish = new GoldFish("Windows Jelly", 1);
 
-        assumeTrue(goldFish.getAge() > 0);
-        assertThat(goldFish.getName(), equalToIgnoringCase("Jelly"));
+        assumeTrue(System.getProperty("os.name").contains("Windows"));
+        assertThat(goldFish.getName(), equalToIgnoringCase("Windows Jelly"));
     }
 
     @Test
-    public void testAssumption() {
-        GoldFish goldFish = new GoldFish("Jelly", 1);
+    public void testBooleanAssert() {
+        GoldFish goldFish = new GoldFish("Windows Jelly", 1);
 
-        assumingThat(goldFish.getAge() > 0,
-                () -> assertThat(goldFish.getName(), equalToIgnoringCase("Jelly")));
+        assert(System.getProperty("os.name").contains("Windows"));
+        assertThat(goldFish.getName(), equalToIgnoringCase("Windows Jelly"));
     }
 
     @Test
