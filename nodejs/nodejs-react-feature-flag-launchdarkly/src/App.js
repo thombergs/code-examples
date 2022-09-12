@@ -33,7 +33,7 @@ const Button = styled.button`
   `;
 
 const clickMe = () => {
-  alert("You clicked me!");
+  alert("A new shiny feature pops up!");
 };
 
 class App extends Component {
@@ -52,8 +52,8 @@ class App extends Component {
   }
   componentDidMount() {
     const user = {
-      // UI based user
-      key: 'user_a'
+      // UI based logged-in user
+      key: 'john_doe'
     }
     // SDK requires Client-side ID for UI call
     this.ldclient = LDClient.initialize('62e*********************', user);
@@ -63,8 +63,8 @@ class App extends Component {
   onLaunchDarklyUpdated() {
     this.setState({
       featureFlags: {
-        defaultSortingIsAdded: this.ldclient.variation('user-list-default-sorting-check', true),
-        hideUser: this.ldclient.variation('hidden-user', '')
+        defaultSortingType: this.ldclient.variation('sort-order', "natural"),
+        showShinyNewFeature: this.ldclient.variation('show-shiny-new-feature', false)
       }
     })
   }
@@ -75,13 +75,13 @@ class App extends Component {
 
     let sorter;
     if (this.state.selectedSortOrder) {
-      if (this.state.selectedSortOrder === 'added') {
+      if (this.state.selectedSortOrder === 'timestamp') {
         sorter = isNewer
       } else if (this.state.selectedSortOrder === 'natural') {
         sorter = undefined
       }
     } else {
-      if (this.state.featureFlags.defaultSortingIsAdded) {
+      if (this.state.featureFlags.defaultSortingType === 'timestamp') {
         sorter = isNewer
       } else {
         sorter = undefined
@@ -90,7 +90,7 @@ class App extends Component {
     return (
       <div className="App">
         <div>{ 
-            this.state.featureFlags.hideUser === 'John Doe'
+            this.state.featureFlags.showShinyNewFeature
               ? <Button theme='blue' onClick={clickMe}>Shiny New Feature</Button>
               : '' }
         </div>
@@ -100,7 +100,7 @@ class App extends Component {
             onClick={() => this.setState({ selectedSortOrder: 'natural' })}>Natural sorting</div>
         <div
           style={{ fontWeight: sorter === isNewer ? 'bold' : 'normal'}}
-          onClick={() => this.setState({ selectedSortOrder: 'added' })}>Time sorting</div>
+          onClick={() => this.setState({ selectedSortOrder: 'timestamp' })}>Time sorting</div>
         <ul>
           {this.state.users.slice().sort(sorter).map(user =>
              <div>{ user.name }</div>
