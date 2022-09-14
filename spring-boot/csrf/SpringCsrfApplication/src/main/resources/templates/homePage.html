@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>HomePage</p>
+<div>
+    <a href="http://localhost:8095/logout">Logout</a>
+    <form method="post" action="/changePassword">
+        <p>Write your new password: </p>
+        <input type="password" name="newPassword" />
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit">Change My Password</button>
+    </form>
+</div>
+</body>
+</html>
