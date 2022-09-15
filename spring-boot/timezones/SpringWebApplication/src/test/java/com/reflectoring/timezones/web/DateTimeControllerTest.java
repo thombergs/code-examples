@@ -60,9 +60,8 @@ public class DateTimeControllerTest {
         List<DateTimeEntity> list = repository.findAll();
         assertTrue(!list.isEmpty());
         assertTrue(list.size() == 1);
-        DateTimeEntity entity = list.get(0);
-        response.andDo(print()).
-                andExpect(status().isOk())
+        response.andDo(print())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.applicationTimezone").value("Europe/London"))
                 .andExpect(jsonPath("$.['zonedDateTime (column zoned_datetime)']", Matchers.containsString("+01:00")))
                 .andExpect(jsonPath("$.['offsetDateTime (column offset_datetime)']", Matchers.containsString("+01:00")))

@@ -29,8 +29,8 @@ public class DateTimeService {
         final ZoneId zoneId = clock.getZone();
         log.info("Timezone is : {}", clock.getZone());
 
-        OffsetDateTime current = OffsetDateTime.now(clock);
-        log.info("Current OffsetDateTime : {}", current);
+        LocalDateTime dateTime = LocalDateTime.of(2022, 9, 8, 21, 21, 17);
+        OffsetDateTime current = OffsetDateTime.of(dateTime, zoneId.getRules().getOffset(dateTime));
 
         DateTimeEntity dateTimeObj = new DateTimeEntity();
         log.info("To Date In String : {}", current.toString());
@@ -60,7 +60,7 @@ public class DateTimeService {
 
     public List<DateTimeEntity> saveCustomDateTime() {
         final ZoneId zoneId = clock.getZone();
-        log.info("Timezone is : {}", TimeZone.getDefault());
+        log.info("Timezone is : {}", zoneId);
 
         LocalDateTime dateTime = LocalDateTime.of(2022, 11, 8, 9, 10, 20);
         OffsetDateTime custom = OffsetDateTime.of(dateTime, zoneId.getRules().getOffset(dateTime));
