@@ -12,7 +12,6 @@ public class ServiceConfiguration {
 
     @Bean
     public Clock clock() {
-        System.out.println("TEST CLOCK");
         return Clock.system(ZoneId.of("Europe/London"));
         //Clock.fixed(Instant.parse("2022-11-08T09:10:20.00Z"), ZoneId.of("Europe/Berlin"));
     }

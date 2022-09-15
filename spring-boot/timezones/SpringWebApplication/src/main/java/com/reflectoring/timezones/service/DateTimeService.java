@@ -21,7 +21,6 @@ public class DateTimeService {
     private final Clock clock;
 
     public DateTimeService(DateTimeRepository repository, Clock clock) {
-        System.out.println("SERVICE CLOCk : " + clock);
         this.repository = repository;
         this.clock = clock;
     }
