@@ -1,47 +1,57 @@
 package com.reflectoring;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 
 public class DateUtilToTimeExamples {
 
+    private Clock clock;
+
+    @BeforeEach
+    public void setClock() {
+        clock = Clock.system(ZoneId.of("Australia/Sydney"));
+    }
+
     @Test
     public void testWorkingWithLegacyDateInJava8() {
         Date date = new Date();
-        System.out.println("java.util.Date : " + date);
         Instant instant = date.toInstant();
-        System.out.println("Convert java.util.Date to Instant : " + instant);
+        assertThat(instant).isNotEqualTo(clock.instant());
 
-        ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
-        System.out.println("Use Instant to convert to ZonedDateTime : " + zdt);
+        ZonedDateTime zdt = instant.atZone(clock.getZone());
+        assertThat(zdt.getZone()).isEqualTo(ZoneId.of("Australia/Sydney"));
 
         LocalDate ld = zdt.toLocalDate();
-        System.out.println("Convert to LocalDate : " + ld);
-
+        assertThat(ld).isEqualTo(LocalDate.now(clock));
         ZonedDateTime zdtDiffZone = zdt.withZoneSameInstant(ZoneId.of("Europe/London"));
-        System.out.println("ZonedDateTime of a different zone : " + zdtDiffZone);
+        assertThat(zdtDiffZone.getZone()).isEqualTo(ZoneId.of("Europe/London"));
     }
 
     @Test
     public void testWorkingWithLegacyCalendarInJava8() {
-        Calendar calendar = Calendar.getInstance();
-        System.out.println("java.util.Calendar : " + calendar);
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(clock.getZone()));
+        assertThat(calendar.getTimeZone()).isEqualTo(TimeZone.getTimeZone("Australia/Sydney"));
 
         Date calendarDate = calendar.getTime();
-        System.out.println("Calendar Date : " + calendarDate);
-
         Instant instant = calendar.toInstant();
-        System.out.println("Convert java.util.Calendar to Instant : " + instant + " for timezone : " + calendar.getTimeZone());
+        assertThat(calendarDate.toInstant()).isEqualTo(calendar.toInstant());
 
         ZonedDateTime instantAtDiffZone = instant.atZone(ZoneId.of("Europe/London"));
-        System.out.println("Instant at a different zone : " + instantAtDiffZone);
+        assertThat(instantAtDiffZone.getZone()).isEqualTo(ZoneId.of("Europe/London"));
 
         LocalDateTime localDateTime = instantAtDiffZone.toLocalDateTime();
-        System.out.println("LocalDateTime value : " + localDateTime);
+        LocalDateTime localDateTimeWithZone = LocalDateTime.now(ZoneId.of("Europe/London"));
+        assertThat(localDateTime).isCloseTo(localDateTimeWithZone, within(5, ChronoUnit.SECONDS));
 
     }
 

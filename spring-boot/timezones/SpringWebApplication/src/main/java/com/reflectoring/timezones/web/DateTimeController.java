@@ -19,29 +19,32 @@ public class DateTimeController {
 
     private final DateTimeService dateTimeService;
 
+    private final DateTimeMapper dateTimeMapper;
 
-    public DateTimeController(DateTimeService dateTimeService) {
+
+    public DateTimeController(DateTimeService dateTimeService, DateTimeMapper dateTimeMapper) {
         this.dateTimeService = dateTimeService;
+        this.dateTimeMapper = dateTimeMapper;
     }
 
     @PostMapping("/default")
     public ResponseEntity<DateTime> save() {
         List<DateTimeEntity> fromDb = dateTimeService.saveDateTime();
-        DateTime obj = DateTimeMapper.mapToDateTime(fromDb.get(fromDb.size() - 1), null);
+        DateTime obj = dateTimeMapper.mapToDateTime(fromDb.get(fromDb.size() - 1), null);
         return ResponseEntity.ok(obj);
     }
 
     @PostMapping("/dst")
     public ResponseEntity<DateTime> saveNonDst() {
         List<DateTimeEntity> fromDb = dateTimeService.saveCustomDateTime();
-        DateTime obj = DateTimeMapper.mapToDateTime(fromDb.get(fromDb.size() - 1), null);
+        DateTime obj = dateTimeMapper.mapToDateTime(fromDb.get(fromDb.size() - 1), null);
         return ResponseEntity.ok(obj);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DateTime> getDateTime(@PathVariable Integer id, @RequestParam String timezone) {
         DateTimeEntity entity = dateTimeService.fetchDateTime(id);
-        DateTime dateTime = DateTimeMapper.mapToDateTime(entity, timezone);
+        DateTime dateTime = dateTimeMapper.mapToDateTime(entity, timezone);
         return ResponseEntity.ok(dateTime);
 
     }

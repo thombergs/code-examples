@@ -9,14 +9,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class DeprecatedExamples {
 
     @Test
     public void testCurrentDate() {
         Date now = new Date();
-        System.out.println(now);
         Date before = new Date(1661832030000L);
-        System.out.println(before);
+        assertThat(now).isAfter(before);
     }
 
     @Test
@@ -25,14 +26,17 @@ public class DeprecatedExamples {
         int year = 2022-1900;
         int month = 8-1;
         Date customDate = new Date(year, month, 17, 23, 30);
-        System.out.println(customDate);
+        assertThat(customDate.getYear()).isEqualTo(year);
+        assertThat(customDate.getMonth()).isEqualTo(month);
+        assertThat(customDate.getDate()).isEqualTo(17);
     }
 
     @Test
     public void testDateWithTimezone() {
-        TimeZone.setDefault(TimeZone.getTimeZone("Europe/London"));
         Date before = new Date(1661832030000L);
-        System.out.println(before);
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/London"));
+        Date after = new Date(1661832030000L);
+        assertThat(before).isEqualTo(after);
     }
 
     @Test
@@ -41,15 +45,17 @@ public class DeprecatedExamples {
         int year = 2022-1900;
         int month = 8-1;
         Date customDate = new Date(year, month, 17, 23, 30);
-        System.out.println(customDate);
+        assertThat(customDate.getHours()).isEqualTo(23);
+        assertThat(customDate.getMinutes()).isEqualTo(30);
         customDate.setHours(20);
         customDate.setMinutes(50);
-        System.out.println(customDate);
+        assertThat(customDate.getHours()).isEqualTo(20);
+        assertThat(customDate.getMinutes()).isEqualTo(50);
 
-        Calendar calendar = Calendar.getInstance();
-        System.out.println("Current Timezone: " + calendar.getTimeZone());
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Australia/Sydney"));
+        assertThat(calendar.getTimeZone()).isEqualTo(TimeZone.getTimeZone("Australia/Sydney"));
         calendar.setTimeZone(TimeZone.getTimeZone("Europe/London"));
-        System.out.println("New Timezone: " + calendar.getTimeZone());
+        assertThat(calendar.getTimeZone()).isEqualTo(TimeZone.getTimeZone("Europe/London"));
     }
 
     @Test
@@ -59,7 +65,7 @@ public class DeprecatedExamples {
         Calendar cal = Calendar.getInstance(zone);
         Date date = cal.getTime();
         String strFormat = dtFormat.format(date);
-        System.out.println(strFormat);
+        assertThat(strFormat).isNotNull();
 
     }
 
@@ -70,6 +76,7 @@ public class DeprecatedExamples {
     @Test
     public void testSqlDates() {
         Date sqlDate = getCurrentTimestamp();
+        assertThat(sqlDate).isNotEqualTo(new java.sql.Date(new Date().getTime()));
     }
 }
 

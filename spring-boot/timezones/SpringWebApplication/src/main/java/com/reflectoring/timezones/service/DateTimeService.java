@@ -1,6 +1,5 @@
 package com.reflectoring.timezones.service;
 
-import com.reflectoring.timezones.mapper.DateTimeMapper;
 import com.reflectoring.timezones.model.DateTimeEntity;
 import com.reflectoring.timezones.repository.DateTimeRepository;
 import org.slf4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.time.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.TimeZone;
 
 @Service
@@ -23,13 +21,14 @@ public class DateTimeService {
     private final Clock clock;
 
     public DateTimeService(DateTimeRepository repository, Clock clock) {
+        System.out.println("SERVICE CLOCk : " + clock);
         this.repository = repository;
-        this.clock = Objects.isNull(clock) ? Clock.system(ZoneId.of(TimeZone.getDefault().getID())) : clock;
+        this.clock = clock;
     }
 
     public List<DateTimeEntity> saveDateTime() {
-        final ZoneId zoneId = ZoneId.of(TimeZone.getDefault().getID());
-        log.info("Timezone is : {}", TimeZone.getDefault());
+        final ZoneId zoneId = clock.getZone();
+        log.info("Timezone is : {}", clock.getZone());
 
         OffsetDateTime current = OffsetDateTime.now(clock);
         log.info("Current OffsetDateTime : {}", current);
@@ -61,7 +60,7 @@ public class DateTimeService {
     }
 
     public List<DateTimeEntity> saveCustomDateTime() {
-        final ZoneId zoneId = ZoneId.of(TimeZone.getDefault().getID());
+        final ZoneId zoneId = clock.getZone();
         log.info("Timezone is : {}", TimeZone.getDefault());
 
         LocalDateTime dateTime = LocalDateTime.of(2022, 11, 8, 9, 10, 20);
