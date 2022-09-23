@@ -1,8 +1,16 @@
 server:
-  port: 8095
+  port: 8090
+  servlet:
+    session:
+      cookie:
+        same-site: Lax
 
 spring:
   security:
     user:
       name: admin
       password: passw@rd
+
+logging:
+  level:
+    org.springframework.security.web.FilterChainProxy: DEBUG

@@ -7,12 +7,12 @@
 <body>
 <p>HomePage</p>
 <div>
-    <a href="http://localhost:8095/logout">Logout</a>
-    <form method="post" action="/changePassword">
-        <p>Write your new password: </p>
-        <input type="password" name="newPassword" />
+    <a href="http://localhost:8090/logout">Logout</a>
+    <form method="post" action="/registerEmail">
+        <p>Register your email: </p>
+        <input type="email" name="newEmail" />
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <button type="submit">Change My Password</button>
+        <button type="submit">Register</button>
     </form>
 </div>
 </body>
