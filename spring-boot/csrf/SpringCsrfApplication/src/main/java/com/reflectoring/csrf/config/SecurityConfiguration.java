@@ -26,12 +26,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests().antMatchers("/**")
-                .permitAll()
-                .and()
-                .csrf().csrfTokenRepository(csrfTokenRepository()).and()
-                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
-                .httpBasic().and().formLogin().permitAll();
-        //http.csrf().disable();
+                .permitAll().and().httpBasic().and().formLogin().permitAll();
+                //.and().csrf().disable();
+                //.and()
+                //.csrf().csrfTokenRepository(csrfTokenRepository()).and()
+                //.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
+                //.httpBasic().and().formLogin().permitAll();
     }
 
     private Filter csrfHeaderFilter() {
