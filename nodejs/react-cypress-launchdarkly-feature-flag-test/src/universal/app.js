@@ -24,6 +24,6 @@ const App = () => (
 // your LaunchDarkly portal under Account settings / Projects
 // https://docs.launchdarkly.com/sdk/client-side/javascript#initializing-the-client
 const user = {
-  key: 'USER_1234'
+  key: 'CYPRESS_TEST_1234'
 };
-export default withLDProvider({ clientSideID: '62e9289ade464c10d842c2b3', user })(App);
+export default withLDProvider({ clientSideID: '63**********************', user })(App);
