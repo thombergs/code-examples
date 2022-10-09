@@ -9,4 +9,8 @@ public class ShipmentService {
     public void shipStuff(){
         System.out.println("In Service");
     }
+
+    public void shipStuffWithBill(){
+        System.out.println("In Service with Bill");
+    }
 }

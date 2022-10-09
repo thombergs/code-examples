@@ -9,9 +9,22 @@ class AopApplicationTests {
 	@Autowired
 	ShipmentService shipmentService;
 
+	@Autowired
+	BillingService billingService;
+
 	@Test
 	void testBeforeLog() {
 		shipmentService.shipStuff();
+	}
+
+	@Test
+	void testBeforeLogWithBill() {
+		shipmentService.shipStuffWithBill();
+	}
+
+	@Test
+	void testWithin() {
+		billingService.createBill();
 	}
 
 }
