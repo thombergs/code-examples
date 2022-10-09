@@ -7,4 +7,8 @@ public class BillingService {
     public void createBill() {
         System.out.println("Bill created");
     }
+
+    public void createBill(Long price) {
+        System.out.println("Bill Created: " + price);
+    }
 }

@@ -27,4 +27,8 @@ class AopApplicationTests {
 		billingService.createBill();
 	}
 
+	@Test
+	void testWithArgs() {
+		billingService.createBill(10L);
+	}
 }

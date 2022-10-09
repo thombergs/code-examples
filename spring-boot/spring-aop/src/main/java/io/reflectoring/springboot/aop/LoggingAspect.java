@@ -1,5 +1,6 @@
 package io.reflectoring.springboot.aop;
 
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -30,6 +31,14 @@ public class LoggingAspect {
     @Before("logPointcutWithin()")
     public void logMethodCallsWithinAdvice() {
         System.out.println("In Aspect from within");
+    }
+
+    @Pointcut("execution(public void io.reflectoring.springboot.aop.BillingService.createBill(Long))")
+    public void logPointcutWithArgs() {}
+
+    @Before("logPointcutWithArgs()")
+    public void logMethodCallsWithArgsAdvice() {
+        System.out.println("In Aspect from Args");
     }
 
 }
