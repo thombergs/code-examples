@@ -1,0 +1,5 @@
+node_modules/
+docs/
+test-types.js
+test/
+test.js

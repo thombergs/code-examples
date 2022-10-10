@@ -1,0 +1,8 @@
+{
+	"compilerOptions": {
+		"outDir": "./test"
+	},
+	"include": [
+		"./_src/**/*"
+]
+}

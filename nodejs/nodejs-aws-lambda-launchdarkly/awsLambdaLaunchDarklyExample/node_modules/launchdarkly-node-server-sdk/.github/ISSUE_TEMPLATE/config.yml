@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support request
+    url: https://support.launchdarkly.com/hc/en-us/requests/new
+    about: File your support requests with LaunchDarkly's support team

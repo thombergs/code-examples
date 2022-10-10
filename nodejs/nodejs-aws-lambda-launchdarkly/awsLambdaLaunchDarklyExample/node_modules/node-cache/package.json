@@ -1,0 +1,80 @@
+{
+  "name": "node-cache",
+  "description": "Simple and fast NodeJS internal caching. Node internal in memory cache like memcached.",
+  "keywords": [
+    "cache",
+    "caching",
+    "local",
+    "variable",
+    "multi",
+    "memory",
+    "internal",
+    "node",
+    "memcached",
+    "object"
+  ],
+  "tags": [
+    "cache",
+    "caching",
+    "local",
+    "variable",
+    "multi",
+    "memory",
+    "internal",
+    "node",
+    "memcached",
+    "object"
+  ],
+  "version": "5.1.2",
+  "author": "mpneuried <mp@tcs.de>",
+  "maintainers": [
+    {
+      "name": "M. Peter",
+      "email": "mp@tcs.de",
+      "url": "https://github.com/mpneuried"
+    },
+    {
+      "name": "Joshy",
+      "email": "erdiicodes@gmail.com",
+      "url": "https://erdii.engineering/"
+    }
+  ],
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "homepage": "https://github.com/node-cache/node-cache",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/node-cache/node-cache.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "scripts": {
+    "test": "nyc --require coffee-script/register mocha _src/test/mocha_test.coffee -R spec && tsc",
+    "build": "grunt build",
+    "export-coverage": "nyc report --reporter=text-lcov > lcov.info"
+  },
+  "dependencies": {
+    "clone": "2.x"
+  },
+  "devDependencies": {
+    "@types/node": "^8.9.4",
+    "coffee-coverage": "^3.0.1",
+    "coffee-script": "1.x",
+    "coveralls": "^3.0.3",
+    "grunt": "^1.0.4",
+    "grunt-banner": "0.6.x",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "1.0.x",
+    "grunt-contrib-coffee": "^2.1.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-include-replace": "3.2.x",
+    "grunt-mocha-cli": "^6.0.0",
+    "grunt-run": "^0.8.1",
+    "mocha": "^7.2.0",
+    "nyc": "^15.1.0",
+    "should": "11.x",
+    "typescript": "^2.6.1"
+  }
+}

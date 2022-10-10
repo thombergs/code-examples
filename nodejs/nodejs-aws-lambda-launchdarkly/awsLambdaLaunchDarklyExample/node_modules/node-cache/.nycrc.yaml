@@ -1,0 +1,7 @@
+all: true
+exclude:
+  - "_src/test/**/*"
+  - "**/*.js"
+  - "Gruntfile.coffee"
+extension:
+  - ".coffee"
