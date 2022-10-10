@@ -41,4 +41,12 @@ public class LoggingAspect {
         System.out.println("In Aspect from Args");
     }
 
+    @Pointcut("within(io.reflectoring.springboot.aop.OrderService) && execution(public String io.reflectoring.springboot.aop.OrderService.*(..))")
+    public void logPointcutWithLogicalOperator(){}
+
+    @Before("logPointcutWithLogicalOperator()")
+    public void logPointcutWithLogicalOperatorAdvice(){
+        System.out.println("In Aspect from logical operator");
+    }
+
 }

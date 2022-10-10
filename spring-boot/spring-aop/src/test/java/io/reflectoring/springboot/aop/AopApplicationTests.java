@@ -12,6 +12,9 @@ class AopApplicationTests {
 	@Autowired
 	BillingService billingService;
 
+	@Autowired
+	OrderService orderService;
+
 	@Test
 	void testBeforeLog() {
 		shipmentService.shipStuff();
@@ -30,5 +33,15 @@ class AopApplicationTests {
 	@Test
 	void testWithArgs() {
 		billingService.createBill(10L);
+	}
+
+	@Test
+	void testOrderWithLogicalOperator() {
+		orderService.orderStuff();
+	}
+
+	@Test
+	void testCancelWithLogicalOperator() {
+		orderService.cancelStuff();
 	}
 }
