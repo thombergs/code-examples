@@ -15,6 +15,9 @@ class AopApplicationTests {
 	@Autowired
 	OrderService orderService;
 
+	@Autowired
+	ValidationService validationService;
+
 	@Test
 	void testBeforeLog() {
 		shipmentService.shipStuff();
@@ -48,5 +51,15 @@ class AopApplicationTests {
 	@Test
 	void testCheckingStuffWithAfter() {
 		orderService.checkStuff();
+	}
+
+	@Test
+	void testValidAroundAspect() {
+		validationService.validateNumber(10);
+	}
+
+	@Test
+	void testInvalidAroundAspect() {
+		validationService.validateNumber(-4);
 	}
 }
