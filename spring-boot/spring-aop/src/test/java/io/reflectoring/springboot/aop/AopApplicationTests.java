@@ -44,4 +44,9 @@ class AopApplicationTests {
 	void testCancelWithLogicalOperator() {
 		orderService.cancelStuff();
 	}
+
+	@Test
+	void testCheckingStuffWithAfter() {
+		orderService.checkStuff();
+	}
 }

@@ -13,4 +13,9 @@ public class OrderService {
     public void cancelStuff() {
         System.out.println("Cancelling stuff");
     }
+
+    @AfterLog
+    public void checkStuff() {
+        System.out.println("Checking stuff");
+    }
 }

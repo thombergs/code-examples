@@ -1,5 +1,6 @@
 package io.reflectoring.springboot.aop;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -13,8 +14,8 @@ public class LoggingAspect {
     public void logPointcut(){
     }
     @Before("logPointcut()")
-    public void logAllMethodCallsAdvice(){
-        System.out.println("In Aspect");
+    public void logAllMethodCallsAdvice(JoinPoint joinPoint){
+        System.out.println("In Aspect at " + joinPoint.getSignature().getName());
     }
 
     @Pointcut("execution(public void io.reflectoring.springboot.aop.ShipmentService.shipStuffWithBill())")
@@ -47,6 +48,15 @@ public class LoggingAspect {
     @Before("logPointcutWithLogicalOperator()")
     public void logPointcutWithLogicalOperatorAdvice(){
         System.out.println("In Aspect from logical operator");
+    }
+
+
+    @Pointcut("@annotation(AfterLog)")
+    public void logAfterPointcut(){}
+
+    @After("logAfterPointcut()")
+    public void logMethodCallsAfterAdvice(JoinPoint joinPoint) {
+        System.out.println("In After Aspect at " + joinPoint.getSignature().getName());
     }
 
 }
