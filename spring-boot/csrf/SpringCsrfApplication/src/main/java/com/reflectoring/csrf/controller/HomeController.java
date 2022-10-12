@@ -18,10 +18,10 @@ public class HomeController {
 
     @GetMapping
     public String homePage(HttpServletResponse response) {
-        /*ResponseCookie responseCookie = ResponseCookie.from("testCookie", "cookieVal")
+        ResponseCookie responseCookie = ResponseCookie.from("testCookie", "cookieVal")
                 .sameSite("Lax")
                 .build();
-        response.setHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());*/
+        response.setHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
         return "homePage";
     }
 }

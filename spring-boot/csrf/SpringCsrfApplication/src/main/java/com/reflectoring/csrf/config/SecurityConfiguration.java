@@ -1,10 +1,10 @@
 package com.reflectoring.csrf.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -24,16 +24,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        String[] patterns = new String[] {
+                "/favicon.ico",
+                "/login"
+        };
         http
                 .authorizeRequests().antMatchers("/**")
-                .permitAll().and().httpBasic().and().formLogin().permitAll();
+                .permitAll().and().httpBasic().and().formLogin().permitAll()
                 //.and().csrf().disable();
+                .and()
+                .csrf().csrfTokenRepository(csrfTokenRepository())
+                .ignoringAntMatchers(patterns);
+                //.requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/login"))
+                //.and().csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/registerEmail"));
                 //.and()
-                //.csrf().csrfTokenRepository(csrfTokenRepository()).and()
-                //.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
+                //.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
                 //.httpBasic().and().formLogin().permitAll();
     }
 
+    // This is just a sample method. Any additional logic required after CsrfFilter approves the request can be added here.
     private Filter csrfHeaderFilter() {
         return new OncePerRequestFilter() {
             @Override
@@ -54,15 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         };
     }
 
-    /*private CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
-        return repository;
-    }*/
-
-    private CsrfTokenRepository csrfTokenRepository() {
-        CustomCsrfTokenRepository repository = new CustomCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
+    @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
         return new CustomCsrfTokenRepository();
     }
 

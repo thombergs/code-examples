@@ -22,7 +22,7 @@ public class EmailController {
     }
 
     @PostMapping("/registerEmail")
-    public String registerCustomerEmail(@RequestParam String newEmail, @CookieValue("XSRF-TOKEN") String csrf) {
+    public String registerCustomerEmail(@RequestParam String newEmail) {
         logger.info("Email: {}", newEmail);
         customerEmailService.registerEmail(newEmail);
         return "emailChange";
