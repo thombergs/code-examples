@@ -11,7 +11,7 @@ public class OrderService {
     }
 
     public void cancelStuff() {
-        System.out.println("Cancelling stuff");
+        System.out.println("Canceling stuff");
     }
 
     @AfterLog
