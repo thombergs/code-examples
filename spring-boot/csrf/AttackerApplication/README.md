@@ -1,8 +1,7 @@
 # A sample Spring Web application
-A sample Spring Web application
+A sample Spring Web application that uses Spring Boot and thymeleaf
 
 ## Details
- * This application uses the HSQLDB DB.
  * It uses Spring Boot to create REST endpoints
  * It uses Maven and Java11 to build and run.
 
