@@ -1,0 +1,10 @@
+spring:
+  security:
+    user:
+      name: admin
+      password: password
+  thymeleaf:
+    enabled: false
+
+logging:
+  debug: org.springframework.security.test.web.servlet
