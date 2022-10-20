@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>HomePage</p>
+<div>
+    <a href="http://localhost:8090/logout">Logout</a>
+    <form method="post" action="/registerEmail">
+        <p>Register your email: </p>
+        <input type="email" name="newEmail" />
+        <!-- Comment to simulate CSRF -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit">Register</button>
+    </form>
+</div>
+</body>
+</html>

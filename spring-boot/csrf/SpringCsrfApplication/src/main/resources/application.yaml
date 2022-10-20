@@ -1,0 +1,26 @@
+server:
+  port: 8090
+  servlet:
+    session:
+      cookie:
+        same-site: Lax
+
+spring:
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+  security:
+    user:
+      name: admin
+      password: passw@rd
+
+logging:
+  level:
+    org.springframework.security.web: DEBUG
