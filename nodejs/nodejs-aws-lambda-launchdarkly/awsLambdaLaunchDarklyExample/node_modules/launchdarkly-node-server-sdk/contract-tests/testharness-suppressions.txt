@@ -1,2 +1,0 @@
-streaming/validation/drop and reconnect if stream event has malformed JSON
-streaming/validation/drop and reconnect if stream event has well-formed JSON not matching schema
