@@ -12,4 +12,9 @@ public class HomeController {
     public String homePage(HttpServletResponse response) {
         return "homePage";
     }
+
+    @GetMapping("/invalidSession")
+    public String invalidSession(HttpServletResponse response) {
+        return "invalidSession";
+    }
 }

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -26,8 +27,10 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // Requests
         http.authorizeRequests(request -> request.antMatchers(ENDPOINTS_WHITELIST).permitAll()
                         .anyRequest().authenticated())
+                // CSRF
                 .csrf().disable()
                 //.formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
@@ -42,7 +45,15 @@ public class SecurityConfiguration {
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
-                        .logoutSuccessUrl(LOGIN_URL + "?logout"));
+                        .logoutSuccessUrl(LOGIN_URL + "?logout"))
+                //.sessionManagement(Customizer.withDefaults())
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                        .invalidSessionUrl("/invalidSession")
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(true));
+
+
         return http.build();
     }
 }
