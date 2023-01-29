@@ -10,7 +10,7 @@ public class ExternalMethodSourceTest {
 
 	// Note: The test will try to load the external method
 	@ParameterizedTest
-	@MethodSource("source.method.ExternalMethodSource#checkExternalMethodSource_args")
+	@MethodSource("source.method.ExternalMethodSource#checkExternalMethodSourceArgs")
 	void checkExternalMethodSource(String word) {
 		assertTrue(StringUtils.isAlphanumeric(word), "Supplied word is not alpha-numeric");
 	}

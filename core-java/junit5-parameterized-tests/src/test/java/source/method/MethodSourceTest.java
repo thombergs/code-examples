@@ -14,12 +14,12 @@ public class MethodSourceTest {
 
 	// Note: The test will try to load the supplied method
 	@ParameterizedTest
-	@MethodSource("checkExplicitMethodSource_args")
+	@MethodSource("checkExplicitMethodSourceArgs")
 	void checkExplicitMethodSource(String word) {
 		assertTrue(StringUtils.isAlphanumeric(word), "Supplied word is not alpha-numeric");
 	}
 
-	static Stream<String> checkExplicitMethodSource_args() {
+	static Stream<String> checkExplicitMethodSourceArgs() {
 		return Stream.of("a1", "b2");
 	}
 
