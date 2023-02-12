@@ -1,5 +1,6 @@
 package com.reflectoring.security.config;
 
+import com.reflectoring.security.CustomHeaderValidatorFilter;
 import com.reflectoring.security.exception.UserAuthenticationErrorHandler;
 import com.reflectoring.security.exception.UserForbiddenErrorHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -44,7 +46,14 @@ public class SecurityConfiguration {
                         .authenticationEntryPoint(userAuthenticationErrorHandler())
                         .accessDeniedHandler(new UserForbiddenErrorHandler()));
 
+        http.addFilterBefore(customHeaderValidatorFilter(), BasicAuthenticationFilter.class);
+
         return http.build();
+    }
+
+    @Bean
+    public CustomHeaderValidatorFilter customHeaderValidatorFilter() {
+        return new CustomHeaderValidatorFilter();
     }
 
     @Bean
