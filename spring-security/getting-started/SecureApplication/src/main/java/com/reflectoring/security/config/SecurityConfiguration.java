@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableConfigurationProperties(BasicAuthProperties.class)
 public class SecurityConfiguration {
 
@@ -104,7 +106,7 @@ public class SecurityConfiguration {
     @Order(1)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // Requests
-        http.authorizeRequests(request -> request.antMatchers(ENDPOINTS_WHITELIST).permitAll()
+        http.authorizeRequests(request -> request.antMatchers(ENDPOINTS_WHITELIST).hasRole("ADMIN")
                         .anyRequest().authenticated())
                 // CSRF
                 .csrf().disable()

@@ -16,6 +16,7 @@ server:
 logging:
   level:
     org.springframework: DEBUG
+    org.springframework.security: DEBUG
 
 auth:
   users:
