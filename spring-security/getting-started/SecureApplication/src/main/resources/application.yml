@@ -1,7 +1,7 @@
 server:
   port: 8083
 
-#spring:
+spring:
   #security:
     #user:
       #name: admin
