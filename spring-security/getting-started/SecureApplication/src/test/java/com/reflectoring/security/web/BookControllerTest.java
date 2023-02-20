@@ -14,6 +14,7 @@ import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -41,6 +42,8 @@ public class BookControllerTest {
                         .header("X-Application-Name", "Library"))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(authenticated().withUsername("bookadmin"))
+                .andExpect(authenticated().withRoles("USER"))
                 .andExpect(jsonPath("$", hasSize(3)))
         ;
     }
