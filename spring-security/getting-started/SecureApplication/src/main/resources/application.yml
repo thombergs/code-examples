@@ -1,0 +1,28 @@
+server:
+  port: 8083
+
+spring:
+  #security:
+    #user:
+      #name: admin
+      #password: passw@rd
+
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+
+logging:
+  level:
+    org.springframework: DEBUG
+    org.springframework.security: DEBUG
+
+auth:
+  users:
+    loginadmin:
+      role: admin
+      password: loginpass
+    bookadmin:
+      role: user
+      password: bookpass
