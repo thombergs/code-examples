@@ -15,8 +15,8 @@
     "react-scripts": "2.0.5"
   },
   "devDependencies": {
-    "@pact-foundation/pact": "7.0.3",
-    "@pact-foundation/pact-node": "6.20.0",
+    "@pact-foundation/pact": "10.4.1",
+    "@pact-foundation/pact-node": "10.17.7",
     "cross-env": "^5.2.0"
   },
   "scripts": {
