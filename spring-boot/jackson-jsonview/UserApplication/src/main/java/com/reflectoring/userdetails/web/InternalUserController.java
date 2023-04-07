@@ -26,7 +26,7 @@ public class InternalUserController {
     }
 
     @GetMapping("/users")
-    @JsonView(Views.GetView.class)
+    @JsonView(Views.InternalView.class)
     public ResponseEntity<List<UserData>> getAllUsers(@RequestParam(required = false) String loginId) {
         if (Objects.isNull(loginId)) {
             return ResponseEntity.ok().body(userService.getAllUsers(true));
@@ -48,11 +48,10 @@ public class InternalUserController {
         return ResponseEntity.ok().body(userService.getUser(loginId));
     }
 
+
     @PatchMapping("/users")
     public ResponseEntity<UserData> updateAddress(@RequestParam String loginId,
                                                   @RequestBody @JsonView(Views.PatchView.class) UserData addressData) {
         return ResponseEntity.ok().body(userService.updateAddress(loginId, addressData));
     }
-
-
 }

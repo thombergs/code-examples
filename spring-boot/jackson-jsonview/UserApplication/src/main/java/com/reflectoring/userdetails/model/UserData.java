@@ -30,7 +30,7 @@ public class UserData {
     @JsonView(value = {Views.GetView.class, Views.PatchView.class, Views.UserSummary.class, Views.ExternalView.class})
     private String city;
 
-    private boolean isInternalUser;
+    private boolean internalUser;
 
     private String additionalData;
 
@@ -112,11 +112,11 @@ public class UserData {
 
     @JsonIgnore
     public boolean isInternalUser() {
-        return isInternalUser;
+        return internalUser;
     }
 
     public void setInternalUser(boolean internalUser) {
-        isInternalUser = internalUser;
+        internalUser = internalUser;
     }
 
     public String getLoginId() {
@@ -193,7 +193,7 @@ public class UserData {
                 ", address='" + address + '\'' +
                 ", suburb='" + suburb + '\'' +
                 ", city='" + city + '\'' +
-                ", isInternalUser=" + isInternalUser +
+                ", internalUser=" + internalUser +
                 ", loginId='" + loginId + '\'' +
                 ", loginPassword='" + loginPassword + '\'' +
                 ", ssnNumber='" + ssnNumber + '\'' +
