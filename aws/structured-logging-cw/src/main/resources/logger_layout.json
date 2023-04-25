@@ -1,0 +1,44 @@
+{
+  "timestamp": {
+    "$resolver": "timestamp",
+    "pattern": {
+      "format": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+      "timeZone": "UTC"
+    }
+  }, "level": {
+  "$resolver": "level",
+  "field": "name"
+},
+  "contextMap": {
+    "$resolver": "mdc",
+    "stringified": true
+  },
+  "message": {
+    "$resolver": "message",
+    "stringified": true
+  },
+  "thrown": {
+    "message": {
+      "$resolver": "exception",
+      "field": "message"
+    },
+    "name": {
+      "$resolver": "exception",
+      "field": "className"
+    },
+    "extendedStackTrace": {
+      "$resolver": "exception",
+      "field": "stackTrace"
+    }
+  },
+  "source": {
+    "class": {
+      "$resolver": "source",
+      "field": "className"
+    },
+    "line": {
+      "$resolver": "source",
+      "field": "lineNumber"
+    }
+  }
+}
