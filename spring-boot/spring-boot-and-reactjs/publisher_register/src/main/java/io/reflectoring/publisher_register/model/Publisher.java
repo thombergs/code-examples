@@ -17,6 +17,5 @@ public class Publisher {
     private String id;
     private String name;
     private String email;
-    private Integer draft;
     private Integer published;
 }
