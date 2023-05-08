@@ -87,6 +87,7 @@ if [[ "$MODULE" == "module7" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build maven_module "aws/structured-logging-cw"
   build_gradle_module "kotlin/coroutines"
   build_maven_module "core-java/streams/data-streams"
   build maven_module "aws/kinesis"

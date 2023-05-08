@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <JsonLayout complete="false" compact="true" eventEol="true" properties="true"  >
+                <KeyValuePair key="appName" value="AccountsProcessor" />
+                <KeyValuePair key="version" value="release1.0" />
+            </JsonLayout>
+        </Console>
+
+        <File name="FileAppender" fileName="/home/ec2-user/accountprocessor/logs/accountprocessor-logging-dev.log">
+            <JsonLayout complete="false" compact="true" eventEol="true" properties="true"  >
+                <KeyValuePair key="appName" value="AccountsProcessor" />
+                <KeyValuePair key="version" value="release1.0" />
+                <KeyValuePair key="accountNo" value="${ctx:accountNo}"/>
+            </JsonLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="FileAppender" />
+        </Root>
+    </Loggers>
+</Configuration>
