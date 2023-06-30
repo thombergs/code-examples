@@ -1,7 +1,5 @@
 package io.reflectoring.archunit.persistence;
 
-import io.reflectoring.archunit.model.Employee;
-
 public class EmployeeDao {
 
     public Employee findEmployee() {

@@ -1,6 +1,6 @@
 package io.reflectoring.archunit.api;
 
-import io.reflectoring.archunit.model.EmployeeResponse;
+import io.reflectoring.archunit.service.EmployeeResponse;
 import io.reflectoring.archunit.service.EmployeeService;
 
 import javax.ws.rs.GET;

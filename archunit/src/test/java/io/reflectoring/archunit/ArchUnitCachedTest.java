@@ -12,13 +12,13 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
     @AnalyzeClasses(packages = "io.reflectoring.archunit")
     public class ArchUnitCachedTest {
         @ArchTest
-        public void do_not_call_deprecated_methods_from_the_project(JavaClasses classes) {
+        public void doNotCallDeprecatedMethodsFromTheProject(JavaClasses classes) {
             ArchRule rule = noClasses().should().dependOnClassesThat().areAnnotatedWith(Deprecated.class);
             rule.check(classes);
         }
 
         @ArchTest
-        public void do_not_call_constructor_cached(JavaClasses classes) {
+        public void doNotCallConstructorCached(JavaClasses classes) {
             ArchRule rule = noClasses().should().callConstructor(BigDecimal.class, double.class);
             rule.check(classes);
         }

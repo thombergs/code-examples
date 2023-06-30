@@ -1,7 +1,6 @@
 package io.reflectoring.archunit.service;
 
-import io.reflectoring.archunit.model.Employee;
-import io.reflectoring.archunit.model.EmployeeResponse;
+import io.reflectoring.archunit.persistence.Employee;
 import io.reflectoring.archunit.persistence.EmployeeDao;
 
 public class EmployeeService {
