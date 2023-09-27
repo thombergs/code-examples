@@ -47,6 +47,7 @@ public class CalculatorRetryer implements Retryer {
     }
 
     public int getRetryAttempts() {
+        // return this instead of creating a new instance, as it is a stateful retryer... it has to return the maxAttempts.
         return attempt - 1; // Subtract 1 to exclude the initial attempt
     }
 }
