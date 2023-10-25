@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
@@ -18,7 +16,7 @@ public class EmployeeController {
     @Qualifier(value = "founder")
     private Employee founder;
 
-    @GetMapping(value = "{id}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "{id}")
     public Employee getEmployeeById(@PathVariable("id") final Long id) {
         return founder;
     }

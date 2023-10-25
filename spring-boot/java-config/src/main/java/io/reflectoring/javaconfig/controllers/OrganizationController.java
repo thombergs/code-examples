@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
 @RequestMapping("/organizations")
 public class OrganizationController {
@@ -18,7 +16,7 @@ public class OrganizationController {
     @Qualifier(value = "acme")
     private Organization acme;
 
-    @GetMapping(value = "{id}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "{id}")
     public Organization getOrganizationById(@PathVariable("id") final Long id) {
         return acme;
     }
