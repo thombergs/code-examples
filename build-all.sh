@@ -128,6 +128,7 @@ then
   build_maven_module "logging/spring-boot"
   build_maven_module "logging/logback"
   build_maven_module "logging/log4j"
+  build maven_module "spring-boot/java-config"
   
   echo ""
   echo "+++"
