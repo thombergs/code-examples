@@ -1,0 +1,98 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  font-weight: 100;
+}
+
+nav {
+  text-align: center;
+  background-color: blueviolet;
+  padding: 10px;
+  color: white;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 100px auto 50px;
+  padding: 20px;
+}
+
+.chatbox {
+  height: 500px;
+  list-style: none;
+  display: flex;
+  flex-flow: column;
+  background: #eee;
+  border-radius: 6px;
+  box-shadow: 1px 0px 10px #eee;
+}
+
+#messagelist {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+#messagelist .private {
+  background: #015e4b;
+  color: #fff;
+  margin-left: auto;
+}
+
+#messagelist li {
+  list-style: none;
+  background: white;
+  max-width: 400px;
+  padding: 10px;
+  margin: 10px;
+}
+
+#messagelist p:first-child {
+  color: #53bdea;
+}
+
+#messagelist .private p:first-child {
+  color: #03c493;
+}
+
+form.Input {
+  display: flex;
+}
+
+form.Input input {
+  flex: 10;
+  padding: 14px 10px;
+  border: none;
+}
+
+form.Input button {
+  padding: 4px;
+  background: teal;
+  border: none;
+  flex: 1;
+  color: white;
+  cursor: pointer;
+}
+
+#users {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100px;
+  overflow-y: scroll;
+  flex-flow: row;
+  padding-top: 20px;
+}
+
+#users li {
+  min-width: 100px;
+  max-height: 20px;
+  border-radius: 10px;
+  background: white;
+  text-align: center;
+  box-shadow: 0px 2px 10px #eee;
+}
