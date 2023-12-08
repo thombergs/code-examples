@@ -64,6 +64,7 @@ class PersonTest {
     assertThat(minorPerson.isAdult()).as("Person should not be adult.").isFalse();
     log.info("Minor Person {}", minorPerson);
   }
+
   @Test
   void helperMethods() {
     final Person fooPerson = new Person("Foo", 40);
@@ -94,21 +95,9 @@ class PersonTest {
 
   @Test
   void invalidAge() {
-    final Throwable thrown =
-        catchThrowable(
-            () -> {
-              new Person("Bob", 132);
-            });
+    final Throwable thrown = catchThrowable(() -> new Person("Bob", 132));
     assertThat(thrown)
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("Got invalid age");
-  }
-
-  @Test
-  void finalRecord() {
-    Person newPerson = new Person("Bob", 50);
-    newPerson = new Person("Tom", 40);
-
-    log.info("Person {}", newPerson);
   }
 }
