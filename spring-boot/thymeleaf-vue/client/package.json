@@ -21,7 +21,7 @@
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addons": "^5.3.19",
-    "@storybook/vue": "^5.3.19",
+    "@storybook/vue": "^6.5.10",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-unit-jest": "^4.4.0",
