@@ -1,0 +1,184 @@
+<html>
+<head>
+    <title>LaunchDarkly AWS re:Invent Challenge</title>
+<style>
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #282828;
+  color: #FFF;
+  font-weight: 200;
+  font-family: Sohne,Sans-Serif;
+}
+
+p {
+  line-height: 1.5;
+}
+
+h1 {
+  margin: 0;
+  font-weight: inherit;
+}
+
+.lede {
+  font-size: 1.25em;
+}
+
+.code {
+  padding: 2px;
+  font-size: 0.9em;
+  border-radius: 4px;
+  font-family: "Source Code Pro", Menlo, Consolas, Monaco, monospace;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* horizontal & vertical centering */
+.center {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.center__inner {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* modal */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+/* display the modal overlay when the input[type=radio] is checked */
+.modal__state:checked + .modal__overlay {
+  opacity: 1;
+  animation: fade-in 0.4s;
+  display: block;
+}
+
+@keyframes scoot-up {
+  0% {
+    margin-top: 80px;
+  }
+  100% {
+    margin-top: 50px;
+  }
+}
+.modal {
+  position: relative;
+  margin: 50px;
+  margin-top: 80px;
+  padding: 40px 20px;
+  background: #7084ff;
+  text-align: left;
+  box-shadow: 0px 0px 38px rgba(0, 0, 0, 0.2);
+}
+
+.modal__state:checked + .modal__overlay .modal {
+  margin-top: 50px;
+  animation: scoot-up 0.2s;
+  animation-timing-function: ease-out;
+  transform-origin: 50% 0px;
+}
+
+.modal__close {
+  position: absolute;
+  top: 40px;
+  right: 20px;
+}
+
+.modal__overlay-close {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* the input[type=radio] that's toggled when the label is clicked */
+.modal__state {
+  display: none;
+}
+
+/* button styles */
+.button {
+  display: inline-block;
+  padding: 1em;
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: 0 4px 0 #7084ff;
+  background: #405bff;
+  color: #FFF;
+}
+
+.button:hover, .button:focus {
+  cursor: pointer;
+  background-color: #7084ff;
+  box-shadow: 0 4px 0 #405bff;
+}
+
+.button:active {
+  margin-top: 4px;
+  margin-bottom: -4px;
+  box-shadow: 0 0 0 #ACCFCC;
+}
+
+/* close button */
+.button--close {
+  padding: 0.2em 0.5em;
+  background-color: #151a3d;
+  box-shadow: 0 4px 0 #405bff;
+  color: #fff;
+}
+
+.button--inline {
+  padding: 0.25em 0.5em;
+}
+
+.button--close:hover,
+.button--close:focus {
+  background-color: #151a3d;
+  box-shadow: 0 4px 0 #151a3d;
+}
+
+.button--close:active {
+  box-shadow: 0 0 0 #ACCFCC;
+}
+</style>
+</head>
+<body>
+    <section class="center">
+        <div class="center__inner">
+            <div class="content">
+                <h1>This is the BETA site.</h1>
+                <p><label class="button" for="modal__state"><i class="fa fa-rocket"></i>Show me the answer!</label></p>
+                <input type="checkbox" name="modal__state" id="modal__state" class="modal__state">
+                <div class="modal__overlay">
+                    <label for="modal__state" class="modal__overlay-close"></label>
+                    <div class="modal">
+                        <label class="button button--close modal__close" for="modal__state">X</label>
+                        <p>The static answer to Task 7 is <strong>Dark Launching</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
