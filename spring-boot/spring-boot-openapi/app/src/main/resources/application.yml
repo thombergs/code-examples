@@ -1,0 +1,6 @@
+server:
+  port: 8090
+
+request:
+  logging:
+    shouldLog: true

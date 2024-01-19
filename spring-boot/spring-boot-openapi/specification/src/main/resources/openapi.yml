@@ -1,30 +1,43 @@
 openapi: 3.0.2
 info:
-  title: Reflectoring
-  description: "Tutorials on Spring Boot and Java, thoughts about the Software Craft, and relevant book reviews. Because it's just as important to understand the Why as it is to understand the How. Have fun!"
-  termsOfService: http://swagger.io/terms/
+  title: Convertlab Message Service
+  description: "For customer to send message to its clients using asigned message service supplier"
   contact:
-    email: petros.stergioulas94@gmail.com
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.0.1-SNAPSHOT
+    email: young.xu@convertlab.com
+  version: v1
 externalDocs:
   description: Find out more about Reflectoring
-  url: https://reflectoring.io/about/
+  url: https://www.convertlab.com/
 servers:
-- url: https://reflectoring.swagger.io/v2
+  # Added by API Auto Mocking Plugin
+  - description: API Auto Mocking
+    url: http://localhost:8090/sms
 tags:
-- name: user
-  description: Operations about user
-  externalDocs:
-    description: Find out more about our store
-    url: http://swagger.io
+  - name: user
+    description: Operations about user
+    externalDocs:
+      description: Find out more about our store
+      url: http://localhost:8090/sms
+  - name: template
+    description: Operations about message template
+    externalDocs:
+      description: save message template
+      url: http://localhost:8090/sms
+  - name: message
+    description: Operations about message
+    externalDocs:
+      description: sending/reporting message
+      url: http://localhost:8090/sms
+  - name: messageReport
+    description: Operations about message report
+    externalDocs:
+      description: save/update message report
+      url: http://localhost:8090/sms
 paths:
   /user:
     post:
       tags:
-      - user
+        - user
       summary: Create user
       description: Create user functionality
       operationId: createUser
@@ -43,16 +56,16 @@ paths:
   /user/{username}:
     get:
       tags:
-      - user
+        - user
       summary: Get user by user name
       operationId: getUserByName
       parameters:
-      - name: username
-        in: path
-        description: 'The name that needs to be fetched. Use user1 for testing. '
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          description: 'The name that needs to be fetched. Use user1 for testing. '
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: successful operation
@@ -65,17 +78,17 @@ paths:
           content: {}
     put:
       tags:
-      - user
+        - user
       summary: Updated user
       description: This can only be done by the logged in user.
       operationId: updateUser
       parameters:
-      - name: username
-        in: path
-        description: name that need to be updated
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          description: name that need to be updated
+          required: true
+          schema:
+            type: string
       requestBody:
         description: Updated user object
         content:
@@ -99,17 +112,17 @@ paths:
       x-codegen-request-body-name: body
     delete:
       tags:
-      - user
+        - user
       summary: Delete user
       description: This can only be done by the logged in user.
       operationId: deleteUser
       parameters:
-      - name: username
-        in: path
-        description: The name that needs to be deleted
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          schema:
+            type: string
       responses:
         201:
           description: operation successful
@@ -120,6 +133,161 @@ paths:
         404:
           description: User not found
           content: {}
+  /template:
+    post:
+      tags:
+        - template
+      summary: save template
+      description: This can only be done by the logged in user.
+      operationId: saveMessageTemplate
+      requestBody:
+        description: Saved MessageTemplate Object
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/MessageTemplate'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Invalid template supplied
+          content: {}
+        401:
+          description: unauthorized request
+          content: {}
+      x-codegen-request-body-name: body
+  /send:
+    post:
+      tags:
+        - message
+      summary: Send Single Message
+      description: This can only be done by the logged in user.
+      operationId: sendSingleMessage
+      parameters:
+        - name: messageParams
+          in: query
+          description: tenantId, etc.,
+          required: true
+          schema:
+            $ref: '#/components/schemas/MessageParameters'
+      requestBody:
+        description: Sent Message
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/SingleMessage'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Invalid message or parameter(s) supplied
+          content: {}
+        401:
+          description: unauthorized request
+          content: {}
+      x-codegen-request-body-name: body
+  /batch:
+    post:
+      tags:
+        - message
+      summary: Send Batch Message
+      description: This can only be done by the logged in user.
+      operationId: sendBatchMessage
+      parameters:
+        - name: messageParams
+          in: query
+          description: tenantId, etc.,
+          required: true
+          schema:
+            $ref: '#/components/schemas/MessageParameters'
+      requestBody:
+        description: Sent Batch Message
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/BatchMessage'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Invalid Batch messages or parameter(s) supplied
+          content: {}
+        401:
+          description: unauthorized request
+          content: {}
+      x-codegen-request-body-name: body
+  /sxt/sendReport:
+    post:
+      tags:
+        - messageReport
+      summary: Send Message Report
+      description: This can only be done by the logged in user.
+      operationId: sendMessageReport
+      parameters:
+        - name: msg
+          in: query
+          description: msgreport
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Invalid report message
+          content: {}
+        401:
+          description: unauthorized request
+          content: {}
+      x-codegen-request-body-name: body
+  /sxt/reply:
+    post:
+      tags:
+        - messageReport
+      summary: Reply Message Sending Request
+      description: This can only be done by the logged in user.
+      operationId: receiveMessageReply
+      parameters:
+        - name: msg
+          in: query
+          description: msgreceive
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Invalid report message
+          content: {}
+        401:
+          description: unauthorized request
+          content: {}
+      x-codegen-request-body-name: body
+
 components:
   schemas:
     User:
@@ -144,6 +312,166 @@ components:
           type: integer
           description: User Status
           format: int32
+          maximum: 10
+          minimum: 2
+    MessageBase:
+      type: object
+      properties:
+        tenantId:
+          type: integer
+          format: int64
+          description: Tenant ID
+        templateId:
+          type: integer
+          format: int64
+          description: Text Message id from DM Hub(not null)
+          nullable: false
+        templateText:
+          type: string
+          description: Template content
+        batchId:
+          type: string
+          nullable: false
+          description: batch id
+        audienceIdType:
+          type: string
+          description: message reciever's phone number type
+        channelAccount:
+          type: string
+          description: Messae service supplier
+        uniq:
+          type: string
+          description: customerized variable, prevent duplicate message sending out
+    MessageTemplate:
+      type: object
+      properties:
+        tenantId:
+          type: integer
+          format: int64
+          description: Tenant ID
+        templateId:
+          type: integer
+          format: int64
+          description: Text Message id from DM Hub(not null)
+          nullable: false
+        templateContent:
+          type: string
+          description: Template content
+          nullable: false
+        smsType:
+          type: string
+          nullable: false
+          description: message genre
+          default: notification/marketing
+        signature:
+          type: string
+          description: message signature
+          default: 【】
+        templateName:
+          type: string
+          description: Template Title
+    MessageReport:
+      type: object
+      properties:
+        tenantId:
+          type: integer
+          format: int64
+          description: Tenant ID
+        templateId:
+          type: integer
+          format: int64
+          description: Text Message id from DM Hub
+        oldBatchId:
+          type: string
+          description: previous batch id
+        newBatchId:
+          type: string
+          description: previous batch id
+        mobile:
+          type: string
+          description: mobile phone number
+        content:
+          type: string
+          description: message content
+        subAccount:
+          type: string
+          description: sub Account
+          default: 【】
+        sendDateStr:
+          type: string
+          description: date (string) when message sent
+        receiveFlag:
+          type: string
+          description: message recieve status
+        sendRespCode:
+          type: string
+          description: reponsed message for sent message
+        sendRespMsg:
+          type: string
+          description: reponsed content for sent message
+        uniq:
+          type: string
+          description: customerized variable, prevent duplicate message sending out
+    MessageParameters:
+      type: object
+      properties:
+        tenantId:
+          type: integer
+          format: int64
+          description: Tenant ID
+        templateId:
+          type: integer
+          format: int64
+          description: Text Message id from DM Hub(not null)
+          nullable: false
+        templateContent:
+          type: string
+          description: Template content
+          nullable: false
+        smsType:
+          type: string
+          nullable: false
+          description: message genre
+          default: notification/marketing
+        signature:
+          type: string
+          description: message signature
+          default: 【】
+        templateName:
+          type: string
+          description: Template Title
+    MessageData:
+      type: object
+      additionalProperties:
+        type: object
+    SingleMessage:
+      allOf:
+        - $ref: '#/components/schemas/MessageBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageData'
+              nullable: false
+    BatchMessage:
+      allOf:
+        - $ref: '#/components/schemas/MessageBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/MessageData'
+              minItems: 1
+    VerificationCode:
+      type: object
+      properties:
+        mobile:
+          type: string
+          default: 133****1234
+          description: mobile phone number
+        code:
+          type: string
+          description: verification code
   securitySchemes:
     reflectoring_auth:
       type: oauth2
