@@ -9,9 +9,5 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByLoginId(String loginId);
-
-    List<User> findByIsInternalUser(boolean isInternalUser);
-
     List<User> findAll();
 }
