@@ -37,7 +37,7 @@ public class UserControllerTest {
     private UserRepository userRepository;
 
     @Test
-    void givenGetData_whenRestTemplateExchange_thenReturnsPageOfEmployee() {
+    void givenGetData_whenRestTemplateExchange_thenReturnsPageOfUser() {
 
         ResponseEntity<RestPageImpl<UserData>> responseEntity = restTemplate.exchange(
                 "http://localhost:" + port + "/data/userdetails/page", HttpMethod.GET, null,
@@ -49,5 +49,6 @@ public class UserControllerTest {
         assertNotNull(restPage);
 
         assertEquals(45, restPage.getTotalElements());
+        assertEquals(20, restPage.getSize());
     }
 }
