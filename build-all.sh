@@ -122,7 +122,7 @@ then
   build_maven_module "logging/structured-logging"
   build_maven_module "spring-boot/zero-downtime"
 #  build_maven_module "resilience4j/springboot-resilience4j"
-  build_maven_module "spring-boot/feature-flags"
+#  build_maven_module "spring-boot/feature-flags"
 #  build_gradle_module "aws/spring-cloud-caching-redis"
   build_maven_module "logging/spring-boot"
   build_maven_module "logging/logback"
