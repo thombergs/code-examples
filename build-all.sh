@@ -105,6 +105,7 @@ fi
 
 if [[ "$MODULE" == "module6" ]]
 then
+  build maven_module "core-java/records"
   build_maven_module "spring-boot/spring-boot-app-info"
   build_maven_module "spring-boot/spring-boot-null-safe-annotations"
   build maven_module "aws/cdkv2"
