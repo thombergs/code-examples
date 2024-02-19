@@ -1,0 +1,161 @@
+package io.refactoring.http5.client.example.classic;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import io.refactoring.http5.client.example.model.User;
+import io.refactoring.http5.client.example.model.UserPage;
+import io.refactoring.http5.client.example.util.UserHttpRequestHelper;
+import java.util.Map;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.ThrowingConsumer;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+/**
+ * This example demonstrates how to process HTTP responses using a response handler.<br>
+ * <br>
+ *
+ * <p>This is the recommended approach for sending and receiving HTTP requests and responses. With
+ * this approach, the caller can focus on processing HTTP responses and delegate the task of
+ * cleaning up system resources to HttpClient. The underlying HTTP connection will always be
+ * automatically released back to the connection manager when an HTTP response handler is used.
+ */
+@Slf4j
+public class UserHttpRequestHelperTests extends BaseClassicExampleTests {
+
+  private final UserHttpRequestHelper userHttpRequestHelper = new UserHttpRequestHelper();
+
+  @Test
+  void executeGetAllRequest() {
+    try {
+      // prepare
+      final Map<String, String> params = Map.of("page", "1");
+
+      // execute
+      final String responseBody = userHttpRequestHelper.getAllUsers(params);
+
+      // verify
+      assertThat(responseBody).isNotEmpty();
+      log.info("Got response: {}", jsonUtils.makePretty(responseBody));
+    } catch (Exception e) {
+      Assertions.fail("Failed to execute HTTP request.", e);
+    }
+  }
+
+  @Test
+  void executeGetSpecificRequest() {
+    try {
+      // prepare
+      final long userId = 2L;
+
+      // execute
+      final User existingUser = userHttpRequestHelper.getUser(userId);
+
+      // verify
+      final ThrowingConsumer<User> responseRequirements =
+          user -> {
+            assertThat(user).as("Created user cannot be null.").isNotNull();
+            assertThat(user.getId()).as("ID should be positive number.").isEqualTo(userId);
+            assertThat(user.getFirstName()).as("First name cannot be null.").isNotEmpty();
+            assertThat(user.getLastName()).as("Last name cannot be null.").isNotEmpty();
+            assertThat(user.getAvatar()).as("Avatar cannot be null.").isNotNull();
+          };
+      assertThat(existingUser).satisfies(responseRequirements);
+    } catch (Exception e) {
+      Assertions.fail("Failed to execute HTTP request.", e);
+    }
+  }
+
+  @Test
+  void executeGetAllRequestUsingTypes() {
+    try {
+      // prepare
+      final Map<String, String> params = Map.of("page", "1");
+
+      // execute
+      final UserPage responseBody =
+          userHttpRequestHelper.getAllUsersUsingTypedResponseHandler(params);
+
+      // verify
+      final ThrowingConsumer<UserPage> responseRequirements =
+          userPage -> {
+            assertThat(userPage).as("Response cannot be null.").isNotNull();
+            assertThat(userPage.getData()).as("Data cannot be empty").isNotEmpty();
+            assertThat(userPage.getPage()).as("Page number does not match.").isOne();
+            assertThat(userPage.getTotal()).as("Total does not match.").isGreaterThan(0);
+          };
+      assertThat(responseBody).satisfies(responseRequirements);
+    } catch (Exception e) {
+      Assertions.fail("Failed to execute HTTP request.", e);
+    }
+  }
+
+  @Test
+  void executePostRequest() {
+    try {
+      // prepare
+      @NonNull final User input = new User();
+      input.setFirstName("DummyFirst");
+      input.setLastName("DummyLast");
+
+      // execute
+      final User createdUser = userHttpRequestHelper.createUser(input);
+
+      // verify
+      final ThrowingConsumer<User> responseRequirements =
+          user -> {
+            assertThat(user).as("Created user cannot be null.").isNotNull();
+            assertThat(user.getId()).as("ID should be positive number.").isPositive();
+            assertThat(user.getFirstName())
+                .as("First name does not match.")
+                .isEqualTo(input.getFirstName());
+            assertThat(user.getLastName())
+                .as("Last name does not match.")
+                .isEqualTo(input.getLastName());
+            assertThat(user.getCreatedAt()).as("Created at cannot be null.").isNotNull();
+          };
+      assertThat(createdUser).satisfies(responseRequirements);
+    } catch (Exception e) {
+      Assertions.fail("Failed to execute HTTP request.", e);
+    }
+  }
+
+  @Test
+  void executePutRequest() {
+    try {
+      // prepare
+      final int userId = 2;
+      @NonNull final User existingUser = userHttpRequestHelper.getUser(userId);
+      final String updatedFirstName = "UpdatedDummyFirst";
+      existingUser.setFirstName(updatedFirstName);
+      final String updatedLastName = "UpdatedDummyLast";
+      existingUser.setLastName(updatedLastName);
+
+      // execute
+      final User updatedUser = userHttpRequestHelper.updateUser(existingUser);
+
+      // verify
+      final ThrowingConsumer<User> responseRequirements =
+          user -> {
+            assertThat(user).as("Updated user cannot be null.").isNotNull();
+            assertThat(user.getId())
+                .as("ID should be positive number.")
+                .isPositive()
+                .as("ID should not be updated.")
+                .isEqualTo(existingUser.getId());
+            assertThat(user.getFirstName())
+                .as("First name does not match.")
+                .isEqualTo(updatedFirstName);
+            assertThat(user.getLastName())
+                .as("Last name does not match.")
+                .isEqualTo(updatedLastName);
+            assertThat(user.getCreatedAt()).as("Created at cannot be null.").isNotNull();
+          };
+      assertThat(updatedUser).satisfies(responseRequirements);
+
+    } catch (Exception e) {
+      Assertions.fail("Failed to execute HTTP request.", e);
+    }
+  }
+}
