@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.refactoring.http5.client.example.model.User;
 import io.refactoring.http5.client.example.model.UserPage;
-import io.refactoring.http5.client.example.util.UserHttpRequestHelper;
+import io.refactoring.http5.client.example.util.UserTypeHttpRequestHelper;
 import java.util.Map;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -12,19 +12,11 @@ import org.assertj.core.api.ThrowingConsumer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * This example demonstrates how to process HTTP responses using a response handler.<br>
- * <br>
- *
- * <p>This is the recommended approach for sending and receiving HTTP requests and responses. With
- * this approach, the caller can focus on processing HTTP responses and delegate the task of
- * cleaning up system resources to HttpClient. The underlying HTTP connection will always be
- * automatically released back to the connection manager when an HTTP response handler is used.
- */
+/** This example demonstrates how to process HTTP responses using a response handler. */
 @Slf4j
-public class UserHttpRequestHelperTests extends BaseClassicExampleTests {
+public class UserTypeHttpRequestHelperTests extends BaseClassicExampleTests {
 
-  private final UserHttpRequestHelper userHttpRequestHelper = new UserHttpRequestHelper();
+  private final UserTypeHttpRequestHelper userHttpRequestHelper = new UserTypeHttpRequestHelper();
 
   @Test
   void executeGetAllRequest() {

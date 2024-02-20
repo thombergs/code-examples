@@ -6,9 +6,9 @@
     </appender>
 
     <logger name="io.refactoring.http5.client.example" level="debug"/>
-    <logger name="org.apache.hc.client5.http.headers" level="debug"/>
-    <logger name="org.apache.hc.client5.http.impl" level="debug"/>
-    <logger name="org.apache.hc.client5.http.wire" level="off"/>
+    <logger name="org.apache.hc.client5.http.headers" level="error"/>
+    <logger name="org.apache.hc.client5.http.impl" level="error"/>
+    <logger name="org.apache.hc.client5.http.wire" level="error"/>
 
     <root level="WARN">
         <appender-ref ref="stdout"/>

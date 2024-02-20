@@ -11,14 +11,18 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.impl.classic.BasicHttpClientResponseHandler;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.HttpHost;
 
-/** Utility to handle HTTP requests for {@linkplain User} entities. */
+/**
+ * Utility to handle HTTP requests for {@linkplain User} entities. It uses the user-defined types
+ * for HTTP processing
+ */
 @Slf4j
-public class UserHttpRequestHelper extends BaseHttpRequestHelper {
+public class UserTypeHttpRequestHelper extends BaseHttpRequestHelper {
 
   private final UserRequestProcessingUtils userRequestProcessingUtils =
       new UserRequestProcessingUtils();
@@ -164,18 +168,17 @@ public class UserHttpRequestHelper extends BaseHttpRequestHelper {
       log.debug("Update user using input: {}", jsonUtils.toJson(input));
       // Update request
       final HttpHost httpHost = userRequestProcessingUtils.getApiHost();
-      final HttpPost httpPostRequest =
-          new HttpPost(userRequestProcessingUtils.prepareUsersApiUri());
-      httpPostRequest.setEntity(userRequestProcessingUtils.toJsonStringEntity(input));
+      final HttpPut httpPutRequest = new HttpPut(userRequestProcessingUtils.prepareUsersApiUri());
+      httpPutRequest.setEntity(userRequestProcessingUtils.toJsonStringEntity(input));
       log.debug(
           "Executing {} request: {} on host {}",
-          httpPostRequest.getMethod(),
-          httpPostRequest.getUri(),
+          httpPutRequest.getMethod(),
+          httpPutRequest.getUri(),
           httpHost);
 
       // Create a response handler
       final BasicHttpClientResponseHandler responseHandler = new BasicHttpClientResponseHandler();
-      final String responseBody = httpClient.execute(httpHost, httpPostRequest, responseHandler);
+      final String responseBody = httpClient.execute(httpHost, httpPutRequest, responseHandler);
       log.info("Got response: {}", jsonUtils.makePretty(responseBody));
 
       return jsonUtils.fromJson(responseBody, User.class);
