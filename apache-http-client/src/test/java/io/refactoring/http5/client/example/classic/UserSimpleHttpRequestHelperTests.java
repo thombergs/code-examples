@@ -15,15 +15,15 @@ public class UserSimpleHttpRequestHelperTests extends BaseClassicExampleTests {
   private final UserSimpleHttpRequestHelper userHttpRequestHelper =
       new UserSimpleHttpRequestHelper();
 
-  /** Execute get all request. */
+  /** Execute get paginated request. */
   @Test
-  void executeGetAllRequest() {
+  void executeGetPaginatedRequest() {
     try {
       // prepare
       final Map<String, String> params = Map.of("page", "1");
 
       // execute
-      final String responseBody = userHttpRequestHelper.getAllUsers(params);
+      final String responseBody = userHttpRequestHelper.getPaginatedUsers(params);
 
       // verify
       assertThat(responseBody).isNotEmpty();
@@ -86,6 +86,20 @@ public class UserSimpleHttpRequestHelperTests extends BaseClassicExampleTests {
       // verify
       assertThat(updatedUser).isNotEmpty();
 
+    } catch (Exception e) {
+      Assertions.fail("Failed to execute HTTP request.", e);
+    }
+  }
+
+  /** Execute delete request. */
+  @Test
+  void executeDeleteRequest() {
+    try {
+      // prepare
+      final int userId = 2;
+
+      // execute
+      userHttpRequestHelper.deleteUser(userId);
     } catch (Exception e) {
       Assertions.fail("Failed to execute HTTP request.", e);
     }

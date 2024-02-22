@@ -47,8 +47,8 @@ public class UserTypeHttpRequestHelper extends BaseHttpRequestHelper {
           httpHost);
 
       // Create a response handler
-      final BasicHttpClientResponseHandler responseHandler = new BasicHttpClientResponseHandler();
-      final String responseBody = httpClient.execute(httpHost, httpGetRequest, responseHandler);
+      final BasicHttpClientResponseHandler handler = new BasicHttpClientResponseHandler();
+      final String responseBody = httpClient.execute(httpHost, httpGetRequest, handler);
 
       log.info("Got response: {}", jsonUtils.makePretty(responseBody));
 
@@ -62,13 +62,13 @@ public class UserTypeHttpRequestHelper extends BaseHttpRequestHelper {
   }
 
   /**
-   * Gets all users.
+   * Gets paginated users.
    *
    * @param requestParameters request parameters
    * @return response
    * @throws RequestProcessingException if failed to execute request
    */
-  public String getAllUsers(final Map<String, String> requestParameters)
+  public String getPaginatedUsers(final Map<String, String> requestParameters)
       throws RequestProcessingException {
     try (final CloseableHttpClient httpClient = HttpClients.createDefault()) {
       // Create request
@@ -82,25 +82,25 @@ public class UserTypeHttpRequestHelper extends BaseHttpRequestHelper {
           httpHost);
 
       // Create a response handler
-      final BasicHttpClientResponseHandler responseHandler = new BasicHttpClientResponseHandler();
-      final String responseBody = httpClient.execute(httpHost, httpGetRequest, responseHandler);
+      final BasicHttpClientResponseHandler handler = new BasicHttpClientResponseHandler();
+      final String responseBody = httpClient.execute(httpHost, httpGetRequest, handler);
 
       log.info("Got response: {}", jsonUtils.makePretty(responseBody));
       return responseBody;
     } catch (Exception e) {
-      throw new RequestProcessingException("Failed to get all users.", e);
+      throw new RequestProcessingException("Failed to get paginated users.", e);
     }
   }
 
   /**
-   * Gets all users.
+   * Gets paginated users.
    *
    * @param requestParameters request parameters
    * @return response
    * @throws RequestProcessingException if failed to execute request
    */
-  public UserPage getAllUsersUsingTypedResponseHandler(final Map<String, String> requestParameters)
-      throws RequestProcessingException {
+  public UserPage getPaginatedUsersUsingTypedResponseHandler(
+      final Map<String, String> requestParameters) throws RequestProcessingException {
     try (final CloseableHttpClient httpClient = HttpClients.createDefault()) {
       // Create request
       final HttpHost httpHost = userRequestProcessingUtils.getApiHost();
@@ -113,13 +113,13 @@ public class UserTypeHttpRequestHelper extends BaseHttpRequestHelper {
           httpHost);
 
       // Create a response handler
-      final DataObjectResponseHandler<UserPage> responseHandler =
+      final DataObjectResponseHandler<UserPage> handler =
           new DataObjectResponseHandler<>(UserPage.class);
-      final UserPage responseBody = httpClient.execute(httpHost, httpGetRequest, responseHandler);
+      final UserPage responseBody = httpClient.execute(httpHost, httpGetRequest, handler);
       log.info("Got response: {}", jsonUtils.toJson(responseBody));
       return responseBody;
     } catch (Exception e) {
-      throw new RequestProcessingException("Failed to get all users.", e);
+      throw new RequestProcessingException("Failed to get paginated users.", e);
     }
   }
 
@@ -145,8 +145,8 @@ public class UserTypeHttpRequestHelper extends BaseHttpRequestHelper {
           httpHost);
 
       // Create a response handler
-      final BasicHttpClientResponseHandler responseHandler = new BasicHttpClientResponseHandler();
-      final String responseBody = httpClient.execute(httpHost, httpPostRequest, responseHandler);
+      final BasicHttpClientResponseHandler handler = new BasicHttpClientResponseHandler();
+      final String responseBody = httpClient.execute(httpHost, httpPostRequest, handler);
       log.info("Got response: {}", jsonUtils.makePretty(responseBody));
 
       return jsonUtils.fromJson(responseBody, User.class);
@@ -177,8 +177,8 @@ public class UserTypeHttpRequestHelper extends BaseHttpRequestHelper {
           httpHost);
 
       // Create a response handler
-      final BasicHttpClientResponseHandler responseHandler = new BasicHttpClientResponseHandler();
-      final String responseBody = httpClient.execute(httpHost, httpPutRequest, responseHandler);
+      final BasicHttpClientResponseHandler handler = new BasicHttpClientResponseHandler();
+      final String responseBody = httpClient.execute(httpHost, httpPutRequest, handler);
       log.info("Got response: {}", jsonUtils.makePretty(responseBody));
 
       return jsonUtils.fromJson(responseBody, User.class);

@@ -25,7 +25,7 @@ public class UserTypeHttpRequestHelperTests extends BaseClassicExampleTests {
       final Map<String, String> params = Map.of("page", "1");
 
       // execute
-      final String responseBody = userHttpRequestHelper.getAllUsers(params);
+      final String responseBody = userHttpRequestHelper.getPaginatedUsers(params);
 
       // verify
       assertThat(responseBody).isNotEmpty();
@@ -67,7 +67,7 @@ public class UserTypeHttpRequestHelperTests extends BaseClassicExampleTests {
 
       // execute
       final UserPage responseBody =
-          userHttpRequestHelper.getAllUsersUsingTypedResponseHandler(params);
+          userHttpRequestHelper.getPaginatedUsersUsingTypedResponseHandler(params);
 
       // verify
       final ThrowingConsumer<UserPage> responseRequirements =
