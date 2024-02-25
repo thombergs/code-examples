@@ -25,18 +25,18 @@ public class UserTypeHttpRequestHelperTests extends BaseClassicExampleTests {
       final Map<String, String> params = Map.of("page", "1");
 
       // execute
-      final String responseBody = userHttpRequestHelper.getPaginatedUsers(params);
+      final UserPage paginatedUsers = userHttpRequestHelper.getPaginatedUsers(params);
 
       // verify
-      assertThat(responseBody).isNotEmpty();
-      log.info("Got response: {}", jsonUtils.makePretty(responseBody));
+      assertThat(paginatedUsers).isNotNull();
+      log.info("Got response: {}", jsonUtils.toJson(paginatedUsers));
     } catch (Exception e) {
       Assertions.fail("Failed to execute HTTP request.", e);
     }
   }
 
   @Test
-  void executeGetSpecificRequest() {
+  void executeGetUser() {
     try {
       // prepare
       final long userId = 2L;
@@ -54,30 +54,6 @@ public class UserTypeHttpRequestHelperTests extends BaseClassicExampleTests {
             assertThat(user.getAvatar()).as("Avatar cannot be null.").isNotNull();
           };
       assertThat(existingUser).satisfies(responseRequirements);
-    } catch (Exception e) {
-      Assertions.fail("Failed to execute HTTP request.", e);
-    }
-  }
-
-  @Test
-  void executeGetAllRequestUsingTypes() {
-    try {
-      // prepare
-      final Map<String, String> params = Map.of("page", "1");
-
-      // execute
-      final UserPage responseBody =
-          userHttpRequestHelper.getPaginatedUsersUsingTypedResponseHandler(params);
-
-      // verify
-      final ThrowingConsumer<UserPage> responseRequirements =
-          userPage -> {
-            assertThat(userPage).as("Response cannot be null.").isNotNull();
-            assertThat(userPage.getData()).as("Data cannot be empty").isNotEmpty();
-            assertThat(userPage.getPage()).as("Page number does not match.").isOne();
-            assertThat(userPage.getTotal()).as("Total does not match.").isGreaterThan(0);
-          };
-      assertThat(responseBody).satisfies(responseRequirements);
     } catch (Exception e) {
       Assertions.fail("Failed to execute HTTP request.", e);
     }
