@@ -1,5 +1,6 @@
-package io.refactoring.http5.client.example.util;
+package io.refactoring.http5.client.example.helper;
 
+import io.refactoring.http5.client.example.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /** Base HTTP request handler. */

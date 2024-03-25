@@ -1,4 +1,4 @@
-package io.refactoring.http5.client.example.util;
+package io.refactoring.http5.client.example.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;

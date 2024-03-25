@@ -2,7 +2,7 @@ package io.refactoring.http5.client.example.classic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.refactoring.http5.client.example.util.UserSimpleHttpRequestHelper;
+import io.refactoring.http5.client.example.helper.UserSimpleHttpRequestHelper;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.core5.http.HttpStatus;

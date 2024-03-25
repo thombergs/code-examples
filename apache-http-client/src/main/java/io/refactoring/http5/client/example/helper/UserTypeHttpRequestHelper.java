@@ -1,4 +1,4 @@
-package io.refactoring.http5.client.example.util;
+package io.refactoring.http5.client.example.helper;
 
 import io.refactoring.http5.client.example.RequestProcessingException;
 import io.refactoring.http5.client.example.model.User;
@@ -7,6 +7,9 @@ import io.refactoring.http5.client.example.model.UserPage;
 import java.net.URI;
 import java.text.MessageFormat;
 import java.util.Map;
+
+import io.refactoring.http5.client.example.handler.DataObjectResponseHandler;
+import io.refactoring.http5.client.example.util.UserRequestProcessingUtils;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.methods.HttpGet;

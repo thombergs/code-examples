@@ -1,5 +1,8 @@
-package io.refactoring.http5.client.example.util;
+package io.refactoring.http5.client.example.helper;
 
+import io.refactoring.http5.client.example.interceptor.CustomHttpExecutionInterceptor;
+import io.refactoring.http5.client.example.interceptor.CustomHttpRequestInterceptor;
+import io.refactoring.http5.client.example.interceptor.CustomHttpResponseInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.HttpRoute;
 import org.apache.hc.client5.http.config.RequestConfig;
@@ -27,7 +30,7 @@ public class HttpConfigurationHelper extends BaseHttpRequestHelper {
    * @param connectionKeepAliveMillis the connection keep alive millis
    * @return http client builder
    */
-public HttpClientBuilder populateRequestConfig(
+  public HttpClientBuilder populateRequestConfig(
       HttpClientBuilder httpClientBuilder,
       final long requestTimeoutMillis,
       final long responseTimeoutMillis,
@@ -52,7 +55,7 @@ public HttpClientBuilder populateRequestConfig(
    * @param maxObjectSize the max object size
    * @return the caching http client builder
    */
-public CachingHttpClientBuilder populateCachingConfig(
+  public CachingHttpClientBuilder populateCachingConfig(
       final int maxCacheEntries, final int maxObjectSize) {
     final CacheConfig cacheConfig =
         CacheConfig.custom()
@@ -68,7 +71,7 @@ public CachingHttpClientBuilder populateCachingConfig(
    * @param host the host
    * @return the pooled closeable http client
    */
-public CloseableHttpClient getPooledCloseableHttpClient(final String host) {
+  public CloseableHttpClient getPooledCloseableHttpClient(final String host) {
     // Increase max total connection to 200
     // Increase default max per route connection per route to 20
     return getPooledCloseableHttpClient(host, 80, 200, 20, 1000, 1000, 1000);
@@ -86,7 +89,7 @@ public CloseableHttpClient getPooledCloseableHttpClient(final String host) {
    * @param connectionKeepAliveMillis the connection keep alive millis
    * @return the pooled closeable http client
    */
-public CloseableHttpClient getPooledCloseableHttpClient(
+  public CloseableHttpClient getPooledCloseableHttpClient(
       final String host,
       int port,
       int maxTotalConnections,
@@ -118,7 +121,7 @@ public CloseableHttpClient getPooledCloseableHttpClient(
    * @param maxObjectSize the max object size
    * @return the cached closeable http client
    */
-public CloseableHttpClient getCachedCloseableHttpClient(
+  public CloseableHttpClient getCachedCloseableHttpClient(
       final int maxCacheEntries, final int maxObjectSize) {
     return populateCachingConfig(maxCacheEntries, maxObjectSize).build();
   }
@@ -131,6 +134,28 @@ public CloseableHttpClient getCachedCloseableHttpClient(
   public CloseableHttpClient getRequestInterceptingCloseableHttpClient() {
     return HttpClients.custom()
         .addRequestInterceptorFirst(new CustomHttpRequestInterceptor())
+        .build();
+  }
+
+  /**
+   * Gets response intercepting closeable http client.
+   *
+   * @return the response intercepting closeable http client
+   */
+  public CloseableHttpClient getResponseInterceptingCloseableHttpClient() {
+    return HttpClients.custom()
+        .addResponseInterceptorFirst(new CustomHttpResponseInterceptor())
+        .build();
+  }
+
+  /**
+   * Gets execution intercepting closeable http client.
+   *
+   * @return the exec intercepting closeable http client
+   */
+  public CloseableHttpClient getExecInterceptingCloseableHttpClient() {
+    return HttpClients.custom()
+        .addExecInterceptorFirst("customExecInterceptor", new CustomHttpExecutionInterceptor())
         .build();
   }
 }

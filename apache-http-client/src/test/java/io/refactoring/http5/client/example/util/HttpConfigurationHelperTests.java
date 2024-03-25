@@ -1,9 +1,8 @@
 package io.refactoring.http5.client.example.util;
 
+import io.refactoring.http5.client.example.helper.HttpConfigurationHelper;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /** The Http configuration helper tests. */
 class HttpConfigurationHelperTests {
