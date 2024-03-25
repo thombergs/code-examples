@@ -1,4 +1,4 @@
-package io.refactoring.http5.client.example.helper;
+package io.refactoring.http5.client.example.classic.helper;
 
 import io.refactoring.http5.client.example.RequestProcessingException;
 import java.net.URI;

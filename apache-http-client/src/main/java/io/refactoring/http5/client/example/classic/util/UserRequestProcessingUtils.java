@@ -1,4 +1,4 @@
-package io.refactoring.http5.client.example.util;
+package io.refactoring.http5.client.example.classic.util;
 
 import java.net.URI;
 import java.net.URISyntaxException;

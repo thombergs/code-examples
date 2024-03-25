@@ -1,4 +1,4 @@
-package io.refactoring.http5.client.example.interceptor;
+package io.refactoring.http5.client.example.classic.interceptor;
 
 import java.io.IOException;
 import java.util.UUID;

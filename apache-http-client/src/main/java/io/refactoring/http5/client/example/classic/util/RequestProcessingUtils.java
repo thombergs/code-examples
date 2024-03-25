@@ -1,6 +1,8 @@
-package io.refactoring.http5.client.example.util;
+package io.refactoring.http5.client.example.classic.util;
 
 import java.net.URISyntaxException;
+
+import io.refactoring.http5.client.example.util.ConfigurationUtils;
 import lombok.NonNull;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpHost;

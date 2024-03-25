@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.refactoring.http5.client.example.model.User;
 import io.refactoring.http5.client.example.model.UserPage;
-import io.refactoring.http5.client.example.helper.UserTypeHttpRequestHelper;
+import io.refactoring.http5.client.example.classic.helper.UserTypeHttpRequestHelper;
 import java.util.Map;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
