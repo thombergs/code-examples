@@ -1,0 +1,16 @@
+<configuration debug="false">
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date [%level] %logger - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="io.refactoring.http5.client.example" level="debug"/>
+    <logger name="org.apache.hc.client5.http.headers" level="error"/>
+    <logger name="org.apache.hc.client5.http.impl" level="error"/>
+    <logger name="org.apache.hc.client5.http.wire" level="error"/>
+
+    <root level="WARN">
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>
