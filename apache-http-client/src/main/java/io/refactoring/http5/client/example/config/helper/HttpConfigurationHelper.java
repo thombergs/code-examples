@@ -1,8 +1,9 @@
-package io.refactoring.http5.client.example.classic.helper;
+package io.refactoring.http5.client.example.config.helper;
 
-import io.refactoring.http5.client.example.classic.interceptor.CustomHttpExecutionInterceptor;
-import io.refactoring.http5.client.example.classic.interceptor.CustomHttpRequestInterceptor;
-import io.refactoring.http5.client.example.classic.interceptor.CustomHttpResponseInterceptor;
+import io.refactoring.http5.client.example.config.interceptor.CustomHttpExecutionInterceptor;
+import io.refactoring.http5.client.example.config.interceptor.CustomHttpRequestInterceptor;
+import io.refactoring.http5.client.example.config.interceptor.CustomHttpResponseInterceptor;
+import io.refactoring.http5.client.example.helper.BaseHttpRequestHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.HttpRoute;
 import org.apache.hc.client5.http.config.RequestConfig;

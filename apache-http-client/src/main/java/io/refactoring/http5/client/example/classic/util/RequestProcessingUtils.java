@@ -2,7 +2,8 @@ package io.refactoring.http5.client.example.classic.util;
 
 import java.net.URISyntaxException;
 
-import io.refactoring.http5.client.example.util.ConfigurationUtils;
+import io.refactoring.http5.client.example.config.ConfigurationUtils;
+import io.refactoring.http5.client.example.util.JsonUtils;
 import lombok.NonNull;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpHost;
@@ -16,7 +17,7 @@ public abstract class RequestProcessingUtils {
   protected final ConfigurationUtils configurationUtils = new ConfigurationUtils();
 
   /**
-   * Converts a source object into string entity.
+   * Converts a source object into a string entity.
    *
    * @param source source object
    * @return string entity

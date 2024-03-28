@@ -1,4 +1,4 @@
-package io.refactoring.http5.client.example.util;
+package io.refactoring.http5.client.example.config;
 
 import lombok.NonNull;
 import org.apache.commons.configuration2.Configuration;

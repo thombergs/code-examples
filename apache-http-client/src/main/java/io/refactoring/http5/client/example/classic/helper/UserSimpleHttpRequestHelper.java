@@ -1,6 +1,7 @@
 package io.refactoring.http5.client.example.classic.helper;
 
 import io.refactoring.http5.client.example.RequestProcessingException;
+import io.refactoring.http5.client.example.helper.BaseHttpRequestHelper;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
@@ -19,7 +20,9 @@ import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
 
-/** Utility to handle HTTP requests for user entities.It uses built in types for HTTP processing */
+/**
+ * Utility to handle HTTP requests for user entities. It uses built in types for HTTP processing.
+ */
 @Slf4j
 public class UserSimpleHttpRequestHelper extends BaseHttpRequestHelper {
 

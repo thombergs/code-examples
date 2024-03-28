@@ -1,4 +1,4 @@
-package io.refactoring.http5.client.example.classic.interceptor;
+package io.refactoring.http5.client.example.config.interceptor;
 
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;

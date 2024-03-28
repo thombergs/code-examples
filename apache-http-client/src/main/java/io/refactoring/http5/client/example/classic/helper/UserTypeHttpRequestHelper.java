@@ -1,15 +1,14 @@
 package io.refactoring.http5.client.example.classic.helper;
 
 import io.refactoring.http5.client.example.RequestProcessingException;
+import io.refactoring.http5.client.example.classic.handler.DataObjectResponseHandler;
+import io.refactoring.http5.client.example.classic.util.UserRequestProcessingUtils;
+import io.refactoring.http5.client.example.helper.BaseHttpRequestHelper;
 import io.refactoring.http5.client.example.model.User;
 import io.refactoring.http5.client.example.model.UserPage;
-
 import java.net.URI;
 import java.text.MessageFormat;
 import java.util.Map;
-
-import io.refactoring.http5.client.example.classic.handler.DataObjectResponseHandler;
-import io.refactoring.http5.client.example.classic.util.UserRequestProcessingUtils;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -22,7 +21,7 @@ import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 
 /**
  * Utility to handle HTTP requests for {@linkplain User} entities. It uses the user-defined types
- * for HTTP processing
+ * for HTTP processing.
  */
 @Slf4j
 public class UserTypeHttpRequestHelper extends BaseHttpRequestHelper {
