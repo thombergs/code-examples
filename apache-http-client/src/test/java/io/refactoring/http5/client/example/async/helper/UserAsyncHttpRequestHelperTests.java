@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.Map;
-
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 import org.apache.hc.client5.http.impl.async.MinimalHttpAsyncClient;
 import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.Assertions;
@@ -33,8 +33,9 @@ class UserAsyncHttpRequestHelperTests extends BaseAsyncExampleTests {
 
       // Send 10 requests in parallel
       // call the delayed endpoint
-      final List<Long> userIdList = List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
-      final Map<Long, String> responseBodyMap =
+      final List<String> userIdList =
+          List.of("/httpbin/ip", "/httpbin/user-agent", "/httpbin/headers");
+      final Map<String, String> responseBodyMap =
           userHttpRequestHelper.getUserWithCallback(userIdList, 3);
 
       // verify
@@ -86,9 +87,10 @@ class UserAsyncHttpRequestHelperTests extends BaseAsyncExampleTests {
 
       // Send 10 requests in parallel
       // call the delayed endpoint
-      final List<Long> userIdList = List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
-      final Map<Long, String> responseBodyMap =
-          userHttpRequestHelper.getUserWithPipelining(minimalHttpAsyncClient, userIdList, 3);
+      final List<String> userIdList = List.of("/", "/ip", "/user-agent", "/headers");
+      final Map<String, String> responseBodyMap =
+          userHttpRequestHelper.getUserWithPipelining(
+              minimalHttpAsyncClient, userIdList, 3, "https", "httpbin.org");
 
       // verify
       assertThat(responseBodyMap)
@@ -113,9 +115,11 @@ class UserAsyncHttpRequestHelperTests extends BaseAsyncExampleTests {
 
       // Send 10 requests in parallel
       // call the delayed endpoint
-      final List<Long> userIdList = List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
-      final Map<Long, String> responseBodyMap =
-          userHttpRequestHelper.getUserWithMultiplexing(minimalHttpAsyncClient, userIdList, 3);
+      final List<String> userIdList =
+          List.of("/httpbin/ip", "/httpbin/user-agent", "/httpbin/headers");
+      final Map<String, String> responseBodyMap =
+          userHttpRequestHelper.getUserWithMultiplexing(
+              minimalHttpAsyncClient, userIdList, 3, "https", "nghttp2.org");
 
       // verify
       assertThat(responseBodyMap)
@@ -128,6 +132,36 @@ class UserAsyncHttpRequestHelperTests extends BaseAsyncExampleTests {
       Assertions.fail("Failed to execute HTTP request.", e);
     } finally {
       userHttpRequestHelper.stopMinimalHttpAsyncClient(minimalHttpAsyncClient);
+    }
+  }
+
+  /** Tests get user with async client with interceptor. */
+  @Test
+  void getUserWithInterceptors() {
+    try (final CloseableHttpAsyncClient closeableHttpAsyncClient =
+        userHttpRequestHelper.startHttpAsyncInterceptingClient()) {
+
+      final int baseNumber = 3;
+      final int requestExecCount = 5;
+      final Map<Integer, String> responseBodyMap =
+          userHttpRequestHelper.executeRequestsWithInterceptors(
+              closeableHttpAsyncClient, 1L, requestExecCount, baseNumber);
+
+      // verify
+      assertThat(responseBodyMap)
+          .hasSize(requestExecCount)
+          .doesNotContainKey(null)
+          .doesNotContainValue(null)
+          .hasValueSatisfying(getUserErrorCheck);
+
+      final String expectedResponse = "Multiple of " + baseNumber;
+      for (Integer i : responseBodyMap.keySet()) {
+        if (i % baseNumber == 0) {
+          assertThat(responseBodyMap).containsEntry(i, expectedResponse);
+        }
+      }
+    } catch (Exception e) {
+      Assertions.fail("Failed to execute HTTP request.", e);
     }
   }
 }
