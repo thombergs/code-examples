@@ -323,9 +323,9 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
    * @return response if user is found
    * @throws RequestProcessingException if failed to execute request
    */
-  public Map<String, String> getUserWithPipelining(
+  public Map<Long, String> getUserWithPipelining(
       final MinimalHttpAsyncClient minimalHttpClient,
-      final List<String> userIdList,
+      final List<Long> userIdList,
       final int delayInSec,
       String scheme,
       String hostname)
@@ -344,9 +344,9 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
    * @return response if user is found
    * @throws RequestProcessingException if failed to execute request
    */
-  public Map<String, String> getUserWithMultiplexing(
+  public Map<Long, String> getUserWithMultiplexing(
       final MinimalHttpAsyncClient minimalHttpClient,
-      final List<String> userIdList,
+      final List<Long> userIdList,
       final int delayInSec,
       String scheme,
       String hostname)
@@ -354,9 +354,9 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
     return getUserWithParallelRequests(minimalHttpClient, userIdList, delayInSec, scheme, hostname);
   }
 
-  private Map<String, String> getUserWithParallelRequests(
+  private Map<Long, String> getUserWithParallelRequests(
       final MinimalHttpAsyncClient minimalHttpClient,
-      final List<String> userIdList,
+      final List<Long> userIdList,
       final int delayInSec,
       String scheme,
       String hostname)
@@ -364,10 +364,10 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
 
     Objects.requireNonNull(
         minimalHttpClient, "Make sure that minimal HTTP Async client is started.");
-    final Map<String, String> userResponseMap = new HashMap<>();
-    final Map<String, Future<SimpleHttpResponse>> futuresMap = new LinkedHashMap<>();
+    final Map<Long, String> userResponseMap = new HashMap<>();
+    final Map<Long, Future<SimpleHttpResponse>> futuresMap = new LinkedHashMap<>();
     AsyncClientEndpoint endpoint = null;
-    String userId = null;
+    Long userId = null;
 
     try {
       final HttpHost httpHost = new HttpHost(scheme, hostname);
@@ -375,10 +375,10 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
       endpoint = leaseFuture.get(30, TimeUnit.SECONDS);
       final CountDownLatch latch = new CountDownLatch(userIdList.size());
 
-      for (String currentUserId : userIdList) {
+      for (Long currentUserId : userIdList) {
         userId = currentUserId;
         // Create request
-        final URI uri = new URIBuilder(userId).build();
+        final URI uri = new URIBuilder("/api/users/" + userId + "?delay=" + delayInSec).build();
         final SimpleHttpRequest httpGetRequest =
             SimpleRequestBuilder.get().setHttpHost(httpHost).setPath(uri.getPath()).build();
         log.debug(
@@ -417,8 +417,8 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
 
     log.debug("Got {} futures.", futuresMap.size());
 
-    for (Map.Entry<String, Future<SimpleHttpResponse>> futureEntry : futuresMap.entrySet()) {
-      final String currentUserId = futureEntry.getKey();
+    for (Map.Entry<Long, Future<SimpleHttpResponse>> futureEntry : futuresMap.entrySet()) {
+      final Long currentUserId = futureEntry.getKey();
       try {
         userResponseMap.put(currentUserId, futureEntry.getValue().get().getBodyText());
       } catch (Exception e) {

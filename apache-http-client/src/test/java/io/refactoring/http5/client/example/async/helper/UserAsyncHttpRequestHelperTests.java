@@ -87,10 +87,10 @@ class UserAsyncHttpRequestHelperTests extends BaseAsyncExampleTests {
 
       // Send 10 requests in parallel
       // call the delayed endpoint
-      final List<String> userIdList = List.of("/", "/ip", "/user-agent", "/headers");
-      final Map<String, String> responseBodyMap =
+      final List<Long> userIdList = List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
+      final Map<Long, String> responseBodyMap =
           userHttpRequestHelper.getUserWithPipelining(
-              minimalHttpAsyncClient, userIdList, 3, "https", "httpbin.org");
+              minimalHttpAsyncClient, userIdList, 3, "https", "reqres.in");
 
       // verify
       assertThat(responseBodyMap)
@@ -115,11 +115,10 @@ class UserAsyncHttpRequestHelperTests extends BaseAsyncExampleTests {
 
       // Send 10 requests in parallel
       // call the delayed endpoint
-      final List<String> userIdList =
-          List.of("/httpbin/ip", "/httpbin/user-agent", "/httpbin/headers");
-      final Map<String, String> responseBodyMap =
+      final List<Long> userIdList = List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
+      final Map<Long, String> responseBodyMap =
           userHttpRequestHelper.getUserWithMultiplexing(
-              minimalHttpAsyncClient, userIdList, 3, "https", "nghttp2.org");
+              minimalHttpAsyncClient, userIdList, 3, "https", "reqres.in");
 
       // verify
       assertThat(responseBodyMap)
