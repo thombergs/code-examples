@@ -1,9 +1,15 @@
 package io.refactoring.http5.client.example.async.helper;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
 import io.refactoring.http5.client.example.RequestProcessingException;
 import io.refactoring.http5.client.example.config.interceptor.UserResponseAsyncExecChainHandler;
 import io.refactoring.http5.client.example.helper.BaseHttpRequestHelper;
+import io.refactoring.http5.client.example.model.User;
 import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -32,9 +38,12 @@ import org.apache.hc.core5.http2.HttpVersionPolicy;
 import org.apache.hc.core5.http2.config.H2Config;
 import org.apache.hc.core5.io.CloseMode;
 import org.apache.hc.core5.net.URIBuilder;
+import org.apache.hc.core5.reactive.ReactiveEntityProducer;
+import org.apache.hc.core5.reactive.ReactiveResponseConsumer;
 import org.apache.hc.core5.reactor.IOReactorConfig;
 import org.apache.hc.core5.ssl.SSLContexts;
 import org.apache.hc.core5.util.Timeout;
+import org.reactivestreams.Publisher;
 
 /** Handles HTTP requests for user entities. It uses built in types for HTTP processing. */
 @Slf4j
@@ -507,5 +516,76 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
     }
 
     return userResponseMap;
+  }
+
+  /**
+   * Creates user with reactive processing.
+   *
+   * @param minimalHttpClient the minimal http client
+   * @param userName the user name
+   * @param userJob the user job
+   * @param scheme the scheme
+   * @param hostname the hostname
+   * @return the user with reactive processing
+   * @throws RequestProcessingException the request processing exception
+   */
+  public User createUserWithReactiveProcessing(
+      final MinimalHttpAsyncClient minimalHttpClient,
+      final String userName,
+      final String userJob,
+      String scheme,
+      String hostname)
+      throws RequestProcessingException {
+    try {
+      final HttpHost httpHost = new HttpHost(scheme, hostname);
+      final URI uri = new URIBuilder(httpHost.toURI() + "/api/users/").build();
+
+      final Map<String, String> payload = new HashMap<>();
+      payload.put("name", userName);
+      payload.put("job", userJob);
+      ObjectMapper objectMapper = new ObjectMapper();
+      final String payloadStr = objectMapper.writeValueAsString(payload);
+      final byte[] bs = payloadStr.getBytes(StandardCharsets.UTF_8);
+
+      final ReactiveEntityProducer reactiveEntityProducer =
+          new ReactiveEntityProducer(
+              Flowable.just(ByteBuffer.wrap(bs)), bs.length, ContentType.TEXT_PLAIN, null);
+
+      final BasicRequestProducer requestProducer =
+          new BasicRequestProducer("POST", uri, reactiveEntityProducer);
+
+      final ReactiveResponseConsumer consumer = new ReactiveResponseConsumer();
+
+      final Future<Void> requestFuture = minimalHttpClient.execute(requestProducer, consumer, null);
+
+      final Message<HttpResponse, Publisher<ByteBuffer>> streamingResponse =
+          consumer.getResponseFuture().get();
+      log.debug("Head: {}", streamingResponse.getHead());
+      for (final Header header : streamingResponse.getHead().getHeaders()) {
+        log.debug("Header : {}", header);
+      }
+
+      StringBuilder result = new StringBuilder();
+      Observable.fromPublisher(streamingResponse.getBody())
+          .map(
+              byteBuffer -> {
+                final byte[] bytes = new byte[byteBuffer.remaining()];
+                byteBuffer.get(bytes);
+                return new String(bytes);
+              })
+          .materialize()
+          .forEach(
+              stringNotification -> {
+                final String value = stringNotification.getValue();
+                if (value != null) {
+                  result.append(value);
+                }
+              });
+
+      requestFuture.get(1, TimeUnit.MINUTES);
+      return objectMapper.readerFor(User.class).readValue(result.toString());
+    } catch (Exception e) {
+      throw new RequestProcessingException("Failed to create user. Error: " + e.getMessage(), e);
+    }
   }
 }

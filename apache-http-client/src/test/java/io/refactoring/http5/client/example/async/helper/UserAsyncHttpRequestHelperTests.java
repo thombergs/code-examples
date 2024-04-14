@@ -2,6 +2,7 @@ package io.refactoring.http5.client.example.async.helper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.refactoring.http5.client.example.model.User;
 import java.util.List;
 import java.util.Map;
 import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
@@ -163,6 +164,26 @@ class UserAsyncHttpRequestHelperTests extends BaseAsyncExampleTests {
       }
     } catch (Exception e) {
       Assertions.fail("Failed to execute HTTP request.", e);
+    }
+  }
+
+  @Test
+  void createUserWithReactiveProcessing() {
+    MinimalHttpAsyncClient minimalHttpAsyncClient = null;
+    try {
+      minimalHttpAsyncClient = userHttpRequestHelper.startMinimalHttp1AsyncClient();
+
+      final User responseBody =
+          userHttpRequestHelper.createUserWithReactiveProcessing(
+              minimalHttpAsyncClient, "RxMan", "Manager", "https", "reqres.in");
+
+      // verify
+      assertThat(responseBody).extracting("id", "createdAt").isNotNull();
+
+    } catch (Exception e) {
+      Assertions.fail("Failed to execute HTTP request.", e);
+    } finally {
+      userHttpRequestHelper.stopMinimalHttpAsyncClient(minimalHttpAsyncClient);
     }
   }
 }
