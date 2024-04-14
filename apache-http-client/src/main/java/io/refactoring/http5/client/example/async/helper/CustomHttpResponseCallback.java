@@ -8,9 +8,9 @@ import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
 import org.apache.hc.core5.concurrent.FutureCallback;
 import org.apache.hc.core5.http.message.StatusLine;
 
-/** The pipelined http response callback. */
+/** The http response callback. */
 @Slf4j
-public class PipelinedHttpResponseCallback implements FutureCallback<SimpleHttpResponse> {
+public class CustomHttpResponseCallback implements FutureCallback<SimpleHttpResponse> {
   /** The Http get request. */
   private final SimpleHttpRequest httpRequest;
 
@@ -27,7 +27,7 @@ public class PipelinedHttpResponseCallback implements FutureCallback<SimpleHttpR
    * @param errorMessage the error message
    * @param latch the latch
    */
-  public PipelinedHttpResponseCallback(
+  public CustomHttpResponseCallback(
       SimpleHttpRequest httpRequest, String errorMessage, CountDownLatch latch) {
     this.httpRequest = httpRequest;
     this.errorMessage = errorMessage;

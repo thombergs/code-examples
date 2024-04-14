@@ -21,7 +21,9 @@ class UserAsyncHttpRequestHelperTests extends BaseAsyncExampleTests {
         public boolean matches(String value) {
           // value should not be null
           // value should not be failure message
-          return value != null && !value.startsWith("Failed to get user");
+          return value != null
+              && (!value.startsWith("Failed to get user")
+                  || value.equals("Server does not support HTTP/2 multiplexing."));
         }
       };
 

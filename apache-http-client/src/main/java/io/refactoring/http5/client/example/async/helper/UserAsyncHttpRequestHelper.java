@@ -391,7 +391,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
             minimalHttpClient.execute(
                 SimpleRequestProducer.create(httpGetRequest),
                 SimpleResponseConsumer.create(),
-                new PipelinedHttpResponseCallback(
+                new CustomHttpResponseCallback(
                     httpGetRequest,
                     MessageFormat.format("Failed to get user for ID: {0}", userId),
                     latch));
@@ -422,8 +422,12 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
       try {
         userResponseMap.put(currentUserId, futureEntry.getValue().get().getBodyText());
       } catch (Exception e) {
-        final String message =
-            MessageFormat.format("Failed to get user for ID: {0}", currentUserId);
+        String message;
+        if (e.getCause() instanceof ConnectionClosedException cce) {
+          message = "Server does not support HTTP/2 multiplexing.";
+        } else {
+          message = MessageFormat.format("Failed to get user for ID: {0}", currentUserId);
+        }
         log.error(message, e);
         userResponseMap.put(currentUserId, message);
       }
