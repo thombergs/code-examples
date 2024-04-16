@@ -29,7 +29,6 @@ import org.testcontainers.utility.MountableFile;
 import io.reflectoring.configuration.AwsS3BucketProperties;
 import lombok.SneakyThrows;
 import net.bytebuddy.utility.RandomString;
-import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
 import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
@@ -78,10 +77,10 @@ class StorageServiceIT {
 		final var fileContent = RandomString.make(50);
 		final var fileToUpload = createTextFile(key, fileContent);
 
-		// Save the generated file to the storage service
+		// Invoke method under test
 		storageService.save(fileToUpload);
 
-		// Verify that the file is saved successfully by checking if it exists in the bucket
+		// Verify that the file is saved successfully in S3 bucket
 		final var savedObjects = s3Client.listObjects(request -> request.bucket(BUCKET_NAME)).contents();
 		assertThat(savedObjects).anyMatch(savedObject -> savedObject.key().equals(key));
 	}
@@ -97,7 +96,7 @@ class StorageServiceIT {
 		final var nonExistingBucketName = RandomString.make(20).toLowerCase();
 		awsS3BucketProperties.setBucketName(nonExistingBucketName);
 
-		// Verify that the service throws exception when saving file
+		// Invoke method under test and assert exception
 		assertThrows(NoSuchBucketException.class, () -> storageService.save(fileToUpload));
 
 		// Reset the bucket name to the original value
@@ -107,13 +106,13 @@ class StorageServiceIT {
 	@Test
 	@SneakyThrows
 	void shouldFetchSavedFileSuccessfullyFromBucketForValidKey() {
-		// Prepare test file and upload to storage service
+		// Prepare test file and upload to S3 Bucket
 		final var key = RandomString.make(10) + ".txt";
 		final var fileContent = RandomString.make(50);
 		final var fileToUpload = createTextFile(key, fileContent);
 		storageService.save(fileToUpload);
 
-		// Retrieve the file from the storage service using prepared key
+		// Invoke method under test
 		final var retrievedObject = storageService.retrieve(key);
 
 		// Read the retrieved content and assert integrity
@@ -128,25 +127,35 @@ class StorageServiceIT {
 		// Generate an invalid key
 		final var key = RandomString.make(10) + ".txt";
 
-		// call method under test and assert exception
+		// Invoke method under test and assert exception
+		assertThrows(NoSuchKeyException.class, () -> storageService.retrieve(key));
+	}
+	
+	@Test
+	void shouldDeleteFileFromBucketSuccessfully() {
+		// Prepare test file and upload to S3 Bucket
+		final var key = RandomString.make(10) + ".txt";
+		final var fileContent = RandomString.make(50);
+		final var fileToUpload = createTextFile(key, fileContent);
+		storageService.save(fileToUpload);
+
+		// Invoke method under test
+		storageService.delete(key);
+
+		// Verify that file is deleted from the S3 bucket
 		assertThrows(NoSuchKeyException.class, () -> storageService.retrieve(key));
 	}
 	
     @Test
     @SneakyThrows
     void shouldGeneratePresignedUrlToFetchStoredObjectFromBucket() {
-        // Prepare test file
+    	// Prepare test file and upload to S3 Bucket
         final var key = RandomString.make(10) + ".txt";
         final var fileContent = RandomString.make(50);
         final var fileToUpload = createTextFile(key, fileContent);
-        
-        // Save test file to bucket
-        final var requestBody = RequestBody.fromBytes(fileToUpload.getBytes());
-		s3Client.putObject(
-				request -> request.key(key).bucket(BUCKET_NAME),
-				requestBody);
+        storageService.save(fileToUpload);
 
-        // Invoke method under test to generate presigned URL
+        // Invoke method under test
         final var presignedUrl = storageService.generateViewablePresignedUrl(key);
 
         // Perform a GET request to the presigned URL
@@ -169,7 +178,7 @@ class StorageServiceIT {
         final var fileContent = RandomString.make(50);
         final var fileToUpload = createTextFile(key, fileContent);
         
-        // Invoke method under test to generate presigned URL
+        // Invoke method under test
         final var presignedUrl = storageService.generateUploadablePresignedUrl(key);
         
         // Upload the test file using the presigned URL
@@ -181,7 +190,7 @@ class StorageServiceIT {
 				.toBodilessEntity();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         
-		// Verify that the file is saved successfully by checking if it exists in the bucket
+		// Verify that the file is saved successfully in S3 bucket
 		final var savedObjects = s3Client.listObjects(request -> request.bucket(BUCKET_NAME)).contents();
 		assertThat(savedObjects).anyMatch(savedObject -> savedObject.key().equals(key));
     }

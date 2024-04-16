@@ -47,6 +47,12 @@ public class StorageService {
 		return s3Client.getObject(request -> request.key(objectKey).bucket(bucketName));
 	}
 	
+	public void delete(@NonNull final String objectKey) {
+		final var bucketName = awsS3BucketProperties.getBucketName();
+		var r = s3Client.deleteObject(request -> request.key(objectKey).bucket(bucketName));
+		System.out.println(r.deleteMarker());
+	}
+	
 	public URL generateViewablePresignedUrl(@NonNull final String objectKey) {
 		final var bucketName = awsS3BucketProperties.getBucketName();
 		final var urlValidity = awsS3BucketProperties.getPresignedUrl().getValidity();
