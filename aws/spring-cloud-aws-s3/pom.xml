@@ -50,13 +50,7 @@
 		<!-- AWS dependencies -->
 		<dependency>
 			<groupId>io.awspring.cloud</groupId>
-			<artifactId>spring-cloud-aws-s3</artifactId>
-			<version>${spring.cloud.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.awspring.cloud</groupId>
-			<artifactId>spring-cloud-aws-starter</artifactId>
-			<version>${spring.cloud.version}</version>
+			<artifactId>spring-cloud-aws-starter-s3</artifactId>
 		</dependency>
 
 		<!-- Devtools dependencies -->
@@ -82,6 +76,18 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.awspring.cloud</groupId>
+				<artifactId>spring-cloud-aws</artifactId>
+				<version>${spring.cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
