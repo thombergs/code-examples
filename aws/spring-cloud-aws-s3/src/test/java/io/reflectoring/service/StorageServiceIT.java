@@ -1,0 +1,201 @@
+package io.reflectoring.service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.multipart.MultipartFile;
+import org.testcontainers.containers.localstack.LocalStackContainer;
+import org.testcontainers.containers.localstack.LocalStackContainer.Service;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.utility.MountableFile;
+
+import io.reflectoring.configuration.AwsS3BucketProperties;
+import lombok.SneakyThrows;
+import net.bytebuddy.utility.RandomString;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
+
+@SpringBootTest
+class StorageServiceIT {
+	
+	@Autowired
+	private S3Client s3Client;
+	
+	@Autowired
+	private StorageService storageService;
+	
+	@Autowired
+	private AwsS3BucketProperties awsS3BucketProperties;
+
+	private static final LocalStackContainer localStackContainer;
+	
+	// Bucket name as configured in src/test/resources/init-s3-bucket.sh
+	private static final String BUCKET_NAME = "reflectoring-bucket";
+	private static final Integer PRESIGNED_URL_VALIDITY = 10;
+
+	static {
+		localStackContainer = new LocalStackContainer(DockerImageName.parse("localstack/localstack:3.3"))
+				.withCopyFileToContainer(MountableFile.forClasspathResource("init-s3-bucket.sh", 0744), "/etc/localstack/init/ready.d/init-s3-bucket.sh")
+				.withServices(Service.S3)
+				.waitingFor(Wait.forLogMessage(".*Executed init-s3-bucket.sh.*", 1));
+		localStackContainer.start();
+	}
+
+	@DynamicPropertySource
+	static void properties(DynamicPropertyRegistry registry) {
+		registry.add("spring.cloud.aws.credentials.access-key", localStackContainer::getAccessKey);
+		registry.add("spring.cloud.aws.credentials.secret-key", localStackContainer::getSecretKey);
+		registry.add("spring.cloud.aws.s3.region", localStackContainer::getRegion);
+		registry.add("spring.cloud.aws.s3.endpoint", localStackContainer::getEndpoint);
+
+		registry.add("io.reflectoring.aws.s3.bucket-name", () -> StorageServiceIT.BUCKET_NAME);
+		registry.add("io.reflectoring.aws.s3.presigned-url.validity", () -> StorageServiceIT.PRESIGNED_URL_VALIDITY);
+	}
+	
+	@Test
+	void shouldSaveFileSuccessfullyToBucket() {
+		// Prepare test file to upload
+		final var key = RandomString.make(10) + ".txt";
+		final var fileContent = RandomString.make(50);
+		final var fileToUpload = createTextFile(key, fileContent);
+
+		// Save the generated file to the storage service
+		storageService.save(fileToUpload);
+
+		// Verify that the file is saved successfully by checking if it exists in the bucket
+		final var savedObjects = s3Client.listObjects(request -> request.bucket(BUCKET_NAME)).contents();
+		assertThat(savedObjects).anyMatch(savedObject -> savedObject.key().equals(key));
+	}
+	
+	@Test
+	void saveShouldThrowExceptionForNonExistBucket() {
+		// Prepare test file to upload
+		final var key = RandomString.make(10) + ".txt";
+		final var fileContent = RandomString.make(50);
+		final var fileToUpload = createTextFile(key, fileContent);
+
+		// Configure a non-existent bucket name
+		final var nonExistingBucketName = RandomString.make(20).toLowerCase();
+		awsS3BucketProperties.setBucketName(nonExistingBucketName);
+
+		// Verify that the service throws exception when saving file
+		assertThrows(NoSuchBucketException.class, () -> storageService.save(fileToUpload));
+
+		// Reset the bucket name to the original value
+		awsS3BucketProperties.setBucketName(BUCKET_NAME);
+	}
+	
+	@Test
+	@SneakyThrows
+	void shouldFetchSavedFileSuccessfullyFromBucketForValidKey() {
+		// Prepare test file and upload to storage service
+		final var key = RandomString.make(10) + ".txt";
+		final var fileContent = RandomString.make(50);
+		final var fileToUpload = createTextFile(key, fileContent);
+		storageService.save(fileToUpload);
+
+		// Retrieve the file from the storage service using prepared key
+		final var retrievedObject = storageService.retrieve(key);
+
+		// Read the retrieved content and assert integrity
+		final var retrievedContent = readFile(retrievedObject.readAllBytes());
+		assertThat(retrievedContent).isEqualTo(fileContent);
+		assertThat(retrievedObject.response().contentType()).isEqualTo("text/plain");
+		assertThat(retrievedObject.response().contentDisposition()).isEqualTo(key);
+	}
+
+	@Test
+	void shouldNotFetchFileForInvalidKey() {
+		// Generate an invalid key
+		final var key = RandomString.make(10) + ".txt";
+
+		// call method under test and assert exception
+		assertThrows(NoSuchKeyException.class, () -> storageService.retrieve(key));
+	}
+	
+    @Test
+    @SneakyThrows
+    void shouldGeneratePresignedUrlToFetchStoredObjectFromBucket() {
+        // Prepare test file
+        final var key = RandomString.make(10) + ".txt";
+        final var fileContent = RandomString.make(50);
+        final var fileToUpload = createTextFile(key, fileContent);
+        
+        // Save test file to bucket
+        final var requestBody = RequestBody.fromBytes(fileToUpload.getBytes());
+		s3Client.putObject(
+				request -> request.key(key).bucket(BUCKET_NAME),
+				requestBody);
+
+        // Invoke method under test to generate presigned URL
+        final var presignedUrl = storageService.generateViewablePresignedUrl(key);
+
+        // Perform a GET request to the presigned URL
+        final var restClient = RestClient.builder().build();
+		final var responseBody = restClient.method(HttpMethod.GET)
+				.uri(URI.create(presignedUrl.toExternalForm()))
+				.retrieve()
+				.body(byte[].class);
+		
+		// verify the retrieved content matches the expected file content.
+        final var retrievedContent = new String(responseBody, StandardCharsets.UTF_8);
+        assertThat(fileContent).isEqualTo(retrievedContent);
+    }
+    
+    @Test
+    @SneakyThrows
+    void shouldGeneratePresignedUrlForUploadingObjectToBucket() {
+        // Prepare test file to upload
+        final var key = RandomString.make(10) + ".txt";
+        final var fileContent = RandomString.make(50);
+        final var fileToUpload = createTextFile(key, fileContent);
+        
+        // Invoke method under test to generate presigned URL
+        final var presignedUrl = storageService.generateUploadablePresignedUrl(key);
+        
+        // Upload the test file using the presigned URL
+        final var restClient = RestClient.builder().build();
+		final var response = restClient.method(HttpMethod.PUT)
+				.uri(URI.create(presignedUrl.toExternalForm()))
+				.body(fileToUpload.getBytes())
+				.retrieve()
+				.toBodilessEntity();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        
+		// Verify that the file is saved successfully by checking if it exists in the bucket
+		final var savedObjects = s3Client.listObjects(request -> request.bucket(BUCKET_NAME)).contents();
+		assertThat(savedObjects).anyMatch(savedObject -> savedObject.key().equals(key));
+    }
+	
+	private String readFile(byte[] bytes) {
+		final var inputStreamReader = new InputStreamReader(new ByteArrayInputStream(bytes));
+		return new BufferedReader(inputStreamReader).lines().collect(Collectors.joining("\n"));
+	}
+	
+	@SneakyThrows
+	private MultipartFile createTextFile(final String fileName, final String content) {
+		final var fileContentBytes = content.getBytes();
+		final var inputStream = new ByteArrayInputStream(fileContentBytes);
+		return new MockMultipartFile(fileName, fileName, "text/plain", inputStream);
+	}
+
+}
