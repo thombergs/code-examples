@@ -1,0 +1,39 @@
+name: Spring Cloud AWS S3 build
+
+on:
+  push:
+    branches: 
+      - "*"
+    paths: 
+      - aws/spring-cloud-aws-s3/**
+      - .github/workflows/spring-cloud-aws-s3.yml
+  pull_request:
+    branches: 
+      - master
+    paths: 
+      - aws/spring-cloud-aws-s3/**
+      - .github/workflows/spring-cloud-aws-s3.yml
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./aws/spring-cloud-aws-s3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: adopt
+          cache: maven
+
+      - name: Compile project
+        run: mvn compile
+
+      - name: Run Integration Tests
+        run: mvn integration-test verify
