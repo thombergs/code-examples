@@ -37,8 +37,7 @@ public class StorageService {
 		final var bucketName = awsS3BucketProperties.getBucketName();
 
 		s3Client.putObject(
-				request -> request.key(key).bucket(bucketName).contentType(file.getContentType())
-						.contentDisposition(file.getOriginalFilename()),
+				request -> request.key(key).bucket(bucketName),
 				requestBody);
 	}
 	

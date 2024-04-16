@@ -118,8 +118,6 @@ class StorageServiceIT {
 		// Read the retrieved content and assert integrity
 		final var retrievedContent = readFile(retrievedObject.readAllBytes());
 		assertThat(retrievedContent).isEqualTo(fileContent);
-		assertThat(retrievedObject.response().contentType()).isEqualTo("text/plain");
-		assertThat(retrievedObject.response().contentDisposition()).isEqualTo(key);
 	}
 
 	@Test
