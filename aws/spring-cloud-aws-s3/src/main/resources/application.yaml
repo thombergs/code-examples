@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: ${ACTIVE_PROFILE}
   cloud:
     aws:
       credentials:
