@@ -49,7 +49,7 @@ class StorageServiceIT {
 
 	// Bucket name as configured in src/test/resources/init-s3-bucket.sh
 	private static final String BUCKET_NAME = "reflectoring-bucket";
-	private static final Integer PRESIGNED_URL_VALIDITY = 10;
+	private static final Integer PRESIGNED_URL_VALIDITY_SECONDS = 10;
 
 	static {
 		localStackContainer = new LocalStackContainer(DockerImageName.parse("localstack/localstack:3.3"))
@@ -66,8 +66,8 @@ class StorageServiceIT {
 		registry.add("spring.cloud.aws.s3.region", localStackContainer::getRegion);
 		registry.add("spring.cloud.aws.s3.endpoint", localStackContainer::getEndpoint);
 
-		registry.add("io.reflectoring.aws.s3.bucket-name", () -> StorageServiceIT.BUCKET_NAME);
-		registry.add("io.reflectoring.aws.s3.presigned-url.validity", () -> StorageServiceIT.PRESIGNED_URL_VALIDITY);
+		registry.add("io.reflectoring.aws.s3.bucket-name", () -> BUCKET_NAME);
+		registry.add("io.reflectoring.aws.s3.presigned-url.validity", () -> PRESIGNED_URL_VALIDITY_SECONDS);
 	}
 
 	@Test
