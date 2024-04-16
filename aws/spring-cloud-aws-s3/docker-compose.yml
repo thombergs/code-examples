@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   localstack:
+    container_name: localstack
     image: localstack/localstack:3.3
     ports:
       - 4566:4566
@@ -13,6 +14,7 @@ services:
       - reflectoring
       
   backend:
+    container_name: backend-application
     build:
       context: ./
       dockerfile: Dockerfile
