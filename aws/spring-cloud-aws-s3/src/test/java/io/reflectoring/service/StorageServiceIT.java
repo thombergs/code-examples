@@ -35,18 +35,18 @@ import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 
 @SpringBootTest
 class StorageServiceIT {
-	
+
 	@Autowired
 	private S3Client s3Client;
-	
+
 	@Autowired
 	private StorageService storageService;
-	
+
 	@Autowired
 	private AwsS3BucketProperties awsS3BucketProperties;
 
 	private static final LocalStackContainer localStackContainer;
-	
+
 	// Bucket name as configured in src/test/resources/init-s3-bucket.sh
 	private static final String BUCKET_NAME = "reflectoring-bucket";
 	private static final Integer PRESIGNED_URL_VALIDITY = 10;
@@ -69,7 +69,7 @@ class StorageServiceIT {
 		registry.add("io.reflectoring.aws.s3.bucket-name", () -> StorageServiceIT.BUCKET_NAME);
 		registry.add("io.reflectoring.aws.s3.presigned-url.validity", () -> StorageServiceIT.PRESIGNED_URL_VALIDITY);
 	}
-	
+
 	@Test
 	void shouldSaveFileSuccessfullyToBucket() {
 		// Prepare test file to upload
@@ -84,7 +84,7 @@ class StorageServiceIT {
 		final var savedObjects = s3Client.listObjects(request -> request.bucket(BUCKET_NAME)).contents();
 		assertThat(savedObjects).anyMatch(savedObject -> savedObject.key().equals(key));
 	}
-	
+
 	@Test
 	void saveShouldThrowExceptionForNonExistBucket() {
 		// Prepare test file to upload
@@ -102,7 +102,7 @@ class StorageServiceIT {
 		// Reset the bucket name to the original value
 		awsS3BucketProperties.setBucketName(BUCKET_NAME);
 	}
-	
+
 	@Test
 	@SneakyThrows
 	void shouldFetchSavedFileSuccessfullyFromBucketForValidKey() {
@@ -130,7 +130,7 @@ class StorageServiceIT {
 		// Invoke method under test and assert exception
 		assertThrows(NoSuchKeyException.class, () -> storageService.retrieve(key));
 	}
-	
+
 	@Test
 	void shouldDeleteFileFromBucketSuccessfully() {
 		// Prepare test file and upload to S3 Bucket
@@ -145,61 +145,56 @@ class StorageServiceIT {
 		// Verify that file is deleted from the S3 bucket
 		assertThrows(NoSuchKeyException.class, () -> storageService.retrieve(key));
 	}
-	
-    @Test
-    @SneakyThrows
-    void shouldGeneratePresignedUrlToFetchStoredObjectFromBucket() {
-    	// Prepare test file and upload to S3 Bucket
-        final var key = RandomString.make(10) + ".txt";
-        final var fileContent = RandomString.make(50);
-        final var fileToUpload = createTextFile(key, fileContent);
-        storageService.save(fileToUpload);
 
-        // Invoke method under test
-        final var presignedUrl = storageService.generateViewablePresignedUrl(key);
+	@Test
+	@SneakyThrows
+	void shouldGeneratePresignedUrlToFetchStoredObjectFromBucket() {
+		// Prepare test file and upload to S3 Bucket
+		final var key = RandomString.make(10) + ".txt";
+		final var fileContent = RandomString.make(50);
+		final var fileToUpload = createTextFile(key, fileContent);
+		storageService.save(fileToUpload);
 
-        // Perform a GET request to the presigned URL
-        final var restClient = RestClient.builder().build();
-		final var responseBody = restClient.method(HttpMethod.GET)
-				.uri(URI.create(presignedUrl.toExternalForm()))
-				.retrieve()
-				.body(byte[].class);
-		
+		// Invoke method under test
+		final var presignedUrl = storageService.generateViewablePresignedUrl(key);
+
+		// Perform a GET request to the presigned URL
+		final var restClient = RestClient.builder().build();
+		final var responseBody = restClient.method(HttpMethod.GET).uri(URI.create(presignedUrl.toExternalForm()))
+				.retrieve().body(byte[].class);
+
 		// verify the retrieved content matches the expected file content.
-        final var retrievedContent = new String(responseBody, StandardCharsets.UTF_8);
-        assertThat(fileContent).isEqualTo(retrievedContent);
-    }
-    
-    @Test
-    @SneakyThrows
-    void shouldGeneratePresignedUrlForUploadingObjectToBucket() {
-        // Prepare test file to upload
-        final var key = RandomString.make(10) + ".txt";
-        final var fileContent = RandomString.make(50);
-        final var fileToUpload = createTextFile(key, fileContent);
-        
-        // Invoke method under test
-        final var presignedUrl = storageService.generateUploadablePresignedUrl(key);
-        
-        // Upload the test file using the presigned URL
-        final var restClient = RestClient.builder().build();
-		final var response = restClient.method(HttpMethod.PUT)
-				.uri(URI.create(presignedUrl.toExternalForm()))
-				.body(fileToUpload.getBytes())
-				.retrieve()
-				.toBodilessEntity();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        
+		final var retrievedContent = new String(responseBody, StandardCharsets.UTF_8);
+		assertThat(fileContent).isEqualTo(retrievedContent);
+	}
+
+	@Test
+	@SneakyThrows
+	void shouldGeneratePresignedUrlForUploadingObjectToBucket() {
+		// Prepare test file to upload
+		final var key = RandomString.make(10) + ".txt";
+		final var fileContent = RandomString.make(50);
+		final var fileToUpload = createTextFile(key, fileContent);
+
+		// Invoke method under test
+		final var presignedUrl = storageService.generateUploadablePresignedUrl(key);
+
+		// Upload the test file using the presigned URL
+		final var restClient = RestClient.builder().build();
+		final var response = restClient.method(HttpMethod.PUT).uri(URI.create(presignedUrl.toExternalForm()))
+				.body(fileToUpload.getBytes()).retrieve().toBodilessEntity();
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
 		// Verify that the file is saved successfully in S3 bucket
 		final var savedObjects = s3Client.listObjects(request -> request.bucket(BUCKET_NAME)).contents();
 		assertThat(savedObjects).anyMatch(savedObject -> savedObject.key().equals(key));
-    }
-	
+	}
+
 	private String readFile(byte[] bytes) {
 		final var inputStreamReader = new InputStreamReader(new ByteArrayInputStream(bytes));
 		return new BufferedReader(inputStreamReader).lines().collect(Collectors.joining("\n"));
 	}
-	
+
 	@SneakyThrows
 	private MultipartFile createTextFile(final String fileName, final String content) {
 		final var fileContentBytes = content.getBytes();
