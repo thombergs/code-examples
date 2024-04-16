@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,7 @@ class StorageServiceIT {
 
 	// Bucket name as configured in src/test/resources/init-s3-bucket.sh
 	private static final String BUCKET_NAME = "reflectoring-bucket";
-	private static final Integer PRESIGNED_URL_VALIDITY_SECONDS = 10;
+	private static final Integer PRESIGNED_URL_VALIDITY = randomValiditySeconds();
 
 	static {
 		localStackContainer = new LocalStackContainer(DockerImageName.parse("localstack/localstack:3.3"))
@@ -67,7 +68,7 @@ class StorageServiceIT {
 		registry.add("spring.cloud.aws.s3.endpoint", localStackContainer::getEndpoint);
 
 		registry.add("io.reflectoring.aws.s3.bucket-name", () -> BUCKET_NAME);
-		registry.add("io.reflectoring.aws.s3.presigned-url.validity", () -> PRESIGNED_URL_VALIDITY_SECONDS);
+		registry.add("io.reflectoring.aws.s3.presigned-url.validity", () -> PRESIGNED_URL_VALIDITY);
 	}
 
 	@Test
@@ -198,6 +199,10 @@ class StorageServiceIT {
 		final var fileContentBytes = content.getBytes();
 		final var inputStream = new ByteArrayInputStream(fileContentBytes);
 		return new MockMultipartFile(fileName, fileName, "text/plain", inputStream);
+	}
+	
+	private static int randomValiditySeconds() {
+		return ThreadLocalRandom.current().nextInt(5, 11);
 	}
 
 }
