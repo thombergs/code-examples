@@ -10,6 +10,25 @@ import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Maps configuration values defined in the active {@code .yml} file to the
+ * corresponding instance variables below. The configuration properties are
+ * referenced within the application to interact with the provisioned AWS S3
+ * Bucket.
+ *
+ * <p>
+ * <b> Example YAML configuration: </b>
+ *
+ * <pre>
+ * io:
+ *   reflectoring:
+ *     aws:
+ *       s3:
+ *         bucket-name: s3-bucket-name
+ *         presigned-url:
+ *           validity: url-validity-in-seconds
+ * </pre>
+ */
 @Getter
 @Setter
 @Validated
@@ -27,8 +46,12 @@ public class AwsS3BucketProperties {
 	@Validated
 	public class PresignedUrl {
 
-		@NotNull(message = "S3 presigned URL expiration time must be specified")
-		@Positive(message = "S3 presigned URL expiration time must be a positive value")
+		/**
+		 * The validity period in <b>seconds</b> for the generated presigned URLs. The
+		 * URLs would not be accessible post expiration.
+		 */
+		@NotNull(message = "S3 presigned URL validity must be specified")
+		@Positive(message = "S3 presigned URL validity must be a positive value")
 		private Integer validity;
 
 	}
