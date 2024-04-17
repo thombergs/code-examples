@@ -3,6 +3,7 @@ package io.reflectoring.configuration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
+import io.reflectoring.validation.BucketExists;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +36,7 @@ import lombok.Setter;
 @ConfigurationProperties(prefix = "io.reflectoring.aws.s3")
 public class AwsS3BucketProperties {
 
+	@BucketExists
 	@NotBlank(message = "S3 bucket name must be configured")
 	private String bucketName;
 
