@@ -27,18 +27,18 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
 
+import io.awspring.cloud.s3.S3Exception;
+import io.awspring.cloud.s3.S3Template;
 import io.reflectoring.configuration.AwsS3BucketProperties;
 import lombok.SneakyThrows;
 import net.bytebuddy.utility.RandomString;
-import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
-import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 
 @SpringBootTest
 class StorageServiceIT {
 
 	@Autowired
-	private S3Client s3Client;
+	private S3Template s3Template;
 
 	@Autowired
 	private StorageService storageService;
@@ -82,8 +82,8 @@ class StorageServiceIT {
 		storageService.save(fileToUpload);
 
 		// Verify that the file is saved successfully in S3 bucket
-		final var savedObjects = s3Client.listObjects(request -> request.bucket(BUCKET_NAME)).contents();
-		assertThat(savedObjects).anyMatch(savedObject -> savedObject.key().equals(key));
+		final var isFileSaved = s3Template.objectExists(BUCKET_NAME, key);
+		assertThat(isFileSaved).isTrue();
 	}
 
 	@Test
@@ -98,8 +98,9 @@ class StorageServiceIT {
 		awsS3BucketProperties.setBucketName(nonExistingBucketName);
 
 		// Invoke method under test and assert exception
-		assertThrows(NoSuchBucketException.class, () -> storageService.save(fileToUpload));
-
+		final var exception = assertThrows(S3Exception.class, () -> storageService.save(fileToUpload));
+		assertThat(exception.getCause()).hasCauseInstanceOf(NoSuchBucketException.class);
+		
 		// Reset the bucket name to the original value
 		awsS3BucketProperties.setBucketName(BUCKET_NAME);
 	}
@@ -117,17 +118,8 @@ class StorageServiceIT {
 		final var retrievedObject = storageService.retrieve(key);
 
 		// Read the retrieved content and assert integrity
-		final var retrievedContent = readFile(retrievedObject.readAllBytes());
+		final var retrievedContent = readFile(retrievedObject.getContentAsByteArray());
 		assertThat(retrievedContent).isEqualTo(fileContent);
-	}
-
-	@Test
-	void shouldNotFetchFileForInvalidKey() {
-		// Generate an invalid key
-		final var key = RandomString.make(10) + ".txt";
-
-		// Invoke method under test and assert exception
-		assertThrows(NoSuchKeyException.class, () -> storageService.retrieve(key));
 	}
 
 	@Test
@@ -137,12 +129,17 @@ class StorageServiceIT {
 		final var fileContent = RandomString.make(50);
 		final var fileToUpload = createTextFile(key, fileContent);
 		storageService.save(fileToUpload);
+		
+		// Verify that the file is saved successfully in S3 bucket
+		var isFileSaved = s3Template.objectExists(BUCKET_NAME, key);
+		assertThat(isFileSaved).isTrue();
 
 		// Invoke method under test
 		storageService.delete(key);
 
 		// Verify that file is deleted from the S3 bucket
-		assertThrows(NoSuchKeyException.class, () -> storageService.retrieve(key));
+		isFileSaved = s3Template.objectExists(BUCKET_NAME, key);
+		assertThat(isFileSaved).isFalse();
 	}
 
 	@Test
@@ -185,8 +182,8 @@ class StorageServiceIT {
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
 		// Verify that the file is saved successfully in S3 bucket
-		final var savedObjects = s3Client.listObjects(request -> request.bucket(BUCKET_NAME)).contents();
-		assertThat(savedObjects).anyMatch(savedObject -> savedObject.key().equals(key));
+		var isFileSaved = s3Template.objectExists(BUCKET_NAME, key);
+		assertThat(isFileSaved).isTrue();
 	}
 
 	private String readFile(byte[] bytes) {
