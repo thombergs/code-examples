@@ -1,24 +1,18 @@
 package io.reflectoring.validation;
 
+import io.awspring.cloud.s3.S3Template;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
 
 @RequiredArgsConstructor
 public class BucketExistenceValidator implements ConstraintValidator<BucketExists, String> {
 
-	private final S3Client s3Client;
+	private final S3Template s3Template;
 
 	@Override
 	public boolean isValid(final String bucketName, final ConstraintValidatorContext context) {
-		try {
-			s3Client.headBucket(request -> request.bucket(bucketName));
-		} catch (final NoSuchBucketException exception) {
-			return Boolean.FALSE;
-		}
-		return Boolean.TRUE;
+		return s3Template.bucketExists(bucketName);
 	}
 
 }
