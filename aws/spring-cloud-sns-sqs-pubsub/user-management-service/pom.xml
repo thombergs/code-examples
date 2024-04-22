@@ -14,7 +14,7 @@
 
 	<artifactId>user-management-service</artifactId>
 	<name>user-management-service</name>
-	<description>Microservice acting as a publisher to an AWS SNS topic in the pub/sub proof-of-concept.</description>
+	<description>Microservice acting as a publisher to an AWS SNS topic</description>
 
 	<properties>
 		<spring-boot.build-image.imageName>${project.parent.artifactId}-${project.artifactId}</spring-boot.build-image.imageName>
