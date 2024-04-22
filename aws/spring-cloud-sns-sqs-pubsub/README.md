@@ -15,4 +15,4 @@ sudo docker-compose up -d
 
 Blog posts about this topic:
 
-* [Publisher-Subscriber Pattern using AWS SNS and SQS in Spring Boot](https://reflectoring.io/aws-pubsub-spring-boot/)
+* [Publisher-Subscriber Pattern using AWS SNS and SQS in Spring Boot](https://reflectoring.io/publisher-subscriber-pattern-using-aws-sns-and-sqs-in-spring-boot)
