@@ -1,4 +1,4 @@
-## Implementing Publisher-Subscriber Pattern in Spring Boot using AWS SNS and SQS
+## Implementing Publisher-Subscriber Pattern using AWS SNS and SQS in Spring Boot
 
 Codebase demonstrating the implementation of publisher-subscriber pattern using AWS SNS and SQS in Spring Boot. [Spring Cloud AWS](https://spring.io/projects/spring-cloud-aws) is used to interact with AWS services in context.
 
