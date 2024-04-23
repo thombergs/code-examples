@@ -37,6 +37,7 @@
 	<modules>
 		<module>user-management-service</module>
 		<module>notification-dispatcher-service</module>
+		<module>integration-test</module>
 	</modules>
 
 	<dependencies>
