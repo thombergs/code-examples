@@ -42,7 +42,7 @@ class PubSubIT {
 	
 	static {
 		localStackContainer = new LocalStackContainer(DockerImageName.parse("localstack/localstack:3.3"))
-				.withCopyFileToContainer(MountableFile.forClasspathResource("provision-resources.sh", 0744), "/etc/localstack/init/ready.d/init-sns-topic.sh")
+				.withCopyFileToContainer(MountableFile.forClasspathResource("provision-resources.sh", 0744), "/etc/localstack/init/ready.d/provision-resources.sh")
 				.withServices(Service.SNS, Service.SQS)
 				.waitingFor(Wait.forLogMessage(".*Successfully provisioned resources.*", 1));
 		localStackContainer.start();
