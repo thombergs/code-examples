@@ -36,18 +36,15 @@ class PubSubIT {
 	
 	private static final LocalStackContainer localStackContainer;
 	
-	// as configured in initializing hook scripts in src/test/resources
+	// as configured in initializing hook script 'provision-resources.sh' in src/test/resources
 	private static final String TOPIC_ARN = "arn:aws:sns:us-east-1:000000000000:user-account-created";
 	private static final String QUEUE_URL = "http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/dispatch-email-notification";
 	
 	static {
 		localStackContainer = new LocalStackContainer(DockerImageName.parse("localstack/localstack:3.3"))
-				.withCopyFileToContainer(MountableFile.forClasspathResource("init-sns-topic.sh", 0744), "/etc/localstack/init/ready.d/init-sns-topic.sh")
-				.withCopyFileToContainer(MountableFile.forClasspathResource("init-sqs-queue.sh", 0744), "/etc/localstack/init/ready.d/init-sqs-queue.sh")
-				.withCopyFileToContainer(MountableFile.forClasspathResource("subscribe-sqs-to-sns.sh", 0744), "/etc/localstack/init/ready.d/subscribe-sqs-to-sns.sh")
+				.withCopyFileToContainer(MountableFile.forClasspathResource("provision-resources.sh", 0744), "/etc/localstack/init/ready.d/init-sns-topic.sh")
 				.withServices(Service.SNS, Service.SQS)
-				.withEnv("SQS_ENDPOINT_STRATEGY", "off")
-				.waitingFor(Wait.forLogMessage(".*Executed subscribe-sqs-to-sns.*", 1));
+				.waitingFor(Wait.forLogMessage(".*Successfully provisioned resources.*", 1));
 		localStackContainer.start();
 	}
 	
@@ -89,11 +86,11 @@ class PubSubIT {
 		
 		// assert that message has been received by the queue
 		final var expectedPublisherLog = String.format("Successfully published message to topic ARN: %s", TOPIC_ARN);
-		Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> output.getAll().contains(expectedPublisherLog));
+		Awaitility.await().atMost(1, TimeUnit.SECONDS).until(() -> output.getAll().contains(expectedPublisherLog));
 		
 		// assert that message has been received by the queue
 		final var expectedSubscriberLog = String.format("Dispatching account creation email to %s on %s", name, emailId);
-		Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> output.getAll().contains(expectedSubscriberLog));
+		Awaitility.await().atMost(1, TimeUnit.SECONDS).until(() -> output.getAll().contains(expectedSubscriberLog));
 	}
 	
 }
