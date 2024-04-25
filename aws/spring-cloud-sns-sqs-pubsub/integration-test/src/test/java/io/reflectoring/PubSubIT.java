@@ -41,7 +41,7 @@ class PubSubIT {
 	private static final String QUEUE_URL = "http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/dispatch-email-notification";
 	
 	static {
-		localStackContainer = new LocalStackContainer(DockerImageName.parse("localstack/localstack:3.3"))
+		localStackContainer = new LocalStackContainer(DockerImageName.parse("localstack/localstack:3.4"))
 				.withCopyFileToContainer(MountableFile.forClasspathResource("provision-resources.sh", 0744), "/etc/localstack/init/ready.d/provision-resources.sh")
 				.withServices(Service.SNS, Service.SQS)
 				.waitingFor(Wait.forLogMessage(".*Successfully provisioned resources.*", 1));
