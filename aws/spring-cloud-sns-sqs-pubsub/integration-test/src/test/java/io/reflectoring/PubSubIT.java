@@ -67,7 +67,7 @@ class PubSubIT {
 	void test(CapturedOutput output) {
 		// prepare API request body to create user
 		final var name = RandomString.make();
-		final var emailId = RandomString.make() + "@domain.it";
+		final var emailId = RandomString.make() + "@reflectoring.io";
 		final var password = RandomString.make();
 		final var userCreationRequestBody = String.format("""
 		{
@@ -84,11 +84,11 @@ class PubSubIT {
 			.content(userCreationRequestBody))
 			.andExpect(status().isCreated());
 		
-		// assert that message has been received by the queue
+		// assert that message has been published to SNS topic
 		final var expectedPublisherLog = String.format("Successfully published message to topic ARN: %s", TOPIC_ARN);
 		Awaitility.await().atMost(1, TimeUnit.SECONDS).until(() -> output.getAll().contains(expectedPublisherLog));
 		
-		// assert that message has been received by the queue
+		// assert that message has been received by the SQS queue
 		final var expectedSubscriberLog = String.format("Dispatching account creation email to %s on %s", name, emailId);
 		Awaitility.await().atMost(1, TimeUnit.SECONDS).until(() -> output.getAll().contains(expectedSubscriberLog));
 	}
