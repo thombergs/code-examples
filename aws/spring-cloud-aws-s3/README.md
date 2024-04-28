@@ -8,5 +8,5 @@ Contains integration tests to validate interaction between the application and A
 
 Blog posts about this topic:
 
-* [Using S3 with Spring Cloud AWS](https://reflectoring.io/spring-cloud-aws-s3/)
-* [Using S3 Presigned URLs in Spring Boot](https://reflectoring.io/aws-s3-presigned-url-spring-boot/)
+* [Using AWS S3 with Spring Cloud AWS](https://reflectoring.io/spring-cloud-aws-s3/)
+* [Using AWS S3 Presigned URLs in Spring Boot](https://reflectoring.io/aws-s3-presigned-url-spring-boot/)
