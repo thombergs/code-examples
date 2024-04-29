@@ -9,8 +9,8 @@ spring:
         
 io:
   reflectoring:
-      aws:
-        s3:
-          bucket-name: ${AWS_S3_BUCKET_NAME}
-          presigned-url:
-            validity: ${AWS_S3_PRESIGNED_URL_VALIDITY}
+    aws:
+      s3:
+        bucket-name: ${AWS_S3_BUCKET_NAME}
+        presigned-url:
+          validity: ${AWS_S3_PRESIGNED_URL_VALIDITY}
