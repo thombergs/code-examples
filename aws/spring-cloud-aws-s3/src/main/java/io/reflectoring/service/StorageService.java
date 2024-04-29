@@ -4,7 +4,7 @@ import java.net.URL;
 import java.time.Duration;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.awspring.cloud.s3.S3Resource;
@@ -14,7 +14,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
-@Component
+@Service
 @RequiredArgsConstructor
 @EnableConfigurationProperties(AwsS3BucketProperties.class)
 public class StorageService {
