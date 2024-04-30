@@ -53,7 +53,7 @@ class StorageServiceIT {
 	private static final Integer PRESIGNED_URL_VALIDITY = randomValiditySeconds();
 
 	static {
-		localStackContainer = new LocalStackContainer(DockerImageName.parse("localstack/localstack:3.3"))
+		localStackContainer = new LocalStackContainer(DockerImageName.parse("localstack/localstack:3.4"))
 				.withCopyFileToContainer(MountableFile.forClasspathResource("init-s3-bucket.sh", 0744), "/etc/localstack/init/ready.d/init-s3-bucket.sh")
 				.withServices(Service.S3)
 				.waitingFor(Wait.forLogMessage(".*Executed init-s3-bucket.sh.*", 1));
