@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      sns:
+        region: ${AWS_SNS_REGION}
+        
+io:
+  reflectoring:
+    aws:
+      sns:
+        topic-arn: ${AWS_SNS_TOPIC_ARN}
