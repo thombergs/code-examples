@@ -1,6 +1,7 @@
 package io.reflectoring.function.custom;
 
 import java.math.BigInteger;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,8 @@ import org.junit.jupiter.api.Test;
 
 /** The Method reference test. */
 public class MethodReferenceTest {
-  @Test
+  /** Static method reference. */
+@Test
   void staticMethodReference() {
     List<Integer> numbers = List.of(1, -2, 3, -4, 5);
     List<Integer> positiveNumbers = numbers.stream().map(Math::abs).toList();
@@ -19,21 +21,47 @@ public class MethodReferenceTest {
         number -> Assertions.assertTrue(number > 0, "Number should be positive."));
   }
 
-  @Test
-  void instanceMethodReference() {
+  /** The String number comparator. */
+static class StringNumberComparator implements Comparator<String> {
+    @Override
+    public int compare(String o1, String o2) {
+      if (o1 == null) {
+        return o2 == null ? 0 : 1;
+      } else if (o2 == null) {
+        return -1;
+      }
+      return o1.compareTo(o2);
+    }
+  }
+
+  /** Instance method reference. */
+@Test
+  void containingClassInstanceMethodReference() {
     List<String> numbers = List.of("One", "Two", "Three");
     List<Integer> numberChars = numbers.stream().map(String::length).toList();
     numberChars.forEach(length -> Assertions.assertTrue(length > 0, "Number text is not empty."));
   }
 
-  @Test
+  /** Instance method reference. */
+@Test
+  void containingObjectInstanceMethodReference() {
+    List<String> numbers = List.of("One", "Two", "Three");
+    StringNumberComparator comparator = new StringNumberComparator();
+    final List<String> sorted = numbers.stream().sorted(comparator::compare).toList();
+    final List<String> expected = List.of("One", "Three", "Two");
+    Assertions.assertEquals(expected, sorted, "Incorrect sorting.");
+  }
+
+  /** Instance method arbitrary object particular type. */
+@Test
   void instanceMethodArbitraryObjectParticularType() {
     List<Number> numbers = List.of(1, 2L, 3.0f, 4.0d);
     List<Integer> numberIntValues = numbers.stream().map(Number::intValue).toList();
     Assertions.assertEquals(List.of(1, 2, 3, 4), numberIntValues, "Int values are not same.");
   }
 
-  @Test
+  /** Constructor reference. */
+@Test
   void constructorReference() {
     List<String> numbers = List.of("1", "2", "3");
     Map<String, BigInteger> numberMapping =
