@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+  localstack:
+    container_name: localstack
+    image: localstack/localstack:3.3
+    ports:
+      - 4566:4566
+    environment:
+      - SERVICES=sns,sqs
+    volumes:
+      - ./localstack/init-sns-topic.sh:/etc/localstack/init/ready.d/init-sns-topic.sh
+      - ./localstack/init-sqs-queue.sh:/etc/localstack/init/ready.d/init-sqs-queue.sh
+      - ./localstack/subscribe-sqs-to-sns.sh:/etc/localstack/init/ready.d/subscribe-sqs-to-sns.sh
+    networks:
+      - reflectoring
+      
+  user-management-service:
+    container_name: user-management-service
+    image: aws-pubsub-user-management-service
+    ports:
+    - 8080:8080
+    depends_on:
+      - localstack
+    environment:
+      spring.cloud.aws.sns.endpoint: 'http://localstack:4566'
+      spring.cloud.aws.credentials.access-key: test
+      spring.cloud.aws.credentials.secret-key: test
+      spring.cloud.aws.sns.region: 'us-east-1'
+      io.reflectoring.aws.sns.topic-arn: 'arn:aws:sns:us-east-1:000000000000:user-account-created'
+    networks:
+      - reflectoring
+
+  notification-dispatcher-service:
+    container_name: notification-dispatcher-service
+    image: aws-pubsub-notification-dispatcher-service
+    ports:
+    - 9090:8080
+    depends_on:
+      - localstack
+      - user-management-service
+    environment:
+      spring.cloud.aws.sqs.endpoint: 'http://localstack:4566'
+      spring.cloud.aws.credentials.access-key: test
+      spring.cloud.aws.credentials.secret-key: test
+      spring.cloud.aws.sqs.region: 'us-east-1'
+      io.reflectoring.aws.sqs.queue-url: 'http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/dispatch-email-notification'
+    networks:
+      - reflectoring
+
+networks:
+  reflectoring:
