@@ -8,6 +8,7 @@ import io.refactoring.http5.client.example.config.interceptor.UserResponseAsyncE
 import io.refactoring.http5.client.example.helper.BaseHttpRequestHelper;
 import io.refactoring.http5.client.example.model.User;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
@@ -424,6 +425,13 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
       }
     }
 
+    handleFutureResults(futuresMap, userResponseMap);
+
+    return userResponseMap;
+  }
+
+  private void handleFutureResults(
+      Map<Long, Future<SimpleHttpResponse>> futuresMap, Map<Long, String> userResponseMap) {
     log.debug("Got {} futures.", futuresMap.size());
 
     for (Map.Entry<Long, Future<SimpleHttpResponse>> futureEntry : futuresMap.entrySet()) {
@@ -441,8 +449,6 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
         userResponseMap.put(currentUserId, message);
       }
     }
-
-    return userResponseMap;
   }
 
   /**
@@ -478,18 +484,8 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
               .build();
       for (int i = 0; i < count; i++) {
         try {
-          // Update request
-          httpGetRequest.removeHeaders("x-req-exec-number");
-          httpGetRequest.addHeader("x-req-exec-number", String.valueOf(i));
-          log.debug(
-              "Executing {} request: {} on host {}",
-              httpGetRequest.getMethod(),
-              httpGetRequest.getUri(),
-              httpHost);
-
           final Future<SimpleHttpResponse> future =
-              closeableHttpAsyncClient.execute(
-                  httpGetRequest, new SimpleHttpResponseCallback(httpGetRequest, ""));
+              executeInterceptorRequest(closeableHttpAsyncClient, httpGetRequest, i, httpHost);
           futuresMap.put(i, future);
         } catch (RequestProcessingException e) {
           userResponseMap.put(i, e.getMessage());
@@ -501,6 +497,32 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
       throw new RequestProcessingException(message, e);
     }
 
+    handleInterceptorFutureResults(futuresMap, userResponseMap);
+
+    return userResponseMap;
+  }
+
+  private Future<SimpleHttpResponse> executeInterceptorRequest(
+      CloseableHttpAsyncClient closeableHttpAsyncClient,
+      SimpleHttpRequest httpGetRequest,
+      int i,
+      HttpHost httpHost)
+      throws URISyntaxException {
+    // Update request
+    httpGetRequest.removeHeaders("x-req-exec-number");
+    httpGetRequest.addHeader("x-req-exec-number", String.valueOf(i));
+    log.debug(
+        "Executing {} request: {} on host {}",
+        httpGetRequest.getMethod(),
+        httpGetRequest.getUri(),
+        httpHost);
+
+    return closeableHttpAsyncClient.execute(
+        httpGetRequest, new SimpleHttpResponseCallback(httpGetRequest, ""));
+  }
+
+  private void handleInterceptorFutureResults(
+      Map<Integer, Future<SimpleHttpResponse>> futuresMap, Map<Integer, String> userResponseMap) {
     log.debug("Got {} futures.", futuresMap.size());
 
     for (Map.Entry<Integer, Future<SimpleHttpResponse>> futureEntry : futuresMap.entrySet()) {
@@ -514,8 +536,6 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
         userResponseMap.put(currentRequestId, message);
       }
     }
-
-    return userResponseMap;
   }
 
   /**

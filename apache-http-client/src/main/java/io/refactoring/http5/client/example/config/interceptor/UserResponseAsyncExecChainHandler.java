@@ -32,30 +32,9 @@ public class UserResponseAsyncExecChainHandler implements AsyncExecChainHandler 
           && httpRequest.containsHeader("x-req-exec-number")) {
         final String path = httpRequest.getPath();
         if (StringUtils.startsWith(path, "/api/users/")) {
-          final Header baseNumberHeader = httpRequest.getFirstHeader("x-base-number");
-          final String baseNumberStr = baseNumberHeader.getValue();
-          int baseNumber = Integer.parseInt(baseNumberStr);
-
-          final Header reqExecNumberHeader = httpRequest.getFirstHeader("x-req-exec-number");
-          final String reqExecNumberStr = reqExecNumberHeader.getValue();
-          int reqExecNumber = Integer.parseInt(reqExecNumberStr);
-
-          // check if user id is multiple of base value
-          if (reqExecNumber % baseNumber == 0) {
-            final String reasonPhrase = "Multiple of " + baseNumber;
-            final HttpResponse response = new BasicHttpResponse(HttpStatus.SC_OK, reasonPhrase);
-            final ByteBuffer content =
-                ByteBuffer.wrap(reasonPhrase.getBytes(StandardCharsets.US_ASCII));
-            final AsyncDataConsumer asyncDataConsumer =
-                asyncExecCallback.handleResponse(
-                    response, new BasicEntityDetails(content.remaining(), ContentType.TEXT_PLAIN));
-            asyncDataConsumer.consume(content);
-            asyncDataConsumer.streamEnd(null);
-            requestHandled = true;
-          }
+          requestHandled = handleUserRequest(httpRequest, asyncExecCallback);
         }
       }
-
       if (!requestHandled) {
         asyncExecChain.proceed(httpRequest, asyncEntityProducer, scope, asyncExecCallback);
       }
@@ -64,5 +43,32 @@ public class UserResponseAsyncExecChainHandler implements AsyncExecChainHandler 
       log.error(msg, ex);
       throw new RequestProcessingException(msg, ex);
     }
+  }
+
+  private boolean handleUserRequest(HttpRequest httpRequest, AsyncExecCallback asyncExecCallback)
+      throws HttpException, IOException {
+    boolean requestHandled = false;
+    final Header baseNumberHeader = httpRequest.getFirstHeader("x-base-number");
+    final String baseNumberStr = baseNumberHeader.getValue();
+    int baseNumber = Integer.parseInt(baseNumberStr);
+
+    final Header reqExecNumberHeader = httpRequest.getFirstHeader("x-req-exec-number");
+    final String reqExecNumberStr = reqExecNumberHeader.getValue();
+    int reqExecNumber = Integer.parseInt(reqExecNumberStr);
+
+    // check if user id is multiple of base value
+    if (reqExecNumber % baseNumber == 0) {
+      final String reasonPhrase = "Multiple of " + baseNumber;
+      final HttpResponse response = new BasicHttpResponse(HttpStatus.SC_OK, reasonPhrase);
+      final ByteBuffer content = ByteBuffer.wrap(reasonPhrase.getBytes(StandardCharsets.US_ASCII));
+      final BasicEntityDetails entityDetails =
+          new BasicEntityDetails(content.remaining(), ContentType.TEXT_PLAIN);
+      final AsyncDataConsumer asyncDataConsumer =
+          asyncExecCallback.handleResponse(response, entityDetails);
+      asyncDataConsumer.consume(content);
+      asyncDataConsumer.streamEnd(null);
+      requestHandled = true;
+    }
+    return requestHandled;
   }
 }
