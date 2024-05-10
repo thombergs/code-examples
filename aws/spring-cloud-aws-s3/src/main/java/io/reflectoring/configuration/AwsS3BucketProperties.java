@@ -1,5 +1,7 @@
 package io.reflectoring.configuration;
 
+import java.time.Duration;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
@@ -56,6 +58,11 @@ public class AwsS3BucketProperties {
 		@Positive(message = "S3 presigned URL validity must be a positive value")
 		private Integer validity;
 
+	}
+
+	public Duration getPresignedUrlValidity() {
+		var urlValidity = this.presignedUrl.validity;
+		return Duration.ofSeconds(urlValidity);
 	}
 
 }
