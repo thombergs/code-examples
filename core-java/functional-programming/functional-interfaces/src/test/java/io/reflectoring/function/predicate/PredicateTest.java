@@ -3,7 +3,9 @@ package io.reflectoring.function.predicate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiPredicate;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -124,44 +126,75 @@ public class PredicateTest {
   void testBiPredicateDefaultMethods() {
 
     BiPredicate<String, Integer> juniorCarpenterCheck =
-            (worker, age) -> "C".equals(worker) && (age >= 18 && age <= 40);
+        (worker, age) -> "C".equals(worker) && (age >= 18 && age <= 40);
 
     BiPredicate<String, Integer> groomedCarpenterCheck =
-            (worker, age) -> "C".equals(worker) && (age >= 30 && age <= 40);
+        (worker, age) -> "C".equals(worker) && (age >= 30 && age <= 40);
 
     BiPredicate<String, Integer> allCarpenterCheck =
-            (worker, age) -> "C".equals(worker) && (age >= 18);
+        (worker, age) -> "C".equals(worker) && (age >= 18);
 
     BiPredicate<String, Integer> juniorWelderCheck =
-            (worker, age) -> "W".equals(worker) && (age >= 18 && age <= 40);
+        (worker, age) -> "W".equals(worker) && (age >= 18 && age <= 40);
 
     BiPredicate<String, Integer> juniorWorkerCheck = juniorCarpenterCheck.or(juniorWelderCheck);
 
     BiPredicate<String, Integer> juniorGroomedCarpenterCheck =
-            juniorCarpenterCheck.and(groomedCarpenterCheck);
+        juniorCarpenterCheck.and(groomedCarpenterCheck);
 
     BiPredicate<String, Integer> allWelderCheck = allCarpenterCheck.negate();
 
     // test or()
     final long juniorWorkerCount =
-            Arrays.stream(workers)
-                    .filter(person -> juniorWorkerCheck.test((String) person[0], (Integer) person[1]))
-                    .count();
+        Arrays.stream(workers)
+            .filter(person -> juniorWorkerCheck.test((String) person[0], (Integer) person[1]))
+            .count();
     Assertions.assertEquals(5L, juniorWorkerCount);
 
     // test and()
     final long juniorGroomedCarpenterCount =
-            Arrays.stream(workers)
-                    .filter(
-                            person -> juniorGroomedCarpenterCheck.test((String) person[0], (Integer) person[1]))
-                    .count();
+        Arrays.stream(workers)
+            .filter(
+                person -> juniorGroomedCarpenterCheck.test((String) person[0], (Integer) person[1]))
+            .count();
     Assertions.assertEquals(2L, juniorGroomedCarpenterCount);
 
     // test negate()
     final long allWelderCount =
-            Arrays.stream(workers)
-                    .filter(person -> allWelderCheck.test((String) person[0], (Integer) person[1]))
-                    .count();
+        Arrays.stream(workers)
+            .filter(person -> allWelderCheck.test((String) person[0], (Integer) person[1]))
+            .count();
     Assertions.assertEquals(3L, allWelderCount);
+  }
+
+  @Test
+  void testIntPredicate() {
+    IntPredicate isZero = num -> num == 0;
+    IntPredicate isPositive = num -> num > 0;
+    IntPredicate isNegative = num -> num < 0;
+    IntPredicate isOdd = num -> num % 2 == 1;
+
+    IntPredicate isPositiveOrZero = isPositive.or(isZero);
+    IntPredicate isPositiveAndOdd = isPositive.and(isOdd);
+    IntPredicate isNotZero = isZero.negate();
+    IntPredicate isAlsoZero = isPositive.negate().and(isNegative.negate());
+
+    // check zero or greater
+    Assertions.assertArrayEquals(
+        new int[] {0, 1, 2, 3, 4, 5}, IntStream.range(-5, 6).filter(isPositiveOrZero).toArray());
+
+    // check greater than zero and odd
+    Assertions.assertArrayEquals(
+        new int[] {1, 3, 5}, IntStream.range(-5, 6).filter(isPositiveAndOdd).toArray());
+
+    // check not zero
+    Assertions.assertArrayEquals(
+        new int[] {-5, -4, -3, -2, -1, 1, 2, 3, 4, 5},
+        IntStream.range(-5, 6).filter(isNotZero).toArray());
+
+    // check neither positive nor negative
+    Assertions.assertArrayEquals(
+        IntStream.range(-5, 6).filter(isZero).toArray(),
+        IntStream.range(-5, 6).filter(isAlsoZero).toArray());
   }
 }
