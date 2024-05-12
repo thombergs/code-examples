@@ -1,9 +1,7 @@
 package io.reflectoring.function;
 
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.IntFunction;
-import java.util.function.IntToDoubleFunction;
+import java.util.function.*;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -55,5 +53,20 @@ public class FunctionTest {
 
     IntToDoubleFunction accruedInterest = principal -> principal * interestRate;
     Assertions.assertEquals(50.0, accruedInterest.applyAsDouble(principalAmount));
+  }
+
+  @Test
+  void intToLongFunction() {
+    IntToLongFunction factorial =
+        n -> {
+          long result = 1L;
+          for (int i = 1; i <= n; i++) {
+            result *= i;
+          }
+          return result;
+        };
+    IntStream input = IntStream.range(1, 6);
+    final long[] result = input.mapToLong(factorial).toArray();
+    Assertions.assertArrayEquals(new long[] {1L, 2L, 6L, 24L, 120L}, result);
   }
 }
