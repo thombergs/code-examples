@@ -2,10 +2,8 @@ package io.reflectoring.function.predicate;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiPredicate;
-import java.util.function.IntPredicate;
-import java.util.function.LongPredicate;
-import java.util.function.Predicate;
+import java.util.function.*;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import lombok.extern.slf4j.Slf4j;
@@ -225,5 +223,36 @@ public class PredicateTest {
     // check negate
     Assertions.assertArrayEquals(
         new long[] {70L, 100L}, LongStream.of(70L, 100L, 200L).filter(highwayCheck).toArray());
+  }
+
+  @Test
+  void testDoublePredicate() {
+    // weight categories (weight in lbs)
+    DoublePredicate underweight = weight -> weight <= 125;
+    DoublePredicate healthy = weight -> weight >= 126 && weight <= 168;
+    DoublePredicate overweight = weight -> weight >= 169 && weight <= 202;
+    DoublePredicate obese = weight -> weight >= 203;
+    DoublePredicate needToLose = weight -> weight >= 169;
+    DoublePredicate notHealthy = healthy.negate();
+    DoublePredicate alsoNotHealthy = underweight.or(overweight).or(obese);
+    DoublePredicate skipSugar = needToLose.and(overweight.or(obese));
+
+    // check need to lose weight
+    Assertions.assertArrayEquals(
+        new double[] {200D}, DoubleStream.of(100D, 140D, 160D, 200D).filter(needToLose).toArray());
+
+    // check need to lose weight
+    Assertions.assertArrayEquals(
+        new double[] {100D, 200D},
+        DoubleStream.of(100D, 140D, 160D, 200D).filter(notHealthy).toArray());
+
+    // check negate()
+    Assertions.assertArrayEquals(
+        DoubleStream.of(100D, 140D, 160D, 200D).filter(notHealthy).toArray(),
+        DoubleStream.of(100D, 140D, 160D, 200D).filter(alsoNotHealthy).toArray());
+
+    // check and()
+    Assertions.assertArrayEquals(
+        new double[] {200D}, DoubleStream.of(100D, 140D, 160D, 200D).filter(skipSugar).toArray());
   }
 }
