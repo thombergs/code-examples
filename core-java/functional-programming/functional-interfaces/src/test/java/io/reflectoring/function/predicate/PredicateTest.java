@@ -4,8 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.IntPredicate;
+import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -196,5 +198,32 @@ public class PredicateTest {
     Assertions.assertArrayEquals(
         IntStream.range(-5, 6).filter(isZero).toArray(),
         IntStream.range(-5, 6).filter(isAlsoZero).toArray());
+  }
+
+  @Test
+  void testLongPredicate() {
+    LongPredicate isStopped = num -> num == 0;
+    LongPredicate firstGear = num -> num > 0 && num <= 20;
+    LongPredicate secondGear = num -> num > 20 && num <= 35;
+    LongPredicate thirdGear = num -> num > 35 && num <= 50;
+    LongPredicate forthGear = num -> num > 50 && num <= 80;
+    LongPredicate fifthGear = num -> num > 80;
+    LongPredicate max = num -> num < 150;
+
+    LongPredicate cityDriveCheck = firstGear.or(secondGear).or(thirdGear);
+    LongPredicate drivingCheck = isStopped.negate();
+    LongPredicate highwayCheck = max.and(forthGear.or(fifthGear));
+
+    // check stopped
+    Assertions.assertArrayEquals(
+        new long[] {0L}, LongStream.of(0L, 40L, 60L, 100L).filter(isStopped).toArray());
+
+    // check city speed limit
+    Assertions.assertArrayEquals(
+        new long[] {20L, 50L}, LongStream.of(0L, 20L, 50L, 100L).filter(cityDriveCheck).toArray());
+
+    // check negate
+    Assertions.assertArrayEquals(
+        new long[] {70L, 100L}, LongStream.of(70L, 100L, 200L).filter(highwayCheck).toArray());
   }
 }
