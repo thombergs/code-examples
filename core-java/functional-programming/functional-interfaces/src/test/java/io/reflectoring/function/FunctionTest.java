@@ -1,6 +1,7 @@
 package io.reflectoring.function;
 
 import java.util.function.*;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import org.junit.jupiter.api.Assertions;
@@ -93,5 +94,29 @@ public class FunctionTest {
     LongStream input = LongStream.of(1L, 120, 15L, 12345L);
     final int[] result = input.mapToInt(digitCount).toArray();
     Assertions.assertArrayEquals(new int[] {1, 3, 2, 5}, result);
+  }
+
+  @Test
+  void doubleFunction() {
+    // grouping separator like a comma for thousands
+    //  exactly two digits after the decimal point
+    DoubleFunction<String> numberFormatter = number -> String.format("%1$,.2f", number);
+    Assertions.assertEquals("999,999.12", numberFormatter.apply(999999.123));
+  }
+
+  @Test
+  void doubleToIntFunction() {
+    DoubleToIntFunction wholeNumber = number -> Double.valueOf(number).intValue();
+    DoubleStream input = DoubleStream.of(1.0, 12.34, 99.0, 101.444);
+    int[] result = input.mapToInt(wholeNumber).toArray();
+    Assertions.assertArrayEquals(new int[] {1, 12, 99, 101}, result);
+  }
+
+  @Test
+  void doubleToLongFunction() {
+    DoubleToLongFunction celsiusToFahrenheit = celsius -> Math.round(celsius * 9 / 5 + 32);
+    DoubleStream input = DoubleStream.of(0.0, 25.0, 100.0);
+    long[] result = input.mapToLong(celsiusToFahrenheit).toArray();
+    Assertions.assertArrayEquals(new long[] {32, 77, 212}, result);
   }
 }
