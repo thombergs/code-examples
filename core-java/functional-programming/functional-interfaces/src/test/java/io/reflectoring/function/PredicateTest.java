@@ -1,4 +1,4 @@
-package io.reflectoring.function.predicate;
+package io.reflectoring.function;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,11 +6,9 @@ import java.util.function.*;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-@Slf4j
 public class PredicateTest {
   // C = Carpenter, W = Welder
   private final Object[][] workers = {
