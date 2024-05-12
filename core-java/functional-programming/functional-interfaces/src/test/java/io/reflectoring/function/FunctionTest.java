@@ -2,6 +2,7 @@ package io.reflectoring.function;
 
 import java.util.function.*;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -68,5 +69,29 @@ public class FunctionTest {
     IntStream input = IntStream.range(1, 6);
     final long[] result = input.mapToLong(factorial).toArray();
     Assertions.assertArrayEquals(new long[] {1L, 2L, 6L, 24L, 120L}, result);
+  }
+
+  @Test
+  void longFunction() {
+    LongFunction<Double> squareArea = side -> (double) (side * side);
+    Assertions.assertEquals(400d, squareArea.apply(20L));
+  }
+
+  @Test
+  void longToDoubleFunction() {
+    LongToDoubleFunction squareArea = side -> (double) (side * side);
+    Assertions.assertEquals(400d, squareArea.applyAsDouble(20L));
+
+    LongStream input = LongStream.range(1L, 6L);
+    final double[] result = input.mapToDouble(squareArea).toArray();
+    Assertions.assertArrayEquals(new double[] {1.0, 4.0, 9.0, 16.0, 25.0}, result);
+  }
+
+  @Test
+  void longToIntFunction() {
+    LongToIntFunction digitCount = number -> String.valueOf(number).length();
+    LongStream input = LongStream.of(1L, 120, 15L, 12345L);
+    final int[] result = input.mapToInt(digitCount).toArray();
+    Assertions.assertArrayEquals(new int[] {1, 3, 2, 5}, result);
   }
 }
