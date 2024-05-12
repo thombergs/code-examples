@@ -1,5 +1,9 @@
 package io.reflectoring.function;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Date;
 import java.util.function.*;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -118,5 +122,73 @@ public class FunctionTest {
     DoubleStream input = DoubleStream.of(0.0, 25.0, 100.0);
     long[] result = input.mapToLong(celsiusToFahrenheit).toArray();
     Assertions.assertArrayEquals(new long[] {32, 77, 212}, result);
+  }
+
+  @Test
+  void toDoubleFunction() {
+    ToDoubleFunction<Integer> fahrenheitToCelsius =
+        (fahrenheit) -> (double) ((fahrenheit - 32) * 5) / 9;
+    Assertions.assertEquals(0.0, fahrenheitToCelsius.applyAsDouble(32));
+    Assertions.assertEquals(25.0, fahrenheitToCelsius.applyAsDouble(77));
+    Assertions.assertEquals(100.0, fahrenheitToCelsius.applyAsDouble(212));
+  }
+
+  @Test
+  void toDoubleBiFunction() {
+    // 30% discount when it is SALE else 10% standard discount
+    ToDoubleBiFunction<String, Double> discountedPrice =
+        (code, price) -> "SALE".equals(code) ? price * 0.7 : price * 0.9;
+    Assertions.assertEquals(14.0, discountedPrice.applyAsDouble("SALE", 20.0));
+    Assertions.assertEquals(18.0, discountedPrice.applyAsDouble("OFF_SEASON", 20.0));
+  }
+
+  @Test
+  void toIntFunction() {
+    ToIntFunction<String> charCount = input -> input == null ? 0 : input.trim().length();
+
+    Assertions.assertEquals(0, charCount.applyAsInt(null));
+    Assertions.assertEquals(0, charCount.applyAsInt(""));
+    Assertions.assertEquals(3, charCount.applyAsInt("JOY"));
+  }
+
+  @Test
+  void toIntBiFunction() {
+    // discount on product
+    ToIntBiFunction<String, Integer> discount =
+        (season, quantity) -> "WINTER".equals(season) || quantity > 100 ? 40 : 10;
+
+    Assertions.assertEquals(40, discount.applyAsInt("WINTER", 50));
+    Assertions.assertEquals(40, discount.applyAsInt("SUMMER", 150));
+    Assertions.assertEquals(10, discount.applyAsInt("FALL", 50));
+  }
+
+  @Test
+  void toLongFunction() {
+    ToLongFunction<Date> elapsedTime =
+        input -> input == null ? 0 : input.toInstant().toEpochMilli();
+
+    Assertions.assertEquals(0L, elapsedTime.applyAsLong(null));
+    long now = System.currentTimeMillis();
+    Date nowDate = Date.from(Instant.ofEpochMilli(now));
+    Assertions.assertEquals(now, elapsedTime.applyAsLong(nowDate));
+  }
+
+  @Test
+  void toLongBiFunction() {
+    // discount on product
+    ToLongBiFunction<LocalDateTime, ZoneOffset> elapsed =
+        (localDateTime, zoneOffset) ->
+            zoneOffset == null
+                ? localDateTime.toEpochSecond(ZoneOffset.UTC)
+                : localDateTime.toEpochSecond(zoneOffset);
+
+    final long now = System.currentTimeMillis();
+    final LocalDateTime nowLocalDateTime = LocalDateTime.ofEpochSecond(now, 0, ZoneOffset.UTC);
+    Assertions.assertEquals(now, elapsed.applyAsLong(nowLocalDateTime, null));
+
+    final long later = now + 1000;
+    final ZoneOffset offset = ZoneOffset.ofHours(5);
+    final LocalDateTime laterLocalDateTime = LocalDateTime.ofEpochSecond(later, 0, offset);
+    Assertions.assertEquals(later, elapsed.applyAsLong(laterLocalDateTime, offset));
   }
 }
