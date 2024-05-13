@@ -12,6 +12,11 @@ spring:
     username: sa
     password:
 
+jwt:
+  secretKey: 5JzoMbk6E5qIqHSuBTgeQCARtUsxAkBiHwdjXOSW8kWdXzYmP3X51C0
+  validity: 600000
+  refreshExpiry: 600000
+
 
 logging:
   level:
