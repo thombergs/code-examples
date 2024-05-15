@@ -1,9 +1,9 @@
 package io.reflectoring.function;
 
-import java.util.function.Function;
-import java.util.function.IntUnaryOperator;
-import java.util.function.LongUnaryOperator;
-import java.util.function.UnaryOperator;
+import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.function.*;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import org.junit.jupiter.api.Assertions;
@@ -53,5 +53,65 @@ public class OperatorTest {
     final LongStream input = LongStream.of(5, 10, 15);
     final long[] result = input.map(distance).toArray();
     Assertions.assertArrayEquals(new long[] {931410L, 1862820L, 2794230L}, result);
+  }
+
+  @Test
+  void doubleUnaryOperator() {
+    DoubleUnaryOperator circleArea = radius -> radius * radius * Math.PI;
+    DoubleUnaryOperator doubleIt = area -> area * 4;
+    DoubleUnaryOperator scaling = circleArea.andThen(doubleIt);
+
+    Assertions.assertEquals(153.93D, circleArea.applyAsDouble(7), 0.01);
+    Assertions.assertEquals(615.75D, scaling.applyAsDouble(7), 0.01);
+
+    final DoubleStream input = DoubleStream.of(7d, 14d, 21d);
+    final double[] result = input.map(circleArea).toArray();
+    Assertions.assertArrayEquals(new double[] {153.93D, 615.75D, 1385.44D}, result, 0.01);
+  }
+
+  @Test
+  void binaryOperator() {
+    LongUnaryOperator factorial =
+        n -> {
+          long result = 1L;
+          for (int i = 1; i <= n; i++) {
+            result *= i;
+          }
+          return result;
+        };
+    // Calculate permutations
+    BinaryOperator<Long> npr = (n, r) -> factorial.applyAsLong(n) / factorial.applyAsLong(n - r);
+    // Verify permutations
+    // 3P2 means the number of permutations of 2 that can be achieved from a choice of 3.
+    final Long result3P2 = npr.apply(3L, 2L);
+    Assertions.assertEquals(6L, result3P2);
+
+    // Add two prices
+    BinaryOperator<Double> addPrices = Double::sum;
+    // Apply discount
+    UnaryOperator<Double> applyDiscount = total -> total * 0.9; // 10% discount
+    // Apply tax
+    UnaryOperator<Double> applyTax = total -> total * 1.07; // 7% tax
+    // Composing the final operation
+    BiFunction<Double, Double, Double> finalCost =
+        addPrices.andThen(applyDiscount).andThen(applyTax);
+
+    // Prices of two items
+    double item1 = 50.0;
+    double item2 = 100.0;
+    // Calculate final cost
+    double cost = finalCost.apply(item1, item2);
+    // Verify the final calculated cost
+    Assertions.assertEquals(144.45D, cost, 0.01);
+  }
+
+  @Test
+  void intBinaryOperator() {
+    IntBinaryOperator add = Integer::sum;
+    Assertions.assertEquals(10, add.applyAsInt(4, 6));
+
+    IntStream input = IntStream.of(2, 3, 4);
+    OptionalInt result = input.reduce(add);
+    Assertions.assertEquals(OptionalInt.of(9), result);
   }
 }
