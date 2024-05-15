@@ -1,7 +1,8 @@
 package io.reflectoring.function;
 
-import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.OptionalInt;
+import java.util.OptionalLong;
 import java.util.function.*;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -113,5 +114,44 @@ public class OperatorTest {
     IntStream input = IntStream.of(2, 3, 4);
     OptionalInt result = input.reduce(add);
     Assertions.assertEquals(OptionalInt.of(9), result);
+  }
+
+  @Test
+  void longBinaryOperator() {
+    // Greatest Common Divisor
+    LongBinaryOperator gcd =
+        (a, b) -> {
+          while (b != 0) {
+            long temp = b;
+            b = a % b;
+            a = temp;
+          }
+          return a;
+        };
+    Assertions.assertEquals(6L, gcd.applyAsLong(54L, 24L));
+
+    LongBinaryOperator add = Long::sum;
+    // Time car traveled
+    LongStream input = LongStream.of(1715785375164L, 1715785385771L);
+    final OptionalLong result = input.reduce(add);
+    Assertions.assertEquals(OptionalLong.of(3431570760935L), result);
+  }
+
+  @Test
+  void doubleBinaryOperator() {
+    DoubleBinaryOperator subtractAreas = (a, b) -> a - b;
+    // Area of a rectangle
+    double rectangleArea = 20.0 * 30.0;
+    // Area of a circle
+    double circleArea = Math.PI * 7.0 * 7.0;
+
+    // Subtract the two areas
+    double difference = subtractAreas.applyAsDouble(rectangleArea, circleArea);
+    Assertions.assertEquals(446.06, difference, 0.01);
+
+    DoubleBinaryOperator add = Double::sum;
+    DoubleStream input = DoubleStream.of(10.2, 5.6, 15.8, 20.12);
+    OptionalDouble result = input.reduce(add);
+    Assertions.assertEquals(OptionalDouble.of(51.72), result);
   }
 }
