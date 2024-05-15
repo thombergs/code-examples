@@ -4,6 +4,20 @@ Codebase demonstrating connection and interaction with provisioned Amazon S3 buc
 
 Contains integration tests to validate interaction between the application and Amazon S3 using [LocalStack](https://github.com/localstack/localstack) and [Testcontainers](https://github.com/testcontainers/testcontainers-java). Test cases can be executed with the command `./mvnw integration-test verify`.
 
+To run the application locally without provisioning actual AWS Resources, execute the below commands:
+
+```bash
+chmod +x localstack/init-s3-bucket.sh
+```
+
+```bash
+sudo docker-compose build
+```
+
+```bash
+sudo docker-compose up -d
+```
+
 ## Blog posts
 
 Blog posts about this topic:
