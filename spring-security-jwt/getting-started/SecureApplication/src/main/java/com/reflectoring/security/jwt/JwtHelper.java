@@ -29,6 +29,7 @@ public class JwtHelper {
 
     public <T> T extractClaimBody(String bearerToken, Function<Claims, T> claimsResolver) {
         Jws<Claims> jwsClaims = extractClaims(bearerToken);
+        System.out.println("Claims Bosy: " + jwsClaims.getBody());
         return claimsResolver.apply(jwsClaims.getBody());
     }
 
@@ -46,6 +47,7 @@ public class JwtHelper {
     }
 
     private Boolean isTokenExpired(String bearerToken) {
+        System.out.println("Is before: " + extractExpiry(bearerToken).before(new Date()));
         return extractExpiry(bearerToken).before(new Date());
     }
 
@@ -64,6 +66,7 @@ public class JwtHelper {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         final String userName = extractUsername(token);
+        System.out.println("Username from token: " + userName);
         return userName.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 

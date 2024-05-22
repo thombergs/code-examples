@@ -44,19 +44,26 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             final String authorizationHeader = request.getHeader(AUTHORIZATION);
+            System.out.println("Print Auth header: " + authorizationHeader);
             String jwt = null;
             String username = null;
             if (Objects.nonNull(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) {
                 jwt = authorizationHeader.substring(7);
+                System.out.println("JWT Tokwn ONLY: " + jwt);
                 username = jwtHelper.extractUsername(jwt);
             }
 
+            System.out.println("Security Context: " + SecurityContextHolder.getContext().getAuthentication());
             if (Objects.nonNull(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
+                System.out.println("Context username:" + username);
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                System.out.println("Context user details: " + userDetails);
                 boolean isTokenValidated = jwtHelper.validateToken(jwt, userDetails);
+                System.out.println("Is token validated: " + isTokenValidated);
                 if (isTokenValidated) {
+                    System.out.println("UerDetails authorities: " + userDetails.getAuthorities());
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                            new UsernamePasswordAuthenticationToken(userDetails, null);
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 }
@@ -75,7 +82,7 @@ public class JwtFilter extends OncePerRequestFilter {
         } catch (BadCredentialsException | UnsupportedJwtException | MalformedJwtException e) {
             request.setAttribute("exception", e);
         }
-
+        System.out.println("Call NEXT: ");
         filterChain.doFilter(request, response);
 
     }
