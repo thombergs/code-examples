@@ -1,0 +1,28 @@
+{
+  "name": "validate-npm-pc",
+  "version": "1.0.9",
+  "description": "A comprehensive library for validating user inputs including emails, mobile numbers, and social media links.",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.json && tsc --project tsconfig.cjs.json",
+    "release": "npm run build && changeset publish",
+    "test": "jest"
+  },
+  "keywords": [
+    "validate"
+  ],
+  "author": "ajibadde",
+  "license": "ISC",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.2",
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.5"
+  }
+}
