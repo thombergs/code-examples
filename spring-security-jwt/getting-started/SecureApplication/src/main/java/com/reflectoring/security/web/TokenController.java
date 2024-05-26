@@ -3,12 +3,14 @@ package com.reflectoring.security.web;
 import com.reflectoring.security.model.TokenRequest;
 import com.reflectoring.security.model.TokenResponse;
 import com.reflectoring.security.service.TokenService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Tag(name = "Create Token", description = "Create Token")
 public class TokenController {
 
     private final TokenService tokenService;
@@ -22,8 +24,4 @@ public class TokenController {
         return tokenService.generateToken(tokenRequest);
     }
 
-    @PostMapping("/token/refresh")
-    public TokenResponse refreshToken(@RequestAttribute String claims) {
-        return tokenService.generateRefreshToken(claims);
-    }
 }

@@ -68,6 +68,6 @@ public class SecurityConfiguration {
     }
 
     private String[] buildExemptedRoutes() {
-        return new String[] {"/"};
+        return new String[] {"/swagger-ui/**","/v3/api-docs/**"};
     }
 }

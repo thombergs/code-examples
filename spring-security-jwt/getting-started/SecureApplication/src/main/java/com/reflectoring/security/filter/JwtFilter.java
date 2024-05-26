@@ -42,6 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        log.info("Inside JWT filter");
         try {
             final String authorizationHeader = request.getHeader(AUTHORIZATION);
             System.out.println("Print Auth header: " + authorizationHeader);
@@ -69,20 +70,11 @@ public class JwtFilter extends OncePerRequestFilter {
                 }
             }
         } catch (ExpiredJwtException jwtException) {
-            Boolean isRefreshToken = Boolean.valueOf(request.getHeader("isRefreshToken"));
-            String requestUri = request.getRequestURI();
-            if (Objects.nonNull(isRefreshToken) && isRefreshToken && requestUri.contains("refresh")) {
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(null, null);
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-                request.setAttribute("claims", jwtException.getClaims());
-            } else {
-                request.setAttribute("exception", jwtException);
-            }
+            request.setAttribute("exception", jwtException);
         } catch (BadCredentialsException | UnsupportedJwtException | MalformedJwtException e) {
+            log.error("Filter exception: {}", e.getMessage());
             request.setAttribute("exception", e);
         }
-        System.out.println("Call NEXT: ");
         filterChain.doFilter(request, response);
 
     }

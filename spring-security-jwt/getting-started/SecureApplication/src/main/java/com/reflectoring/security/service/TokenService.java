@@ -38,11 +38,4 @@ public class TokenService {
                 .token(token)
                 .build();
     }
-
-    public TokenResponse generateRefreshToken(String subject) {
-        String token = jwtHelper.generateRefreshToken(subject);
-        return TokenResponse.builder()
-                .token(token)
-                .build();
-    }
 }
