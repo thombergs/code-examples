@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      s3:
+        region: ${AWS_S3_REGION}
+        
+io:
+  reflectoring:
+    aws:
+      s3:
+        bucket-name: ${AWS_S3_BUCKET_NAME}
+        presigned-url:
+          validity: ${AWS_S3_PRESIGNED_URL_VALIDITY}

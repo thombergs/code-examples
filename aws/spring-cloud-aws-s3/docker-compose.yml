@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  localstack:
+    container_name: localstack
+    image: localstack/localstack:3.3
+    ports:
+      - 4566:4566
+    environment:
+      - SERVICES=s3
+    volumes:
+      - ./localstack/init-s3-bucket.sh:/etc/localstack/init/ready.d/init-s3-bucket.sh
+    networks:
+      - reflectoring
+      
+  backend:
+    container_name: backend-application
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+    - 8080:8080
+    depends_on:
+      - localstack
+    environment:
+      spring.cloud.aws.s3.endpoint: 'http://localstack:4566'
+      spring.cloud.aws.s3.path-style-access-enabled: true
+      spring.cloud.aws.credentials.access-key: test
+      spring.cloud.aws.credentials.secret-key: test
+      spring.cloud.aws.s3.region: 'us-east-1'
+      io.reflectoring.aws.s3.bucket-name: 'reflectoring-bucket'
+      io.reflectoring.aws.s3.presigned-url.validity: 120
+    networks:
+      - reflectoring
+
+networks:
+  reflectoring:
