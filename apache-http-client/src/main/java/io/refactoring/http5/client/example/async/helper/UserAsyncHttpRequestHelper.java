@@ -1,5 +1,6 @@
 package io.refactoring.http5.client.example.async.helper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
@@ -17,9 +18,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import javax.net.ssl.SSLContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.async.methods.*;
@@ -50,6 +49,7 @@ import org.reactivestreams.Publisher;
 @Slf4j
 public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
 
+  private static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private CloseableHttpAsyncClient httpClient;
 
   private MinimalHttpAsyncClient minimalHttp1Client;
@@ -60,11 +60,11 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
   public void startHttpAsyncClient() {
     if (httpClient == null) {
       try {
-        final PoolingAsyncClientConnectionManager cm =
+        PoolingAsyncClientConnectionManager cm =
             PoolingAsyncClientConnectionManagerBuilder.create()
                 .setTlsStrategy(getTlsStrategy())
                 .build();
-        final IOReactorConfig ioReactorConfig =
+        IOReactorConfig ioReactorConfig =
             IOReactorConfig.custom().setSoTimeout(Timeout.ofSeconds(5)).build();
         httpClient =
             HttpAsyncClients.custom()
@@ -74,7 +74,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
         httpClient.start();
         log.debug("Started HTTP async client.");
       } catch (Exception e) {
-        final String errorMsg = "Failed to start HTTP async client.";
+        String errorMsg = "Failed to start HTTP async client.";
         log.error(errorMsg, e);
         throw new RuntimeException(errorMsg, e);
       }
@@ -84,7 +84,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
   private TlsStrategy getTlsStrategy()
       throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException {
     // Trust standard CA and those trusted by our custom strategy
-    final SSLContext sslContext =
+    SSLContext sslContext =
         SSLContexts.custom()
             // Custom TrustStrategy implementations are intended for verification
             // of certificates whose CA is not trusted by the system, and where specifying
@@ -95,7 +95,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
                   // of the entire certificate chain in this example is preferred to completely
                   // disabling trust verification, however, this still potentially allows
                   // for man-in-the-middle attacks.
-                  final X509Certificate cert = chain[0];
+                  X509Certificate cert = chain[0];
                   log.warn(
                       "Bypassing SSL certificate validation for {}",
                       cert.getSubjectX500Principal().getName());
@@ -137,7 +137,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
    */
   private MinimalHttpAsyncClient startMinimalHttpAsyncClient(HttpVersionPolicy httpVersionPolicy) {
     try {
-      final MinimalHttpAsyncClient minimalHttpClient =
+      MinimalHttpAsyncClient minimalHttpClient =
           HttpAsyncClients.createMinimal(
               H2Config.DEFAULT,
               Http1Config.DEFAULT,
@@ -151,7 +151,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
       log.debug("Started minimal HTTP async client for {}.", httpVersionPolicy);
       return minimalHttpClient;
     } catch (Exception e) {
-      final String errorMsg = "Failed to start minimal HTTP async client.";
+      String errorMsg = "Failed to start minimal HTTP async client.";
       log.error(errorMsg, e);
       throw new RuntimeException(errorMsg, e);
     }
@@ -165,11 +165,11 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
   public CloseableHttpAsyncClient startHttpAsyncInterceptingClient() {
     try {
       if (httpAsyncInterceptingClient == null) {
-        final PoolingAsyncClientConnectionManager cm =
+        PoolingAsyncClientConnectionManager cm =
             PoolingAsyncClientConnectionManagerBuilder.create()
                 .setTlsStrategy(getTlsStrategy())
                 .build();
-        final IOReactorConfig ioReactorConfig =
+        IOReactorConfig ioReactorConfig =
             IOReactorConfig.custom().setSoTimeout(Timeout.ofSeconds(5)).build();
         httpAsyncInterceptingClient =
             HttpAsyncClients.custom()
@@ -182,7 +182,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
       }
       return httpAsyncInterceptingClient;
     } catch (Exception e) {
-      final String errorMsg = "Failed to start HTTP async client.";
+      String errorMsg = "Failed to start HTTP async client.";
       log.error(errorMsg, e);
       throw new RuntimeException(errorMsg, e);
     }
@@ -218,17 +218,17 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
    * @return response if user is found
    * @throws RequestProcessingException if failed to execute request
    */
-  public Map<String, String> getUserWithCallback(
-      final List<String> userIdList, final int delayInSec) throws RequestProcessingException {
+  public Map<String, String> getUserWithCallback(List<String> userIdList, int delayInSec)
+      throws RequestProcessingException {
     Objects.requireNonNull(httpClient, "Make sure that HTTP Async client is started.");
-    final Map<String, String> userResponseMap = new HashMap<>();
-    final Map<String, Future<SimpleHttpResponse>> futuresMap = new HashMap<>();
+    Map<String, String> userResponseMap = new HashMap<>();
+    Map<String, Future<SimpleHttpResponse>> futuresMap = new HashMap<>();
     for (String userId : userIdList) {
       try {
         // Create request
-        final HttpHost httpHost = HttpHost.create("https://reqres.in");
-        final URI uri = new URIBuilder("/api/users/" + userId + "?delay=" + delayInSec).build();
-        final SimpleHttpRequest httpGetRequest =
+        HttpHost httpHost = HttpHost.create("https://reqres.in");
+        URI uri = new URIBuilder("/api/users/" + userId + "?delay=" + delayInSec).build();
+        SimpleHttpRequest httpGetRequest =
             SimpleRequestBuilder.get().setHttpHost(httpHost).setPath(uri.getPath()).build();
         log.debug(
             "Executing {} request: {} on host {}",
@@ -236,7 +236,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
             httpGetRequest.getUri(),
             httpHost);
 
-        final Future<SimpleHttpResponse> future =
+        Future<SimpleHttpResponse> future =
             httpClient.execute(
                 SimpleRequestProducer.create(httpGetRequest),
                 SimpleResponseConsumer.create(),
@@ -245,7 +245,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
                     MessageFormat.format("Failed to get user for ID: {0}", userId)));
         futuresMap.put(userId, future);
       } catch (Exception e) {
-        final String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
+        String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
         log.error(message, e);
         userResponseMap.put(userId, message);
       }
@@ -254,11 +254,11 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
     log.debug("Got {} futures.", futuresMap.size());
 
     for (Map.Entry<String, Future<SimpleHttpResponse>> futureEntry : futuresMap.entrySet()) {
-      final String userId = futureEntry.getKey();
+      String userId = futureEntry.getKey();
       try {
         userResponseMap.put(userId, futureEntry.getValue().get().getBodyText());
       } catch (Exception e) {
-        final String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
+        String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
         log.error(message, e);
         userResponseMap.put(userId, message);
       }
@@ -275,17 +275,17 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
    * @return response if user is found
    * @throws RequestProcessingException if failed to execute request
    */
-  public Map<Long, String> getUserWithStreams(final List<Long> userIdList, final int delayInSec)
+  public Map<Long, String> getUserWithStreams(List<Long> userIdList, int delayInSec)
       throws RequestProcessingException {
     Objects.requireNonNull(httpClient, "Make sure that HTTP Async client is started.");
-    final Map<Long, String> userResponseMap = new HashMap<>();
-    final Map<Long, Future<SimpleHttpResponse>> futuresMap = new HashMap<>();
+    Map<Long, String> userResponseMap = new HashMap<>();
+    Map<Long, Future<SimpleHttpResponse>> futuresMap = new HashMap<>();
     for (Long userId : userIdList) {
       try {
         // Create request
-        final HttpHost httpHost = HttpHost.create("https://reqres.in");
-        final URI uri = new URIBuilder("/api/users/" + userId + "?delay=" + delayInSec).build();
-        final SimpleHttpRequest httpGetRequest =
+        HttpHost httpHost = HttpHost.create("https://reqres.in");
+        URI uri = new URIBuilder("/api/users/" + userId + "?delay=" + delayInSec).build();
+        SimpleHttpRequest httpGetRequest =
             SimpleRequestBuilder.get().setHttpHost(httpHost).setPath(uri.getPath()).build();
         log.debug(
             "Executing {} request: {} on host {}",
@@ -293,7 +293,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
             httpGetRequest.getUri(),
             httpHost);
 
-        final Future<SimpleHttpResponse> future =
+        Future<SimpleHttpResponse> future =
             httpClient.execute(
                 new BasicRequestProducer(httpGetRequest, null),
                 new SimpleCharResponseConsumer(
@@ -301,7 +301,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
                 null);
         futuresMap.put(userId, future);
       } catch (Exception e) {
-        final String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
+        String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
         log.error(message, e);
         userResponseMap.put(userId, message);
       }
@@ -309,11 +309,11 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
 
     log.debug("Got {} futures.", futuresMap.size());
     for (Map.Entry<Long, Future<SimpleHttpResponse>> futureEntry : futuresMap.entrySet()) {
-      final Long userId = futureEntry.getKey();
+      Long userId = futureEntry.getKey();
       try {
         userResponseMap.put(userId, futureEntry.getValue().get().getBodyText());
       } catch (Exception e) {
-        final String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
+        String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
         log.error(message, e);
         userResponseMap.put(userId, message);
       }
@@ -334,9 +334,9 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
    * @throws RequestProcessingException if failed to execute request
    */
   public Map<Long, String> getUserWithPipelining(
-      final MinimalHttpAsyncClient minimalHttpClient,
-      final List<Long> userIdList,
-      final int delayInSec,
+      MinimalHttpAsyncClient minimalHttpClient,
+      List<Long> userIdList,
+      int delayInSec,
       String scheme,
       String hostname)
       throws RequestProcessingException {
@@ -355,9 +355,9 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
    * @throws RequestProcessingException if failed to execute request
    */
   public Map<Long, String> getUserWithMultiplexing(
-      final MinimalHttpAsyncClient minimalHttpClient,
-      final List<Long> userIdList,
-      final int delayInSec,
+      MinimalHttpAsyncClient minimalHttpClient,
+      List<Long> userIdList,
+      int delayInSec,
       String scheme,
       String hostname)
       throws RequestProcessingException {
@@ -365,31 +365,31 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
   }
 
   private Map<Long, String> getUserWithParallelRequests(
-      final MinimalHttpAsyncClient minimalHttpClient,
-      final List<Long> userIdList,
-      final int delayInSec,
+      MinimalHttpAsyncClient minimalHttpClient,
+      List<Long> userIdList,
+      int delayInSec,
       String scheme,
       String hostname)
       throws RequestProcessingException {
 
     Objects.requireNonNull(
         minimalHttpClient, "Make sure that minimal HTTP Async client is started.");
-    final Map<Long, String> userResponseMap = new HashMap<>();
-    final Map<Long, Future<SimpleHttpResponse>> futuresMap = new LinkedHashMap<>();
+    Map<Long, String> userResponseMap = new HashMap<>();
+    Map<Long, Future<SimpleHttpResponse>> futuresMap = new LinkedHashMap<>();
     AsyncClientEndpoint endpoint = null;
     Long userId = null;
 
     try {
-      final HttpHost httpHost = new HttpHost(scheme, hostname);
-      final Future<AsyncClientEndpoint> leaseFuture = minimalHttpClient.lease(httpHost, null);
+      HttpHost httpHost = new HttpHost(scheme, hostname);
+      Future<AsyncClientEndpoint> leaseFuture = minimalHttpClient.lease(httpHost, null);
       endpoint = leaseFuture.get(30, TimeUnit.SECONDS);
-      final CountDownLatch latch = new CountDownLatch(userIdList.size());
+      CountDownLatch latch = new CountDownLatch(userIdList.size());
 
       for (Long currentUserId : userIdList) {
         userId = currentUserId;
         // Create request
-        final URI uri = new URIBuilder("/api/users/" + userId + "?delay=" + delayInSec).build();
-        final SimpleHttpRequest httpGetRequest =
+        URI uri = new URIBuilder("/api/users/" + userId + "?delay=" + delayInSec).build();
+        SimpleHttpRequest httpGetRequest =
             SimpleRequestBuilder.get().setHttpHost(httpHost).setPath(uri.getPath()).build();
         log.debug(
             "Executing {} request: {} on host {}",
@@ -397,7 +397,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
             httpGetRequest.getUri(),
             httpHost);
 
-        final Future<SimpleHttpResponse> future =
+        Future<SimpleHttpResponse> future =
             minimalHttpClient.execute(
                 SimpleRequestProducer.create(httpGetRequest),
                 SimpleResponseConsumer.create(),
@@ -413,7 +413,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
       userResponseMap.put(userId, e.getMessage());
     } catch (Exception e) {
       if (userId != null) {
-        final String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
+        String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
         log.error(message, e);
         userResponseMap.put(userId, message);
       } else {
@@ -435,12 +435,12 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
     log.debug("Got {} futures.", futuresMap.size());
 
     for (Map.Entry<Long, Future<SimpleHttpResponse>> futureEntry : futuresMap.entrySet()) {
-      final Long currentUserId = futureEntry.getKey();
+      Long currentUserId = futureEntry.getKey();
       try {
         userResponseMap.put(currentUserId, futureEntry.getValue().get().getBodyText());
       } catch (Exception e) {
         String message;
-        if (e.getCause() instanceof ConnectionClosedException cce) {
+        if (e.getCause() instanceof ConnectionClosedException) {
           message = "Server does not support HTTP/2 multiplexing.";
         } else {
           message = MessageFormat.format("Failed to get user for ID: {0}", currentUserId);
@@ -462,21 +462,18 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
    * @throws RequestProcessingException the request processing exception
    */
   public Map<Integer, String> executeRequestsWithInterceptors(
-      final CloseableHttpAsyncClient closeableHttpAsyncClient,
-      final Long userId,
-      int count,
-      int baseNumber)
+      CloseableHttpAsyncClient closeableHttpAsyncClient, Long userId, int count, int baseNumber)
       throws RequestProcessingException {
     Objects.requireNonNull(
         closeableHttpAsyncClient, "Make sure that HTTP Async client is started.");
-    final Map<Integer, String> userResponseMap = new HashMap<>();
-    final Map<Integer, Future<SimpleHttpResponse>> futuresMap = new LinkedHashMap<>();
+    Map<Integer, String> userResponseMap = new HashMap<>();
+    Map<Integer, Future<SimpleHttpResponse>> futuresMap = new LinkedHashMap<>();
 
     try {
-      final HttpHost httpHost = HttpHost.create("https://reqres.in");
-      final URI uri = new URIBuilder("/api/users/" + userId).build();
-      final String path = uri.getPath();
-      final SimpleHttpRequest httpGetRequest =
+      HttpHost httpHost = HttpHost.create("https://reqres.in");
+      URI uri = new URIBuilder("/api/users/" + userId).build();
+      String path = uri.getPath();
+      SimpleHttpRequest httpGetRequest =
           SimpleRequestBuilder.get()
               .setHttpHost(httpHost)
               .setPath(path)
@@ -484,7 +481,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
               .build();
       for (int i = 0; i < count; i++) {
         try {
-          final Future<SimpleHttpResponse> future =
+          Future<SimpleHttpResponse> future =
               executeInterceptorRequest(closeableHttpAsyncClient, httpGetRequest, i, httpHost);
           futuresMap.put(i, future);
         } catch (RequestProcessingException e) {
@@ -492,7 +489,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
         }
       }
     } catch (Exception e) {
-      final String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
+      String message = MessageFormat.format("Failed to get user for ID: {0}", userId);
       log.error(message, e);
       throw new RequestProcessingException(message, e);
     }
@@ -526,11 +523,11 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
     log.debug("Got {} futures.", futuresMap.size());
 
     for (Map.Entry<Integer, Future<SimpleHttpResponse>> futureEntry : futuresMap.entrySet()) {
-      final Integer currentRequestId = futureEntry.getKey();
+      Integer currentRequestId = futureEntry.getKey();
       try {
         userResponseMap.put(currentRequestId, futureEntry.getValue().get().getBodyText());
       } catch (Exception e) {
-        final String message =
+        String message =
             MessageFormat.format("Failed to get user for request id: {0}", currentRequestId);
         log.error(message, e);
         userResponseMap.put(currentRequestId, message);
@@ -542,7 +539,7 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
    * Creates user with reactive processing.
    *
    * @param minimalHttpClient the minimal http client
-   * @param userName the user name
+   * @param userName the username
    * @param userJob the user job
    * @param scheme the scheme
    * @param hostname the hostname
@@ -550,62 +547,77 @@ public class UserAsyncHttpRequestHelper extends BaseHttpRequestHelper {
    * @throws RequestProcessingException the request processing exception
    */
   public User createUserWithReactiveProcessing(
-      final MinimalHttpAsyncClient minimalHttpClient,
-      final String userName,
-      final String userJob,
+      MinimalHttpAsyncClient minimalHttpClient,
+      String userName,
+      String userJob,
       String scheme,
       String hostname)
       throws RequestProcessingException {
     try {
-      final HttpHost httpHost = new HttpHost(scheme, hostname);
-      final URI uri = new URIBuilder(httpHost.toURI() + "/api/users/").build();
+      HttpHost httpHost = new HttpHost(scheme, hostname);
+      URI uri = new URIBuilder(httpHost.toURI() + "/api/users/").build();
+      String payloadStr = preparePayload(userName, userJob);
+      ReactiveResponseConsumer consumer = new ReactiveResponseConsumer();
+      Future<Void> requestFuture = executeRequest(minimalHttpClient, consumer, uri, payloadStr);
 
-      final Map<String, String> payload = new HashMap<>();
-      payload.put("name", userName);
-      payload.put("job", userJob);
-      ObjectMapper objectMapper = new ObjectMapper();
-      final String payloadStr = objectMapper.writeValueAsString(payload);
-      final byte[] bs = payloadStr.getBytes(StandardCharsets.UTF_8);
-
-      final ReactiveEntityProducer reactiveEntityProducer =
-          new ReactiveEntityProducer(
-              Flowable.just(ByteBuffer.wrap(bs)), bs.length, ContentType.TEXT_PLAIN, null);
-
-      final BasicRequestProducer requestProducer =
-          new BasicRequestProducer("POST", uri, reactiveEntityProducer);
-
-      final ReactiveResponseConsumer consumer = new ReactiveResponseConsumer();
-
-      final Future<Void> requestFuture = minimalHttpClient.execute(requestProducer, consumer, null);
-
-      final Message<HttpResponse, Publisher<ByteBuffer>> streamingResponse =
+      Message<HttpResponse, Publisher<ByteBuffer>> streamingResponse =
           consumer.getResponseFuture().get();
-      log.debug("Head: {}", streamingResponse.getHead());
-      for (final Header header : streamingResponse.getHead().getHeaders()) {
-        log.debug("Header : {}", header);
-      }
-
-      StringBuilder result = new StringBuilder();
-      Observable.fromPublisher(streamingResponse.getBody())
-          .map(
-              byteBuffer -> {
-                final byte[] bytes = new byte[byteBuffer.remaining()];
-                byteBuffer.get(bytes);
-                return new String(bytes);
-              })
-          .materialize()
-          .forEach(
-              stringNotification -> {
-                final String value = stringNotification.getValue();
-                if (value != null) {
-                  result.append(value);
-                }
-              });
-
-      requestFuture.get(1, TimeUnit.MINUTES);
-      return objectMapper.readerFor(User.class).readValue(result.toString());
+      printHeaders(streamingResponse);
+      return prepareResult(streamingResponse, requestFuture);
     } catch (Exception e) {
       throw new RequestProcessingException("Failed to create user. Error: " + e.getMessage(), e);
     }
+  }
+
+  private void printHeaders(Message<HttpResponse, Publisher<ByteBuffer>> streamingResponse) {
+    log.debug("Head: {}", streamingResponse.getHead());
+    for (Header header : streamingResponse.getHead().getHeaders()) {
+      log.debug("Header : {}", header);
+    }
+  }
+
+  private String preparePayload(String userName, String userJob) throws JsonProcessingException {
+    Map<String, String> payload = new HashMap<>();
+    payload.put("name", userName);
+    payload.put("job", userJob);
+    return OBJECT_MAPPER.writeValueAsString(payload);
+  }
+
+  private User prepareResult(
+      Message<HttpResponse, Publisher<ByteBuffer>> streamingResponse, Future<Void> requestFuture)
+      throws InterruptedException, ExecutionException, TimeoutException, JsonProcessingException {
+    StringBuilder result = new StringBuilder();
+    Observable.fromPublisher(streamingResponse.getBody())
+        .map(
+            byteBuffer -> {
+              byte[] bytes = new byte[byteBuffer.remaining()];
+              byteBuffer.get(bytes);
+              return new String(bytes);
+            })
+        .materialize()
+        .forEach(
+            stringNotification -> {
+              String value = stringNotification.getValue();
+              if (value != null) {
+                result.append(value);
+              }
+            });
+
+    requestFuture.get(1, TimeUnit.MINUTES);
+    return OBJECT_MAPPER.readerFor(User.class).readValue(result.toString());
+  }
+
+  private Future<Void> executeRequest(
+      MinimalHttpAsyncClient minimalHttpClient,
+      ReactiveResponseConsumer consumer,
+      URI uri,
+      String payloadStr) {
+    byte[] bs = payloadStr.getBytes(StandardCharsets.UTF_8);
+    ReactiveEntityProducer reactiveEntityProducer =
+        new ReactiveEntityProducer(
+            Flowable.just(ByteBuffer.wrap(bs)), bs.length, ContentType.TEXT_PLAIN, null);
+
+    return minimalHttpClient.execute(
+        new BasicRequestProducer("POST", uri, reactiveEntityProducer), consumer, null);
   }
 }
