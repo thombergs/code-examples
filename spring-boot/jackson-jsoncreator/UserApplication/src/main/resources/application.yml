@@ -1,0 +1,17 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    defer-datasource-initialization: true
+
+
+logging:
+  level:
+    org.springframework: DEBUG
+    com.fasterxml.jackson.core: DEBUG
