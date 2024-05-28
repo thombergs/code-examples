@@ -70,22 +70,5 @@ public class JwtHelper {
         return userName.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
-    public String generateRefreshToken(String subject) {
-        Date expiryDate = Date.from(Instant.ofEpochMilli(System.currentTimeMillis() + jwtProperties.getRefreshExpiry()));
-        Key hmacKey = new SecretKeySpec(Base64.getDecoder().decode(jwtProperties.getSecretKey()),
-                SignatureAlgorithm.HS256.getJcaName());
-        return Jwts.builder()
-                .setClaims(Collections.EMPTY_MAP)
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(expiryDate)
-                .signWith(hmacKey)
-                .compact();
-    }
-
-
-
-
-
 
 }

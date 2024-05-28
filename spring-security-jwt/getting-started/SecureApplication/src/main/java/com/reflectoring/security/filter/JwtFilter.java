@@ -68,6 +68,8 @@ public class JwtFilter extends OncePerRequestFilter {
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 }
+            } else {
+                throw new BadCredentialsException("Bearer token not set correctly");
             }
         } catch (ExpiredJwtException jwtException) {
             request.setAttribute("exception", jwtException);

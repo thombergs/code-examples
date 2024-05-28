@@ -15,7 +15,6 @@ spring:
 jwt:
   secretKey: 5JzoMbk6E5qIqHSuBTgeQCARtUsxAkBiHwdjXOSW8kWdXzYmP3X51C0
   validity: 60000
-  refreshExpiry: 60000
 
 springdoc:
   swagger-ui:
