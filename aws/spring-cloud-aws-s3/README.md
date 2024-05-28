@@ -22,5 +22,5 @@ sudo docker-compose up -d
 
 Blog posts about this topic:
 
-* [Using Amazon S3 with Spring Cloud AWS](https://reflectoring.io/spring-cloud-aws-s3/)
-* [Using AWS S3 Presigned URLs in Spring Boot](https://reflectoring.io/aws-s3-presigned-url-spring-boot/)
+* [Integrating Amazon S3 with Spring Boot Using Spring Cloud AWS](https://reflectoring.io/integrating-amazon-s3-with-spring-boot-using-spring-cloud-aws/)
+* [Offloading File Transfers with Amazon S3 Presigned URLs in Spring Boot](https://reflectoring.io/offloading-file-transfers-with-amazon-s3-presigned-urls-in-spring-boot/)
