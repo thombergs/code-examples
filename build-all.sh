@@ -89,6 +89,7 @@ then
   # (add new modules above the rest so you get quicker feedback if it fails)
   build maven_module "aws/spring-cloud-aws-s3"
   build maven_module "aws/spring-cloud-sns-sqs-pubsub"
+  build maven_module "apache-http-client"
   build maven_module "archunit"
   build maven_module "aws/structured-logging-cw"
   build_gradle_module "kotlin/coroutines"
