@@ -10,9 +10,14 @@ import java.util.stream.LongStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import io.reflectoring.function.custom.ArithmeticOperation;
+import jakarta.validation.constraints.NotNull;
+
 public class OperatorTest {
   @Test
   void unaryOperator() {
+    ArithmeticOperation add = (var a, var b) -> a + b;
+    ArithmeticOperation addNullSafe = (@NotNull var a, @NotNull var b) -> a + b;
     UnaryOperator<String> trim = value -> value == null ? null : value.trim();
     UnaryOperator<String> upperCase = value -> value == null ? null : value.toUpperCase();
     Function<String, String> transform = trim.andThen(upperCase);
