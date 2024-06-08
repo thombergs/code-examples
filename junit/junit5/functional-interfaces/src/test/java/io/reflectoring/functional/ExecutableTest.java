@@ -3,6 +3,9 @@ package io.reflectoring.functional;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -10,7 +13,7 @@ public class ExecutableTest {
 
   @ParameterizedTest
   @CsvSource({"1,1,2,Hello,H,bye,2,byebye", "4,5,9,Good,Go,Go,-10,", "10,21,31,Team,Tea,Stop,-2,"})
-  void testAssertAllExecutable(
+  void testAssertAllWithExecutable(
       int num1,
       int num2,
       int sum,
@@ -37,7 +40,24 @@ public class ExecutableTest {
 
   @ParameterizedTest
   @CsvSource({"one,0,o", "one,1,n"})
-  void testAssertDoesNotThrow(String input, int index, char result) {
+  void testAssertDoesNotThrowWithExecutable(String input, int index, char result) {
     assertDoesNotThrow(() -> assertEquals(input.charAt(index), result));
+  }
+
+  @Test
+  void testAssertThrowsWithExecutable() {
+    List<String> input = Arrays.asList("one", "", "three", null, "five");
+    final IllegalArgumentException exception =
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> {
+              for (String value : input) {
+                if (value == null || value.isBlank()) {
+                  throw new IllegalArgumentException("Got invalid value");
+                }
+                // process values
+              }
+            });
+    assertEquals("Got invalid value", exception.getMessage());
   }
 }
