@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.3.1.RELEASE'
+		springBootVersion = '3.3.0'
 	}
 	repositories {
 		mavenCentral()
@@ -16,8 +16,8 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'io.reflectoring'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 11
+version = '0.0.1'
+sourceCompatibility = 21
 
 repositories {
 	mavenCentral()
