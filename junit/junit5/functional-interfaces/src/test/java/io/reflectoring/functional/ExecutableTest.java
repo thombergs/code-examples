@@ -14,6 +14,15 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.opentest4j.AssertionFailedError;
 
 public class ExecutableTest {
+  private final List<Long> numbers = Arrays.asList(100L, 200L, 50L, 300L);
+  final Executable sorter =
+      () -> {
+        TimeUnit.SECONDS.sleep(2);
+        numbers.sort(Long::compareTo);
+      };
+  private final Executable checkSorting =
+      () -> assertEquals(List.of(50L, 100L, 200L, 300L), numbers);
+  private final Executable noChanges = () -> assertEquals(List.of(100L, 200L, 50L, 300L), numbers);
 
   @ParameterizedTest
   @CsvSource({"1,1,2,Hello,H,bye,2,byebye", "4,5,9,Good,Go,Go,-10,", "10,21,31,Team,Tea,Stop,-2,"})
@@ -67,64 +76,27 @@ public class ExecutableTest {
 
   @Test
   void testAssertTimeoutWithExecutable() {
-    List<Long> numbers = Arrays.asList(100L, 200L, 50L, 300L);
-    final int delay = 2;
-    final Executable checkSorting = () -> assertEquals(List.of(50L, 100L, 200L, 300L), numbers);
     assertAll(
         () ->
             assertThrows(
-                AssertionFailedError.class,
-                () ->
-                    assertTimeout(
-                        Duration.ofSeconds(1),
-                        () -> {
-                          TimeUnit.SECONDS.sleep(delay);
-                          numbers.sort(Long::compareTo);
-                        })),
+                AssertionFailedError.class, () -> assertTimeout(Duration.ofSeconds(1), sorter)),
         checkSorting);
 
     assertAll(
-        () ->
-            assertDoesNotThrow(
-                () ->
-                    assertTimeout(
-                        Duration.ofSeconds(5),
-                        () -> {
-                          TimeUnit.SECONDS.sleep(delay);
-                          numbers.sort(Long::compareTo);
-                        })),
-        checkSorting);
+        () -> assertDoesNotThrow(() -> assertTimeout(Duration.ofSeconds(5), sorter)), checkSorting);
   }
 
   @Test
   void testAssertTimeoutPreemptivelyWithExecutable() {
-    List<Long> numbers = Arrays.asList(100L, 200L, 50L, 300L);
-    final int delay = 2;
-    final Executable checkSorting = () -> assertEquals(List.of(50L, 100L, 200L, 300L), numbers);
-    final Executable noChanges = () -> assertEquals(List.of(100L, 200L, 50L, 300L), numbers);
     assertAll(
         () ->
             assertThrows(
                 AssertionFailedError.class,
-                () ->
-                    assertTimeoutPreemptively(
-                        Duration.ofSeconds(1),
-                        () -> {
-                          TimeUnit.SECONDS.sleep(delay);
-                          numbers.sort(Long::compareTo);
-                        })),
+                () -> assertTimeoutPreemptively(Duration.ofSeconds(1), sorter)),
         noChanges);
 
     assertAll(
-        () ->
-            assertDoesNotThrow(
-                () ->
-                    assertTimeoutPreemptively(
-                        Duration.ofSeconds(5),
-                        () -> {
-                          TimeUnit.SECONDS.sleep(delay);
-                          numbers.sort(Long::compareTo);
-                        })),
+        () -> assertDoesNotThrow(() -> assertTimeoutPreemptively(Duration.ofSeconds(5), sorter)),
         checkSorting);
   }
 }
