@@ -3,7 +3,6 @@ package io.reflectoring.validation.service;
 import jakarta.validation.ConstraintViolationException;
 
 import io.reflectoring.validation.Input;
-import io.reflectoring.validation.service.ValidatingService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

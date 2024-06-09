@@ -4,7 +4,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.validation.ConstraintViolationException;
 
 import io.reflectoring.validation.Input;
-import io.reflectoring.validation.repository.ValidatingRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
