@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProgrammaticallyValidatingService {
 
-  private Validator validator;
+  private final Validator validator;
 
   public ProgrammaticallyValidatingService(Validator validator) {
     this.validator = validator;

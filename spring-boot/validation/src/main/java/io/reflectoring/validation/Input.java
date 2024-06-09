@@ -6,7 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Input {
 
@@ -23,19 +27,4 @@ public class Input {
   @Pattern(regexp = "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$")
   private String ipAddress;
 
-  public int getNumberBetweenOneAndTen() {
-    return numberBetweenOneAndTen;
-  }
-
-  public void setNumberBetweenOneAndTen(int numberBetweenOneAndTen) {
-    this.numberBetweenOneAndTen = numberBetweenOneAndTen;
-  }
-
-  public String getIpAddress() {
-    return ipAddress;
-  }
-
-  public void setIpAddress(String ipAddress) {
-    this.ipAddress = ipAddress;
-  }
 }
