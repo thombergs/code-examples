@@ -1,6 +1,6 @@
 package io.reflectoring.validation.service;
 
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolationException;
 
 import io.reflectoring.validation.InputWithCustomValidator;
 import org.junit.jupiter.api.Test;

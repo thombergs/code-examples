@@ -1,6 +1,6 @@
 package io.reflectoring.validation.controller.requestbody;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import io.reflectoring.validation.Input;
 import org.springframework.http.ResponseEntity;

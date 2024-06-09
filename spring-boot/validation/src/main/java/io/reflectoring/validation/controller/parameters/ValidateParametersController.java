@@ -1,7 +1,7 @@
 package io.reflectoring.validation.controller.parameters;
 
-import javax.validation.ConstraintViolationException;
-import javax.validation.constraints.Min;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.constraints.Min;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package io.reflectoring.validation.repository;
 
-import javax.persistence.EntityManager;
-import javax.validation.ConstraintViolationException;
+import jakarta.persistence.EntityManager;
+import jakarta.validation.ConstraintViolationException;
 
 import io.reflectoring.validation.Input;
 import io.reflectoring.validation.repository.ValidatingRepository;
