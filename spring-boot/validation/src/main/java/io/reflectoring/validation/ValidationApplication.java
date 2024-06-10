@@ -18,7 +18,7 @@ public class ValidationApplication {
   @Bean
   public MessageSource messageSource() {
     ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-    messageSource.setBasename("classpath:validation-errors");
+    messageSource.setBasenames("classpath:validation-errors");
     return messageSource;
   }
 
