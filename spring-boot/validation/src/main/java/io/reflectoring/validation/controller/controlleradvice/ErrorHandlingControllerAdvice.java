@@ -21,7 +21,7 @@ class ErrorHandlingControllerAdvice {
   @ExceptionHandler(ConstraintViolationException.class)
   ProblemDetail handle(ConstraintViolationException exception) {
     List < Violation > violations = new ArrayList < > ();
-    for (ConstraintViolation violation: exception.getConstraintViolations()) {
+    for (ConstraintViolation<?> violation: exception.getConstraintViolations()) {
       violations.add(new Violation(violation.getPropertyPath().toString(), violation.getMessage()));
     }
 
