@@ -1,7 +1,9 @@
 package io.reflectoring.validation.controller.parameters;
 
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,14 +22,16 @@ class ValidateParametersControllerTest {
   @Test
   void whenPathVariableIsInvalid_thenReturnsStatus400() throws Exception {
     mvc.perform(get("/validatePathVariable/3"))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("$.detail").value(startsWith("Validation error:")));
   }
 
   @Test
   void whenRequestParameterIsInvalid_thenReturnsStatus400() throws Exception {
     mvc.perform(get("/validateRequestParameter")
             .param("param", "3"))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("$.detail").value(startsWith("Validation error:")));
   }
 
   @Test
