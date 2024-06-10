@@ -21,17 +21,23 @@ class ValidateParametersControllerTest {
   @Test
   @SneakyThrows
   void whenPathVariableIsInvalid_thenReturnsStatus400() {
-    mvc.perform(get("/validate-path-variable/3"))
+    String apiPath = "/validate-path-variable/3";
+    mvc.perform(get(apiPath))
             .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("$.status").value(400))
+            .andExpect(jsonPath("$.instance").value(apiPath))
             .andExpect(jsonPath("$.detail").value(startsWith("Validation error:")));
   }
 
   @Test
   @SneakyThrows
   void whenRequestParameterIsInvalid_thenReturnsStatus400() {
-    mvc.perform(get("/validate-request-parameter")
+    String apiPath = "/validate-request-parameter";
+    mvc.perform(get(apiPath)
             .param("param", "3"))
             .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("$.status").value(400))
+            .andExpect(jsonPath("$.instance").value(apiPath))
             .andExpect(jsonPath("$.detail").value(startsWith("Validation error:")));
   }
 
