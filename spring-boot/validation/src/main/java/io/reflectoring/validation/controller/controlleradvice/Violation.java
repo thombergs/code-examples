@@ -1,14 +1,14 @@
 package io.reflectoring.validation.controller.controlleradvice;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Violation {
 
-  private final String fieldName;
+  private String fieldName;
 
-  private final String message;
+  private String message;
 
 }
