@@ -11,9 +11,9 @@ import jakarta.validation.Valid;
 @RestController
 class ValidateRequestBodyController {
 
-  @PostMapping("/validateBody")
-  ResponseEntity<String> validateBody(@Valid @RequestBody Input input) {
-    return ResponseEntity.ok("valid");
+  @PostMapping("/validate-request-body")
+  ResponseEntity<Void> validateBody(@Valid @RequestBody Input input) {
+    return ResponseEntity.ok().build();
   }
 
 }

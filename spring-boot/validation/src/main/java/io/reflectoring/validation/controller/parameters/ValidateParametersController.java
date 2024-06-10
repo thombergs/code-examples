@@ -18,14 +18,14 @@ import jakarta.validation.constraints.Min;
 @Validated
 class ValidateParametersController {
 
-  @GetMapping("/validatePathVariable/{id}")
-  ResponseEntity<String> validatePathVariable(@PathVariable("id") @Min(5) int id) {
-    return ResponseEntity.ok("valid");
+  @GetMapping("/validate-path-variable/{id}")
+  ResponseEntity<Void> validatePathVariable(@PathVariable("id") @Min(5) int id) {
+    return ResponseEntity.ok().build();
   }
 
-  @GetMapping("/validateRequestParameter")
-  ResponseEntity<String> validateRequestParameter(@RequestParam("param") @Min(5) int param) {
-    return ResponseEntity.ok("valid");
+  @GetMapping("/validate-request-parameter")
+  ResponseEntity<Void> validateRequestParameter(@RequestParam("param") @Min(5) int param) {
+    return ResponseEntity.ok().build();
   }
 
   @ResponseBody

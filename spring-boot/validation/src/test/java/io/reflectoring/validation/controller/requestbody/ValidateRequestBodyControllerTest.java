@@ -30,7 +30,7 @@ class ValidateRequestBodyControllerTest {
     Input input = invalidInput();
     String body = objectMapper.writeValueAsString(input);
 
-    mvc.perform(post("/validateBody")
+    mvc.perform(post("/validate-request-body")
             .contentType("application/json")
             .content(body))
             .andExpect(status().isBadRequest());
@@ -49,7 +49,7 @@ class ValidateRequestBodyControllerTest {
     Input input = invalidInput();
     String body = objectMapper.writeValueAsString(input);
 
-    MvcResult result = mvc.perform(post("/validateBody")
+    MvcResult result = mvc.perform(post("/validate-request-body")
             .contentType("application/json")
             .content(body))
             .andExpect(status().isBadRequest())
@@ -64,7 +64,7 @@ class ValidateRequestBodyControllerTest {
     Input input = validInput();
     String body = objectMapper.writeValueAsString(input);
 
-    mvc.perform(post("/validateBody")
+    mvc.perform(post("/validate-request-body")
             .contentType("application/json")
             .content(body))
             .andExpect(status().isOk());
