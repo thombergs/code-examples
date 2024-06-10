@@ -24,7 +24,6 @@ public class Input {
 
   // Note that this is actually not a valid IP address pattern, since
   // it allows values greater than 255 per octet.
-  // @Pattern(regexp = "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$")
   @Pattern(regexp = "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", message = "{ip-address.invalid}")
   private String ipAddress;
 
