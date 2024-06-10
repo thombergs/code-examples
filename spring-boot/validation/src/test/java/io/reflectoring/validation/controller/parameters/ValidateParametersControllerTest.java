@@ -2,17 +2,16 @@ package io.reflectoring.validation.controller.parameters;
 
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-@ExtendWith(SpringExtension.class)
+import lombok.SneakyThrows;
+
 @WebMvcTest(controllers = ValidateParametersController.class)
 class ValidateParametersControllerTest {
 
@@ -20,14 +19,16 @@ class ValidateParametersControllerTest {
   private MockMvc mvc;
 
   @Test
-  void whenPathVariableIsInvalid_thenReturnsStatus400() throws Exception {
+  @SneakyThrows
+  void whenPathVariableIsInvalid_thenReturnsStatus400() {
     mvc.perform(get("/validatePathVariable/3"))
             .andExpect(status().isBadRequest())
             .andExpect(jsonPath("$.detail").value(startsWith("Validation error:")));
   }
 
   @Test
-  void whenRequestParameterIsInvalid_thenReturnsStatus400() throws Exception {
+  @SneakyThrows
+  void whenRequestParameterIsInvalid_thenReturnsStatus400() {
     mvc.perform(get("/validateRequestParameter")
             .param("param", "3"))
             .andExpect(status().isBadRequest())
@@ -35,7 +36,8 @@ class ValidateParametersControllerTest {
   }
 
   @Test
-  void whenPathVariableIsValid_thenReturnsStatus200() throws Exception {
+  @SneakyThrows
+  void whenPathVariableIsValid_thenReturnsStatus200() {
     mvc.perform(get("/validatePathVariable/10"))
             .andExpect(status().isOk());
   }

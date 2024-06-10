@@ -5,18 +5,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.reflectoring.validation.Input;
+import lombok.SneakyThrows;
 
-@ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = ValidateRequestBodyController.class)
 class ValidateRequestBodyControllerTest {
 
@@ -27,7 +25,8 @@ class ValidateRequestBodyControllerTest {
   private ObjectMapper objectMapper;
 
   @Test
-  void whenInputIsInvalid_thenReturnsStatus400() throws Exception {
+  @SneakyThrows
+  void whenInputIsInvalid_thenReturnsStatus400() {
     Input input = invalidInput();
     String body = objectMapper.writeValueAsString(input);
 
@@ -45,7 +44,8 @@ class ValidateRequestBodyControllerTest {
   }
 
   @Test
-  void whenInputIsInvalid_thenReturnsStatus400WithErrorObject() throws Exception {
+  @SneakyThrows
+  void whenInputIsInvalid_thenReturnsStatus400WithErrorObject() {
     Input input = invalidInput();
     String body = objectMapper.writeValueAsString(input);
 
@@ -59,7 +59,8 @@ class ValidateRequestBodyControllerTest {
   }
 
   @Test
-  void whenInputIsValid_thenReturnsStatus200() throws Exception {
+  @SneakyThrows
+  void whenInputIsValid_thenReturnsStatus200() {
     Input input = validInput();
     String body = objectMapper.writeValueAsString(input);
 
