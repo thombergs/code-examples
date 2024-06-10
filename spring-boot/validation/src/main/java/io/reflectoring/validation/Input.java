@@ -18,8 +18,8 @@ public class Input {
   @GeneratedValue
   private Long id;
 
-  @Min(1)
-  @Max(10)
+  @Min(value = 1, message = "{number.invalid}")
+  @Max(value = 10, message = "{number.invalid}")
   private int numberBetweenOneAndTen;
 
   // Note that this is actually not a valid IP address pattern, since
