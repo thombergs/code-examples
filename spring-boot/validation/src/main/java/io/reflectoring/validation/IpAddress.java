@@ -16,7 +16,7 @@ import jakarta.validation.Payload;
 @Documented
 public @interface IpAddress {
 
-  String message() default "{IpAddress.invalid}";
+  String message() default "{ip-address.invalid}";
 
   Class<?>[] groups() default { };
 
