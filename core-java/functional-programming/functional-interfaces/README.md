@@ -1,3 +1,3 @@
 # Related Blog Posts
 
-* [Use Cases for Java Records](https://reflectoring.io/beginner-friendly-guide-to-java-records/)
+* [One Stop Guide to Java Functional Interfaces](https://reflectoring.io/one-stop-guide-to-java-functional-interfaces/)
