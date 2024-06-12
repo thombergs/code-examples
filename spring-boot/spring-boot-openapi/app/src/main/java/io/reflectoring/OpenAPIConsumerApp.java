@@ -9,5 +9,4 @@ public class OpenAPIConsumerApp {
     public static void main(String[] args) {
         SpringApplication.run(OpenAPIConsumerApp.class, args);
     }
-
 }

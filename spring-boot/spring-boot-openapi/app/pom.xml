@@ -17,7 +17,8 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>8</maven.compiler.release>
+        <cd-common-springboot.version>1.0.0-SNAPSHOT</cd-common-springboot.version>
     </properties>
 
     <dependencies>
@@ -31,6 +32,26 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions><!-- 去掉springboot默认配置 引入高性能log4j2 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <!-- 公共包 注意包含调KafKa、RabbitMQ是否屏蔽-->
+        <dependency>
+            <groupId>com.convertlab.cd.vanguard</groupId>
+            <artifactId>cd-common-springboot</artifactId>
+            <version>${cd-common-springboot.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.logstash.log4j</groupId>
+                    <artifactId>jsonevent-layout</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -45,6 +66,12 @@
             </exclusions>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>
@@ -56,7 +83,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
