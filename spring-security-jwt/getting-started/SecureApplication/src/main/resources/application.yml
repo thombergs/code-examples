@@ -1,0 +1,25 @@
+server:
+  port: 8083
+
+spring:
+  security:
+    user:
+      name: libUser
+      password: libPassword
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+
+jwt:
+  secretKey: 5JzoMbk6E5qIqHSuBTgeQCARtUsxAkBiHwdjXOSW8kWdXzYmP3X51C0
+  validity: 60000
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+
+logging:
+  level:
+    org.springframework: DEBUG
