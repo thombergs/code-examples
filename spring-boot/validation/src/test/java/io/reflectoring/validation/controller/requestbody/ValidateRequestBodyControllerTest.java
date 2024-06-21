@@ -1,19 +1,20 @@
 package io.reflectoring.validation.controller.requestbody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.reflectoring.validation.Input;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(SpringExtension.class)
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.reflectoring.validation.Input;
+import lombok.SneakyThrows;
+
 @WebMvcTest(controllers = ValidateRequestBodyController.class)
 class ValidateRequestBodyControllerTest {
 
@@ -22,31 +23,28 @@ class ValidateRequestBodyControllerTest {
 
   @Autowired
   private ObjectMapper objectMapper;
+  
+  private static final String API_PATH = "/validateBody";
 
   @Test
-  void whenInputIsInvalid_thenReturnsStatus400() throws Exception {
+  @SneakyThrows
+  void whenInputIsInvalid_thenReturnsStatus400() {
     Input input = invalidInput();
     String body = objectMapper.writeValueAsString(input);
 
-    mvc.perform(post("/validateBody")
+    mvc.perform(post(API_PATH)
             .contentType("application/json")
             .content(body))
             .andExpect(status().isBadRequest());
   }
 
-  private Input invalidInput() {
-    Input input = new Input();
-    input.setIpAddress("invalid");
-    input.setNumberBetweenOneAndTen(99);
-    return input;
-  }
-
   @Test
-  void whenInputIsInvalid_thenReturnsStatus400WithErrorObject() throws Exception {
+  @SneakyThrows
+  void whenInputIsInvalid_thenReturnsStatus400WithErrorObject() {
     Input input = invalidInput();
     String body = objectMapper.writeValueAsString(input);
 
-    MvcResult result = mvc.perform(post("/validateBody")
+    MvcResult result = mvc.perform(post(API_PATH)
             .contentType("application/json")
             .content(body))
             .andExpect(status().isBadRequest())
@@ -56,16 +54,24 @@ class ValidateRequestBodyControllerTest {
   }
 
   @Test
-  void whenInputIsValid_thenReturnsStatus200() throws Exception {
+  @SneakyThrows
+  void whenInputIsValid_thenReturnsStatus200() {
     Input input = validInput();
     String body = objectMapper.writeValueAsString(input);
 
-    mvc.perform(post("/validateBody")
+    mvc.perform(post(API_PATH)
             .contentType("application/json")
             .content(body))
             .andExpect(status().isOk());
   }
 
+  private Input invalidInput() {
+    Input input = new Input();
+    input.setIpAddress("invalid");
+    input.setNumberBetweenOneAndTen(99);
+    return input;
+  }
+  
   private Input validInput() {
     Input input = new Input();
     input.setIpAddress("255.255.255.255");

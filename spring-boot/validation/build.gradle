@@ -1,42 +1,34 @@
-buildscript {
-	ext {
-		springBootVersion = '2.3.1.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+plugins {
+	id 'java'
+	id "io.freefair.lombok" version "8.6"
+	id 'org.springframework.boot' version '3.3.0'
+	id 'io.spring.dependency-management' version '1.1.5'
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
 group = 'io.reflectoring'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 11
+version = '0.0.1'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-	implementation('org.springframework.boot:spring-boot-starter-validation')
 	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.springframework.boot:spring-boot-starter-validation')
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+	implementation('org.springframework.boot:spring-boot-configuration-processor')
 	runtimeOnly('com.h2database:h2')
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	testImplementation('org.junit.jupiter:junit-jupiter-engine:5.0.1')
-
-	// these dependencies are needed when running with Java 11, since they
-	// are no longer part of the JDK
-	implementation('javax.xml.bind:jaxb-api:2.3.1')
-	implementation('org.javassist:javassist:3.23.1-GA')
 }
 
-test{
+tasks.named('test') {
 	useJUnitPlatform()
 }
