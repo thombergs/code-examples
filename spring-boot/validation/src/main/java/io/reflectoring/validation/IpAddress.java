@@ -10,16 +10,16 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-@Target({ FIELD })
+@Documented
+@Target(FIELD)
 @Retention(RUNTIME)
 @Constraint(validatedBy = IpAddressValidator.class)
-@Documented
 public @interface IpAddress {
 
   String message() default "{ip-address.invalid}";
 
-  Class<?>[] groups() default { };
+  Class<?>[] groups() default {};
 
-  Class<? extends Payload>[] payload() default { };
+  Class<? extends Payload>[] payload() default {};
 
 }
