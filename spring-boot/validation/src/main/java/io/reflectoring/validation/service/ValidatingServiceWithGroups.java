@@ -1,10 +1,10 @@
 package io.reflectoring.validation.service;
 
-import javax.validation.Valid;
-
-import io.reflectoring.validation.InputWithCustomValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+
+import io.reflectoring.validation.InputWithCustomValidator;
+import jakarta.validation.Valid;
 
 @Service
 @Validated
