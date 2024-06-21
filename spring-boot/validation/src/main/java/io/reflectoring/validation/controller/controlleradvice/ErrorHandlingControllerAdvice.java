@@ -20,7 +20,7 @@ class ErrorHandlingControllerAdvice {
 
   @ExceptionHandler(ConstraintViolationException.class)
   ProblemDetail handle(ConstraintViolationException exception) {
-    List < Violation > violations = new ArrayList < > ();
+    List<Violation> violations = new ArrayList<>();
     for (ConstraintViolation<?> violation: exception.getConstraintViolations()) {
       violations.add(new Violation(violation.getPropertyPath().toString(), violation.getMessage()));
     }
@@ -32,7 +32,7 @@ class ErrorHandlingControllerAdvice {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   ProblemDetail handle(MethodArgumentNotValidException exception) {
-    List < Violation > violations = new ArrayList < > ();
+    List<Violation> violations = new ArrayList<>();
     for (FieldError fieldError: exception.getBindingResult().getFieldErrors()) {
       violations.add(new Violation(fieldError.getField(), fieldError.getDefaultMessage()));
     }

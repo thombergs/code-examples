@@ -18,8 +18,8 @@ public @interface ProgrammerStereotype {
 
   String message() default "Stereotype violation detected! IDE and language not vibing.";
 
-  Class<?>[] groups() default { };
+  Class<?>[] groups() default {};
 
-  Class<? extends Payload>[] payload() default { };
+  Class<? extends Payload>[] payload() default {};
 
 }
