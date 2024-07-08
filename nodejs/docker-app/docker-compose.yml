@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - server-db:/var/lib/postgresql/data
+
+  server:
+    build:
+      context: .
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    ports:
+      - "3333:3333"
+
+volumes:
+  server-db:
