@@ -211,6 +211,8 @@ then
   build_gradle_module "spring-data/spring-data-jdbc-converter"
   build_gradle_module "reactive"
   build_gradle_module "junit/assumptions"
+  build_maven_module "junit/junit5/junit5"
+  build_maven_module "junit/junit5/functional-interfaces"
   build_gradle_module "logging"
   build_gradle_module "pact/pact-feign-consumer"
 
