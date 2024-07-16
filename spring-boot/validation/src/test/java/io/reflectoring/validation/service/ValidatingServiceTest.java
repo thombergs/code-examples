@@ -1,17 +1,14 @@
 package io.reflectoring.validation.service;
 
-import javax.validation.ConstraintViolationException;
-
-import io.reflectoring.validation.Input;
-import io.reflectoring.validation.service.ValidatingService;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ExtendWith(SpringExtension.class)
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import io.reflectoring.validation.Input;
+import jakarta.validation.ConstraintViolationException;
+
 @SpringBootTest
 class ValidatingServiceTest {
 
