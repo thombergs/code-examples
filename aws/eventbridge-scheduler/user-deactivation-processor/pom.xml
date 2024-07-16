@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>io.reflectoring</groupId>
+		<artifactId>eventbridge-scheduler</artifactId>
+		<version>0.0.1</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>user-deactivation-processor</artifactId>
+	<name>user-deactivation-processor</name>
+	<description>codebase demonstrating receiving messages from an SQS queue sent via Eventbridge Scheduler</description>
+
+	<properties>
+		<spring.cloud.version>3.1.1</spring.cloud.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.awspring.cloud</groupId>
+			<artifactId>spring-cloud-aws-starter-sqs</artifactId>
+			<version>${spring.cloud.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

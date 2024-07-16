@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>io.reflectoring</groupId>
+		<artifactId>eventbridge-scheduler</artifactId>
+		<version>0.0.1</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>user-deactivation-scheduler</artifactId>
+	<name>user-deactivation-scheduler</name>
+	<description>codebase demonstrating registration of one-off schedule using Amazon EventBridge Scheduler</description>
+
+	<properties>
+		<aws.sdk.version>2.25.50</aws.sdk.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>scheduler</artifactId>
+			<version>${aws.sdk.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

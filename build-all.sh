@@ -87,6 +87,7 @@ if [[ "$MODULE" == "module7" ]]
 then
   # ADD NEW MODULES HERE
   # (add new modules above the rest so you get quicker feedback if it fails)
+  build maven_module "aws/eventbridge-scheduler"
   build maven_module "aws/spring-cloud-aws-s3"
   build maven_module "aws/spring-cloud-sns-sqs-pubsub"
   build maven_module "apache-http-client"

@@ -1,0 +1,16 @@
+io:
+  reflectoring:
+    aws:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+      eventbridge-scheduler:
+        region: ${EVENTBRIDGE_SCHEDULER_REGION}
+        group-name: ${EVENTBRIDGE_GROUP_NAME}
+        target:
+          arn: ${EVENTBRIDGE_SCHEDULER_TARGET_ARN}
+          role-arn: ${EVENTBRIDGE_SCHEDULER_ROLE_ARN}
+      kms:
+        key-arn: ${KMS_KEY_ARN}
+    user:
+      account:
+        deactivation-delay: ${USER_ACCOUNT_DEACTIVATION_DELAY}
