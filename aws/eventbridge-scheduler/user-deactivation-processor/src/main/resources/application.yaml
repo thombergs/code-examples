@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      sqs:
+        region: ${AWS_SQS_REGION}
+        
+io:
+  reflectoring:
+    aws:
+      sqs:
+        queue-url: ${AWS_SQS_QUEUE_URL}
