@@ -23,14 +23,17 @@ class AwsConfigurationProperties {
     @Valid
     private EventbridgeScheduler eventbridgeScheduler = new EventbridgeScheduler();
 
+    @Valid
+    private KMS kms = new KMS();
+
     @Getter
     @Setter
     @Validated
-    public class EventbridgeScheduler {
+    class EventbridgeScheduler {
 
         @NotBlank(message = "Eventbridge scheduler region must be configured")
         private String region;
-        
+
         @NotBlank(message = "Eventbridge scheduler group name must be configured")
         private String groupName;
 
@@ -49,6 +52,16 @@ class AwsConfigurationProperties {
             private String roleArn;
 
         }
+
+    }
+
+    @Getter
+    @Setter
+    @Validated
+    class KMS {
+
+        @NotBlank(message = "KMS key ARN must be configured")
+        private String keyArn;
 
     }
 

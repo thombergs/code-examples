@@ -9,6 +9,8 @@ io:
         target:
           arn: ${EVENTBRIDGE_SCHEDULER_TARGET_ARN}
           role-arn: ${EVENTBRIDGE_SCHEDULER_ROLE_ARN}
+      kms:
+        key-arn: ${KMS_KEY_ARN}
     user:
       account:
         deactivation-delay: ${USER_ACCOUNT_DEACTIVATION_DELAY}

@@ -23,11 +23,13 @@ class ScheduleRegistrar {
             @NonNull final Object input) {
         final var target = targetBuilder.build(input);
         final var groupName = awsConfigurationProperties.getEventbridgeScheduler().getGroupName();
+        final var kmsKeyArn = awsConfigurationProperties.getKms().getKeyArn();
 
         schedulerClient.createSchedule(schedule -> schedule
             .name(scheduleName)
             .groupName(groupName)
             .scheduleExpression(scheduleExpression)
+            .kmsKeyArn(kmsKeyArn)
             .actionAfterCompletion(ActionAfterCompletion.DELETE)
             .target(target)
             .flexibleTimeWindow(flexibleTimeWindow -> flexibleTimeWindow
