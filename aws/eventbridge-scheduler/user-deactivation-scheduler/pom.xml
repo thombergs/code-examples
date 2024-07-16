@@ -5,80 +5,26 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.1</version>
-		<relativePath />
+		<groupId>io.reflectoring</groupId>
+		<artifactId>eventbridge-scheduler</artifactId>
+		<version>0.0.1</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>io.reflectoring</groupId>
 	<artifactId>user-deactivation-scheduler</artifactId>
-	<version>0.0.1</version>
 	<name>user-deactivation-scheduler</name>
 	<description>codebase demonstrating registration of one-off schedule using Amazon EventBridge Scheduler</description>
 
 	<properties>
-		<java.version>21</java.version>
 		<aws.sdk.version>2.25.50</aws.sdk.version>
 	</properties>
 
-	<developers>
-		<developer>
-			<id>hardikSinghBehl</id>
-			<name>Hardik Singh Behl</name>
-			<email>behl.hardiksingh@gmail.com</email>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>UTC +5:30</timezone>
-		</developer>
-	</developers>
-
 	<dependencies>
-		<!-- API dependencies -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-
-		<!-- AWS dependencies -->
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>scheduler</artifactId>
 			<version>${aws.sdk.version}</version>
 		</dependency>
-
-		<!-- Devtools dependencies -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

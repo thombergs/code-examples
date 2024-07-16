@@ -5,87 +5,26 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.1</version>
-		<relativePath />
+		<groupId>io.reflectoring</groupId>
+		<artifactId>eventbridge-scheduler</artifactId>
+		<version>0.0.1</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>io.reflectoring</groupId>
 	<artifactId>user-deactivation-processor</artifactId>
-	<version>0.0.1</version>
 	<name>user-deactivation-processor</name>
 	<description>codebase demonstrating receiving messages from an SQS queue sent via Eventbridge Scheduler</description>
 
 	<properties>
-		<java.version>21</java.version>
 		<spring.cloud.version>3.1.1</spring.cloud.version>
 	</properties>
 
-	<developers>
-		<developer>
-			<id>hardikSinghBehl</id>
-			<name>Hardik Singh Behl</name>
-			<email>behl.hardiksingh@gmail.com</email>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>UTC +5:30</timezone>
-		</developer>
-	</developers>
-
 	<dependencies>
-		<!-- API dependencies -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<!-- AWS dependencies -->
 		<dependency>
 			<groupId>io.awspring.cloud</groupId>
 			<artifactId>spring-cloud-aws-starter-sqs</artifactId>
-		</dependency>
-
-		<!-- Devtools dependencies -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
+			<version>${spring.cloud.version}</version>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.awspring.cloud</groupId>
-				<artifactId>spring-cloud-aws</artifactId>
-				<version>${spring.cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 </project>
