@@ -2,7 +2,6 @@ package io.reflectoring.user.deactivation.scheduler;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.HashMap;
 import java.util.UUID;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,8 +26,7 @@ class UserAccountService {
         final var deactivationDateTime = LocalDateTime.now(ZoneOffset.UTC).plus(userAccountProperties.getDeactivationDelay());
         final var scheduleExpression = scheduleExpressionGenerator.generate(deactivationDateTime);
 
-        final var input = new HashMap<String, String>();
-        input.put("userId", String.valueOf(userId));
+        final var input = new UserDeactivationInput(userId);
 
         scheduleRegistrar.register(scheduleName, scheduleExpression, input);
     }
@@ -37,5 +35,7 @@ class UserAccountService {
         final var scheduleName = scheduleNameGenerator.generate(String.valueOf(userId));
         scheduleRegistrar.delete(scheduleName);
     }
+    
+    record UserDeactivationInput(UUID userId) {};
 
 }
